@@ -1,5 +1,4 @@
 # Prost
-<<<<<<< HEAD
 ## Table of Contents
 [About](#about)
 [Details](#details)
@@ -30,12 +29,6 @@ Christopher Booth
 ## Installation:
     -ToDo
 ## Database
-    --ToDo
-## Tech-Stack
-    --ToDo
-
-
-=======
 First, install PostgreSQL 12 on your machine:
 https://www.postgresql.org/download/
 
@@ -75,4 +68,6 @@ DB_HOST=
 DB_DBNAME=
 DB_PASSWORD=
 DB_PORT=
->>>>>>> (add) database info
+## Tech-Stack
+    --ToDo
+
