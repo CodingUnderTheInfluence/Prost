@@ -1,4 +1,5 @@
 # Prost
+<<<<<<< HEAD
 ## Table of Contents
 [About](#about)
 [Details](#details)
@@ -34,3 +35,44 @@ Christopher Booth
     --ToDo
 
 
+=======
+First, install PostgreSQL 12 on your machine:
+https://www.postgresql.org/download/
+
+Then, use `node -v` to check your current version of Node. Upgrade to 12, if not currently on version 12.
+
+Starting Database:
+``` sh
+sudo service postgresql start
+```
+Logging In:
+```sh
+sudo -u postgres psql
+```
+Create PostgreSQL Database
+```sh 
+CREATE DATABASE prost;
+```
+Switch Connection to a New Database
+```sh
+\c prost;
+```
+Start Server to Connect to Prost Database
+```sh
+npm run start
+```
+Test Database Commands and Populates w/ Sample Data
+``` sh
+npm run test-db
+```
+
+### Environment Variables for DB
+Place in a .env file in outermost directory
+
+env_variables:
+DB_USERNAME=
+DB_HOST=
+DB_DBNAME=
+DB_PASSWORD=
+DB_PORT=
+>>>>>>> (add) database info
