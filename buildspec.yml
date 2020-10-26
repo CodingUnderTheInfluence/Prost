@@ -1,4 +1,4 @@
-version: 
+version: 0.2
 
 phases:
   install:
@@ -19,6 +19,14 @@ phases:
   
   artifacts:
     files:
-      - "**/*"
+      - template.yml
+      - README.md
+      - package.json
+      - node_modules/**/*
+      - public/**/*
+      - src/**/*
+      - CONTRIBUTING.md
+
+
       discard-paths: no
       base-directory: dist
