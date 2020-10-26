@@ -1,0 +1,24 @@
+version: 
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 12
+    commands:
+      # install node 12
+
+  pre_build:
+    commands:
+      # install dependencies
+      - echo Installing dependencies...
+      - npm install
+
+  build:
+    commands:
+      - npm run build
+  
+  artifacts:
+    files:
+      - "**/*"
+      discard-paths: no
+      base-directory: dist
