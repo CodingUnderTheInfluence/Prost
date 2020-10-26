@@ -19,7 +19,6 @@ phases:
   
   artifacts:
     files:
-      - "**/*"files:
       - template.yml
       - README.md
       - package.json
