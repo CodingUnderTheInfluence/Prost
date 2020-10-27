@@ -63,11 +63,11 @@ npm run test-db
 Place in a .env file in outermost directory
 
 env_variables:
-DB_USERNAME=
-DB_HOST=
-DB_DBNAME=
-DB_PASSWORD=
-DB_PORT=
+SEQUEL_PASS=
+SEQUEL_HOST=
+SEQUEL_PORT=
+SEQUEL_USER=
+SEQUEL_DATABASE=
 ## Tech-Stack
     --ToDo
 
