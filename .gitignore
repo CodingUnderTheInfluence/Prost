@@ -2,3 +2,4 @@ node_modules
 client/dist/
 package-lock.json
 .env
+dist
