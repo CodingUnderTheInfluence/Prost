@@ -23,7 +23,9 @@ const MapContainer = () => {
     
     
     useEffect(() => {
-        navigator.geolocation.getCurrentPosition(success);
+        if(navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(success);
+        }
     }, []);
 
     return (
