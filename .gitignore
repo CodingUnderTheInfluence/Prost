@@ -1,5 +1,5 @@
 node_modules
-client/dist/
+dist/
 package-lock.json
 .env
 dist
