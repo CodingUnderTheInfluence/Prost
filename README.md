@@ -40,7 +40,7 @@ sudo service postgresql start
 ```
 Logging In:
 ```sh
-sudo -u postgres psql
+sudo -u {username} psql // without the curly braces
 ```
 Create PostgreSQL Database
 ```sh 
@@ -48,12 +48,13 @@ CREATE DATABASE prost;
 ```
 Switch Connection to a New Database
 ```sh
-\c prost;
+\c prost
 ```
 Start Server to Connect to Prost Database
 ```sh
 npm run start
 ```
+// If you need test data
 Test Database Commands and Populates w/ Sample Data
 ``` sh
 npm run test-db
