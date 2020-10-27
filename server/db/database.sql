@@ -38,12 +38,13 @@ CREATE TABLE "bar" (
   "phone_number" varchar,
   "address" varchar,
   "id_owner" int,
-  "created_at" timestamp,
   "qrcode" varchar,
+  "created_at" timestamp,
 );
 
 CREATE TABLE "menu" (
   "id" SERIAL PRIMARY KEY,
+  "image" varchar,
   "created_at" timestamp,
   "id_bar" int,
 );
@@ -62,19 +63,20 @@ CREATE TABLE "relationship" (
   "created_at" timestamp
 );
 
-CREATE TABLE "messages" (
+CREATE TABLE "message" (
   "id" SERIAL PRIMARY KEY,
   "body" varchar,
+  "id_customer" int,
+  "id_thread" int,
   "created_at" timestamp,
-  "id_thread" int
 );
 
-CREATE TABLE "threads" (
+CREATE TABLE "thread" (
   "id" SERIAL PRIMARY KEY,
   "created_at" timestamp,
 );
 
-CREATE TABLE "images" (
+CREATE TABLE "image" (
   "id" SERIAL PRIMARY KEY,
   "image" varchar,
   "id_customer" int,
@@ -83,13 +85,6 @@ CREATE TABLE "images" (
   "created_at" timestamp,
 );
 
-
-CREATE TABLE "messages_customers" (
-  "id" SERIAL PRIMARY KEY,
-  "id_customer" int,
-  "id_message" int,
-  "created_at" timestamp
-);
 
 CREATE TABLE "customers_bars" (
   "id" SERIAL PRIMARY KEY,
@@ -110,9 +105,9 @@ ALTER TABLE "eContact" ADD FOREIGN KEY ("id_customer") REFERENCES "customer" ("i
 
 ALTER TABLE "menu" ADD FOREIGN KEY ("id_bar") REFERENCES "bar" ("id");
 
-ALTER TABLE "images" ADD FOREIGN KEY ("id_customer") REFERENCES "customer" ("id");
+ALTER TABLE "image" ADD FOREIGN KEY ("id_customer") REFERENCES "customer" ("id");
 
-ALTER TABLE "images" ADD FOREIGN KEY ("id_bar") REFERENCES "bar" ("id");
+ALTER TABLE "image" ADD FOREIGN KEY ("id_bar") REFERENCES "bar" ("id");
 
 ALTER TABLE "customers_bars" ADD FOREIGN KEY ("id_customer") REFERENCES "customer" ("id");
 
@@ -130,12 +125,8 @@ ALTER TABLE "relationship" ADD FOREIGN KEY ("id_follower") REFERENCES "customer"
 
 ALTER TABLE "relationship" ADD FOREIGN KEY ("id_following") REFERENCES "customer" ("id");
 
-ALTER TABLE "messages_customers" ADD FOREIGN KEY ("id_customer") REFERENCES "customer" ("id");
+ALTER TABLE "message" ADD FOREIGN KEY ("id_thread") REFERENCES "thread" ("id");
 
-ALTER TABLE "messages_customers" ADD FOREIGN KEY ("id_messages") REFERENCES "messages" ("id");
-
-ALTER TABLE "messages" ADD FOREIGN KEY ("id_threads") REFERENCES "threads" ("id");
-
-ALTER TABLE "messages" ADD FOREIGN KEY ("id_images") REFERENCES "images" ("id");
+ALTER TABLE "message" ADD FOREIGN KEY ("id_image") REFERENCES "image" ("id");
 
 ALTER TABLE "bar" ADD FOREIGN KEY ("id_owner") REFERENCES "owner" ("id");
