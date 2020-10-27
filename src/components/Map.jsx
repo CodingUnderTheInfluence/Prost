@@ -1,10 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { GoogleMap, LoadScript } from '@react-google-maps/api';
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
 
 const MapContainer = () => {
 
     const [ currentPosition, setCurrentPosition ] = useState({});
+    const [ publicLocations, setPublicLocations ] = useState([]);
+    const [ friendLocations, setFriendLocations ] = useState([]);
+    const [ myLocation, setMyLocation ] = useState({})
 
     const success = position => {
         const currentPosition = {
@@ -12,6 +15,13 @@ const MapContainer = () => {
         lng: position.coords.longitude
         }
         setCurrentPosition(currentPosition);
+        setMyLocation({
+            name: 'TestName',
+            location: {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            }
+        })
     };
     const defaultCenter = {
         lat: 40.730610,
@@ -30,13 +40,16 @@ const MapContainer = () => {
 
     return (
         <LoadScript
-        googleMapsApiKey="AIzaSyA4DS2H8CUZ9f7tTm7AMAIWzSs7Y6EAlMY">
+        googleMapsApiKey="">
             <GoogleMap
             mapContainerStyle={mapStyles}
             zoom={15}
             center={currentPosition ? currentPosition : defaultCenter}
-            draggable={true}
-            />
+            draggable={true}>
+ 
+            <Marker key={myLocation.name} position={myLocation.location} />
+
+            </GoogleMap>
         </LoadScript>
     )
 }
