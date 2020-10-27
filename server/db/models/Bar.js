@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const Bar = sequelize.define('Bar', {
+  const Bar = sequelize.define('bar', {
     bar_name: {
       type: DataTypes.STRING,
     },
@@ -12,8 +12,8 @@ module.exports = (sequelize, DataTypes) => {
     qrcode: {
       type: DataTypes.STRING,
     },
-    id_owners: {
-      type: DataTypes.STRING,
+    id_owner: {
+      type: DataTypes.INTEGER,
       reference: {
         model: "owner",
         key: "id"

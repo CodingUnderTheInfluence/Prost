@@ -6,7 +6,14 @@ module.exports = (sequelize, DataTypes) => {
     id_thread: {
       type: DataTypes.INTEGER,
       reference: {
-        models: 'Thread',
+        model: 'thread',
+        key: 'id'
+      }
+    },
+    id_customer: {
+      type: DataTypes.INTEGER,
+      reference: {
+        model: 'customer',
         key: 'id'
       }
     },

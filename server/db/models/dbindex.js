@@ -22,7 +22,6 @@ const eContactModel = require('./eContact');
 const ImageModel = require('./Image');
 const MenuModel = require('./Menu');
 const MessageModel = require('./Message');
-const Messages_CustomersModel = require('./Messages_Customers');
 const OwnerModel = require('./Owner');
 const Parties_CustomersModel = require('./Parties_Customers');
 const PartyModel = require('./Party');
@@ -36,7 +35,6 @@ const eContact = eContactModel(sequelize, Sequelize);
 const Image = ImageModel(sequelize, Sequelize);
 const Menu = MenuModel(sequelize, Sequelize);
 const Message = MessageModel(sequelize, Sequelize);
-const Messages_Customers = Messages_CustomersModel(sequelize, Sequelize);
 const Owner = OwnerModel(sequelize, Sequelize);
 const Parties_Customers = Parties_CustomersModel(sequelize, Sequelize);
 const Party = PartyModel(sequelize, Sequelize);
@@ -56,7 +54,6 @@ const models = {
   Thread,
   Parties_Customers,
   Customers_Bars,
-  Messages_Customers,
 }
 
 Object.keys(models).forEach((model) => {

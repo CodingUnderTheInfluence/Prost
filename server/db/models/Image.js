@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     id_customer: {
       type: DataTypes.INTEGER,
       reference: {
-        models: 'Customer',
+        model: 'customer',
         key: 'id'
       }
     },

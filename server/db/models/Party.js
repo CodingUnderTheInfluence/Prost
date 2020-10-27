@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
     size: {
       type: DataTypes.INTEGER,
     },
-    id_bars: {
+    id_bar: {
       type: DataTypes.INTEGER,
       reference: {
         model: "bar",
