@@ -24,15 +24,15 @@ const MapContainer = () => {
     
     useEffect(() => {
         navigator.geolocation.getCurrentPosition(success);
-    })
+    }, []);
 
     return (
         <LoadScript
-        googleMapsApiKey="">
+        googleMapsApiKey="AIzaSyA4DS2H8CUZ9f7tTm7AMAIWzSs7Y6EAlMY">
             <GoogleMap
             mapContainerStyle={mapStyles}
             zoom={15}
-            center={defaultCenter}
+            center={currentPosition ? currentPosition : defaultCenter}
             draggable={true}
             />
         </LoadScript>
