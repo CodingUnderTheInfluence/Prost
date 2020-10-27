@@ -7,7 +7,9 @@ import {
 } from 'react-router-dom';
 
 import Home from './components/Home.jsx';
-import LandingPage from './components/LandingPage.jsx'
+import LandingPage from './components/LandingPage.jsx';
+import Create from './components/Create.jsx';
+import MapContainer from './components/Map.jsx';
 
 const App = () => {
   return (
@@ -32,6 +34,8 @@ const App = () => {
           </Route>
         </Switch>
       </Router>
+      <Create />
+      <MapContainer />
     </>
   );
 };
