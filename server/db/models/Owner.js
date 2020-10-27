@@ -13,19 +13,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
     },
     facebookId: {
-      type: DataTypes.INTERGER,
+      type: DataTypes.INTEGER,
     },
     googleId: {
-      type: DataTypes.INTERGER,
+      type: DataTypes.INTEGER,
     },
   }, {
     freezeTableName: true,
   });
 
-  Owners.associate = (models) => {
-    Owners.hasMany(models.Bar, {
-      foreignKey: 'id_owner'
-    });
-  };
   return Owners;
 };

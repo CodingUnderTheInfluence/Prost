@@ -1,16 +1,16 @@
 module.exports = (sequelize, DataTypes) => {
   const Messages_Customers = sequelize.define('messages_customers', {
     id_customer: {
-      type: DataTypes.INTERGER,
+      type: DataTypes.INTEGER,
       references: {
-        model: "Customer",
+        model: "customer",
         key: "id"
       }
     },
     id_message: {
-      type: DataTypes.INTERGER,
+      type: DataTypes.INTEGER,
       references: {
-        model: "Message",
+        model: "message",
         key: "id"
       }
     },

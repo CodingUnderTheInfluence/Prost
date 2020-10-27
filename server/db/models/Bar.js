@@ -14,29 +14,14 @@ module.exports = (sequelize, DataTypes) => {
     },
     id_owners: {
       type: DataTypes.STRING,
+      reference: {
+        model: "owner",
+        key: "id"
+      }
     },
   }, {
     freezeTableName: true,
   });
 
-  Bar.associate = (models) => {
-    Bar.belongsTo(models.Owner);
-  };
-  Bar.associate = (models) => {
-    Bar.belongsToMany(models.Customer, {
-      through: Customers_Bars,
-      foreignKey: 'id_bar'
-    });
-  };
-  Bar.associate = (models) => {
-    Bar.hasMany(models.Party, {
-      foreignKey: 'id_bar'
-    });
-  };
-  Bar.associate = (models) => {
-    Bar.hasMany(models.Menu, {
-      foreignKey: 'id_bar'
-    });
-  };
   return Bar;
 };

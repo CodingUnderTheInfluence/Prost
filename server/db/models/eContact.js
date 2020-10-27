@@ -15,13 +15,16 @@ module.exports = (sequelize, DataTypes) => {
     email: {
       type: DataTypes.STRING,
     },
+    id_customer: {
+      type: DataTypes.INTEGER,
+      reference: {
+        model: "customer",
+        key: "id"
+      }
+    },
   }, {
     freezeTableName: true,
   });
-
-  EContact.associate = (models) => {
-    EContact.BelongsTo(models.Customers);
-  };
   
   return EContact;
 };

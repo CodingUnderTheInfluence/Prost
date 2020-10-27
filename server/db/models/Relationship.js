@@ -1,16 +1,16 @@
 module.exports = (sequelize, DataTypes) => {
   const Relationship = sequelize.define('relationship', {
     id_follower: {
-      type: DataTypes.INTERGER,
+      type: DataTypes.INTEGER,
       references: {
-        model: "Customer",
+        model: "customer",
         key: "id"
       }
     },
     id_following: {
-      type: DataTypes.INTERGER,
+      type: DataTypes.INTEGER,
       references: {
-        model: "Customer",
+        model: "customer",
         key: "id"
       }
     },

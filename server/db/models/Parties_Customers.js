@@ -1,23 +1,23 @@
 module.exports = (sequelize, DataTypes) => {
   const Parties_Customers = sequelize.define('parties_customers', {
     id_customer: {
-      type: DataTypes.INTERGER,
+      type: DataTypes.INTEGER,
       references: {
-        model: "Customer",
+        model: "customer",
         key: "id"
       }
     },
     id_party: {
-      type: DataTypes.INTERGER,
+      type: DataTypes.INTEGER,
       references: {
-        model: "Party",
+        model: "party",
         key: "id"
       }
     },
     host: {
-      type: DataTypes.INTERGER,
+      type: DataTypes.INTEGER,
       references: {
-        model: "Customer",
+        model: "customer",
         key: "id"
       }
     },

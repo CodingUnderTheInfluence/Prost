@@ -1,15 +1,15 @@
 module.exports = (sequelize, DataTypes) => {
   const Menu = sequelize.define('menu', {
-    first_name: {
-      id_bar: DataTypes.INTERGER,
+    id_bar: {
+      type: DataTypes.INTEGER,
+      reference: {
+        model: "bar",
+        key: "id"
+      }
     },
   }, {
     freezeTableName: true,
   });
-
-  Menu.associate = (models) => {
-    Menu.BelongsTo(models.Bar);
-  };
-  
+ 
   return Menu;
 };

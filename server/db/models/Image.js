@@ -4,33 +4,29 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
     },
     id_customer: {
-      type: DataTypes.INTERGER,
+      type: DataTypes.INTEGER,
       reference: {
-        models: 'Customers',
+        models: 'Customer',
         key: 'id'
       }
     },
     id_message: {
-      type: DataTypes.INTERGER,
+      type: DataTypes.INTEGER,
       references: {
-        model: "Message",
+        model: "message",
         key: "id"
       }
     },
     id_bar: {
-      type: DataTypes.INTERGER,
+      type: DataTypes.INTEGER,
       references: {
-        model: "Bar",
+        model: "bar",
         key: "id"
       }
     },
   }, {
     freezeTableName: true,
   });
-
-  Image.associate = (models) => {
-    Image.BelongsTo(models.Customers);
-  };
-  
+ 
   return Image;
 };

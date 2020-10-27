@@ -1,16 +1,16 @@
 module.exports = (sequelize, DataTypes) => {
   const Customers_Bars = sequelize.define('customers_bars', {
     id_customer: {
-      type: DataTypes.INTERGER,
+      type: DataTypes.INTEGER,
       references: {
-        model: "Customer",
+        model: "customer",
         key: "id"
       }
     },
     id_bar: {
-      type: DataTypes.INTERGER,
+      type: DataTypes.INTEGER,
       references: {
-        model: "Bar",
+        model: "bar",
         key: "id"
       }
     },

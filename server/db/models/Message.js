@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
     },
     id_thread: {
-      type: DataTypes.INTERGER,
+      type: DataTypes.INTEGER,
       reference: {
         models: 'Thread',
         key: 'id'
