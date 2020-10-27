@@ -48,7 +48,22 @@ const MapContainer = () => {
             draggable={true}>
  
             <Marker key={myLocation.name} position={myLocation.location} />
-
+            {
+                //PLACEHOLDER
+                publicLocations.map(item => {
+                    return (
+                        <Marker key={item.name} position={item.location}/>
+                    )
+                })
+            }
+            {
+                //PLACEHOLDER
+                friendLocations.map(item => {
+                    return (
+                        <Marker key={item.name} position={item.location} />
+                    )
+                })
+            }
             </GoogleMap>
         </LoadScript>
     )
