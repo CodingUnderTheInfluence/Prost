@@ -63,12 +63,12 @@ npm run test-db
 ### Environment Variables for DB
 Place in a .env file in outermost directory
 
-env_variables:
-SEQUEL_PASS=
-SEQUEL_HOST=
-SEQUEL_PORT=
-SEQUEL_USER=
-SEQUEL_DATABASE=
+env_variables:<br />
+SEQUEL_PASS=<br />
+SEQUEL_HOST=<br />
+SEQUEL_PORT=<br />
+SEQUEL_USER=<br />
+SEQUEL_DATABASE=<br />
 ## Tech-Stack
     --ToDo
 
