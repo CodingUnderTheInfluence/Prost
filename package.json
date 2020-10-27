@@ -37,7 +37,8 @@
     "dev": "webpack --mode development --watch",
     "build": "webpack --mode production",
     "start": "nodemon server/index.js",
-    "lint": "eslint --fix"
+    "lint": "eslint --fix",
+    "test-db": "node test/dbtest/dbtest.js"
   },
   "repository": {
     "type": "git",
