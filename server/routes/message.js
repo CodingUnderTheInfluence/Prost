@@ -14,12 +14,12 @@ const {
 } = require('../../server/db/models/dbindex.js');
 const { Router } = require('express');
 const { Op } = require('sequelize');
-const customerRouter = Router();
+const messageRouter = Router();
 
-customerRouter.get('/', (req, res) => {
-  Customer.findAll()
-  .then((customers) => {
-    res.send(customers);
+messageRouter.get('/', (req, res) => {
+  Message.findAll()
+  .then((messages) => {
+    res.send(messages);
   })
   .catch((err) => {
     res.status(500).send(err);
@@ -28,5 +28,5 @@ customerRouter.get('/', (req, res) => {
 
   // 
 module.exports = {
-  customerRouter,
+  messageRouter,
 };
