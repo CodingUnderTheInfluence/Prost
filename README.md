@@ -29,8 +29,46 @@ Christopher Booth
 ## Installation:
     -ToDo
 ## Database
-    --ToDo
+First, install PostgreSQL 12 on your machine:
+https://www.postgresql.org/download/
+
+Then, use `node -v` to check your current version of Node. Upgrade to 12, if not currently on version 12.
+
+Starting Database:
+``` sh
+sudo service postgresql start
+```
+Logging In:
+```sh
+sudo -u {username} psql // without the curly braces
+```
+Create PostgreSQL Database
+```sh 
+CREATE DATABASE prost;
+```
+Switch Connection to a New Database
+```sh
+\c prost
+```
+Start Server to Connect to Prost Database
+```sh
+npm run start
+```
+// If you need test data
+Test Database Commands and Populates w/ Sample Data
+``` sh
+npm run test-db
+```
+
+### Environment Variables for DB
+Place in a .env file in outermost directory
+
+env_variables:
+SEQUEL_PASS=
+SEQUEL_HOST=
+SEQUEL_PORT=
+SEQUEL_USER=
+SEQUEL_DATABASE=
 ## Tech-Stack
     --ToDo
-
 
