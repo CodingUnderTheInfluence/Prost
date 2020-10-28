@@ -2,7 +2,7 @@ require('dotenv').config();
 const {
   Customer,
   Owner,
-  eContact,
+  EContact,
   Bar,
   Message,
   Image,
@@ -260,6 +260,28 @@ function primeDB() {
     }
     return console.error('❌ relationship user undefined');
   })
+  .then(() => Thread.findOrCreate({
+    where: {
+      id: 1
+    }
+  }))
+  .then((numberEffected) => {
+    if(numberEffected) {
+      return console.log('✅ Thread Created');
+    }
+    return console.error('❌ Thread user undefined');
+  })
+  .then(() => Thread.findOrCreate({
+    where: {
+      id: 2
+    }
+  }))
+  .then((numberEffected) => {
+    if(numberEffected) {
+      return console.log('✅ Thread Created');
+    }
+    return console.error('❌ Thread user undefined');
+  })
   .then(() => Message.findOrCreate({
     where: {
       body: 'Are you coming?',
@@ -324,7 +346,7 @@ function primeDB() {
     }
     return console.error('❌ Menu user undefined');
   })
-  .then(() => eContact.findOrCreate({
+  .then(() => EContact.findOrCreate({
     where: {
       id_customer: 3,
       first_name: 'Vinsmoke',
@@ -335,9 +357,9 @@ function primeDB() {
   }))
   .then((numberEffected) => {
     if(numberEffected) {
-      return console.log('✅ eContact Created');
+      return console.log('✅ EContact Created');
     }
-    return console.error('❌ eContact user undefined');
+    return console.error('❌ EContact user undefined');
   })
   .then(() => Customers_Bars.findOrCreate({
     where: {
