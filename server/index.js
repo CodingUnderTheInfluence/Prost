@@ -42,7 +42,7 @@ app.get('/api', (req, res) => {
   res.send(mockResponse);
 });
 app.get('/', (req, res) => {
- res.sendFile(HTML_FILE); // EDIT
+  res.sendFile(HTML_FILE); // EDIT
 });
 
 // Database Connection
@@ -70,4 +70,4 @@ syncModels();
 
 app.listen(port, function () {
   console.log('App listening on port: ' + port);
- });
+});
