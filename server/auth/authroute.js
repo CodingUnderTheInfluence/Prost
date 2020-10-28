@@ -34,16 +34,16 @@ auth.get(
     res.redirect('/'); // send them to where is needed
   });
 
-  auth.post('/owner/login',
-  passport.authenticate('local', { 
+auth.post('/owner/login',
+  passport.authenticate('local', {
     successRedirect: '/auth/good',
     failureRedirect: '/',
     // failureFlash: true,
     // successFlash: 'Welcome!'
-   }));
+  }));
 
-  // auth.post('/owner/login', (req, res) => {
-  //   res.send('hello world');
-  // });
+// auth.post('/owner/login', (req, res) => {
+//   res.send('hello world');
+// });
 
 module.exports = auth;

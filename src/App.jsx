@@ -59,6 +59,41 @@ const App = () => {
     <MapContainer />
     <OwnerView />
     </>
+import Login from './components/Login.jsx'
+import Logout from './components/Logout.jsx'
+
+const App = () => {
+  return (
+    <div>
+      <div>
+        <Login />
+        <Logout />
+      </div>
+      <>
+        <h1>Welcome from App!</h1>
+        <Router>
+          <ul>
+            <li>
+              <Link to='/'>Sign in</Link>
+            </li>
+            <li>
+              <Link to='/home'>CustomerView</Link>
+            </li>
+          </ul>
+          <Switch>
+            <Route exact path='/' component={LandingPage}>
+              <LandingPage />
+            </Route>
+            <Route path='/home'>
+              <CustomerView />
+            </Route>
+          </Switch>
+        </Router>
+        <MapContainer />
+        <CustomerView />
+        <OwnerView />
+      </>
+    </div>
   );
 };
 
