@@ -1,15 +1,16 @@
 import React from 'react';
-import { 
+import {
   BrowserRouter as Router,
-  Route, 
-  Switch, 
-  Link 
+  Route,
+  Switch,
+  Link
 } from 'react-router-dom';
 
 import Home from './components/Home.jsx';
 import LandingPage from './components/LandingPage.jsx';
 import Create from './components/Create.jsx';
 import MapContainer from './components/Map.jsx';
+import OwnerView from './components/Owner/OwnerView.jsx'
 
 const App = () => {
   return (
@@ -20,7 +21,7 @@ const App = () => {
           <li>
             <Link to='/'>Sign in</Link>
           </li>
-          <li> 
+          <li>
             <Link to='/home'>Home</Link>
           </li>
         </ul>
@@ -36,6 +37,7 @@ const App = () => {
       </Router>
       <Create />
       <MapContainer />
+      <OwnerView />
     </>
   );
 };

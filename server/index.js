@@ -15,7 +15,7 @@ app.get('/api', (req, res) => {
   res.send(mockResponse);
 });
 app.get('/', (req, res) => {
- res.sendFile(HTML_FILE); // EDIT
+  res.sendFile(HTML_FILE); // EDIT
 });
 
 // Database Connection
@@ -30,7 +30,8 @@ const connection = async () => {
 
 const syncModels = async () => {
   try {
-    await models.sequelize.sync({force: true});
+    // await models.sequelize.sync({force: true});
+    await models.sequelize.sync();
     console.log('Models have been synced successfully.');
   } catch (error) {
     console.error('Unable to sync models:', error);
@@ -42,4 +43,4 @@ syncModels();
 
 app.listen(port, function () {
   console.log('App listening on port: ' + port);
- });
+});
