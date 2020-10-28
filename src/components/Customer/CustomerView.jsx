@@ -1,14 +1,10 @@
 import React, { useState } from 'react';
 import { makeStyles, Paper, Tabs, Tab, Grid, Button, Typography } from '@material-ui/core';
-import PhoneIcon from '@material-ui/icons/Phone';
-import CameraAltOutlinedIcon from '@material-ui/icons/CameraAltOutlined';
-import TocOutlinedIcon from '@material-ui/icons/TocOutlined';
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import ForumIcon from '@material-ui/icons/Forum';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Create from './Create.jsx';
-import SocialView from './Social/SocialView.jsx';
 import FriendsList from './Social/FriendsList.jsx';
 import Messages from './Social/Messages.jsx';
 
