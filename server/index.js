@@ -1,16 +1,36 @@
+const { lavender } = require('color-name');
 const express = require('express');
 const path = require('path'); // NEW
+const passport = require('passport');
+const bodyParser = require('body-parser');
 const models = require('./db/models/dbindex');
 const dotenv = require('dotenv');
 
+const auth = require('./auth/authroute');
 const app = express();
 const port = process.env.PORT || 3000;
 const DIST_DIR = path.join(__dirname, '../dist'); // NEW
 const HTML_FILE = path.join(DIST_DIR, 'index.html'); // NEW
+const cookieSession = require('cookie-session');
+const cors = require('cors');
+require('./auth/custSignIn');
+require('./auth/ownerSignIn');
+
 const mockResponse = {
   foo: 'bar',
   bar: 'foo'
 };
+app.use(cors());
+app.use(
+  cookieSession({
+    name: 'prost',
+    keys: [process.env.COOKIE_SESSION_KEY],
+  }),
+);
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json())
 app.use(express.static(DIST_DIR)); // NEW
 
 /* DB Routes */
@@ -38,10 +58,12 @@ const { menuRouter } = require('./routes/menu');
 app.use('/db/menu', menuRouter);
 const { eContactRouter } = require('./routes/eContact');
 app.use('/db/eContact', eContactRouter);
+app.use('/auth', auth);
 
 app.get('/api', (req, res) => {
   res.send(mockResponse);
 });
+
 app.get('/', (req, res) => {
   res.sendFile(HTML_FILE); // EDIT
 });

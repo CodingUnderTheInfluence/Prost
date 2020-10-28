@@ -12,10 +12,10 @@ module.exports = (sequelize, DataTypes) => {
     password: {
       type: DataTypes.STRING,
     },
-    facebookId: {
+    id_facebook: {
       type: DataTypes.INTEGER,
     },
-    googleId: {
+    ig_google: {
       type: DataTypes.INTEGER,
     },
   }, {
