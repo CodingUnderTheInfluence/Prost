@@ -33,9 +33,16 @@ const Search = () => {
 
   return (
     <div>
-      <Combobox onSelect={(address) => {
-          console.log(address);
-        }}
+      <Combobox onSelect={async (address) => {
+        try {
+          const results = await getGeocode({address});
+          const { lat, lng } = await getLatLng(results[0]);
+          console.log(lat, lng)
+        }
+        catch(err) {
+          console.error(err);
+        }
+      }}
       >
         <ComboboxInput 
           value={value} 
@@ -43,8 +50,9 @@ const Search = () => {
             setValue(e.target.value);
           }}
           disabled={!ready} 
-          placeholder='Enter address'
+          placeholder='Find bars'
         />
+        {/* takes the suggestions from google places */}
         <ComboboxPopover>
           {status === 'OK' 
             && data.map(({ place_id, description }) => (

@@ -1,10 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { GoogleMap, LoadScript, Marker, InfoWindow, useLoadScript } from '@react-google-maps/api';
 import Search from './Search.jsx';
 
 // nola lat long
 // lat: 29.951065,
 // lng: -90.071533,
+
+// used for the load script to get google places
+const libraries = ['places'];
 
 const MapContainer = () => {
 
@@ -13,8 +16,8 @@ const MapContainer = () => {
   const [ friendLocations, setFriendLocations ] = useState([]);
   const [ selectedItem, setSelectedItem ] = useState({});
   const [ myLocation, setMyLocation ] = useState({});
+  const [ markers, setMarkers ] = useState([]);
 
-  const libraries = ['places'];
   const mapStyles = {
     width: '100vw',
     height: '100vh'
@@ -32,18 +35,35 @@ const MapContainer = () => {
     libraries
   });
 
+  // sets the makers to the user click
+  const onMapClick = useCallback((e) => {
+    setMarkers(current => [
+      ...current, 
+      {
+        lat: e.latLng.lat(),
+        lng: e.latLng.lng(),
+        time: new Date()
+      }
+    ]);
+  });
+
+  // save reference to map to use it later and not reload state
+  const mapRef = useRef();
+
+  const onMapLoad = useCallback((map) => {
+    mapRef.current = map;
+  }, []);
+
+  const panTo = useCallback(({ lat, lng }) => {
+
+  });
+
   if (loadError) {
     return 'Error loading maps';
   } 
   if (!isLoaded) {
     return 'Loading maps';
   }
-
-  // useEffect(() => {
-  //   if(navigator.geolocation) {
-  //       navigator.geolocation.getCurrentPosition(success);
-  //   }
-  // }, []);
 
   return (
     <>
@@ -55,34 +75,15 @@ const MapContainer = () => {
         center={currentPosition  ? currentPosition : defaultCenter}
         options={options}
         draggable={true}
+        onClick={onMapClick}
+        onLoad={onMapLoad}
       >
-        <Marker key={myLocation.name} position={myLocation.location} onClick={()=> onSelect(myLocation)}/>
-        {
-          //PLACEHOLDER
-          publicLocations.map(item => {
-            return (
-              <Marker key={item.name} position={item.location} onClick={()=> onSelect(item)}/>
-            )
-          })
-        }
-        {
-          //PLACEHOLDER
-          friendLocations.map(item => {
-            return (
-              <Marker key={item.name} position={item.location} onClick={()=> onSelect(item)} />
-            )
-          })
-        }
-        {
-          selectedItem.location 
-          && (<InfoWindow
-                position={selectedItem.location}
-                clickable={true}
-                onCloseClick={() => setSelectedItem({})}
-              >
-              <p>{selectedItem.name}</p>
-              </InfoWindow>)
-        }
+        {markers.map(({lat, lng, time}) => (
+          <Marker 
+            key={time.toISOString()} 
+            position={{ lat, lng }}
+          />
+        ))}
       </GoogleMap>
     </>
   );
