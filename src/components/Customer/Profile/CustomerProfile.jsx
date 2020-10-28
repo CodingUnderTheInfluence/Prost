@@ -9,22 +9,40 @@ import History from './History.jsx';
 const CustomerProfile = () => {
     const [customerId, setCustomerId] = useState(1);
     const [view, setView] = useState('Home');
+    const [data, setData] = useState(false);
 
-    useEffect(()=>{}, [view]);
+    useEffect(() => {
+      fetch(`${process.env.REDIRECT}/db/customer`, {
+        method: 'GET',
+        // headers: {
+        //   'Content-Type': 'application/json',
+        // },
+        // body: JSON.stringify(data),
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Success:', data[2]); // change user
+        setData(data[2])
+        setCustomerId(data[2].id)
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+    }, []);
 
     switch(view){
         case 'Home':
-        return <Home setView={setView}/>
+        return <Home setView={setView} name={data.user_name}/>
         case 'EContact':
-        return <EContact setView={setView}/>
+        return <EContact setView={setView} customerId={customerId}/>
         case 'Checkin':
-        return <Checkin setView={setView}/>
+        return <Checkin setView={setView} customerId={customerId}/>
         case 'History':
-        return <History setView={setView}/>
+        return <History setView={setView} customerId={customerId}/>
         case 'Favorite':
-        return <Favorite setView={setView}/>
+        return <Favorite setView={setView} customerId={customerId}/>
         case 'Translate':
-        return <Translate setView={setView}/>
+        return <Translate setView={setView} customerId={customerId}/>
     }
 }
 
