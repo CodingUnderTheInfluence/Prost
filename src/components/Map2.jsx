@@ -49,14 +49,15 @@ const MapContainer = () => {
 
   // save reference to map to use it later and not reload state
   const mapRef = useRef();
-
   const onMapLoad = useCallback((map) => {
     mapRef.current = map;
   }, []);
 
+  // move map to the where the user has searched
   const panTo = useCallback(({ lat, lng }) => {
-
-  });
+    mapRef.current.panTo({ lat, lng });
+    mapRef.current.setZoom(16);
+  }, []);
 
   if (loadError) {
     return 'Error loading maps';
@@ -67,10 +68,10 @@ const MapContainer = () => {
 
   return (
     <>
-      <Search />
+      <Search panTo={panTo}/>
       <GoogleMap 
         mapContainerStyle={mapStyles}
-        zoom={15}
+        zoom={13}
         center={defaultCenter}
         center={currentPosition  ? currentPosition : defaultCenter}
         options={options}

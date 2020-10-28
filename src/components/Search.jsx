@@ -14,7 +14,7 @@ import {
 } from "@reach/combobox";
 // import "@reach/combobox/styles.css";
 
-const Search = () => {
+const Search = ({panTo}) => {
   const {
     ready, 
     value,
@@ -34,10 +34,12 @@ const Search = () => {
   return (
     <div>
       <Combobox onSelect={async (address) => {
+        setValue(address, false);
+        clearSuggestions();
         try {
-          const results = await getGeocode({address});
+          const results = await getGeocode({ address });
           const { lat, lng } = await getLatLng(results[0]);
-          console.log(lat, lng)
+          panTo({ lat, lng });
         }
         catch(err) {
           console.error(err);
