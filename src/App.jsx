@@ -1,77 +1,42 @@
 import React, { useState, useEffect } from 'react';
 import { render } from 'react-dom';
 import LandingPage from './components/LandingPage.jsx';
-import CustomerView from './components/Customer/CustomerView.jsx';
-import OwnerView from './components/Owner/OwnerView.jsx';
-import Form from './components/Form/Form.jsx'
+import Create from './components/Customer/Create.jsx';
+import MapContainer from './components/Customer/Map2.jsx';
 
-function App() {
-
-  const [value, setViewValue] = useState('');
-  const [gId, setId] = useState('');
-  const [profileImage, setProfileImage] = useState('');
-  const [username, setUsername] = useState('');
-  const handleChange = (event, newValue) => {
-    setViewValue(newValue);
-  };
-
-  useEffect(() => {
-    if (localStorage.token) {
-      handleChange(null, 'CustomerView')
-    } else {
-      handleChange(null, 'Landing')
-    }
-  }, [])
-
-  if (value === 'Landing') {
-    return <LandingPage setViewValue={setViewValue} setId={setId} setProfileImage={setProfileImage} setUsername={setUsername} />
-  } else if (value === 'CustomerView') {
-    return <CustomerView setViewValue={setViewValue} />
-  } else if (value === 'OwnerView') {
-    return <OwnerView />
-  } else if (value === 'form') {
-    return <Form setViewValue={setViewValue} gId={gId} profileImage={profileImage} username={username} />
-  } else {
-    return <LandingPage setViewValue={setViewValue} />
-  }
-  // const renderView = () => {
-  //     if (value === 'Landing') {
-  //         return <LandingPage />
-  //     }
-  //     if (value === 'CustomerView') {
-  //         return <CustomerView />
-  //     }
-  //     if (value === 'OwnerView') {
-  //         return <Messages />
-  //     }
-  //     if (value === 'Wrong') {
-  //       return (<div>You screwed up, kid!</div>)
-  //   }
-  // }
-
-  // <Grid container direction="column" justify="center" alignItems="center">
-  //           <Grid item container direction="row" justify="center" alignItems="center">
-  //               {renderView()}
-  //           </Grid>
-  //           <Grid item container direction="row" justify="center" alignItems="center">
-  //               <Paper className={classes.root}>
-  //                   <Tabs
-  //                       value={value}
-  //                       onChange={handleChange}
-  //                       indicatorColor="primary"
-  //                       textColor="primary"
-  //                       centered
-  //                   >
-  //                       <Tab icon={<PeopleAltIcon />} label="Friends" />
-  //                       <Tab icon={<AddCircleOutlineIcon />} label="Create" />
-  //                       <Tab icon={<ForumIcon />} label="Messages" />
-  //                       <Tab icon={<AccountCircleOutlinedIcon />} label="Profile" />
-  //                   </Tabs>
-  //               </Paper>
-  //           </Grid>
-  //       </Grid>
+// import MapContainer from './components/Map.jsx';
+// import MapContainer from './components/Customer/Map.jsx';
+import OwnerView from './components/Owner/OwnerView.jsx'
 
 
-}
+const App = () => {
+  return (
+    <>
+      <h1>Welcome from App!</h1>
+      <Router>
+        <ul>
+          <li>
+            <Link to='/'>Sign in</Link>
+          </li>
+          <li>
+            <Link to='/home'>CustomerView</Link>
+          </li>
+        </ul>
 
-export default App
+        <Switch>
+          <Route exact path='/' component={LandingPage}>
+            <LandingPage />
+          </Route>
+          <Route path='/home'>
+            <CustomerView />
+          </Route>
+        </Switch>
+      </Router>
+      {/* <MapContainer /> */}
+      <CustomerView />
+      {/* <OwnerView /> */}
+    </>
+  );
+};
+
+export default App;
