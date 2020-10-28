@@ -8,11 +8,8 @@ import {
 
 import CustomerView from './components/Customer/CustomerView.jsx';
 import LandingPage from './components/LandingPage.jsx';
-import Create from './components/Customer/Create.jsx';
-import MapContainer from './components/Customer/Map2.jsx';
-
-// import MapContainer from './components/Map.jsx';
-// import MapContainer from './components/Customer/Map.jsx';
+import Create from './components/Create.jsx';
+import MapContainer from './components/Map.jsx';
 import OwnerView from './components/Owner/OwnerView.jsx'
 
 const App = () => {
@@ -25,21 +22,25 @@ const App = () => {
             <Link to='/'>Sign in</Link>
           </li>
           <li>
+<<<<<<< HEAD
             <Link to='/home'>CustomerView</Link>
+=======
+            <Link to='/home'>Home</Link>
+>>>>>>> 001f8ef... (add) all files to my forkl
           </li>
         </ul>
 
-        <Switch>
-          <Route exact path='/' component={LandingPage}>
-            <LandingPage />
-          </Route>
-          <Route path='/home'>
-            <CustomerView />
-          </Route>
-        </Switch>
-      </Router>
-      <MapContainer />
-      <OwnerView />
+      <Switch>
+        <Route exact path='/' component={LandingPage}>
+          <LandingPage />
+        </Route>
+        <Route path='/home'>
+          <CustomerView />
+        </Route>
+      </Switch>
+    </Router>
+    <MapContainer />
+    <OwnerView />
     </>
   );
 };
