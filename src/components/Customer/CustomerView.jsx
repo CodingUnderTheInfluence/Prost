@@ -1,10 +1,9 @@
 import React from 'react';
 
-
-const Home = () => {
+const CustomerView = () => {
   return (
     <h2>Hello Home</h2>
   );
 };
 
-export default Home;
+export default CustomerView;
