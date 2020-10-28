@@ -1,4 +1,5 @@
 import React from 'react';
+import getUsers from '../../helpers/getUsers';
 import { StandaloneSearchBox } from '@react-google-maps/api';
 import usePlacesAutocomplete, {
   getGeocode,

@@ -10,7 +10,7 @@ const TestBtn = () => {
   // }
 
   const handleClick = () => {
-    axios.get('/db/customer')
+    axios.get('/db/customer/:Nico')
       .then(data => {
         console.log(data);
       })
