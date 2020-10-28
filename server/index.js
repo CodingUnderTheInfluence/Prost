@@ -80,11 +80,7 @@ const connection = async () => {
 
 const syncModels = async () => {
   try {
-<<<<<<< HEAD
-    // await models.sequelize.sync({ force: true });
-=======
     // await models.sequelize.sync({force: true});
->>>>>>> 001f8ef... (add) all files to my forkl
     await models.sequelize.sync();
     console.log('Models have been synced successfully.');
   } catch (error) {
