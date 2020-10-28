@@ -10,7 +10,7 @@ import Home from './components/Home.jsx';
 import LandingPage from './components/LandingPage.jsx';
 import Create from './components/Create.jsx';
 import MapContainer from './components/Map.jsx';
-import OwnerView from './components/Owner/OwnerView.jsx'
+import Search from './components/Search.jsx';
 
 const App = () => {
   return (
@@ -36,6 +36,7 @@ const App = () => {
         </Switch>
       </Router>
       <Create />
+      <Search />
       <MapContainer />
       <OwnerView />
     </>

@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path'); // NEW
 const models = require('./db/models/dbindex');
+const dotenv = require('dotenv');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -57,8 +58,7 @@ const connection = async () => {
 
 const syncModels = async () => {
   try {
-    // await models.sequelize.sync({force: true}); // uncomment when you need the db wiped.. must run test-db after
-    await models.sequelize.sync();
+    await models.sequelize.sync({ force: true });
     console.log('Models have been synced successfully.');
   } catch (error) {
     console.error('Unable to sync models:', error);
