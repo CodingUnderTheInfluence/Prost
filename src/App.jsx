@@ -14,6 +14,7 @@ import MapContainer from './components/Customer/Map2.jsx';
 // import MapContainer from './components/Map.jsx';
 // import MapContainer from './components/Customer/Map.jsx';
 import OwnerView from './components/Owner/OwnerView.jsx'
+import TestBtn from './components/Customer/testButton.jsx';
 
 
 const App = () => {
@@ -39,7 +40,8 @@ const App = () => {
           </Route>
         </Switch>
       </Router>
-      {/* <MapContainer /> */}
+      <TestBtn />
+      <MapContainer />
       <CustomerView />
       {/* <OwnerView /> */}
     </>

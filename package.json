@@ -33,6 +33,7 @@
     "@babel/preset-env": "^7.12.1",
     "@babel/preset-react": "^7.12.1",
     "@reach/combobox": "^0.11.2",
+    "axios": "^0.21.0",
     "babel-loader": "^8.1.0",
     "dotenv": "^8.2.0",
     "dotenv-webpack": "^4.0.0",
