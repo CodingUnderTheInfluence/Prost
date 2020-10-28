@@ -2,7 +2,7 @@ import React from 'react'
 import { GoogleLogout } from 'react-google-login';
 import { Button } from '@material-ui/core';
 
-const clientId = `838925295609-rh25afhf4it1rstq51pumhspvr7r09j7.apps.googleusercontent.com`
+const clientId = ``
 
 function Logout() {
     const onSuccess = () => {
