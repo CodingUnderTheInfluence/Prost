@@ -69,6 +69,12 @@ SEQUEL_HOST=<br />
 SEQUEL_PORT=<br />
 SEQUEL_USER=<br />
 SEQUEL_DATABASE=<br />
+
+### Environment Variables for frontend
+Place in the same .env file
+
+GOOGLE_MAPS_API_KEY=<br />
+
 ## Tech-Stack
     --ToDo
 

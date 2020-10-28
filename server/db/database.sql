@@ -5,9 +5,8 @@ CREATE TABLE "customer" (
   "first_name" varchar,
   "last_name" varchar,
   "user_name" varchar,
-  "facebookId" int,
-  "googleId" int,
-  "created_at" timestamp,
+  "id_facebook" int,
+  "id_google" int,
 );
 
 CREATE TABLE "owner" (
@@ -16,9 +15,8 @@ CREATE TABLE "owner" (
   "last_name" varchar,
   "user_name" varchar,
   "password" varchar,
-  "facebookId" int,
-  "googleId" int,
-  "created_at" timestamp
+  "id_facebook" int,
+  "id_google" int,
 );
 
 CREATE TABLE "eContact" (
@@ -29,23 +27,20 @@ CREATE TABLE "eContact" (
   "phone_number" varchar,
   "qrcode" varchar,
   "email" varchar,
-  "created_at" timestamp
 );
 
 CREATE TABLE "bar" (
   "id" SERIAL PRIMARY KEY,
   "bar_name" varchar,
   "phone_number" varchar,
-  "address" varchar,
   "id_owner" int,
+  "address" varchar,
   "qrcode" varchar,
-  "created_at" timestamp,
 );
 
 CREATE TABLE "menu" (
   "id" SERIAL PRIMARY KEY,
   "image" varchar,
-  "created_at" timestamp,
   "id_bar" int,
 );
 
@@ -53,14 +48,12 @@ CREATE TABLE "party" (
   "id" SERIAL PRIMARY KEY,
   "id_bar" int,
   "size" int,
-  "created_at" timestamp
 );
 
 CREATE TABLE "relationship" (
   "id" SERIAL PRIMARY KEY,
   "id_follower" int,
   "id_following" int,
-  "created_at" timestamp
 );
 
 CREATE TABLE "message" (
@@ -68,12 +61,10 @@ CREATE TABLE "message" (
   "body" varchar,
   "id_customer" int,
   "id_thread" int,
-  "created_at" timestamp,
 );
 
 CREATE TABLE "thread" (
   "id" SERIAL PRIMARY KEY,
-  "created_at" timestamp,
 );
 
 CREATE TABLE "image" (
@@ -82,7 +73,6 @@ CREATE TABLE "image" (
   "id_customer" int,
   "id_bar" int,
   "id_message" int,
-  "created_at" timestamp,
 );
 
 
@@ -90,7 +80,6 @@ CREATE TABLE "customers_bars" (
   "id" SERIAL PRIMARY KEY,
   "id_customer" int,
   "id_bar" int,
-  "created_at" timestamp
 );
 
 CREATE TABLE "parties_customers" (
@@ -98,7 +87,6 @@ CREATE TABLE "parties_customers" (
   "id_customer" int,
   "id_host" int,
   "id_party" int,
-  "created_at" timestamp
 );
 
 ALTER TABLE "eContact" ADD FOREIGN KEY ("id_customer") REFERENCES "customer" ("id");
