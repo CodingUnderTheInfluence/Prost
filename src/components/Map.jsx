@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { GoogleMap, LoadScript, Marker, InfoWindow, useLoadScript } from '@react-google-maps/api';
+import Search from './Search.jsx';
 
 
 
@@ -47,7 +48,7 @@ const MapContainer = () => {
 
     return (
         <LoadScript
-        googleMapsApiKey='AIzaSyA4DS2H8CUZ9f7tTm7AMAIWzSs7Y6EAlMY' libraries={['places']}>
+        googleMapsApiKey='' libraries={['places']}>
             <GoogleMap
             mapContainerStyle={mapStyles}
             zoom={15}
@@ -84,7 +85,7 @@ const MapContainer = () => {
             )
          }
             </GoogleMap>
-        </LoadScript>
+         </LoadScript>
     )
 }
 

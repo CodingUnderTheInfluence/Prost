@@ -9,8 +9,9 @@ import {
 import Home from './components/Home.jsx';
 import LandingPage from './components/LandingPage.jsx';
 import Create from './components/Create.jsx';
-import MapContainer from './components/Map.jsx';
-import Search from './components/Search.jsx';
+import MapContainer from './components/Map2.jsx';
+
+// import MapContainer from './components/Map.jsx';
 
 const App = () => {
   return (
@@ -35,8 +36,6 @@ const App = () => {
           </Route>
         </Switch>
       </Router>
-      <Create />
-      <Search />
       <MapContainer />
       <OwnerView />
     </>

@@ -14,13 +14,7 @@ import {
 } from "@reach/combobox";
 // import "@reach/combobox/styles.css";
 
-// const libraries = ['places'];
-//   const { isLoaded, loadError } = useLoadScript({
-//     libraries,
-//   })
-
 const Search = () => {
-  
   const {
     ready, 
     value,
@@ -51,10 +45,15 @@ const Search = () => {
           disabled={!ready} 
           placeholder='Enter address'
         />
+        <ComboboxPopover>
+          {status === 'OK' 
+            && data.map(({ place_id, description }) => (
+              <ComboboxOption key={place_id} value={description} />
+            ))}
+        </ComboboxPopover>
       </Combobox>
     </div>
   );
-
 };
 
 export default Search;
