@@ -11,6 +11,33 @@ const mockResponse = {
   bar: 'foo'
 };
 app.use(express.static(DIST_DIR)); // NEW
+
+/* DB Routes */
+const { customerRouter } = require('./routes/customer');
+app.use('/db/customer', customerRouter);
+const { barRouter } = require('./routes/bar');
+app.use('/db/bar', barRouter);
+const { ownerRouter } = require('./routes/owner');
+app.use('/db/owner', ownerRouter);
+const { partyRouter } = require('./routes/party');
+app.use('/db/party', partyRouter);
+const { imageRouter } = require('./routes/image');
+app.use('/db/image', imageRouter);
+const { pcRouter } = require('./routes/pc');
+app.use('/db/pc', pcRouter);
+const { threadRouter } = require('./routes/thread');
+app.use('/db/thread', threadRouter);
+const { messageRouter } = require('./routes/message');
+app.use('/db/message', messageRouter);
+const { cbRouter } = require('./routes/cb');
+app.use('/db/cb', cbRouter);
+const { relationshipRouter } = require('./routes/relationship');
+app.use('/db/relationship', relationshipRouter);
+const { menuRouter } = require('./routes/menu');
+app.use('/db/menu', menuRouter);
+const { eContactRouter } = require('./routes/eContact');
+app.use('/db/eContact', eContactRouter);
+
 app.get('/api', (req, res) => {
   res.send(mockResponse);
 });
@@ -30,7 +57,7 @@ const connection = async () => {
 
 const syncModels = async () => {
   try {
-    // await models.sequelize.sync({force: true});
+    // await models.sequelize.sync({force: true}); // uncomment when you need the db wiped.. must run test-db after
     await models.sequelize.sync();
     console.log('Models have been synced successfully.');
   } catch (error) {
