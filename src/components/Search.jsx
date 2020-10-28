@@ -56,10 +56,12 @@ const Search = ({panTo}) => {
         />
         {/* takes the suggestions from google places */}
         <ComboboxPopover>
-          {status === 'OK' 
-            && data.map(({ place_id, description }) => (
-              <ComboboxOption key={place_id} value={description} />
-            ))}
+          <ComboboxList>
+            {status === 'OK' 
+              && data.map(({ place_id, description }) => (
+                <ComboboxOption key={place_id} value={description} />
+              ))}
+          </ComboboxList>
         </ComboboxPopover>
       </Combobox>
     </div>
