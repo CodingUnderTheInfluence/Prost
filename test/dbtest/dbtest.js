@@ -260,6 +260,7 @@ function primeDB() {
       }
       return console.error('❌ relationship user undefined');
     })
+<<<<<<< HEAD
     .then(() => Thread.findOrCreate({
       where: {
         id: 1
@@ -282,6 +283,8 @@ function primeDB() {
       }
       return console.error('❌ Thread user undefined');
     })
+=======
+>>>>>>> 001f8ef... (add) all files to my forkl
     .then(() => Message.findOrCreate({
       where: {
         body: 'Are you coming?',
@@ -346,7 +349,11 @@ function primeDB() {
       }
       return console.error('❌ Menu user undefined');
     })
+<<<<<<< HEAD
     .then(() => EContact.findOrCreate({
+=======
+    .then(() => eContact.findOrCreate({
+>>>>>>> 001f8ef... (add) all files to my forkl
       where: {
         id_customer: 3,
         first_name: 'Vinsmoke',
@@ -357,9 +364,15 @@ function primeDB() {
     }))
     .then((numberEffected) => {
       if (numberEffected) {
+<<<<<<< HEAD
         return console.log('✅ EContact Created');
       }
       return console.error('❌ EContact user undefined');
+=======
+        return console.log('✅ eContact Created');
+      }
+      return console.error('❌ eContact user undefined');
+>>>>>>> 001f8ef... (add) all files to my forkl
     })
     .then(() => Customers_Bars.findOrCreate({
       where: {
