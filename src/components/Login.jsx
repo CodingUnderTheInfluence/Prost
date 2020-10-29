@@ -1,11 +1,25 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { GoogleLogin } from 'react-google-login';
+import Axios from 'axios'
 
-const clientId ='933644302187-agamsig0qalm5oi4fd44v11hfffpchs8.apps.googleusercontent.com'
+const clientId = '933644302187-agamsig0qalm5oi4fd44v11hfffpchs8.apps.googleusercontent.com'
 
 const Login = () => {
+
+    useEffect(() => {
+        Axios.get('/db/customer')
+            .then(({ data }) => { console.log(data, 'DATA') })
+            .catch((err) => { console.error(err) })
+    })
+
+
     const onSuccess = (res) => {
         console.log('[Login Success] currentUser:', res.profileObj)
+        const token = res.tokenId;
+        const params = {
+            authToken: token
+        }
+        Axios.post('/db/customer', { params })
     }
 
     const onFailure = (res) => {
@@ -19,7 +33,7 @@ const Login = () => {
                 onSuccess={onSuccess}
                 onFailure={onFailure}
                 cookiePolicy={'single_host_origin'}
-                style={{marginTop: '100px'}}
+                style={{ marginTop: '100px' }}
                 isSignedIn={true}
             />
         </div>
