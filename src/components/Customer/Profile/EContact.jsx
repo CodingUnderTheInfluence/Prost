@@ -70,14 +70,6 @@ export default function EContact({setView, customerId}) {
   }
     
   const addContact = async () => {
-    console.log('%%%%ADD%%%%')
-    console.log({
-      customerId,
-      first_name,
-      last_name,
-      phone_number,
-      email
-    })
     const result = await fetch(`${process.env.REDIRECT}/db/eContact/add`, {
       method: 'POST',
       headers: {
@@ -91,7 +83,6 @@ export default function EContact({setView, customerId}) {
         email
       }),
     })
-    console.log('Add Success :', result)
     getData();
     setShowForm();
   }
