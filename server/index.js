@@ -5,6 +5,7 @@ const passport = require('passport');
 const bodyParser = require('body-parser');
 const models = require('./db/models/dbindex');
 const dotenv = require('dotenv');
+// const googleAuth = require('./googleAuth');
 
 // const auth = require('./auth/authroute');
 const app = express();
@@ -26,7 +27,7 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json())
 app.use(express.static(DIST_DIR)); // NEW
-
+// app.use(googleAuth)
 
 
 
@@ -90,6 +91,10 @@ app.use('/db/eContact', eContactRouter);
 app.get('/', (req, res) => {
   res.sendFile(HTML_FILE); // EDIT
 });
+
+app.get('/token', (req, res) => {
+  res.send('THIS IS WORKING')
+})
 
 // Database Connection
 const connection = async () => {

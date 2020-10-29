@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { render } from 'react-dom';
 import LandingPage from './components/LandingPage.jsx';
 import CustomerView from './components/Customer/CustomerView.jsx';
@@ -12,22 +12,20 @@ function App() {
   };
 
   useEffect(() => {
-    if(!localStorage.token) {
-      handleChange(null, 'Landing');
+    if (!localStorage.token) {
+      handleChange('');
+    } else if (localStorage.token) {
+      handleChange(null, 'CustomerView')
     }
   })
 
-    if (value === 'Landing') {
-      return <LandingPage />
-    } else if (value === 'CustomerView') {
-      return <CustomerView />
-    } else if (value === 'OwnerView') {
-      return <OwnerView />
-    } else {
-      return (
-        <div> Loading...</div>
-      )
-    }
+  if (value === 'CustomerView') {
+    return <CustomerView />
+  } else if (value === 'OwnerView') {
+    return <OwnerView />
+  } else {
+    return <LandingPage />
+  }
   // const renderView = () => {
   //     if (value === 'Landing') {
   //         return <LandingPage />

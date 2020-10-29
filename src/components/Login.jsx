@@ -7,12 +7,26 @@ const Login = () => {
     const onSuccess = (res) => {
         console.log('[Login Success] currentUser:', res.profileObj)
         const token = res.tokenId;
-        const params = {
-            authToken: token
+        const profile = res.profileObj;
+        const googleProfile = {
+            gProfile: profile
+        }
+        const googleToken = {
+            authToken: token,
         }
         localStorage.setItem('token', res.tokenId)
         console.log(localStorage);
-        Axios.post('/db/customer', { params })
+        Axios.post('/db/customer', { googleToken })
+        Axios.post('/db/customer/check', { googleProfile })
+            .then(({ data }) => {
+                if (!data) {
+                    console.log('SEND TO SIGNUP FORM')
+                }
+            })
+        // Axios.get('/db/customer/check')
+        //     .then(({ data }) => {
+        //         console.log('data', data)
+        //     })
     }
 
     const onFailure = (res) => {
