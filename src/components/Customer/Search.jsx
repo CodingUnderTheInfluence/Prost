@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import getUsers from '../../helpers/getUsers';
-import { StandaloneSearchBox } from '@react-google-maps/api';
+import BarInfo from './BarInfo.jsx';
+import { StandaloneSearchBox, Marker } from '@react-google-maps/api';
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
-  getDetails
+  getDetails,
 } from "use-places-autocomplete";
 import {
   Combobox,
@@ -16,7 +17,7 @@ import {
 } from "@reach/combobox";
 // import "@reach/combobox/styles.css";
 
-const Search = ({panTo}) => {
+const Search = ({panTo, searchInfo}) => {
   const [ placeInfo, setPlaceInfo ] = useState(null);
   const {
     ready, 
@@ -45,9 +46,7 @@ const Search = ({panTo}) => {
           panTo({ lat, lng });
           const details = await getDetails(results[0]);
           setPlaceInfo(details);
-          console.log(placeInfo)
-          // console.log('place details', details);
-
+          searchInfo({lat, lng});
         }
         catch(err) {
           console.error(err);
@@ -72,7 +71,8 @@ const Search = ({panTo}) => {
           </ComboboxList>
         </ComboboxPopover>
       </Combobox>
-      
+
+      <BarInfo placeInfo={placeInfo} />
     </div>
   );
 };

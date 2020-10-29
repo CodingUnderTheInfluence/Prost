@@ -17,6 +17,7 @@ const MapContainer = () => {
   const [ selectedItem, setSelectedItem ] = useState({});
   const [ myLocation, setMyLocation ] = useState({});
   const [ markers, setMarkers ] = useState([]);
+  const [ searchMarker, setSearchMarker ] = useState({});
 
   const mapStyles = {
     width: '100vw',
@@ -59,6 +60,17 @@ const MapContainer = () => {
     mapRef.current.setZoom(16);
   }, []);
 
+  // get places info from search bar
+  const searchInfo = useCallback(({ lat, lng}) => {
+
+    setSearchMarker({ lat, lng });
+    // const { location } = info.geometry;
+    // setSearchMarker({ 
+    //   lat: parseFloat(location.lat()), 
+    //   lng: parseFloat(location.lng())
+    // });
+  });
+
   if (loadError) {
     return 'Error loading maps';
   } 
@@ -68,10 +80,10 @@ const MapContainer = () => {
 
   return (
     <>
-      <Search panTo={panTo}/>
+      <Search panTo={panTo} searchInfo={searchInfo} />
       <GoogleMap 
         mapContainerStyle={mapStyles}
-        zoom={13}
+        zoom={15}
         center={defaultCenter}
         center={currentPosition  ? currentPosition : defaultCenter}
         options={options}
@@ -79,15 +91,22 @@ const MapContainer = () => {
         onClick={onMapClick}
         onLoad={onMapLoad}
       >
-        {markers.map(({lat, lng, time}) => (
+        <Marker 
+          position={{
+            lat: searchMarker.lat, 
+            lng: searchMarker.lng
+          }}/>
+        {/* {markers.map(({lat, lng, time}) => (
           <Marker 
             key={time.toISOString()} 
             position={{ lat, lng }}
           />
-        ))}
+        ))} */}
       </GoogleMap>
     </>
+
   );
+
 };
 
 export default MapContainer;
