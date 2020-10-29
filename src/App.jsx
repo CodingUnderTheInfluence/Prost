@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   BrowserRouter as Router,
   Route,
@@ -19,6 +19,19 @@ import Logout from './components/Logout.jsx';
 
 
 const App = () => {
+
+  // THIS GETS ALL USER INFO 
+  // const arr = [];
+  // useEffect(() => {
+  //   Axios.get('/db/customer')
+  //     .then(({ data }) => {
+  //       data.forEach(customer => {
+  //         arr.push({ firstName: customer.first_name, lastName: customer.last_name, userName: customer.user_name })
+  //       })
+  //       console.log(arr, 'ARRAY');
+  //     })
+  // })
+
   return (
     <>
       <h1>Welcome from App!</h1>
