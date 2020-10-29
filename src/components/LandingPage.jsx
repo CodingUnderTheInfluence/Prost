@@ -1,8 +1,13 @@
 import React from 'react';
+import Login from './Login.jsx';
+import Logout from './Logout.jsx';
 
 const LandingPage = () => {
   return (
-    <h2>please log in</h2>
+    <div>
+      <Login />
+      <Logout />
+    </div>
   );
 };
 

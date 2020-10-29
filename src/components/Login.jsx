@@ -19,6 +19,8 @@ const Login = () => {
         const params = {
             authToken: token
         }
+        localStorage.setItem('token', res.tokenId)
+        console.log(localStorage);
         Axios.post('/db/customer', { params })
     }
 
