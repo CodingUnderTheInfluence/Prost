@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { GoogleMap, LoadScript, Marker, InfoWindow, useLoadScript } from '@react-google-maps/api';
 import Search from './Search.jsx';
+import PeopleSearch from './PeopleSearch.jsx';
 
 // nola lat long
 // lat: 29.951065,
@@ -81,6 +82,7 @@ const MapContainer = () => {
 
   return (
     <>
+      <PeopleSearch />
       <Search 
         panTo={panTo}
         currentPosition={currentPosition}
