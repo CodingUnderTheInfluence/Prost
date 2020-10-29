@@ -71,21 +71,20 @@ eContactRouter.post('/add', (req, res) => {
 eContactRouter.put('/edit', (req, res) => {
   const {
     eContactId,
-    customerId,
     first_name,
     last_name,
     phone_number,
     email
   } = req.body;
-  // res.send(`id ${customerId}`)
-  EContact.findOrCreate({
-    where: {
-      id: eContactId,
-      id_customer: customerId,
+  console.log(req.body);
+  EContact.update({
       first_name,
       last_name,
       phone_number,
       email
+  }, {
+    where: {
+      id: eContactId,
     },
   })
     .then((response) => {
