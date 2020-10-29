@@ -29,14 +29,32 @@ const googleAuth = async (authToken) => {
 
   const { sub, email, name, picture } = payload;
   const userId = sub;
-  console.log(userId, email)
+  // console.log(userId, email)
   return { userId, email, fullName: name, photoUrl: picture }
 }
 
 customerRouter.post('/', (req, res) => {
-  const { authToken } = req.body.params
+  const { authToken } = req.body.googleToken
   googleAuth(authToken);
+
 })
+
+customerRouter.post('/check', (req, res) => {
+  const { gProfile } = req.body.googleProfile
+  Customer.findOne({ where: gProfile.googleId })
+    .then(() => {
+      console.log('USER FOUND')
+      res.send(true)
+    })
+    .catch(() => {
+      console.log('USER NOT FOUND')
+      res.send(false)
+    })
+})
+
+// customerRouter.get('/check', (req, res) => {
+//   res.send('TRUE')
+// })
 // Customer.findAll()
 // .then((customers) => {
 //   res.send(customers);
