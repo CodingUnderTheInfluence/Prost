@@ -21,9 +21,9 @@ const CustomerProfile = () => {
       })
       .then(response => response.json())
       .then(data => {
-        console.log('Success:', data[2]); // change user
-        setData(data[2])
-        setCustomerId(data[2].id)
+        console.log('Success:', data[1]); // change user
+        setData(data[1])
+        setCustomerId(data[1].id)
       })
       .catch((error) => {
         console.error('Error:', error);

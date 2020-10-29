@@ -42,7 +42,59 @@ eContactRouter.get('/customer/:customerId', (req, res) => {
   });
 })
 
-  // 
+eContactRouter.post('/add', (req, res) => {
+  const {
+    customerId,
+    first_name,
+    last_name,
+    phone_number,
+    email
+  } = req.body;
+  // res.send(`id ${customerId}`)
+  EContact.findOrCreate({
+    where: {
+      id_customer: customerId,
+      first_name,
+      last_name,
+      phone_number,
+      email
+    },
+  })
+    .then((response) => {
+      res.send(response);
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+})
+
+eContactRouter.put('/edit', (req, res) => {
+  const {
+    eContactId,
+    customerId,
+    first_name,
+    last_name,
+    phone_number,
+    email
+  } = req.body;
+  // res.send(`id ${customerId}`)
+  EContact.findOrCreate({
+    where: {
+      id: eContactId,
+      id_customer: customerId,
+      first_name,
+      last_name,
+      phone_number,
+      email
+    },
+  })
+    .then((response) => {
+      res.send(response);
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+})
 module.exports = {
   eContactRouter,
 };
