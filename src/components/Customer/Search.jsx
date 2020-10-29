@@ -44,9 +44,10 @@ const Search = ({panTo, searchInfo}) => {
           const results = await getGeocode({ address });
           const { lat, lng } = await getLatLng(results[0]);
           panTo({ lat, lng });
+          // searchInfo({lat, lng});
+
           const details = await getDetails(results[0]);
           setPlaceInfo(details);
-          searchInfo({lat, lng});
         }
         catch(err) {
           console.error(err);

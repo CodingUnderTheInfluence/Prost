@@ -58,18 +58,13 @@ const MapContainer = () => {
   const panTo = useCallback(({ lat, lng }) => {
     mapRef.current.panTo({ lat, lng });
     mapRef.current.setZoom(16);
+    setSearchMarker({ lat, lng });
   }, []);
 
   // get places info from search bar
-  const searchInfo = useCallback(({ lat, lng}) => {
-
-    setSearchMarker({ lat, lng });
-    // const { location } = info.geometry;
-    // setSearchMarker({ 
-    //   lat: parseFloat(location.lat()), 
-    //   lng: parseFloat(location.lng())
-    // });
-  });
+  // const searchInfo = useCallback(({ lat, lng}) => {
+  //   setSearchMarker({ lat, lng });
+  // }, []);
 
   if (loadError) {
     return 'Error loading maps';
@@ -80,11 +75,11 @@ const MapContainer = () => {
 
   return (
     <>
-      <Search panTo={panTo} searchInfo={searchInfo} />
+      <Search panTo={panTo} />
       <GoogleMap 
         mapContainerStyle={mapStyles}
         zoom={15}
-        center={defaultCenter}
+        // center={defaultCenter}
         center={currentPosition  ? currentPosition : defaultCenter}
         options={options}
         draggable={true}
@@ -93,8 +88,8 @@ const MapContainer = () => {
       >
         <Marker 
           position={{
-            lat: searchMarker.lat, 
-            lng: searchMarker.lng
+            lat: +searchMarker.lat, 
+            lng: +searchMarker.lng
           }}/>
         {/* {markers.map(({lat, lng, time}) => (
           <Marker 
