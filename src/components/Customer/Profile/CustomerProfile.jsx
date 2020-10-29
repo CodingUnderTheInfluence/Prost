@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useLayoutEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import Home from './Home.jsx';
 import EContact from './EContact.jsx';
 import Favorite from './Favorite.jsx';
@@ -17,9 +17,8 @@ const CustomerProfile = () => {
       })
       .then(response => response.json())
       .then(data => {
-        console.log('Success:', data[2]); // change user
-        setData(data[2])
-        setCustomerId(data[2].id)
+        setData(data[1])
+        setCustomerId(data[1].id)
       })
       .catch((error) => {
         console.error('Error:', error);

@@ -16,6 +16,7 @@ export default function EContact({setView, customerId}) {
   const [email, setEmail] = useState(null);
   const [eContactId, setEContactId] = useState(contact.id);
   const [cView, setCView] = useState('add');
+
   const getData = () => {
     fetch(`${process.env.REDIRECT}/db/eContact/customer/${customerId}`, {
       method: 'GET',
@@ -67,8 +68,7 @@ export default function EContact({setView, customerId}) {
     })
     setShowForm(false);
   }
-  
-  
+    
   const addContact = async () => {
     console.log('%%%%ADD%%%%')
     console.log({
@@ -78,21 +78,22 @@ export default function EContact({setView, customerId}) {
       phone_number,
       email
     })
-    // const result = await fetch(`${process.env.REDIRECT}/db/eContact/add}`, {
-    //   method: 'PUT',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-      // body: JSON.stringify({
-      //   customerId,
-      //   first_name,
-      //   last_name,
-      //   phone_number,
-      //   email
-      // }),
-    // })
-    // console.log('Add Success :', result)
-    // setCView('edit');
+    const result = await fetch(`${process.env.REDIRECT}/db/eContact/add`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        customerId,
+        first_name,
+        last_name,
+        phone_number,
+        email
+      }),
+    })
+    console.log('Add Success :', result)
+    getData();
+    setShowForm();
   }
 
   const context = (e) => {

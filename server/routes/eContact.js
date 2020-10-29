@@ -51,14 +51,12 @@ eContactRouter.post('/add', (req, res) => {
     email
   } = req.body;
   // res.send(`id ${customerId}`)
-  EContact.findOrCreate({
-    where: {
-      id_customer: customerId,
-      first_name,
-      last_name,
-      phone_number,
-      email
-    },
+  EContact.create({
+    id_customer: customerId,
+    first_name,
+    last_name,
+    phone_number,
+    email
   })
     .then((response) => {
       res.send(response);
@@ -76,7 +74,6 @@ eContactRouter.put('/edit', (req, res) => {
     phone_number,
     email
   } = req.body;
-  console.log(req.body);
   EContact.update({
       first_name,
       last_name,
