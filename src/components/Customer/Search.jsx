@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import getUsers from '../../helpers/getUsers';
+import { results } from './places.json';
 import BarInfo from './BarInfo.jsx';
 import { StandaloneSearchBox, Marker } from '@react-google-maps/api';
 import usePlacesAutocomplete, {
@@ -17,7 +18,8 @@ import {
 } from "@reach/combobox";
 // import "@reach/combobox/styles.css";
 
-const Search = ({panTo, searchInfo}) => {
+
+const Search = ({panTo, currentPosition}) => {
   const [ placeInfo, setPlaceInfo ] = useState(null);
   const {
     ready, 
@@ -28,8 +30,8 @@ const Search = ({panTo, searchInfo}) => {
   } = usePlacesAutocomplete({
     requestOptions: {
       location: {
-        lat: () => 40.730610,
-        lng: () => -73.935242
+        lat: () => currentPosition.lat,
+        lng: () => currentPosition.lng
       },
       radius: 10 * 1610,
     }
@@ -78,11 +80,57 @@ const Search = ({panTo, searchInfo}) => {
   );
 };
   
-  // get place info
-  // <div>
-  //   {placeInfo ? <div>{placeInfo.name}</div> 
-  //     : <div>finding info</div>
-  //   }
-  // </div>
+////////////////////        dummy data          ////////////////////  
+
+// const Search = ({panTo, searchInfo}) => {
+//   const [ placeInfo, setPlaceInfo ] = useState(null);
+//   const [ bars, setBars ] = useState(results);
+//   const {
+//     ready, 
+//     value,
+//     suggestions: { status, data },
+//     setValue,
+//     clearSuggestions
+//   } = usePlacesAutocomplete({
+//     requestOptions: {
+//       location: {
+//         lat: () => 29.951065,
+//         lng: () => -90.071533,
+//       },
+//       radius: 10 * 1610,
+//     }
+//   });
+
+//   return (
+//     <div>
+//       <Combobox onSelect={async (address) => {
+//         setValue(address, false);
+//         clearSuggestions();
+//         console.log(bars);
+//       }}
+//       >
+//         <ComboboxInput 
+//           value={value} 
+//           onChange={(e) => {
+//             setValue(e.target.value);
+//           }}
+//           disabled={!ready} 
+//           placeholder='Find bars'
+//         />
+//         {/* takes the suggestions from google places */}
+//         <ComboboxPopover>
+//           <ComboboxList>
+//             {status === 'OK' 
+//               && bars.map(({ place_id, description }) => (
+//                 <ComboboxOption key={place_id} value={description} />
+//               ))}
+//           </ComboboxList>
+//         </ComboboxPopover>
+//       </Combobox>
+
+//       <BarInfo placeInfo={placeInfo} />
+//     </div>
+//   );
+// };
 
 export default Search;
