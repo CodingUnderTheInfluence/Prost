@@ -16,9 +16,10 @@ const Login = () => {
         }
         localStorage.setItem('token', res.tokenId)
         console.log(localStorage);
-        Axios.post('/db/customer', { googleToken })
+        Axios.post('/db/customer', { googleToken }); //this is a post to check for the google token
         Axios.post('/db/customer/check', { googleProfile })
             .then(({ data }) => {
+                console.log(data, 'DATA')
                 if (!data) {
                     console.log('SEND TO SIGNUP FORM')
                 }

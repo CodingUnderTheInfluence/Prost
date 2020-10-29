@@ -15,6 +15,9 @@ const {
 const { Router } = require('express');
 const { Op } = require('sequelize');
 const customerRouter = Router();
+const { OAuth2Client } = require('google-auth-library');
+const { FormatColorResetRounded } = require('@material-ui/icons');
+const client = new OAuth2Client('')
 
 customerRouter.get('/', (req, res) => {
   Customer.findAll()
@@ -43,12 +46,19 @@ customerRouter.post('/check', (req, res) => {
   const { gProfile } = req.body.googleProfile
   Customer.findOne({ where: gProfile.googleId })
     .then(() => {
-      console.log('USER FOUND')
+      console.log('USER FOUND IN CUSTOMER TABLE')
       res.send(true)
     })
     .catch(() => {
-      console.log('USER NOT FOUND')
-      res.send(false)
+      Owner.findOne({ where: gProfile.googleId })
+        .then(() => {
+          console.log('USER FOUND IN OWNER TABLE')
+          res.send(true)
+        })
+        .catch(() => {
+          console.log('USER NOT FOUND IN NEITHER CUSTOMER OR OWNER TABLE')
+          res.send(false)
+        })
     })
 })
 
