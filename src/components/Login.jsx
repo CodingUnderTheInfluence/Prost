@@ -1,20 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { GoogleLogin } from 'react-google-login';
 import { Button } from '@material-ui/core';
 import Axios from 'axios';
 
-const clientId = ``
+const clientId = `709018099538-fo63v57kbv8vnpft4u5bdsp65bjbcc7b.apps.googleusercontent.com`
 
-function Login() {
+const Login = () => {
     const onSuccess = (res) => {
         console.log('[LOGIN SUCCESS] currentUser:', res.profileObj);
-        Axios.get('/db/customers')
-        // .then(({ data }) => {
-        //     console.log(data, 'DATA')
-        // })
     }
 
-    const onFailure = () => {
+    const onFailure = (res) => {
         console.log('[LOGIN FAILER] currentUser:', res)
     }
 
