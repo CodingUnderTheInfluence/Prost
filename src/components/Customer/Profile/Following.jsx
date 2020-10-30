@@ -8,6 +8,10 @@ export default function Following({setView, customerId}) {
   // const [num, setNum] = useState(0);
   const [list, setList] = useState(null);
 
+  const getAll = async () => {
+    // /db/customer/one/1
+  }
+
   useEffect(() => {
     // getData();
   }, []);

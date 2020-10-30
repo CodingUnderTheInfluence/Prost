@@ -26,7 +26,21 @@ customerRouter.get('/', (req, res) => {
   });
 })
 
-  // 
-module.exports = {
+customerRouter.get('/one/:customerId', (req, res) => {
+  const {customerId} = req.params;
+  Customer.findOne({
+      where: {
+        id: customerId,
+      }
+    })
+    .then((rtn) => {
+      res.send(rtn);
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+  })
+
+  module.exports = {
   customerRouter,
 };
