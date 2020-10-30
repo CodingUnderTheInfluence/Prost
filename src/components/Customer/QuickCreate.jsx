@@ -4,6 +4,7 @@ import AddIcon from '@material-ui/icons/Add';
 import MyLocationIcon from '@material-ui/icons/MyLocation';
 
 
+// add to party db and customer party db
 
 const QuickCreate = ({getMyLocation, panTo}) => {
 
