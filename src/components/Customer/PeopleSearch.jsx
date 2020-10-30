@@ -21,18 +21,29 @@ const PeopleSearch = () => {
     // console.log(input);  
   };
 
-  const submit = (e) => {
+  const submit = async (e) => {
     if (e.keyCode === 13) {
-      axios.get(`/db/customer/${e.target.value}`)
-        .then(data => {
-          console.log(data.data);
-        })
-        .catch(err => console.error(err));
+      try {
+        const friends = await axios.get(`/db/customer/${e.target.value}`)
+        const { data } = friends;
+        setFriends(data);
+      } catch(err) {
+        console.error(err);
+      }
+      setInput('');
     }
   };
 
   return (
-    <input type='text' value={input} onKeyDown={submit} onChange={handleInput} />
+    <>
+      <input type='text' value={input} onKeyDown={submit} onChange={handleInput} />
+      {friends.length 
+        ? friends.map(({first_name, last_name}) => (
+            <div>{`${first_name} ${last_name}`}</div>
+          ))
+        : null
+      }
+    </>
   );
 };
 
