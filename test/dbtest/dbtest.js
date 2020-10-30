@@ -365,6 +365,7 @@ function primeDB() {
       where: {
         id_customer: 1,
         id_bar: 1,
+        favorite: true
       }
     }))
     .then((numberEffected) => {
@@ -377,6 +378,7 @@ function primeDB() {
       where: {
         id_customer: 2,
         id_bar: 2,
+        favorite: true
       }
     }))
     .then((numberEffected) => {
@@ -389,6 +391,7 @@ function primeDB() {
       where: {
         id_customer: 4,
         id_bar: 2,
+        favorite: true
       }
     }))
     .then((numberEffected) => {
@@ -401,6 +404,7 @@ function primeDB() {
       where: {
         id_customer: 3,
         id_bar: 1,
+        favorite: true
       }
     }))
     .then((numberEffected) => {
