@@ -72,7 +72,7 @@ const MapContainer = () => {
 
   const handleMarkerClick = (e) => {
     setClick(!click);
-    console.log(click)
+    
   }
 
   // get places info from search bar
