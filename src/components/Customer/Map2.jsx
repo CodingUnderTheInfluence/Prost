@@ -2,7 +2,9 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { GoogleMap, LoadScript, Marker, InfoWindow, useLoadScript } from '@react-google-maps/api';
 import Search from './Search.jsx';
 import PeopleSearch from './PeopleSearch.jsx';
+import QuickCreate from './QuickCreate.jsx';
 import { Details } from '@material-ui/icons';
+
 
 // nola lat long
 // lat: 29.951065,
@@ -13,7 +15,6 @@ const libraries = ['places'];
 
 
 const MapContainer = () => {
-
   const [ currentPosition, setCurrentPosition ] = useState({
     lat: 29.951065,
     lng: -90.071533
@@ -63,7 +64,7 @@ const MapContainer = () => {
 
   // move map to the where the user has searched
   const panTo = useCallback(({ lat, lng }) => {
-    console.log('current mapref', mapRef.current);
+    console.log(mapRef)
     mapRef.current.panTo({ lat, lng });
     mapRef.current.setZoom(16);
     setCurrentPosition({ lat, lng });
@@ -72,8 +73,14 @@ const MapContainer = () => {
 
   const handleMarkerClick = (e) => {
     setClick(!click);
-    
-  }
+  };
+
+  const getMyLocation = ({ latitude, longitude }) => {
+    setMyLocation({
+      lat: latitude,
+      lng: longitude
+    });
+  };
 
   // get places info from search bar
   // const searchInfo = useCallback(({ lat, lng}) => {
@@ -89,6 +96,10 @@ const MapContainer = () => {
 
   return (
     <>
+      <QuickCreate 
+        getMyLocation={getMyLocation} 
+        panTo={panTo}
+      />
       <PeopleSearch />
       <Search 
         panTo={panTo}

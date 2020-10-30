@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { TextField } from '@material-ui/core';
-import { results } from './places.json';
 import BarInfo from './BarInfo.jsx';
 import usePlacesAutocomplete, {
   getGeocode,
