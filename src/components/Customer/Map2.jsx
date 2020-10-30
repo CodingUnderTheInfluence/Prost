@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { GoogleMap, LoadScript, Marker, InfoWindow, useLoadScript } from '@react-google-maps/api';
 import Search from './Search.jsx';
 import PeopleSearch from './PeopleSearch.jsx';
+import { Details } from '@material-ui/icons';
 
 // nola lat long
 // lat: 29.951065,
@@ -23,6 +24,7 @@ const MapContainer = () => {
   const [ myLocation, setMyLocation ] = useState({});
   const [ markers, setMarkers ] = useState([]);
   const [ searchMarker, setSearchMarker ] = useState({});
+  const [ click, setClick ] = useState(false);
 
   const mapStyles = {
     width: '100vw',
@@ -68,6 +70,11 @@ const MapContainer = () => {
     setSearchMarker({ lat, lng });
   }, []);
 
+  const handleMarkerClick = (e) => {
+    setClick(!click);
+    console.log(click)
+  }
+
   // get places info from search bar
   // const searchInfo = useCallback(({ lat, lng}) => {
   //   setSearchMarker({ lat, lng });
@@ -96,11 +103,25 @@ const MapContainer = () => {
         onClick={onMapClick}
         onLoad={onMapLoad}
       >
-        <Marker 
-          position={{
-            lat: +searchMarker.lat, 
-            lng: +searchMarker.lng
+          <Marker
+            onClick={handleMarkerClick}
+            position={{
+              lat: +searchMarker.lat, 
+              lng: +searchMarker.lng
           }}/>
+          {click ? <InfoWindow
+            position={{
+              lat: +searchMarker.lat, 
+              lng: +searchMarker.lng
+            }}
+          >
+            <div>
+              hello
+            </div>
+          </InfoWindow> 
+        
+        : null}
+
         {/* {markers.map(({lat, lng, time}) => (
           <Marker 
             key={time.toISOString()} 
