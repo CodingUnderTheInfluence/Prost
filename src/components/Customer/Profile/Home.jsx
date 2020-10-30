@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useLayoutEffect} from 'react';
 import { Grid, Typography, Button } from '@material-ui/core'
 
-export default function Home({setView, name}) {
+export default function Home({setView, name, following, follower}) {
 
 return (
   <Grid container direction="column" justify="center" alignItems="center">
@@ -12,6 +12,16 @@ return (
           <Typography variant="subtitle1">
               @{name}
           </Typography>
+      </Grid>
+      <Grid>
+          <span>{`${following}`}</span>
+          {' '}
+          <span onClick={()=> setView('Following')}>Following</span>
+      </Grid>
+      <Grid>
+          <span>{`${follower}`}</span>
+          {' '}
+          <span onClick={()=> setView('Follower')}>Followers</span>
       </Grid>
       <Button variant="outlined" color="primary" onClick={()=> setView('Favorite')}>
           Favorite Spots
