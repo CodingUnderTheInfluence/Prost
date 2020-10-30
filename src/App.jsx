@@ -39,9 +39,9 @@ const App = () => {
           </Route>
         </Switch>
       </Router>
-      <MapContainer />
+      {/* <MapContainer /> */}
       <CustomerView />
-      <OwnerView />
+      {/* <OwnerView /> */}
     </>
   );
 };

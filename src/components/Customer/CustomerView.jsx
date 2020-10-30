@@ -7,6 +7,7 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Create from './Create.jsx';
 import FriendsList from './Social/FriendsList.jsx';
 import Messages from './Social/Messages.jsx';
+import Profile from './Profile/CustomerProfile.jsx';
 
 
 
@@ -35,7 +36,7 @@ const CustomerView = () => {
             return <Messages />
         }
         if (value === 3) {
-          return <OwnerProfile />
+          return <Profile />
       }
         return (<div>PLACE INSTRUCTIONS HERE</div>)
     }
