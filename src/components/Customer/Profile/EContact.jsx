@@ -30,14 +30,74 @@ export default function EContact({setView, customerId}) {
     })
     .then(response => response.json())
     .then(data => {
-      console.log('Success:', data); // change user
-      setContact(data[0])
+      const [result] = data;
+      // console.log('Contact Success :', result)
+      if (result !== 'Empty') {
+        setContact(result)
+        setEContactId(result.id)
+        setCView('edit');
+      } else {
+        setCView('add');
+      }
     })
     .catch((error) => {
       console.error('Error:', error);
     });
   }, []);
-  return(
+
+  const editEContact = () => {
+    const obj = {
+      eContactId,
+      first_name,
+      last_name,
+      phone_number,
+      email
+    }
+    for(let key in obj){
+      if(!obj[key]) {
+        delete obj[key];
+      }
+    }
+    fetch(`${process.env.REDIRECT}/db/eContact/edit`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(obj),
+    })
+    .then(result => {
+      if(result.status === 200) {
+        getData()
+      }
+    })
+    setShowForm(false);
+  }
+    
+  const addContact = async () => {
+    const result = await fetch(`${process.env.REDIRECT}/db/eContact/add`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        customerId,
+        first_name,
+        last_name,
+        phone_number,
+        email
+      }),
+    })
+    getData();
+    setShowForm();
+  }
+
+  const context = (e) => {
+    e.preventDefault();
+    // console.log(cView);
+    return cView === 'edit' ? editEContact() : addContact()
+  }
+
+  return (
     <div>
       <div>
       <Button variant="outlined" color="primary" onClick={()=> setView('Home')}>
