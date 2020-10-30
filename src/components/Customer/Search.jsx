@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import getUsers from '../../helpers/getUsers';
+import { TextField } from '@material-ui/core';
 import { results } from './places.json';
 import BarInfo from './BarInfo.jsx';
-import { StandaloneSearchBox, Marker } from '@react-google-maps/api';
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
@@ -16,10 +15,23 @@ import {
   ComboboxOption,
   ComboboxOptionText,
 } from "@reach/combobox";
-// import "@reach/combobox/styles.css";
+// import "@reach/menu-button/styles.css";
+
+
+const searchStyle = {
+  position: 'absolute', 
+  zIndex: 2,
+  left: '50%',
+  padding: '10px',
+};
+const dropDown = {
+  backgroundColor: '#f5f5f5',
+  textAlign: 'left'
+}
 
 
 const Search = ({panTo, currentPosition}) => {
+
   const [ placeInfo, setPlaceInfo ] = useState(null);
   const {
     ready, 
@@ -33,12 +45,12 @@ const Search = ({panTo, currentPosition}) => {
         lat: () => currentPosition.lat,
         lng: () => currentPosition.lng
       },
-      radius: 10 * 1610,
+      radius: 10000,
     }
   });
 
   return (
-    <div>
+    <div style={searchStyle}>
       <Combobox onSelect={async (address) => {
         setValue(address, false);
         clearSuggestions();
@@ -65,8 +77,8 @@ const Search = ({panTo, currentPosition}) => {
           placeholder='Find bars'
         />
         {/* takes the suggestions from google places */}
-        <ComboboxPopover>
-          <ComboboxList>
+        <ComboboxPopover style={dropDown}>
+          <ComboboxList style={{listStyleType: 'none'}}>
             {status === 'OK' 
               && data.map(({ place_id, description }) => (
                 <ComboboxOption key={place_id} value={description} />
@@ -75,7 +87,7 @@ const Search = ({panTo, currentPosition}) => {
         </ComboboxPopover>
       </Combobox>
 
-      <BarInfo placeInfo={placeInfo} />
+      {/* <BarInfo placeInfo={placeInfo} /> */}
     </div>
   );
 };
