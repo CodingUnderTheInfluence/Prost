@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { GoogleLogin } from 'react-google-login';
 import Axios from 'axios'
 
 const clientId = '933644302187-agamsig0qalm5oi4fd44v11hfffpchs8.apps.googleusercontent.com'
 
-const Login = () => {
+const Login = ({ setViewValue }) => {
 
     useEffect(() => {
         Axios.get('/db/customer')
@@ -28,15 +28,15 @@ const Login = () => {
         Axios.post('/db/customer', { googleToken }); //this is a post to check for the google token
         Axios.post('/db/customer/check', { googleProfile })
             .then(({ data }) => {
-                console.log(data, 'DATA')
-                if (!data) {
-                    console.log('SEND TO SIGNUP FORM')
-                }
+                // if (data === 'form') {
+                //     setForm('form')
+                // }
             })
         // Axios.get('/db/customer/check')
         //     .then(({ data }) => {
         //         console.log('data', data)
         //     })
+        setViewValue('CustomerView');
     }
 
     const onFailure = (res) => {

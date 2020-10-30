@@ -6,25 +6,27 @@ import OwnerView from './components/Owner/OwnerView.jsx';
 
 function App() {
 
-  const [value, setValue] = useState('');
+  const [value, setViewValue] = useState('');
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+    setViewValue(newValue);
   };
 
   useEffect(() => {
-    if (!localStorage.token) {
-      handleChange('');
-    } else if (localStorage.token) {
+    if (localStorage.token) {
       handleChange(null, 'CustomerView')
+    } else {
+      handleChange(null, 'Landing')
     }
-  })
+  }, [])
 
-  if (value === 'CustomerView') {
-    return <CustomerView />
+  if (value === 'Landing') {
+    return <LandingPage setViewValue={setViewValue} />
+  } else if (value === 'CustomerView') {
+    return <CustomerView setViewValue={setViewValue} />
   } else if (value === 'OwnerView') {
     return <OwnerView />
   } else {
-    return <LandingPage />
+    return <LandingPage setViewValue={setViewValue} />
   }
   // const renderView = () => {
   //     if (value === 'Landing') {

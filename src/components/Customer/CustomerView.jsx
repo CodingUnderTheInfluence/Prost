@@ -17,7 +17,7 @@ const useStyles = makeStyles({
     },
 });
 
-const CustomerView = () => {
+const CustomerView = ({ setViewValue }) => {
     const classes = useStyles();
     const [value, setValue] = useState();
 
@@ -42,6 +42,7 @@ const CustomerView = () => {
     }
     return (
         <Grid container direction="column" justify="center" alignItems="center">
+            <Logout setViewValue={setViewValue} />
             <Grid item container direction="row" justify="center" alignItems="center">
                 {renderView()}
             </Grid>
