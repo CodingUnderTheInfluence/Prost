@@ -11,7 +11,7 @@ export default function History({setView, customerId}) {
     })
     .then(response => response.json())
     .then(res => {
-      console.log('Contact Success :', res)
+      // console.log('Contact Success :', res)
       setList(res);
     })
     .catch((error) => {
