@@ -34,11 +34,20 @@ cbRouter.get('/history/:customerId', (req, res) => {
     }
   })
   .then((cbs) => {
-    res.send(cbs);
+    const ids = cbs.map(bar => ({"id": bar["id_bar"]}))
+    // res.send(ids);
+    Bar.findAll({
+      where: {
+        [Op.or]: ids,
+      }
+    })
+    .then((rtn) => {
+      res.send(rtn);
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
   })
-  .catch((err) => {
-    res.status(500).send(err);
-  });
 })
 
   // 
