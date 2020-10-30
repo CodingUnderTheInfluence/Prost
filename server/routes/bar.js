@@ -26,7 +26,6 @@ barRouter.get('/', (req, res) => {
   });
 })
 
-  // 
 module.exports = {
   barRouter,
 };
