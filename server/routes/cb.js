@@ -76,6 +76,47 @@ cbRouter.get('/favorite/:customerId', (req, res) => {
   })
 })
 
+cbRouter.put('/add/favorite', (req, res) => {
+  const {
+    id_customer,
+    id_bar
+  } = req.body;
+  Customers_Bars.update({
+    favorite: true
+  }, {
+    where: {
+      id_customer,
+      id_bar
+    }
+  })
+    .then((response) => {
+      res.send(response);
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+})
+
+cbRouter.delete('/delete/favorite', (req, res) => {
+  const {
+    id_customer,
+    id_bar
+  } = req.body;
+  Customers_Bars.update({
+    favorite: false
+  }, {
+    where: {
+      id_customer,
+      id_bar
+    }
+  })
+    .then((response) => {
+      res.send(response);
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+})
 module.exports = {
   cbRouter,
 };
