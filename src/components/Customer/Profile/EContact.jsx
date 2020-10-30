@@ -70,7 +70,8 @@ export default function EContact({setView, customerId}) {
   }
     
   const addContact = async () => {
-    const result = await fetch(`${process.env.REDIRECT}/db/eContact/add`, {
+    try {
+      const result = await fetch(`${process.env.REDIRECT}/db/eContact/add`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -81,10 +82,13 @@ export default function EContact({setView, customerId}) {
         last_name,
         phone_number,
         email
-      }),
-    })
-    getData();
-    setShowForm();
+        }),
+      })
+      getData();
+      setShowForm();
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   const context = (e) => {

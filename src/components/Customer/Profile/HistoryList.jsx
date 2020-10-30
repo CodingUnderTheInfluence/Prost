@@ -17,7 +17,7 @@ export default function HistoryList({ list, customerId }) {
         },
         body: JSON.stringify(obj),
       })
-      console.log(result);
+      // console.log(result);
     } catch (err) {
       console.error(err)
     }
