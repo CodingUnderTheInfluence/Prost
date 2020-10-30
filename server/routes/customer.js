@@ -47,17 +47,17 @@ customerRouter.post('/check', (req, res) => {
   Customer.findOne({ where: gProfile.googleId })
     .then(() => {
       console.log('USER FOUND IN CUSTOMER TABLE')
-      res.send(true)
+      res.send('Customer')
     })
     .catch(() => {
       Owner.findOne({ where: gProfile.googleId })
         .then(() => {
           console.log('USER FOUND IN OWNER TABLE')
-          res.send(true)
+          res.send('Owner')
         })
         .catch(() => {
           console.log('USER NOT FOUND IN NEITHER CUSTOMER OR OWNER TABLE')
-          res.send(false)
+          res.send('form')
         })
     })
 })
