@@ -18,6 +18,7 @@ export default function HistoryList({ list, customerId }) {
         body: JSON.stringify(obj),
       })
       // console.log(result);
+      alert('added')
     } catch (err) {
       console.error(err)
     }
@@ -29,7 +30,7 @@ export default function HistoryList({ list, customerId }) {
       <p>{list.address}</p> 
       <p>{list.phone_number}</p> 
       <div>
-        <AddIcon onClick={addFavorite}/>
+        add to favorite spots<AddIcon onClick={addFavorite}/>
       </div>
     </div>
   )
