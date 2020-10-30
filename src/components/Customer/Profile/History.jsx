@@ -13,7 +13,7 @@ export default function History({setView, customerId}) {
     .then(response => response.json())
     .then(res => {
       const [result] = res;
-      console.log('Contact Success :', result)
+      // console.log('Contact Success :', result)
     })
     .catch((error) => {
       console.error('Error:', error);

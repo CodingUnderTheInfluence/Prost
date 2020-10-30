@@ -24,7 +24,7 @@ export default function EContact({setView, customerId}) {
     .then(response => response.json())
     .then(data => {
       const [result] = data;
-      console.log('Contact Success :', result)
+      // console.log('Contact Success :', result)
       if (result !== 'Empty') {
         setContact(result)
         setEContactId(result.id)
@@ -89,7 +89,7 @@ export default function EContact({setView, customerId}) {
 
   const context = (e) => {
     e.preventDefault();
-    console.log(cView);
+    // console.log(cView);
     return cView === 'edit' ? editEContact() : addContact()
   }
 
