@@ -30,7 +30,11 @@ export default function HistoryList({ list, customerId }) {
       <p>{list.address}</p> 
       <p>{list.phone_number}</p> 
       <div>
+<<<<<<< HEAD
         add to favorite spots<AddIcon onClick={addFavorite}/>
+=======
+        <AddIcon onClick={addFavorite}/>
+>>>>>>> (connect) favorite view
       </div>
     </div>
   )
