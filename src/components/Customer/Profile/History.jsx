@@ -28,7 +28,10 @@ export default function History({setView, customerId}) {
       <ArrowBackIosIcon color="primary" onClick={()=> setView('Home')} />
       Hello from History
       {list && (list.map((bar, key) => 
-        <HistoryList key={key} list={bar} />
+        <div>
+          <HistoryList key={key} list={bar} customerId={customerId} s/>
+          <hr key={`0${key}`}/>
+        </div>
       ))} 
     </div>
   )
