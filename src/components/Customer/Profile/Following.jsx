@@ -4,12 +4,23 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import DeleteOutlinedIcon from  '@material-ui/icons/DeleteOutlined'
 import HistoryList from './HistoryList.jsx'
 
-export default function Following({setView, customerId}) {
+export default function Following({setView, customerId, followingList}) {
   // const [num, setNum] = useState(0);
   const [list, setList] = useState(null);
 
-  const getAll = async () => {
+  const getAll = async (id) => {
     // /db/customer/one/1
+    //promise all
+    fetch(`${process.env.REDIRECT}/db/customer/one/${id}`, {
+      method: 'GET',
+    })
+    .then(response => response.json())
+    .then(data => {
+
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
   }
 
   useEffect(() => {
