@@ -7,7 +7,6 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Create from './Create.jsx';
 import FriendsList from './Social/FriendsList.jsx';
 import Messages from './Social/Messages.jsx';
-import Logout from '../Logout.jsx'
 
 
 
@@ -17,7 +16,7 @@ const useStyles = makeStyles({
     },
 });
 
-const CustomerView = ({ setViewValue }) => {
+const CustomerForm = () => {
     const classes = useStyles();
     const [value, setValue] = useState();
 
@@ -36,13 +35,12 @@ const CustomerView = ({ setViewValue }) => {
             return <Messages />
         }
         if (value === 3) {
-            return <OwnerProfile />
-        }
+          return <OwnerProfile />
+      }
         return (<div>PLACE INSTRUCTIONS HERE</div>)
     }
     return (
         <Grid container direction="column" justify="center" alignItems="center">
-            <Logout setViewValue={setViewValue} />
             <Grid item container direction="row" justify="center" alignItems="center">
                 {renderView()}
             </Grid>
@@ -65,4 +63,11 @@ const CustomerView = ({ setViewValue }) => {
         </Grid>
     );
 }
-export default CustomerView;
+export default CustomerForm;
+
+
+
+
+
+
+
