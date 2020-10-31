@@ -17,6 +17,7 @@ const { Op } = require('sequelize');
 const customerRouter = Router();
 const { OAuth2Client } = require('google-auth-library');
 const { FormatColorResetRounded } = require('@material-ui/icons');
+const { ownerWindow } = require('@material-ui/core');
 const client = new OAuth2Client('')
 
 const googleAuth = async (authToken) => {
@@ -34,28 +35,35 @@ const googleAuth = async (authToken) => {
 }
 
 customerRouter.post('/', (req, res) => {
-  const { authToken } = req.body.googleToken
-  googleAuth(authToken);
-
+  // const { authToken } = req.body.googleToken
+  // googleAuth(authToken);
 })
 
-customerRouter.post('/check', (req, res) => {
+customerRouter.post('/check', async (req, res) => {
   const { gProfile } = req.body.googleProfile
-  Customer.findAll({ where: gProfile.googleId })
-    .then(() => {
-      console.log('USER FOUND IN CUSTOMER TABLE')
-      res.send('Customer')
+  const { authToken } = req.body.googleToken
+  const auth = await googleAuth(authToken);
+  console.log(auth);
+  Customer.findAll({ where: { id_google: auth.userId } }) //findAll sends back an array
+    .then((customers) => {
+      if (customers.length > 0) {
+        console.log('USER FOUND IN CUSTOMER TABLE')
+        res.send('customer')
+      } else {
+        Owner.findAll({ where: { first_name: 'Larry' } })
+          .then((owners) => {
+            if (owners.length) {
+              console.log('USER FOUND IN OWNER TABLE')
+              res.send('Owner')
+            } else {
+              console.log('USER NOT FOUND IN NEITHER CUSTOMER OR OWNER TABLE')
+              res.send('form')
+            }
+          })
+      }
     })
-    .catch(() => {
-      Owner.findAll({ where: { id_google: gProfile.googleId } })
-        .then(() => {
-          console.log('USER FOUND IN OWNER TABLE')
-          res.send('Owner')
-        })
-        .catch(() => {
-          console.log('USER NOT FOUND IN NEITHER CUSTOMER OR OWNER TABLE')
-          res.send('form')
-        })
+    .catch((err) => {
+      console.error('ERROR IN CHECK FOR CUSTOMER OR OWNER')
     })
 })
 
@@ -63,20 +71,34 @@ customerRouter.post('/create', (req, res) => {
   // console.log(req.body.personalParams)
   const { first, last, email, number, gender, googleId, image, username } = req.body.personalParams;
   Customer.findAll({ where: googleId })
-    .then(() => {
-      res.send('FOUND USER')
+    .then((customers) => {
+      if (customers.length > 0) {
+        res.send('FOUND USER')
+        Customer.update({
+          first_name: first,
+          last_name: last,
+          user_name: username,
+          id_google: googleId,
+          email: email,
+          phone_number: number,
+          gender_type: gender,
+          profile_image: image,
+        })
+      } else {
+        Customer.create({
+          first_name: first,
+          last_name: last,
+          user_name: username,
+          id_google: googleId,
+          email: email,
+          phone_number: number,
+          gender_type: gender,
+          profile_image: image,
+        })
+      }
     })
-    .catch(() => {
-      Customer.create({
-        first_name: first,
-        last_name: last,
-        user_name: username,
-        id_google: googleId,
-        email: email,
-        phone_number: number,
-        gender_type: gender,
-        profile_image: image,
-      })
+    .catch((err) => {
+      console.error('ERROR IN CREATING CUSTOMERS')
     })
 })
 
@@ -121,6 +143,7 @@ customerRouter.post('/location', (req, res) => {
 //         })
 // }
 
+//
 module.exports = {
   customerRouter,
   googleAuth
