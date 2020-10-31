@@ -12,7 +12,7 @@ import {
   FormLabel, 
   InputLabel, 
   Input,
-  InputAdornment 
+  InputAdornment
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import storeBar from '../../../helpers/storeBar';
@@ -28,25 +28,30 @@ const useStyles = makeStyles({
 const Create = () => {
   const [ search, setSearch ] = useState('');
   const [ size, setSize ] = useState(1);
+  const [ party, setParty ] = useState(false);
   
   const storeBar = async () => {
     const bar = await axios.post(`/db/bar/create?bar_name=${search}`);
     const barId = bar.data[0].id;
 
-    const party = await axios.post(`db/party/create?bar_id=${barId}`);
-    console.log(party);
+    const party = await axios.post(`db/party/create`, {
+      id_bar: barId,
+      size: size
+    });
+    setParty(true);
   };
   
   const classes = useStyles();
 
-  const handleSearch = (e) => {
-    setSearch(e.target.value);
-  };
-
   return (
     <div>
+      {!party ? 
         <FormControl fullWidth className={classes.root}>
-          <TextField id="standard-basic" value={search} label="Search" onChange={handleSearch} />
+          <TextField 
+            id="standard-basic" 
+            label="Search"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)} />
           <Grid item container direction='row'>
             <TextField
             id="standard-number"
@@ -56,6 +61,8 @@ const Create = () => {
             InputLabelProps={{
               shrink: true,
             }}
+            value={size}
+            onChange={(e) => setSize(e.target.value)}
           />
             {/* <TextField id="standard-basic" label="First Name" />
             <TextField id="standard-basic" label="Last Name" /> */}
@@ -65,9 +72,11 @@ const Create = () => {
             onClick={() => {
               storeBar(search);
               setSearch('');
+              setSize('');
             }}>Submit</Button>
 
         </FormControl>
+      : <h1>Party Created!</h1>}
     </div>
 
     // <> 
