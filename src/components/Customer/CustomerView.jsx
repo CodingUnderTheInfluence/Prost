@@ -8,6 +8,7 @@ import Create from './Create.jsx';
 import FriendsList from './Social/FriendsList.jsx';
 import Messages from './Social/Messages.jsx';
 import Logout from '../Logout.jsx'
+import CustomerProfile from './Profile/CustomerProfile.jsx'
 
 
 
@@ -36,7 +37,7 @@ const CustomerView = ({ setViewValue }) => {
             return <Messages />
         }
         if (value === 3) {
-            return <OwnerProfile />
+            return <CustomerProfile setViewValue={setViewValue}/>
         }
         return (<div>PLACE INSTRUCTIONS HERE</div>)
     }

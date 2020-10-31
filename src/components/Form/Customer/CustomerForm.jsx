@@ -60,6 +60,7 @@ const CustomerForm = ({ setViewValue, gId, profileImage, username }) => {
             last: emLast,
             email: emEmail,
             number: emNumber,
+            id: gId
         }
         axios.post('/db/eContact/create', { emergencyParams })
             .then(() => {

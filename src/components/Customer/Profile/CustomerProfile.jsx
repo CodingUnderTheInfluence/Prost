@@ -6,7 +6,7 @@ import Translate from './Translate.jsx';
 import Checkin from './Checkin.jsx';
 import History from './History.jsx';
 
-const CustomerProfile = () => {
+const CustomerProfile = ({setViewValue}) => {
     const [customerId, setCustomerId] = useState(1);
     const [view, setView] = useState('Home');
     const [data, setData] = useState(false);
@@ -27,7 +27,7 @@ const CustomerProfile = () => {
 
     switch(view){
         case 'Home':
-        return <Home setView={setView} name={data.user_name}/>
+        return <Home setView={setView} name={data.user_name} setViewValue={setViewValue} />
         case 'EContact':
         return <EContact setView={setView} customerId={customerId}/>
         case 'Checkin':

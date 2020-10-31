@@ -1,7 +1,8 @@
 import React, {useState, useEffect, useLayoutEffect} from 'react';
 import { Grid, Typography, Button } from '@material-ui/core'
+import Logout from '../../Logout.jsx'
 
-export default function Home({setView, name}) {
+export default function Home({setView, name, setViewValue}) {
 
 return (
   <Grid container direction="column" justify="center" alignItems="center">
@@ -28,9 +29,7 @@ return (
       <Button variant="outlined" color="primary" onClick={()=> setView('Translate')}>
           Translate
       </Button>
-      <Button variant="outlined" color="primary" href={'/auth/logout'}>
-          Logout
-      </Button>
+      <Logout setViewValue={setViewValue} />
   </Grid>
 )
 }

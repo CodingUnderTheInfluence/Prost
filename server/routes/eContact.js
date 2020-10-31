@@ -27,31 +27,28 @@ eContactRouter.get('/', (req, res) => {
 })
 
 eContactRouter.post('/create', (req, res) => {
-  console.log(req.body, 'EMERGENCY CONTACT')
+  const {
+    first,
+    last,
+    email,
+    number,
+    id
+  } = req.body
+  res.send({
+    first,
+    last,
+    email,
+    number,
+    id
+  }, 'EMERGENCY CONTACT')
+  console.log({
+    first,
+    last,
+    email,
+    number,
+    id
+  })
 })
-
-
-
-//  //EMERGENCY CONTACT INFORMATION FIELDS
-//  const [emFirst, setEmFirst] = useState('');
-//  const [emLast, setEmLast] = useState('');
-//  const [emEmail, setEmEmail] = useState('');
-//  const [emNumber, setEmNumber] = useState();
-//  //EMERGENCY CONTACT INFORMATION SUBMIT
-//  const eContactInformationSubmit = () => {
-//      const emergencyParams = {
-//          first: emFirst,
-//          last: emLast,
-//          email: emEmail,
-//          number: emNumber,
-//      }
-//      axios.post('/db/eContact/create', { emergencyParams })
-//          .then(() => {
-//              console.log(` Successfully posted ${personalFirst}'s Emergency Contact Information to the server`)
-//          })
-//  }
-
-
 
 module.exports = {
   eContactRouter,
