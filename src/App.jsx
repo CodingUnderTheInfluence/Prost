@@ -1,8 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { render } from 'react-dom';
+import React from 'react';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Link
+} from 'react-router-dom';
+
+import CustomerView from './components/Customer/Create/CustomerView.jsx';
 import LandingPage from './components/LandingPage.jsx';
-import Create from './components/Customer/Create.jsx';
-import MapContainer from './components/Customer/Map2.jsx';
+import Create from './components/Customer/Create/Create.jsx';
+import MapContainer from './components/Customer/Create/Map2.jsx';
 
 // import MapContainer from './components/Map.jsx';
 // import MapContainer from './components/Customer/Map.jsx';

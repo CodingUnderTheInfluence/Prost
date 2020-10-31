@@ -3,6 +3,7 @@ import { GoogleMap, LoadScript, Marker, InfoWindow, useLoadScript } from '@react
 import Search from './Search.jsx';
 import PeopleSearch from './PeopleSearch.jsx';
 import QuickCreate from './QuickCreate.jsx';
+import mapStyle from '../../../helpers/mapStyle'
 import { Details } from '@material-ui/icons';
 
 
@@ -12,6 +13,35 @@ import { Details } from '@material-ui/icons';
 
 // used for the load script to get google places
 const libraries = ['places'];
+
+const mapStyles = {
+  width: '98vw',
+  height: '75vh'
+};
+
+const options = {
+  zoomControl: true,
+  scaleControl: false,
+  mapTypeControl: false,
+  fullscreenControl: false,
+  styles: mapStyle
+};
+
+const searchBox = {
+  boxSizing: `border-box`,
+  border: `1px solid transparent`,
+  width: `240px`,
+  height: `32px`,
+  padding: `0 12px`,
+  borderRadius: `3px`,
+  boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
+  fontSize: `14px`,
+  outline: `none`,
+  textOverflow: `ellipses`,
+  position: "absolute",
+  left: "50%",
+  marginLeft: "-120px"
+};
 
 
 const MapContainer = () => {
@@ -27,18 +57,9 @@ const MapContainer = () => {
   const [ searchMarker, setSearchMarker ] = useState({});
   const [ click, setClick ] = useState(false);
 
-  const mapStyles = {
-    width: '100vw',
-    height: '100vh'
-  };
   const defaultCenter = {
     lat: 29.951065,
     lng: -90.071533,
-  };
-  const options = {
-    zoomControl: true,
-    mapTypeControl: false,
-    fullscreenControl: false
   };
 
   const { isLoaded, loadError } = useLoadScript({
@@ -97,15 +118,16 @@ const MapContainer = () => {
   }
 
   return (
-    <>
+    <div style={{align: 'center'}}>
       <QuickCreate 
         getMyLocation={getMyLocation} 
         panTo={panTo}
       />
-      <PeopleSearch />
+      <PeopleSearch searchBox={searchBox} />
       <Search 
         panTo={panTo}
         currentPosition={currentPosition}
+        searchBox={searchBox}
       />
       <GoogleMap 
         mapContainerStyle={mapStyles}
@@ -121,19 +143,9 @@ const MapContainer = () => {
             position={{
               lat: +searchMarker.lat, 
               lng: +searchMarker.lng
-          }}/>
-          {click ? <InfoWindow
-            position={{
-              lat: +searchMarker.lat, 
-              lng: +searchMarker.lng
             }}
-          >
-            <div>
-              hello
-            </div>
-          </InfoWindow> 
-        
-        : null}
+          />
+          {click ? <Info /> : null}
 
         {/* {markers.map(({lat, lng, time}) => (
           <Marker 
@@ -142,12 +154,25 @@ const MapContainer = () => {
           />
         ))} */}
       </GoogleMap>
-    </>
+    </div>
 
   );
 
 };
 
+
+// {click ? <InfoWindow
+//   position={{
+//     lat: +searchMarker.lat, 
+//     lng: +searchMarker.lng
+//   }}
+// >
+//   <div>
+
+//   </div>
+// </InfoWindow> 
+
+// : null}
 
 // //////////////////////////////////////////////////////////////////////////
 // ///////////////////             dummy info            ///////////////////

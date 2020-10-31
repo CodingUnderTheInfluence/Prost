@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 
-const PeopleSearch = () => {
+const PeopleSearch = ({searchBox}) => {
   const [ input, setInput ] = useState('');
   const [ friends, setFriends ] = useState([]);
 
@@ -36,7 +36,12 @@ const PeopleSearch = () => {
 
   return (
     <>
-      <input type='text' value={input} onKeyDown={submit} onChange={handleInput} />
+      <input 
+        type='text' 
+        value={input}
+        onKeyDown={submit}
+        onChange={handleInput}
+      />
       {friends.length 
         ? friends.map(({first_name, last_name}) => (
             <div>{`${first_name} ${last_name}`}</div>

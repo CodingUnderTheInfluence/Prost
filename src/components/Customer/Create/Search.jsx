@@ -6,6 +6,7 @@ import usePlacesAutocomplete, {
   getLatLng,
   getDetails,
 } from "use-places-autocomplete";
+
 import {
   Combobox,
   ComboboxInput,
@@ -14,7 +15,7 @@ import {
   ComboboxOption,
   ComboboxOptionText,
 } from "@reach/combobox";
-// import "@reach/menu-button/styles.css";
+// import "@reach/combobox/styles.css";
 
 
 const searchStyle = {
@@ -23,13 +24,10 @@ const searchStyle = {
   left: '50%',
   padding: '10px',
 };
-const dropDown = {
-  backgroundColor: '#f5f5f5',
-  textAlign: 'left'
-}
 
 
-const Search = ({panTo, currentPosition}) => {
+
+const Search = ({panTo, currentPosition, searchBox}) => {
 
   const [ placeInfo, setPlaceInfo ] = useState(null);
   const {
@@ -50,24 +48,27 @@ const Search = ({panTo, currentPosition}) => {
 
   return (
     <div style={searchStyle}>
-      <Combobox onSelect={async (address) => {
-        setValue(address, false);
-        clearSuggestions();
-        try {
-          const results = await getGeocode({ address });
-          const { lat, lng } = await getLatLng(results[0]);
-          panTo({ lat, lng });
-          // searchInfo({lat, lng});
+      <Combobox 
+        onSelect={async (address) => {
+          setValue(address, false);
+          clearSuggestions();
+          try {
+            const results = await getGeocode({ address });
+            const { lat, lng } = await getLatLng(results[0]);
+            panTo({ lat, lng });
+            setValue('');
+            // searchInfo({lat, lng});
 
-          const details = await getDetails(results[0]);
-          setPlaceInfo(details);
-        }
-        catch(err) {
-          console.error(err);
-        }
-      }}
+            // const details = await getDetails(results[0]);
+            // setPlaceInfo(details);
+          }
+          catch(err) {
+            console.error(err);
+          }
+        }}
       >
         <ComboboxInput 
+          style={searchBox}
           value={value} 
           onChange={(e) => {
             setValue(e.target.value);
@@ -76,8 +77,8 @@ const Search = ({panTo, currentPosition}) => {
           placeholder='Find bars'
         />
         {/* takes the suggestions from google places */}
-        <ComboboxPopover style={dropDown}>
-          <ComboboxList style={{listStyleType: 'none'}}>
+        <ComboboxPopover>
+          <ComboboxList>
             {status === 'OK' 
               && data.map(({ place_id, description }) => (
                 <ComboboxOption key={place_id} value={description} />
