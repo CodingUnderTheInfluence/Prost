@@ -10,9 +10,7 @@ import CustomerView from './components/Customer/Create/CustomerView.jsx';
 import LandingPage from './components/LandingPage.jsx';
 import Create from './components/Customer/Create/Create.jsx';
 import MapContainer from './components/Customer/Create/Map2.jsx';
-
-// import MapContainer from './components/Map.jsx';
-// import MapContainer from './components/Customer/Map.jsx';
+// import MapContainer from './components/Customexr/Map.jsx';
 import OwnerView from './components/Owner/OwnerView.jsx';
 
 

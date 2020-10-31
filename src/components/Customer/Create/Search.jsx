@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { TextField } from '@material-ui/core';
-import BarInfo from './BarInfo.jsx';
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
@@ -27,9 +25,9 @@ const searchStyle = {
 
 
 
-const Search = ({panTo, currentPosition, searchBox}) => {
+const Search = ({panTo, currentPosition, searchBox, getPlaceInfo}) => {
 
-  const [ placeInfo, setPlaceInfo ] = useState(null);
+  // const [ placeInfo, setPlaceInfo ] = useState(null);
   const {
     ready, 
     value,
@@ -54,12 +52,13 @@ const Search = ({panTo, currentPosition, searchBox}) => {
           clearSuggestions();
           try {
             const results = await getGeocode({ address });
+            const details = await getDetails(results[0]);
+            getPlaceInfo(details);
+
             const { lat, lng } = await getLatLng(results[0]);
             panTo({ lat, lng });
             setValue('');
-            // searchInfo({lat, lng});
 
-            // const details = await getDetails(results[0]);
             // setPlaceInfo(details);
           }
           catch(err) {

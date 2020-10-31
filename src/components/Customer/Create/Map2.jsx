@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { GoogleMap, LoadScript, Marker, InfoWindow, useLoadScript } from '@react-google-maps/api';
+import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
 import Search from './Search.jsx';
+import BarInfo from './BarInfo.jsx';
 import PeopleSearch from './PeopleSearch.jsx';
 import QuickCreate from './QuickCreate.jsx';
 import mapStyle from '../../../helpers/mapStyle'
@@ -56,6 +57,7 @@ const MapContainer = () => {
   const [ markers, setMarkers ] = useState([]);
   const [ searchMarker, setSearchMarker ] = useState({});
   const [ click, setClick ] = useState(false);
+  const [ placeInfo, setplaceInfo ] = useState(null);
 
   const defaultCenter = {
     lat: 29.951065,
@@ -106,9 +108,11 @@ const MapContainer = () => {
   };
 
   // get places info from search bar
-  // const searchInfo = useCallback(({ lat, lng}) => {
-  //   setSearchMarker({ lat, lng });
-  // }, []);
+  const getPlaceInfo = useCallback((results) => {
+    const { lat, lng } = results; 
+    setSearchMarker({ lat, lng });
+    setplaceInfo(results);
+  }, []);
 
   if (loadError) {
     return 'Error loading maps';
@@ -128,6 +132,7 @@ const MapContainer = () => {
         panTo={panTo}
         currentPosition={currentPosition}
         searchBox={searchBox}
+        getPlaceInfo={getPlaceInfo}
       />
       <GoogleMap 
         mapContainerStyle={mapStyles}
@@ -145,7 +150,10 @@ const MapContainer = () => {
               lng: +searchMarker.lng
             }}
           />
-          {click ? <Info /> : null}
+          {click ? <BarInfo
+            placeInfo={placeInfo}
+            searchMarker={searchMarker}  
+          /> : null}
 
         {/* {markers.map(({lat, lng, time}) => (
           <Marker 
