@@ -7,10 +7,6 @@ const models = require('./db/models/dbindex');
 const dotenv = require('dotenv');
 // const googleAuth = require('./googleAuth');
 
-<<<<<<< HEAD
-
-=======
->>>>>>> hurricane/rebase
 // const auth = require('./auth/authroute');
 const app = express();
 const port = process.env.PORT || 3000;

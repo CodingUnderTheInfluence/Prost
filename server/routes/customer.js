@@ -70,7 +70,7 @@ customerRouter.post('/check', async (req, res) => {
 customerRouter.post('/create', (req, res) => {
   // console.log(req.body.personalParams)
   const { first, last, email, number, gender, googleId, image, username } = req.body.personalParams;
-  Customer.findAll({ where: googleId })
+  Customer.findAll({ where: { id_google: googleId } })
     .then((customers) => {
       if (customers.length > 0) {
         res.send('FOUND USER')

@@ -17,17 +17,9 @@ const { Op } = require('sequelize');
 const eContactRouter = Router();
 
 eContactRouter.get('/', (req, res) => {
-  EContact.findAll()
-    .then((eContacts) => {
-      res.send(eContacts);
-    })
-    .catch((err) => {
-      res.status(500).send(err);
-    });
 })
 
 eContactRouter.post('/create', (req, res) => {
-  console.log(req.body, 'EMERGENCY CONTACT')
 })
 
 
