@@ -25,7 +25,9 @@
     "react-dom": "^17.0.1",
     "react-google-login": "^5.1.22",
     "react-router-dom": "^5.2.0",
-    "sequelize": "^6.3.5"
+    "sequelize": "^6.3.5",
+    "socket.io": "^2.3.0",
+    "socket.io-client": "^2.3.1"
   },
   "husky": {
     "hooks": {

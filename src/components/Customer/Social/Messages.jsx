@@ -1,6 +1,7 @@
 import React from 'react'
 import MessageList from './messageList.jsx';
 import {Button} from '@material-ui/core'
+import io from 'socket.io-client';
 
 
 //render a search bar at the top
@@ -9,6 +10,14 @@ import {Button} from '@material-ui/core'
 
 
 function Messages() {
+    useEffect(() => {
+        const socket = io("localhost:3000", {
+            reconnectionDelayMax: 10000,
+            query: {
+                auth: "123"
+            }
+        });
+    })
     return (
         <div>
             <div>

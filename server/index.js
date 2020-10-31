@@ -9,12 +9,14 @@ const dotenv = require('dotenv');
 
 // const auth = require('./auth/authroute');
 const app = express();
+const http = require('http').createServer(app);
 const port = process.env.PORT || 3000;
 const DIST_DIR = path.join(__dirname, '../dist'); // NEW
 const HTML_FILE = path.join(DIST_DIR, 'index.html'); // NEW
 // const cookieSession = require('cookie-session');
 const cors = require('cors');
 
+const io = require('socket.io')(http);
 // app.use(
 //   cookieSession({
 //     name: 'prost',
@@ -88,6 +90,15 @@ const { eContactRouter } = require('./routes/eContact');
 app.use('/db/eContact', eContactRouter);
 // app.use('/auth', auth);
 
+//SOCKET STUFF
+const connectedUsers = {};
+
+io.on('connection', (socket) => {
+  console.log(`new client connected : ${socket.id}`);
+  connectedUsers[socket.id] = socket.id
+  socket.emit('connection', null);
+});
+
 app.get('/', (req, res) => {
   res.sendFile(HTML_FILE); // EDIT
 });
@@ -119,6 +130,6 @@ const syncModels = async () => {
 connection();
 syncModels();
 
-app.listen(port, function () {
+http.listen(port, function () {
   console.log('App listening on port: ' + port);
 });
