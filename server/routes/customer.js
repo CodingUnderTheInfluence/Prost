@@ -19,7 +19,6 @@ const { OAuth2Client } = require('google-auth-library');
 const { FormatColorResetRounded } = require('@material-ui/icons');
 const client = new OAuth2Client('')
 
-
 const googleAuth = async (authToken) => {
   const ticket = await client.verifyIdToken({
     idToken: authToken,
@@ -60,18 +59,58 @@ customerRouter.post('/check', (req, res) => {
     })
 })
 
-// customerRouter.get('/check', (req, res) => {
-//   res.send('TRUE')
-// })
-// Customer.findAll()
-// .then((customers) => {
-//   res.send(customers);
-// })
-// .catch((err) => {
-//   res.status(500).send(err);
-// });
+customerRouter.post('/create', (req, res) => {
+  //if it doesnt exist, then create it...if it is there
+  // console.log(req.body.personalParams)
+  const { first, last, email, number, gender, googleId, image, username } = req.body.personalParams
+  Customer.findOne({ where: googleId })
+    .then(() => {
+      res.send('FOUND USER')
+    })
+    .catch(() => {
+      Customer.create({
+        first_name: first,
+        last_name: last,
+        user_name: username,
+        id_google: googleId,
+        email: email,
+        phone_number: number,
+        gender_type: gender,
+        profile_image: image,
+      })
+    })
+})
 
-// 
+customerRouter.post('/location', (req, res) => {
+  const { address, city, state, zip, googleId } = req.body.locationParams;
+  Customer.update({
+    address,
+    city,
+    state,
+    zip,
+  }, { where: { id_google: googleId } })
+})
+
+
+// //LOCATION INFORMATION FIELDS
+// const [address, setAddress] = useState('');
+// const [city, setCity] = useState('');
+// const [state, setState] = useState('');
+// const [zip, setZip] = useState();
+// //LOCATION INFORMATION SUBMIT
+// const locationInformationSubmit = () => {
+//     const locationParams = {
+//         address: address,
+//         city: city,
+//         state: state,
+//         zip: zip,
+//     }
+//     axios.post('/db/customer/location', { locationParams })
+//         .then(() => {
+//             console.log(` Successfully posted ${personalFirst}'s Location Information to the server`)
+//         })
+// }
+
 module.exports = {
   customerRouter,
   googleAuth
