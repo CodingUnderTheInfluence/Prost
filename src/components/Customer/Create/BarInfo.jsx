@@ -19,20 +19,37 @@ const useStyles = makeStyles({
 });
 
 const BarInfo = ({placeInfo, searchMarker}) => {
-  const { photos } = placeInfo;
+  const { photos, title, time } = placeInfo;
   const photo = photos[0].getUrl();
   const classes = useStyles();
   return (
-    <InfoWindow
-      position={{
-        lat: +searchMarker.lat, 
-        lng: +searchMarker.lng
-      }}
-    >
-      <div>
-        <img src={photo} width='300'/>
-      </div>
-    </InfoWindow>
+
+    <Card>
+      <CardMedia> 
+        <img src={photo} style={{width: 300, alignItems: 'center'}} />
+      </CardMedia>
+      <CardContent>
+        <Typography className={title} variant='h4'>
+          {placeInfo.name}
+        </Typography>
+        {placeInfo.opening_hours !== undefined
+          ? placeInfo.opening_hours.weekday_text.map(day => (
+              <Typography className={time} component='p'>{day}</Typography>
+            ))
+          : <Typography className={time} component='p'>no info avaiable</Typography>
+        }
+      </CardContent>
+    </Card>
+    // <InfoWindow
+    //   position={{
+    //     lat: +searchMarker.lat, 
+    //     lng: +searchMarker.lng
+    //   }}
+    // >
+    //   <div>
+    //     <img src={photo} width='300'/>
+    //   </div>
+    // </InfoWindow>
   )
 };
 

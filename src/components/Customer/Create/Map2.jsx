@@ -6,11 +6,7 @@ import PeopleSearch from './PeopleSearch.jsx';
 import QuickCreate from './QuickCreate.jsx';
 import mapStyle from '../../../helpers/mapStyle'
 import { Details } from '@material-ui/icons';
-
-
-// nola lat long
-// lat: 29.951065,
-// lng: -90.071533,
+import BarCard from './BarInfoCardTest.jsx';
 
 // used for the load script to get google places
 const libraries = ['places'];
@@ -122,6 +118,7 @@ const MapContainer = () => {
   }
 
   return (
+
     <div style={{align: 'center'}}>
       <QuickCreate 
         getMyLocation={getMyLocation} 
@@ -150,20 +147,23 @@ const MapContainer = () => {
               lng: +searchMarker.lng
             }}
           />
-          {click ? <BarInfo
+          {/* {click ? <BarInfo
             placeInfo={placeInfo}
             searchMarker={searchMarker}  
-          /> : null}
+          /> : null} */}
 
         {/* {markers.map(({lat, lng, time}) => (
           <Marker 
-            key={time.toISOString()} 
-            position={{ lat, lng }}
+          key={time.toISOString()} 
+          position={{ lat, lng }}
           />
         ))} */}
       </GoogleMap>
+      {click ? <BarInfo
+            placeInfo={placeInfo}
+            searchMarker={searchMarker}  
+            /> : null}
     </div>
-
   );
 
 };

@@ -14,6 +14,8 @@ import MapContainer from './components/Customer/Create/Map2.jsx';
 import OwnerView from './components/Owner/OwnerView.jsx';
 
 
+
+
 const App = () => {
   return (
     <>
@@ -37,9 +39,8 @@ const App = () => {
           </Route>
         </Switch>
       </Router>
-
       <MapContainer />
-      <CustomerView />
+      <CustomerView /> 
       {/* <OwnerView /> */}
     </>
   );
