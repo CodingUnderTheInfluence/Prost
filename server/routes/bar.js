@@ -16,6 +16,18 @@ const { Router } = require('express');
 const { Op } = require('sequelize');
 const barRouter = Router();
 
+
+barRouter.get('/all', (req, res) => {
+  Bar.findAll()
+    .then((bar) => {
+      res.status(200).send(bar);
+    })
+    .catch(err => {
+      res.status(500).send('error in get bar');
+
+    });
+});
+
 barRouter.get('/', (req, res) => {
   const { bar_name } = req.query;
   Bar.findAll({
@@ -30,7 +42,10 @@ barRouter.get('/', (req, res) => {
         res.send(null);
       }
     })
-    .catch(err => console.error('error in get bar'));
+    .catch(err => {
+      res.status(500).send('error in get bar');
+
+    });
 });
 
 

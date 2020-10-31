@@ -26,12 +26,13 @@ partyRouter.get('/', (req, res) => {
     });
 });
 
-partyRouter.post('/', (req, res) => {
-  const { id_bar, size } = req.body;
+partyRouter.post('/create', (req, res) => {
+  const { barId, size } = req.body;
+  console.log(barId);
   Party.findOrCreate({
     where: {
-      id_bar,
-      size
+      id_bar: barId,
+      size: size
     }
   })
     .then((party) => {

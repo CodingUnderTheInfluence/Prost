@@ -25,21 +25,16 @@ const useStyles = makeStyles({
   }
 });
 
-/**
- * if bar isn't in database then add it set party that way.
- */
-
-
 const Create = () => {
   const [ search, setSearch ] = useState('');
+  const [ size, setSize ] = useState(1);
   
-  const storeBar = () => {
-    axios.get(`/db/bar?bar_name=${search}`)
-      .then(({data}) => {
-        if (data) {
-          console.log(data[0].id);
-        }
-      })
+  const storeBar = async () => {
+    const bar = await axios.post(`/db/bar/create?bar_name=${search}`);
+    const barId = bar.data[0].id;
+
+    const party = await axios.post(`db/party/create?bar_id=${barId}`);
+    console.log(party);
   };
   
   const classes = useStyles();
@@ -53,8 +48,17 @@ const Create = () => {
         <FormControl fullWidth className={classes.root}>
           <TextField id="standard-basic" value={search} label="Search" onChange={handleSearch} />
           <Grid item container direction='row'>
-            <TextField id="standard-basic" label="First Name" />
-            <TextField id="standard-basic" label="Last Name" />
+            <TextField
+            id="standard-number"
+            label="Size"
+            type="number"
+            InputProps={{ inputProps: { min: 0, max: 10 } }}
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+            {/* <TextField id="standard-basic" label="First Name" />
+            <TextField id="standard-basic" label="Last Name" /> */}
           </Grid>
           <Button 
             variant="outlined" 
@@ -107,3 +111,18 @@ const QuickCreate = () => {
     };
     
 export default Create;
+
+
+
+
+
+////////////////////////////////////////        get bar info        ////////////////////////////////////////
+
+// const storeBar = () => {
+//   axios.get(`/db/bar/create?bar_name=${search}`)
+//     .then(({data}) => {
+//       if (data) {
+//         console.log(data[0].id);
+//       }
+//     })
+// };
