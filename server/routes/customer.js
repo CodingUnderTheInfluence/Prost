@@ -41,13 +41,13 @@ customerRouter.post('/', (req, res) => {
 
 customerRouter.post('/check', (req, res) => {
   const { gProfile } = req.body.googleProfile
-  Customer.findOne({ where: gProfile.googleId })
+  Customer.findAll({ where: gProfile.googleId })
     .then(() => {
       console.log('USER FOUND IN CUSTOMER TABLE')
       res.send('Customer')
     })
     .catch(() => {
-      Owner.findOne({ where: gProfile.googleId })
+      Owner.findAll({ where: { id_google: gProfile.googleId } })
         .then(() => {
           console.log('USER FOUND IN OWNER TABLE')
           res.send('Owner')
@@ -60,10 +60,9 @@ customerRouter.post('/check', (req, res) => {
 })
 
 customerRouter.post('/create', (req, res) => {
-  //if it doesnt exist, then create it...if it is there
   // console.log(req.body.personalParams)
-  const { first, last, email, number, gender, googleId, image, username } = req.body.personalParams
-  Customer.findOne({ where: googleId })
+  const { first, last, email, number, gender, googleId, image, username } = req.body.personalParams;
+  Customer.findAll({ where: googleId })
     .then(() => {
       res.send('FOUND USER')
     })
@@ -90,6 +89,17 @@ customerRouter.post('/location', (req, res) => {
     zip,
   }, { where: { id_google: googleId } })
 })
+
+// Customer.create({
+//   first_name: first,
+//   last_name: last,
+//   user_name: username,
+//   id_google: googleId,
+//   email: email,
+//   phone_number: number,
+//   gender_type: gender,
+//   profile_image: image,
+// })
 
 
 // //LOCATION INFORMATION FIELDS
