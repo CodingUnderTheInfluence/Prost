@@ -18,79 +18,41 @@ const eContactRouter = Router();
 
 eContactRouter.get('/', (req, res) => {
   EContact.findAll()
-  .then((eContacts) => {
-    res.send(eContacts);
-  })
-  .catch((err) => {
-    res.status(500).send(err);
-  });
-})
-
-eContactRouter.get('/customer/:customerId', (req, res) => {
-  const {customerId} = req.params;
-  // res.send(`id ${customerId}`)
-  EContact.findAll({
-    where: {
-      id_customer: customerId
-    }
-  })
-  .then((eContacts) => {
-    eContacts.length > 0 ? res.send(eContacts) : res.send('Empty');
-  })
-  .catch((err) => {
-    res.status(500).send(err);
-  });
-})
-
-eContactRouter.post('/add', (req, res) => {
-  const {
-    customerId,
-    first_name,
-    last_name,
-    phone_number,
-    email
-  } = req.body;
-  // res.send(`id ${customerId}`)
-  EContact.create({
-    id_customer: customerId,
-    first_name,
-    last_name,
-    phone_number,
-    email
-  })
-    .then((response) => {
-      res.send(response);
+    .then((eContacts) => {
+      res.send(eContacts);
     })
     .catch((err) => {
       res.status(500).send(err);
     });
 })
 
-eContactRouter.put('/edit', (req, res) => {
-  const {
-    eContactId,
-    first_name,
-    last_name,
-    phone_number,
-    email
-  } = req.body;
-  EContact.update({
-      first_name,
-      last_name,
-      phone_number,
-      email
-  }, {
-    where: {
-      id: eContactId,
-    },
-  })
-    .then((response) => {
-      res.send(response);
-    })
-    .catch((err) => {
-      res.status(500).send(err);
-    });
+eContactRouter.post('/create', (req, res) => {
+  console.log(req.body, 'EMERGENCY CONTACT')
 })
+
+
+
+//  //EMERGENCY CONTACT INFORMATION FIELDS
+//  const [emFirst, setEmFirst] = useState('');
+//  const [emLast, setEmLast] = useState('');
+//  const [emEmail, setEmEmail] = useState('');
+//  const [emNumber, setEmNumber] = useState();
+//  //EMERGENCY CONTACT INFORMATION SUBMIT
+//  const eContactInformationSubmit = () => {
+//      const emergencyParams = {
+//          first: emFirst,
+//          last: emLast,
+//          email: emEmail,
+//          number: emNumber,
+//      }
+//      axios.post('/db/eContact/create', { emergencyParams })
+//          .then(() => {
+//              console.log(` Successfully posted ${personalFirst}'s Emergency Contact Information to the server`)
+//          })
+//  }
+
+
+
 module.exports = {
   eContactRouter,
 };
