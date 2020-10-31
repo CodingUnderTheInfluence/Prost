@@ -8,7 +8,7 @@ import {
   CardActions
 } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-import { results } from '../../data/places.json';
+import { results } from '../../../data/places.json';
 
 
 const useStyles = makeStyles({

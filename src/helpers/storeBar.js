@@ -1,14 +1,11 @@
-const axios = require('axios');
+// const axios = require('axios');
 
-const storeBar = (bar_name, phone_number) => {
-  axios.post('/db/bar', {
-    bar_name,
-    phone_number,
-  })
-    .then(data => {
-      console.log(data);
-    })
-    .catch(err => console.log(err));
-};
+// const storeBar = async (bar_name, phone_number) => {
+//   const getBar = await axios.get('/db/bar/', {
+//     params: { bar_name }
+//   });
+//   console.log('storebar axios get', getBar);
 
-module.exports = storeBar;
+// };
+
+// module.exports = storeBar;
