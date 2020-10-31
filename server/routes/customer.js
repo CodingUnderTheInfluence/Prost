@@ -39,6 +39,20 @@ customerRouter.post('/', (req, res) => {
   // googleAuth(authToken);
 })
 
+customerRouter.get('/all', (req, res) => {
+  Customer.findAll()
+  .then((customers) => {
+    if (customers.length > 0) {
+      res.send(customers)
+    } else {
+      res.send('empty')
+    }
+  })
+  .catch((err) => {
+    console.error('ERROR IN CHECK FOR CUSTOMER OR OWNER')
+  })
+})
+
 customerRouter.post('/check', async (req, res) => {
   const { gProfile } = req.body.googleProfile
   const { authToken } = req.body.googleToken

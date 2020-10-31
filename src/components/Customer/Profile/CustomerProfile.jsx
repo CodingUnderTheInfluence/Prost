@@ -12,7 +12,7 @@ const CustomerProfile = ({setViewValue}) => {
     const [data, setData] = useState(false);
 
     useEffect(() => {
-      fetch(`${process.env.REDIRECT}/db/customer`, {
+      fetch(`${process.env.REDIRECT}/db/customer/all`, {
         method: 'GET',
       })
       .then(response => response.json())
