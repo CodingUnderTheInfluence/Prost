@@ -35,7 +35,7 @@ const CustomerView = ({ setViewValue, gId }) => {
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
-        console.log('!!!!CustomerView', gId)
+        // console.log('!!!!CustomerView', gId)
     };
 
     const renderView = () => {

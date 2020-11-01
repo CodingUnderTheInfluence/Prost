@@ -71,7 +71,7 @@ const CustomerForm = ({ setViewValue, gId, profileImage, username }) => {
         }
         axios.post('/db/eContact/add', emergencyParams)
             .then((res) => {
-                console.log(res)
+                // console.log(res)
                 console.log(` Successfully posted ${personalFirst}'s Emergency Contact Information to the server`)
             })
     }
