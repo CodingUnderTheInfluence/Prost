@@ -1,21 +1,16 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import createParty from '../../../helpers/createParty';
 import { 
   Grid, 
   Button, 
   Typography, 
   TextField, 
-  Radio, 
-  RadioGroup, 
   FormControl, 
   FormControlLabel, 
   FormLabel, 
-  InputLabel, 
-  Input,
-  InputAdornment
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import storeBar from '../../../helpers/storeBar';
 
 const useStyles = makeStyles({
   root: {
@@ -30,15 +25,12 @@ const Create = () => {
   const [ size, setSize ] = useState(1);
   const [ party, setParty ] = useState(false);
   
-  const storeBar = async () => {
-    const bar = await axios.post(`/db/bar/create?bar_name=${search}`);
-    const barId = bar.data[0].id;
-
-    const party = await axios.post(`db/party/create`, {
-      id_bar: barId,
-      size: size
-    });
-    setParty(true);
+  const handleParty = () => {
+    createParty(search, size)
+      .then(() => {
+        setParty(true);
+      })
+      .catch(err => console.error('error in party create', err));
   };
   
   const classes = useStyles();
@@ -70,7 +62,7 @@ const Create = () => {
           <Button 
             variant="outlined" 
             onClick={() => {
-              storeBar(search);
+              handleParty();
               setSearch('');
               setSize('');
             }}>Submit</Button>

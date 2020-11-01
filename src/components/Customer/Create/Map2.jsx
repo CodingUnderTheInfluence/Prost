@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
 import Search from './Search.jsx';
 import BarInfo from './BarInfo.jsx';
+import Create from './Create.jsx';
 import PeopleSearch from './PeopleSearch.jsx';
 import QuickCreate from './QuickCreate.jsx';
 import mapStyle from '../../../helpers/mapStyle'
@@ -120,11 +121,11 @@ const MapContainer = () => {
   return (
 
     <div style={{align: 'center'}}>
-      <QuickCreate 
+      {/* <QuickCreate 
         getMyLocation={getMyLocation} 
         panTo={panTo}
-      />
-      <PeopleSearch searchBox={searchBox} />
+      /> */}
+      {/* <PeopleSearch searchBox={searchBox} /> */}
       <Search 
         panTo={panTo}
         currentPosition={currentPosition}

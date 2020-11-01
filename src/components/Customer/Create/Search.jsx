@@ -40,7 +40,7 @@ const Search = ({panTo, currentPosition, searchBox, getPlaceInfo}) => {
         lat: () => currentPosition.lat,
         lng: () => currentPosition.lng
       },
-      radius: 10000,
+      radius: 1000,
     }
   });
 
