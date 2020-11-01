@@ -5,11 +5,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import { 
   Card, 
   CardContent,
+  CardActions,
   Typography,
   CardMedia,
   Button,
-  CardActions
+  IconButton
 } from '@material-ui/core';
+import LocalBarIcon from '@material-ui/icons/LocalBar';
 
 const useStyles = makeStyles({
   title: {
@@ -20,8 +22,9 @@ const useStyles = makeStyles({
   },
   phone: {
     fontSize: '1.5em'
-  }
+  },
 });
+
 const searchStyle = {
   position: 'fixed', 
   zIndex: 2,
@@ -30,6 +33,7 @@ const searchStyle = {
 
 const BarInfo = ({placeInfo, searchMarker}) => {
   const [ show, setShow ] = useState(true);
+  const [ atBar, setAtBar ] = useState(false);
   const { photos, title, time, } = placeInfo;
   const photo = photos[0].getUrl();
   const classes = useStyles();
@@ -61,12 +65,21 @@ const BarInfo = ({placeInfo, searchMarker}) => {
           >
             Close
           </Button>
-          <Button 
+          {/* <Button 
             style={{float: 'right'}}
             onClick={() => createParty(placeInfo)}
           >
-            Create Party
-          </Button>
+          Create Party
+        </Button> */}
+        <IconButton 
+          aria-label='at bar'
+          onClick={() => {
+            createParty(placeInfo);
+            setAtBar(!atBar);
+          }}
+        >
+          {!atBar ? <LocalBarIcon /> : <LocalBarIcon color='secondary' />}
+        </IconButton>
         </CardActions>
       </Card>
     </div>

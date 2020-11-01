@@ -48,7 +48,6 @@ barRouter.get('/', (req, res) => {
     });
 });
 
-
 barRouter.post('/create', (req, res) => {
   const { bar_name, address, phone_number } = req.body;
   Bar.findOrCreate({

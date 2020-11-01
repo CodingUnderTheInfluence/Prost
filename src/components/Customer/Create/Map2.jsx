@@ -121,10 +121,6 @@ const MapContainer = () => {
   return (
 
     <div style={{align: 'center'}}>
-      {/* <QuickCreate 
-        getMyLocation={getMyLocation} 
-        panTo={panTo}
-      /> */}
       {/* <PeopleSearch searchBox={searchBox} /> */}
       <Search 
         panTo={panTo}
@@ -165,6 +161,15 @@ const MapContainer = () => {
           />
         ))} */}
       </GoogleMap>
+      <QuickCreate
+        style={{
+          position: 'absolute', 
+          zIndex: 10,
+          bottom: 100
+        }} 
+        getMyLocation={getMyLocation} 
+        panTo={panTo}
+      />
     </div>
   );
 

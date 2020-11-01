@@ -29,10 +29,9 @@ const handleClick = () => {
       alignItems: 'center'
     }}>
       <Fab 
-        variant="extended"
+        color='primary'
         onClick={handleClick}
       ><MyLocationIcon  />
-        I'm drinking!
       </Fab >
     </div>
   );
