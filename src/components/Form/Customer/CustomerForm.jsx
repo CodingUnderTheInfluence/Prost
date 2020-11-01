@@ -55,6 +55,13 @@ const CustomerForm = ({ setViewValue, gId, profileImage, username }) => {
     const [emNumber, setEmNumber] = useState();
     //EMERGENCY CONTACT INFORMATION SUBMIT
     const eContactInformationSubmit = () => {
+        console.log('add econtact', {
+            first: emFirst,
+            last: emLast,
+            email: emEmail,
+            number: emNumber,
+            id: gId
+        })
         const emergencyParams = {
             first: emFirst,
             last: emLast,
@@ -62,8 +69,9 @@ const CustomerForm = ({ setViewValue, gId, profileImage, username }) => {
             number: emNumber,
             id: gId
         }
-        axios.post('/db/eContact/add', { emergencyParams })
-            .then(() => {
+        axios.post('/db/eContact/add', emergencyParams)
+            .then((res) => {
+                console.log(res)
                 console.log(` Successfully posted ${personalFirst}'s Emergency Contact Information to the server`)
             })
     }

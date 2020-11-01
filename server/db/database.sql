@@ -5,8 +5,8 @@ CREATE TABLE "customer" (
   "first_name" varchar,
   "last_name" varchar,
   "user_name" varchar,
-  "id_facebook" int,
-  "id_google" int,
+  "id_facebook" varchar,
+  "id_google" varchar,
 );
 
 CREATE TABLE "owner" (
@@ -15,8 +15,8 @@ CREATE TABLE "owner" (
   "last_name" varchar,
   "user_name" varchar,
   "password" varchar,
-  "id_facebook" int,
-  "id_google" int,
+  "id_facebook" varchar,
+  "id_google" varchar,
 );
 
 CREATE TABLE "eContact" (

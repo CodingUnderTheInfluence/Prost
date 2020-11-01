@@ -41,7 +41,17 @@ customerRouter.post('/', (req, res) => {
 
 customerRouter.get('/gId/:gId', (req, res) => {
   const { gId } = req.params;
-  res.send(gId);
+  Customer.findOne({
+    where: {
+      "id_google": `${gId}`
+    }
+  })
+  .then((customers) => {
+    res.send(customers);
+  })
+  .catch((err) => {
+    console.error('ERROR IN CHECK FOR CUSTOMER BY GoogleID')
+  })
 })
 
 customerRouter.get('/all', (req, res) => {
@@ -54,7 +64,7 @@ customerRouter.get('/all', (req, res) => {
     }
   })
   .catch((err) => {
-    console.error('ERROR IN CHECK FOR CUSTOMER OR OWNER')
+    console.error('ERROR IN CHECK FOR ALL CUSTOMERS')
   })
 })
 

@@ -28,6 +28,7 @@ eContactRouter.get('/', (req, res) => {
 
 eContactRouter.get('/customer/:customerId', (req, res) => {
   const {customerId} = req.params;
+  console.log(customerId, "from econt get customer contact")
   // res.send(`id ${customerId}`)
   EContact.findAll({
     where: {
@@ -50,13 +51,19 @@ eContactRouter.post('/add', (req, res) => {
     number,
     id
   } = req.body;
+  console.log("@@@START@@@", first,
+  last,
+  email,
+  number,
+  id)
   // res.send(`${first}, ${last}, ${email}, ${number}, ${id}`)
   Customer.findOne({
     where: {
-      "id_google" : id
+      "id_google" : `${id}`
     }
   })
   .then(result => {
+    console.log("@@@@@@", result)
     const customerId = result.id;
     EContact.create({
     id_customer: customerId,

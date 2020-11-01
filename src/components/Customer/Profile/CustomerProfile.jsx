@@ -14,14 +14,15 @@ const CustomerProfile = ({setViewValue, gId}) => {
     });
 
     useEffect(() => {
+      console.log("customer profile", gId)
       fetch(`/db/customer/gId/${gId}`, {
         method: 'GET',
       })
       .then(response => response.json())
       .then(data => {
         console.log("PROFILE DATA", data)
-        // setData(data[1])
-        setCustomerId(1)
+        setData(data)
+        setCustomerId(data.id)
       })
       .catch((error) => {
         console.error('Error:', error);
