@@ -98,15 +98,6 @@ const CustomerForm = ({ setViewValue, gId, profileImage, username }) => {
                     <Grid item container direction="row" style={{ border: 'solid black 1px', padding: '10px', margin: '5px 0 5px 0' }}>
                         <TextField id="standard-basic" label="Phone Number" onChange={(e) => { setPersonalNumber(Number(e.target.value)) }} />
                     </Grid>
-                    <Grid item container direction="row" style={{ border: 'solid black 1px', padding: '10px', margin: '5px 0 5px 0' }}>
-                        <FormControl component="fieldset" color="primary" >
-                            <FormLabel component="legend">Gender</FormLabel>
-                            <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange}>
-                                <FormControlLabel value="female" control={<Radio />} label="Female" />
-                                <FormControlLabel value="male" control={<Radio />} label="Male" />
-                            </RadioGroup>
-                        </FormControl>
-                    </Grid>
                     <Button variant="outlined"
                         onClick={() => {
                             setCounter(2);

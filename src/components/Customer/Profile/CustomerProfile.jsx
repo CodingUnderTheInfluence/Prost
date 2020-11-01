@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Home from './Home.jsx';
 import EContact from './EContact.jsx';
 import Favorite from './Favorite.jsx';
@@ -14,18 +14,19 @@ const CustomerProfile = ({setViewValue, gId}) => {
     });
 
     useEffect(() => {
-      fetch(`${process.env.REDIRECT}/db/customer/gId/${gId}`, {
+      fetch(`/db/customer/gId/${gId}`, {
         method: 'GET',
       })
       .then(response => response.json())
       .then(data => {
-        setData(data[1])
-        setCustomerId(data[1].id)
+        console.log("PROFILE DATA", data)
+        // setData(data[1])
+        setCustomerId(1)
       })
       .catch((error) => {
         console.error('Error:', error);
       });
-    }, []);
+  }, []);
 
     switch(view){
         case 'Home':

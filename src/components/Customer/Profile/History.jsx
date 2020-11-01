@@ -6,7 +6,7 @@ import HistoryList from './HistoryList.jsx'
 export default function History({setView, customerId}) {
   const [list, setList] = useState(null);
   const getData = () => {
-    fetch(`${process.env.REDIRECT}/db/cb/history/${customerId}`, {
+    fetch(`/db/cb/history/${customerId}`, {
       method: 'GET',
     })
     .then(response => response.json())

@@ -7,7 +7,7 @@ import HistoryList from './HistoryList.jsx'
 export default function Favorite({setView, customerId}) {
   const [list, setList] = useState(null);
   const getData = () => {
-    fetch(`${process.env.REDIRECT}/db/cb/favorite/${customerId}`, {
+    fetch(`/db/cb/favorite/${customerId}`, {
       method: 'GET',
     })
     .then(response => response.json())
@@ -25,7 +25,7 @@ export default function Favorite({setView, customerId}) {
         id_bar: num,
         id_customer: customerId
       }
-      const result = await fetch(`${process.env.REDIRECT}/db/cb/delete/favorite`, {
+      const result = await fetch(`/db/cb/delete/favorite`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

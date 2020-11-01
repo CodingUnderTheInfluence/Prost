@@ -10,7 +10,7 @@ export default function HistoryList({ list, customerId }) {
         id_bar: list.id,
         id_customer: customerId
       }
-      const result = await fetch(`${process.env.REDIRECT}/db/cb/add/favorite`, {
+      const result = await fetch(`/db/cb/add/favorite`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
