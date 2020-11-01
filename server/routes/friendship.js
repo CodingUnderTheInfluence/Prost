@@ -26,6 +26,29 @@ friendshipRouter.get('/', (req, res) => {
   });
 })
 
+friendshipRouter.get('/all/friends/:customerId', (req, res) => {
+  const { customerId } = req.params
+  Friendship.findAll({
+    where: {
+      id_customer: customerId
+    }
+  })
+  .then((friendships) => {
+    const ids = friendships.map(friend => ({"id": friend.id}));
+    Customer.findAll({
+      where: {
+        [Op.or]: ids
+      }
+    })
+    .then((details) => {
+      details.length > 0 ? res.send(details) : res.send('Empty')
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+  })
+})
+
   // 
 module.exports = {
   friendshipRouter,

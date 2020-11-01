@@ -108,8 +108,8 @@ const connection = async () => {
 
 const syncModels = async () => {
   try {
-    await models.sequelize.sync({ force: true });
-    // await models.sequelize.sync();
+    // await models.sequelize.sync({ force: true });
+    await models.sequelize.sync();
     console.log('Models have been synced successfully.');
   } catch (error) {
     console.error('Unable to sync models:', error);
