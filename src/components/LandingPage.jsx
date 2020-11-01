@@ -13,7 +13,7 @@ const LandingPage = ({ setViewValue, setId, setProfileImage, setUsername }) => {
         <Login setViewValue={setViewValue} setId={setId} setProfileImage={setProfileImage} setUsername={setUsername} />
       </Grid>
       <Grid item container direction="row" justify="center" alignItems="center" style={{ margin: '10px 0 10px 0' }}>
-        <Logout />
+        {/* <Logout /> */}
       </Grid>
     </Grid>
   );

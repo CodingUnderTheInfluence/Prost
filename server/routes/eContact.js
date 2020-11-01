@@ -26,33 +26,23 @@ eContactRouter.get('/', (req, res) => {
     });
 })
 
-eContactRouter.post('/create', (req, res) => {
-  console.log(req.body, 'EMERGENCY CONTACT')
+eContactRouter.get('/customer/:customerId', (req, res) => {
+  const { customerId } = req.params;
+  // res.send(`id ${customerId}`)
+  EContact.findAll({
+    where: {
+      id_customer: customerId
+    }
+  })
+    .then((eContacts) => {
+      eContacts.length > 0 ? res.send(eContacts) : res.send('Empty');
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
 })
 
-
-
-//  //EMERGENCY CONTACT INFORMATION FIELDS
-//  const [emFirst, setEmFirst] = useState('');
-//  const [emLast, setEmLast] = useState('');
-//  const [emEmail, setEmEmail] = useState('');
-//  const [emNumber, setEmNumber] = useState();
-//  //EMERGENCY CONTACT INFORMATION SUBMIT
-//  const eContactInformationSubmit = () => {
-//      const emergencyParams = {
-//          first: emFirst,
-//          last: emLast,
-//          email: emEmail,
-//          number: emNumber,
-//      }
-//      axios.post('/db/eContact/create', { emergencyParams })
-//          .then(() => {
-//              console.log(` Successfully posted ${personalFirst}'s Emergency Contact Information to the server`)
-//          })
-//  }
-
-
-
+// 
 module.exports = {
   eContactRouter,
 };

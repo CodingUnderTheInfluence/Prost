@@ -18,15 +18,16 @@ const pcRouter = Router();
 
 pcRouter.get('/', (req, res) => {
   Parties_Customers.findAll()
-  .then((pcs) => {
-    res.send(pcs);
-  })
-  .catch((err) => {
-    res.status(500).send(err);
-  });
-})
+    .then((pcs) => {
+      res.send(pcs);
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+});
 
-  // 
+
+
 module.exports = {
   pcRouter,
 };

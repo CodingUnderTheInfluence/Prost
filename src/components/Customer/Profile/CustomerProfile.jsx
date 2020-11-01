@@ -14,11 +14,16 @@ const CustomerProfile = () => {
     useEffect(() => {
       fetch(`${process.env.REDIRECT}/db/customer`, {
         method: 'GET',
+        // headers: {
+        //   'Content-Type': 'application/json',
+        // },
+        // body: JSON.stringify(data),
       })
       .then(response => response.json())
       .then(data => {
-        setData(data[1])
-        setCustomerId(data[1].id)
+        console.log('Success:', data[2]); // change user
+        setData(data[2])
+        setCustomerId(data[2].id)
       })
       .catch((error) => {
         console.error('Error:', error);

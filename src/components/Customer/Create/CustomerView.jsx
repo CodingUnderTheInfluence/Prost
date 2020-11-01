@@ -4,11 +4,11 @@ import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined'
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import ForumIcon from '@material-ui/icons/Forum';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import MapContainer from './Create/Map2.jsx';
+// import MapContainer from './Create/Map2.jsx'; 
 import Create from './Create/Create.jsx';
-import FriendsList from './Social/FriendsList.jsx';
-import Messages from './Social/Messages.jsx';
-import Logout from '../Logout.jsx'
+import FriendsList from '../Social/FriendsList.jsx';
+import Messages from '../Social/Messages.jsx';
+import Profile from '../Profile/CustomerProfile.jsx';
 
 
 
@@ -18,7 +18,7 @@ const useStyles = makeStyles({
     },
 });
 
-const CustomerView = ({ setViewValue }) => {
+const CustomerView = () => {
     const classes = useStyles();
     const [value, setValue] = useState();
 
@@ -37,13 +37,13 @@ const CustomerView = ({ setViewValue }) => {
             return <Messages />
         }
         if (value === 3) {
-            return <OwnerProfile />
-        }
-        return <MapContainer />
+          return <Profile />
+      }
+      return (<div>hello</div>)
+        // return <MapContainer />
     }
     return (
         <Grid container direction="column" justify="center" alignItems="center">
-            <Logout setViewValue={setViewValue} />
             <Grid item container direction="row" justify="center" alignItems="center">
                 {renderView()}
             </Grid>
