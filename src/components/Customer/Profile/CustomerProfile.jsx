@@ -6,13 +6,15 @@ import Translate from './Translate.jsx';
 import Checkin from './Checkin.jsx';
 import History from './History.jsx';
 
-const CustomerProfile = ({setViewValue}) => {
+const CustomerProfile = ({setViewValue, gId}) => {
     const [customerId, setCustomerId] = useState(1);
     const [view, setView] = useState('Home');
-    const [data, setData] = useState(false);
+    const [data, setData] = useState({
+      user_name: ''
+    });
 
     useEffect(() => {
-      fetch(`${process.env.REDIRECT}/db/customer/all`, {
+      fetch(`${process.env.REDIRECT}/db/customer/gId/${gId}`, {
         method: 'GET',
       })
       .then(response => response.json())

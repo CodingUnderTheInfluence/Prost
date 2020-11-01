@@ -18,7 +18,7 @@ const useStyles = makeStyles({
     },
 });
 
-const CustomerView = ({ setViewValue }) => {
+const CustomerView = ({ setViewValue, gId }) => {
     const classes = useStyles();
     const [value, setValue] = useState();
 
@@ -37,7 +37,7 @@ const CustomerView = ({ setViewValue }) => {
             return <Messages />
         }
         if (value === 3) {
-            return <CustomerProfile setViewValue={setViewValue}/>
+            return <CustomerProfile setViewValue={setViewValue} gId={gId} />
         }
         return (<div>PLACE INSTRUCTIONS HERE</div>)
     }

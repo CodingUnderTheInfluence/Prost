@@ -39,6 +39,11 @@ customerRouter.post('/', (req, res) => {
   // googleAuth(authToken);
 })
 
+customerRouter.get('/gId/:gId', (req, res) => {
+  const { gId } = req.params;
+  res.send(gId);
+})
+
 customerRouter.get('/all', (req, res) => {
   Customer.findAll()
   .then((customers) => {
