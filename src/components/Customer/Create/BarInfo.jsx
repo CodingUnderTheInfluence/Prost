@@ -12,10 +12,13 @@ import {
 
 const useStyles = makeStyles({
   title: {
-    fontSize: 20
+    fontSize: '3em'
   },
   time: {
-    fontSize: 10
+    fontSize: '1em'
+  },
+  phone: {
+    fontSize: '1.5em'
   }
 });
 const searchStyle = {
@@ -26,7 +29,7 @@ const searchStyle = {
 
 const BarInfo = ({placeInfo, searchMarker}) => {
   const [ show, setShow ] = useState(true);
-  const { photos, title, time } = placeInfo;
+  const { photos, title, time, } = placeInfo;
   const photo = photos[0].getUrl();
   const classes = useStyles();
 
@@ -38,14 +41,17 @@ const BarInfo = ({placeInfo, searchMarker}) => {
           <img src={photo} style={{width: 300, alignItems: 'center'}} />
         </CardMedia>
         <CardContent>
-          <Typography className={title} variant='h4'>
+          <Typography className={classes.title} variant='h4' con={console.log(placeInfo)}>
             {placeInfo.name}
+          </Typography>
+          <Typography className={classes.phone} component='p'>
+            {placeInfo.formatted_phone_number}
           </Typography>
           {placeInfo.opening_hours !== undefined
             ? placeInfo.opening_hours.weekday_text.map(day => (
-                <Typography className={time} component='p'>{day}</Typography>
+                <Typography className={classes.time} component='p'>{day}</Typography>
               ))
-            : <Typography className={time} component='p'>no info avaiable</Typography>
+            : <Typography className={classes.time} component='p'>no info avaiable</Typography>
           }
         </CardContent>
         <CardActions>
