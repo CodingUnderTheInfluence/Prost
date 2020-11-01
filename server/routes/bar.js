@@ -69,12 +69,20 @@ barRouter.get('/parties', (req, res) => {
 });
 
 barRouter.post('/create', (req, res) => {
-  const { bar_name, address, phone_number } = req.body;
+  const {
+    bar_name,
+    address,
+    phone_number,
+    latitude,
+    longitude
+  } = req.body;
   Bar.findOrCreate({
     where: {
       bar_name: bar_name,
       address: address,
-      phone_number: phone_number
+      phone_number: phone_number,
+      latitude: latitude,
+      longitude: longitude
     }
   })
     .then((bar) => {
