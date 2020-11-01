@@ -29,6 +29,9 @@ export default function Home({ setView, name, setViewValue }) {
             <Button variant="outlined" color="primary" onClick={() => setView('Translate')}>
                 Translate
       </Button>
+      <Button variant="outlined" color="primary" onClick={() => setView('Friend')}>
+                Friend's List
+      </Button>
             <Logout setViewValue={setViewValue} />
         </Grid>
     )

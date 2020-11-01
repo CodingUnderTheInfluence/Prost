@@ -5,6 +5,7 @@ import Favorite from './Favorite.jsx';
 import Translate from './Translate.jsx';
 import Checkin from './Checkin.jsx';
 import History from './History.jsx';
+import Friend from './Friend.jsx';
 
 const CustomerProfile = ({setViewValue, gId}) => {
     const [customerId, setCustomerId] = useState(1);
@@ -42,6 +43,8 @@ const CustomerProfile = ({setViewValue, gId}) => {
         return <Favorite setView={setView} customerId={customerId}/>
         case 'Translate':
         return <Translate setView={setView} customerId={customerId}/>
+        case 'Friend':
+        return <Friend setView={setView} customerId={customerId}/>
     }
 }
 
