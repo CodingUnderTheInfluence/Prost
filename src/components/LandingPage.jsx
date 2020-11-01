@@ -12,9 +12,15 @@ const LandingPage = ({ setViewValue, setId, setProfileImage, setUsername }) => {
       <Grid item container direction="row" justify="center" alignItems="center" style={{ margin: '10px 0 10px 0' }}>
         <Login setViewValue={setViewValue} setId={setId} setProfileImage={setProfileImage} setUsername={setUsername} />
       </Grid>
+<<<<<<< HEAD
       <Grid item container direction="row" justify="center" alignItems="center" style={{ margin: '10px 0 10px 0' }}>
         {/* <Logout /> */}
       </Grid>
+=======
+      {/* <Grid item container direction="row" justify="center" alignItems="center" style={{ margin: '10px 0 10px 0' }}>
+        <Logout />
+      </Grid> */}
+>>>>>>> 313abaa... (refactor) remove logout button from Landing page
     </Grid>
   );
 };

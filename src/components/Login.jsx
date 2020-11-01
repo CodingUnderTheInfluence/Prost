@@ -5,11 +5,7 @@ import { Button } from '@material-ui/core'
 
 const clientId = '933644302187-agamsig0qalm5oi4fd44v11hfffpchs8.apps.googleusercontent.com'
 
-<<<<<<< HEAD
 const Login = ({ setViewValue, setId, setProfileImage, setUsername }) => {
-=======
-const Login = ({setViewValue}) => {
->>>>>>> 0bf12e2... gadd) conditional rendering based on login status Social view outlined
 
     useEffect(() => {
         Axios.get('/db/customer')
