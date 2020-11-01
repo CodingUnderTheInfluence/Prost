@@ -8,7 +8,7 @@ const {
   Image,
   Menu,
   Party,
-  Relationship,
+  Friendship,
   Thread,
   Parties_Customers,
   Customers_Bars,
@@ -236,29 +236,29 @@ function primeDB() {
       }
       return console.error('❌ image bar user undefined');
     })
-    .then(() => Relationship.findOrCreate({
+    .then(() => Friendship.findOrCreate({
       where: {
-        id_follower: 2,
-        id_following: 1,
+        id_friend: 2,
+        id_customer: 1,
       }
     }))
     .then((numberEffected) => {
       if (numberEffected) {
-        return console.log('✅ relationship Created');
+        return console.log('✅ friendship Created');
       }
-      return console.error('❌ relationship user undefined');
+      return console.error('❌ friendship user undefined');
     })
-    .then(() => Relationship.findOrCreate({
+    .then(() => Friendship.findOrCreate({
       where: {
-        id_follower: 3,
-        id_following: 4,
+        id_friend: 3,
+        id_customer: 4,
       }
     }))
     .then((numberEffected) => {
       if (numberEffected) {
-        return console.log('✅ relationship Created');
+        return console.log('✅ friendship Created');
       }
-      return console.error('❌ relationship user undefined');
+      return console.error('❌ friendship user undefined');
     })
     .then(() => Thread.findOrCreate({
       where: {
