@@ -2,12 +2,12 @@ import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { Grid, Typography, Button } from '@material-ui/core'
 import Logout from '../../Logout.jsx'
 
-export default function Home({ setView, name, setViewValue }) {
+export default function Home({ setView, name, setViewValue, img}) {
 
     return (
         <Grid container direction="column" justify="center" alignItems="center">
             <Grid item container direction="row" justify="center" alignItems="center">
-                <img src="https://i.imgur.com/jRnsxbB.png" style={{ height: '100px', width: '100px' }} />
+                <img src={img || "https://i.imgur.com/jRnsxbB.png"} style={{ height: '100px', width: '100px' }} />
             </Grid>
             <Grid item container direction="row" justify="center" alignItems="center">
                 <Typography variant="subtitle1">

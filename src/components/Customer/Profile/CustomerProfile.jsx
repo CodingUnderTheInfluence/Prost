@@ -32,7 +32,7 @@ const CustomerProfile = ({setViewValue, gId}) => {
 
     switch(view){
         case 'Home':
-        return <Home setView={setView} name={data.user_name} setViewValue={setViewValue} />
+        return <Home setView={setView} name={data.user_name} setViewValue={setViewValue} img={data.profile_image} />
         case 'EContact':
         return <EContact setView={setView} customerId={customerId}/>
         case 'Checkin':
