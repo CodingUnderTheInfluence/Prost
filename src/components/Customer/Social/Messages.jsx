@@ -1,7 +1,9 @@
-import React from 'react'
+import React, {useState} from 'react'
 import MessageList from './messageList.jsx';
 import {Button} from '@material-ui/core'
-import io from 'socket.io-client';
+import useSocket from 'use-socket.io-client';
+import MessageForm from './MessageForm.jsx';
+
 
 
 //render a search bar at the top
@@ -9,25 +11,20 @@ import io from 'socket.io-client';
 //render a create new message button
 
 
-function Messages() {
-    useEffect(() => {
-        const socket = io("localhost:3000", {
-            reconnectionDelayMax: 10000,
-            query: {
-                auth: "123"
-            }
-        });
-    })
+function Messages({username}) {
+    const [id, setId] = useState('');
+    const [socket] = useSocket();
+
+    socket.connect();
+    console.log(socket);
+
     return (
         <div>
             <div>
-                Search
+                <MessageList socket={socket} />
             </div>
             <div>
-                <MessageList />
-            </div>
-            <div className="createMessageButton">
-                <Button>New Conversation</Button>
+                <MessageForm socket={socket} username={username} />
             </div>
         </div>
     )

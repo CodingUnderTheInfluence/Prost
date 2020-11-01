@@ -31,38 +31,6 @@ app.use(bodyParser.json())
 app.use(express.static(DIST_DIR)); // NEW
 // app.use(googleAuth)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* DB Routes */
 const { customerRouter } = require('./routes/customer');
 app.use('/db/customer', customerRouter);
@@ -90,14 +58,7 @@ const { eContactRouter } = require('./routes/eContact');
 app.use('/db/eContact', eContactRouter);
 // app.use('/auth', auth);
 
-//SOCKET STUFF
-const connectedUsers = {};
 
-io.on('connection', (socket) => {
-  console.log(`new client connected : ${socket.id}`);
-  connectedUsers[socket.id] = socket.id
-  socket.emit('connection', null);
-});
 
 app.get('/', (req, res) => {
   res.sendFile(HTML_FILE); // EDIT
@@ -130,6 +91,25 @@ const syncModels = async () => {
 connection();
 syncModels();
 
+
+//SOCKETS WAHOO
+const connectedUsers = {};
+
+io.on('connect', (socket) => {
+  console.log(`new client connected : ${socket.id}`);
+  connectedUsers[socket.id] = socket.id
+  socket.emit('connection', null);
+  
+  socket.on('sendMessage', (data) => {
+    console.log(data);
+    // socket.broadcast.emit('newMessage', data)
+    io.emit('newMessage', data)
+  })
+});
+
+
+
 http.listen(port, function () {
   console.log('App listening on port: ' + port);
 });
+

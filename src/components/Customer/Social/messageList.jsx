@@ -1,27 +1,29 @@
-import Axios from 'axios';
-import React, {useState, useEffect} from 'react'
-import MessagesListItem from './messagesListItem.jsx';
+import React, { useState, useEffect } from 'react';
+import SingleMessage from './singleMessage.jsx';
 
-function MessageList() {
-    //contact the DB, getting all threads involving user
-    //add to state array
-    const [threads, setThreads] = useState([]);
+function messageList({socket}) {
 
-    useEffect(() => {
-        Axios.get('/db/thread')
-            .then(({data}) => {
-                console.log(data)
-                setThreads(data);
-            });
-    },[])
+    const [messages, setMessages] = useState([{user: 'test', body: 'Test Body'}]);
+    
+    useEffect(()=> {
+        socket.once('newMessage', (m) => {
+            console.log(m, 'Incoming Message');
+            setMessages([...messages, m]);
+            console.log(messages, 'Messages')
+        
+    }, [messages])
+    })
+
+
 
     return (
         <div>
-            {threads.map(thread => {
-                return <MessagesListItem key={thread.id} thread={thread}/>
-            })}
+            <div>Messages</div>
+            {messages.map((m, i) => <SingleMessage key={m.name + i} m={m} />)}
         </div>
+        
     )
 }
 
-export default MessageList
+export default messageList
+
