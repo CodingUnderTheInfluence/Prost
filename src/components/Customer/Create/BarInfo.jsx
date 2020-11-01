@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import createParty from '../../../helpers/createParty.js';
 import usePlacesAutocomplete, { getUrl } from 'use-places-autocomplete';
 import { makeStyles } from '@material-ui/core/styles';
 import { 
@@ -58,7 +59,13 @@ const BarInfo = ({placeInfo, searchMarker}) => {
           <Button 
             onClick={() => setShow(false)}
           >
-            close
+            Close
+          </Button>
+          <Button 
+            style={{float: 'right'}}
+            onClick={() => createParty(placeInfo)}
+          >
+            Create Party
           </Button>
         </CardActions>
       </Card>

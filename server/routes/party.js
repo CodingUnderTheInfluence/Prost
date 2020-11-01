@@ -27,7 +27,6 @@ partyRouter.get('/', (req, res) => {
 });
 
 partyRouter.post('/create', (req, res) => {
-  console.log(req.body);
   const { id_bar, size } = req.body;
   Party.findOrCreate({
     where: {

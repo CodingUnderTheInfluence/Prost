@@ -50,10 +50,12 @@ barRouter.get('/', (req, res) => {
 
 
 barRouter.post('/create', (req, res) => {
-  const { bar_name, address } = req.query;
+  const { bar_name, address, phone_number } = req.body;
   Bar.findOrCreate({
     where: {
-      bar_name: bar_name
+      bar_name: bar_name,
+      address: address,
+      phone_number: phone_number
     }
   })
     .then((bar) => {
