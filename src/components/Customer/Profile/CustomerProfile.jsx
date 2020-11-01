@@ -18,6 +18,10 @@ const CustomerProfile = ({setViewValue, gId}) => {
       // console.log("customer profile", gId)
       fetch(`/db/customer/gId/${gId}`, {
         method: 'GET',
+        // headers: {
+        //   'Content-Type': 'application/json',
+        // },
+        // body: JSON.stringify(data),
       })
       .then(response => response.json())
       .then(data => {

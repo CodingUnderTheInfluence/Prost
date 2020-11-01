@@ -36,10 +36,7 @@ export default function EContact({setView, customerId}) {
     .catch((error) => {
       console.error('Error:', error);
     });
-  }
-  useEffect(() => {
-    getData();
-  }, []);
+  };
 
   const editEContact = () => {
     const obj = {
@@ -100,36 +97,15 @@ export default function EContact({setView, customerId}) {
   return (
     <div>
       <div>
-      <ArrowBackIosIcon color="primary" onClick={()=> setView('Home')} />
+      <Button variant="outlined" color="primary" onClick={()=> setView('Home')}>
+      Back
+      </Button>
       </div>
       <br/>
       Hello from EContact 
-      { contact ? (<div>
         <p>Name: {`${contact.first_name} ${contact.last_name}`}</p>
         <p>Phone Number: {contact.phone_number}</p>
         <p>QR Code: {contact.qrcode}</p>
-        <Fab color="secondary" aria-label="edit">
-          <EditIcon onClick={()=> setShowForm(true)}/>
-        </Fab>
-      </div>
-      )
-      :
-      (<div>
-        <Fab color="primary" aria-label="add">
-          <AddIcon onClick={()=> setShowForm(true)}/>
-        </Fab>
-      </div>)}
-      {showForm && 
-        <form className="EContact" noValidate autoComplete="off" onSubmit={(e) => context(e)}>
-          <TextField id="filled-basic" label="First Name" variant="filled" onChange={(e)=> setFirstName(e.target.value)}/>
-          <TextField id="filled-basic" label="Last Name" variant="filled" onChange={(e)=> setLastName(e.target.value)}/>
-          <TextField id="filled-basic" label="Phone Number" variant="filled" onChange={(e)=> setPhoneNumber(e.target.value)}/>
-          <TextField id="filled-basic" label="Email" variant="filled" onChange={(e)=> setEmail(e.target.value)}/>
-          <div>
-            <Button variant="outlined" type="submit" color="primary">Submit</Button>
-          </div>
-          </form>
-        }
       </div>
     )
 }

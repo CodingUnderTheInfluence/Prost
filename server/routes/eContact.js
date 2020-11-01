@@ -103,6 +103,23 @@ eContactRouter.put('/edit', (req, res) => {
     });
 })
 
+eContactRouter.get('/customer/:customerId', (req, res) => {
+  const { customerId } = req.params;
+  // res.send(`id ${customerId}`)
+  EContact.findAll({
+    where: {
+      id_customer: customerId
+    }
+  })
+    .then((eContacts) => {
+      eContacts.length > 0 ? res.send(eContacts) : res.send('Empty');
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+})
+
+// 
 module.exports = {
   eContactRouter,
 };
