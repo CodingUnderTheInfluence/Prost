@@ -132,6 +132,11 @@ const MapContainer = () => {
         searchBox={searchBox}
         getPlaceInfo={getPlaceInfo}
       />
+      {click  
+        ? <BarInfo
+          placeInfo={placeInfo}
+          searchMarker={searchMarker} /> 
+        : null}
       <GoogleMap 
         mapContainerStyle={mapStyles}
         zoom={15}
@@ -160,10 +165,6 @@ const MapContainer = () => {
           />
         ))} */}
       </GoogleMap>
-      {click ? <BarInfo
-            placeInfo={placeInfo}
-            searchMarker={searchMarker}  
-            /> : null}
     </div>
   );
 

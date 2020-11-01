@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import usePlacesAutocomplete, { getUrl } from 'use-places-autocomplete';
 import { makeStyles } from '@material-ui/core/styles';
 import { 
   Card, 
   CardContent,
   Typography,
-  CardMedia
+  CardMedia,
+  Button,
+  CardActions
 } from '@material-ui/core';
 
 const useStyles = makeStyles({
@@ -16,16 +18,25 @@ const useStyles = makeStyles({
     fontSize: 10
   }
 });
+const searchStyle = {
+  position: 'fixed', 
+  zIndex: 2,
+  padding: '50px',
+};
 
-const BarInfo = ({placeInfo}) => {
+const BarInfo = ({placeInfo, searchMarker}) => {
+  const [ show, setShow ] = useState(true);
+  const { photos, title, time } = placeInfo;
+  const photo = photos[0].getUrl();
   const classes = useStyles();
-  const { title, time } = classes;
+
   return (
-    placeInfo 
-    ? <Card>
-        <CardMedia 
-          image={placeInfo.photos[0].getUrl({'maxWidth': 100, 'maxHeight': 100})}
-        />
+  <>
+    {show ? <div style={searchStyle}>
+      <Card>
+        <CardMedia> 
+          <img src={photo} style={{width: 300, alignItems: 'center'}} />
+        </CardMedia>
         <CardContent>
           <Typography className={title} variant='h4'>
             {placeInfo.name}
@@ -37,26 +48,18 @@ const BarInfo = ({placeInfo}) => {
             : <Typography className={time} component='p'>no info avaiable</Typography>
           }
         </CardContent>
-      </Card> 
-    : <></>
+        <CardActions>
+          <Button 
+            onClick={() => setShow(false)}
+          >
+            close
+          </Button>
+        </CardActions>
+      </Card>
+    </div>
+    : null}
+  </>
   );
 };
-
-
-// const BarInfo = () => {
-//   return (
-//     <Card>
-//       <CardMedia 
-//         // image={placeInfo.photos[0]}
-//       />
-//       <CardContent>
-//         <Typography>
-          
-//         </Typography>
-//       </CardContent>
-//     </Card> 
-      
-//   )
-// };
 
 export default BarInfo;
