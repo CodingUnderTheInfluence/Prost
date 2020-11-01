@@ -37,7 +37,6 @@ const googleAuth = async (authToken) => {
 customerRouter.post('/', (req, res) => {
   const { authToken } = req.body.googleToken
   googleAuth(authToken);
-
 })
 
 customerRouter.get('/gId/:gId', (req, res) => {
@@ -69,28 +68,35 @@ customerRouter.get('/all', (req, res) => {
   })
 })
 
-customerRouter.post('/check', (req, res) => {
+customerRouter.post('/check', async (req, res) => {
   const { gProfile } = req.body.googleProfile
-  Customer.findOne({ where: gProfile.googleId })
-    .then(() => {
-      console.log('USER FOUND IN CUSTOMER TABLE')
-      res.send('Customer')
+  const { authToken } = req.body.googleToken
+  const auth = await googleAuth(authToken);
+  console.log(auth);
+  Customer.findAll({ where: { id_google: auth.userId } }) //findAll sends back an array
+    .then((customers) => {
+      if (customers.length > 0) {
+        console.log('USER FOUND IN CUSTOMER TABLE')
+        res.send('customer')
+      } else {
+        Owner.findAll({ where: { first_name: 'Larry' } })
+          .then((owners) => {
+            if (owners.length) {
+              console.log('USER FOUND IN OWNER TABLE')
+              res.send('Owner')
+            } else {
+              console.log('USER NOT FOUND IN NEITHER CUSTOMER OR OWNER TABLE')
+              res.send('form')
+            }
+          })
+      }
     })
-    .catch(() => {
-      Owner.findOne({ where: gProfile.googleId })
-        .then(() => {
-          console.log('USER FOUND IN OWNER TABLE')
-          res.send('Owner')
-        })
-        .catch(() => {
-          console.log('USER NOT FOUND IN NEITHER CUSTOMER OR OWNER TABLE')
-          res.send('form')
-        })
+    .catch((err) => {
+      console.error('ERROR IN CHECK FOR CUSTOMER OR OWNER')
     })
 })
 
 customerRouter.post('/create', (req, res) => {
-  //if it doesnt exist, then create it...if it is there
   // console.log(req.body.personalParams)
   const { first, last, email, number, gender, googleId, image, username } = req.body.personalParams;
   Customer.findAll({ where: { id_google: googleId } })
@@ -120,17 +126,8 @@ customerRouter.post('/create', (req, res) => {
         })
       }
     })
-    .catch(() => {
-      Customer.create({
-        first_name: first,
-        last_name: last,
-        user_name: username,
-        id_google: googleId,
-        email: email,
-        phone_number: number,
-        gender_type: gender,
-        profile_image: image,
-      })
+    .catch((err) => {
+      console.error('ERROR IN CREATING CUSTOMERS')
     })
 })
 
@@ -143,6 +140,17 @@ customerRouter.post('/location', (req, res) => {
     zip,
   }, { where: { id_google: googleId } })
 })
+
+// Customer.create({
+//   first_name: first,
+//   last_name: last,
+//   user_name: username,
+//   id_google: googleId,
+//   email: email,
+//   phone_number: number,
+//   gender_type: gender,
+//   profile_image: image,
+// })
 
 
 // //LOCATION INFORMATION FIELDS
@@ -164,6 +172,7 @@ customerRouter.post('/location', (req, res) => {
 //         })
 // }
 
+//
 module.exports = {
   customerRouter,
   googleAuth
