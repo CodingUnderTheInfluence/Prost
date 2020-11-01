@@ -43,7 +43,7 @@ const BarInfo = ({placeInfo, searchMarker}) => {
     {show ? <div style={searchStyle}>
       <Card>
         <CardMedia> 
-          <img src={photo} style={{width: 300, alignItems: 'center'}} />
+          <img src={photo} style={{width: 300, height: 200, alignItems: 'center'}} />
         </CardMedia>
         <CardContent>
           <Typography className={classes.title} variant='h4' con={console.log(placeInfo)}>

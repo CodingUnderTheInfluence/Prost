@@ -42,7 +42,27 @@ barRouter.get('/', (req, res) => {
         res.send(null);
       }
     })
-    .catch(err => {
+    .catch(() => {
+      res.status(500).send('error in get bar');
+
+    });
+});
+
+barRouter.get('/parties', (req, res) => {
+  const { id_bar } = req.query;
+  Bar.findAll({
+    where: {
+      id: id_bar
+    }
+  })
+    .then((bar) => {
+      if (bar.length) {
+        res.send(bar);
+      } else {
+        res.send(null);
+      }
+    })
+    .catch(() => {
       res.status(500).send('error in get bar');
 
     });

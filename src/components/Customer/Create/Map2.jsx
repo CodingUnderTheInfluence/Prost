@@ -1,13 +1,15 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import axios from 'axios';
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
 import Search from './Search.jsx';
 import BarInfo from './BarInfo.jsx';
 import Create from './Create.jsx';
 import PeopleSearch from './PeopleSearch.jsx';
 import QuickCreate from './QuickCreate.jsx';
-import mapStyle from '../../../helpers/mapStyle'
-import { Details } from '@material-ui/icons';
 import BarCard from './BarInfoCardTest.jsx';
+import mapStyle from '../../../helpers/mapStyle';
+import mapParties from '../../../helpers/mapStyle';
+import { Details } from '@material-ui/icons';
 
 // used for the load script to get google places
 const libraries = ['places'];
@@ -52,6 +54,7 @@ const MapContainer = () => {
   const [ selectedItem, setSelectedItem ] = useState({});
   const [ myLocation, setMyLocation ] = useState({});
   const [ markers, setMarkers ] = useState([]);
+  const [ parties, setParties ] = useState([]);
   const [ searchMarker, setSearchMarker ] = useState({});
   const [ click, setClick ] = useState(false);
   const [ placeInfo, setplaceInfo ] = useState(null);
@@ -65,6 +68,28 @@ const MapContainer = () => {
     googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY,
     libraries
   });
+
+  useEffect(() => {
+    let isMounted = true;
+    if (isMounted) {
+      axios.get('/db/bar/all')
+        .then(({data}) => {
+          setParties(data);
+        });
+    }
+    return () => { isMounted = false };
+  }, []);
+
+  // const onMapClick = useCallback((e) => {
+  //   setMarkers(current => [
+  //     ...current, 
+  //     {
+  //       lat: e.latLng.lat(),
+  //       lng: e.latLng.lng(),
+  //       time: new Date()
+  //     }
+  //   ]);
+  // });
 
   // sets the makers to the user click
   const onMapClick = useCallback((e) => {
@@ -86,7 +111,6 @@ const MapContainer = () => {
 
   // move map to the where the user has searched
   const panTo = useCallback(({ lat, lng }) => {
-    console.log(mapRef)
     mapRef.current.panTo({ lat, lng });
     mapRef.current.setZoom(16);
     setCurrentPosition({ lat, lng });
@@ -120,7 +144,7 @@ const MapContainer = () => {
 
   return (
 
-    <div style={{align: 'center'}}>
+    <div style={{align: 'center'}} con={console.log(parties)}>
       {/* <PeopleSearch searchBox={searchBox} /> */}
       <Search 
         panTo={panTo}
@@ -139,7 +163,7 @@ const MapContainer = () => {
         center={currentPosition  ? currentPosition : defaultCenter}
         options={options}
         draggable={true}
-        onClick={onMapClick}
+        // onClick={onMapClick}
         onLoad={onMapLoad}
       >
           <Marker
@@ -149,17 +173,30 @@ const MapContainer = () => {
               lng: +searchMarker.lng
             }}
           />
+        {parties.map(({latitude, longitude, id}) => {
+          console.log(latitude, longitude)
+          return (
+            <Marker 
+            key={id} 
+            position={{ 
+              lat: +latitude,
+              lng: +longitude 
+            }}
+            />
+          )}
+        )}
           {/* {click ? <BarInfo
             placeInfo={placeInfo}
             searchMarker={searchMarker}  
           /> : null} */}
 
         {/* {markers.map(({lat, lng, time}) => (
-          <Marker 
-          key={time.toISOString()} 
-          position={{ lat, lng }}
-          />
-        ))} */}
+            <Marker 
+            key={time.toISOString()} 
+            position={{ lat, lng }}
+            />
+          ))} */}
+
       </GoogleMap>
       <QuickCreate
         style={{
