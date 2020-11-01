@@ -25,7 +25,7 @@ const MessageModel = require('./Message');
 const OwnerModel = require('./Owner');
 const Parties_CustomersModel = require('./Parties_Customers');
 const PartyModel = require('./Party');
-const RelationshipModel = require('./Relationship');
+const FriendshipModel = require('./Friendship');
 const ThreadModel = require('./Thread');
 
 const Bar = BarModel(sequelize, Sequelize);
@@ -38,7 +38,7 @@ const Message = MessageModel(sequelize, Sequelize);
 const Owner = OwnerModel(sequelize, Sequelize);
 const Parties_Customers = Parties_CustomersModel(sequelize, Sequelize);
 const Party = PartyModel(sequelize, Sequelize);
-const Relationship = RelationshipModel(sequelize, Sequelize);
+const Friendship = FriendshipModel(sequelize, Sequelize);
 const Thread = ThreadModel(sequelize, Sequelize);
 
 const models = {
@@ -50,7 +50,7 @@ const models = {
   Image,
   Menu,
   Party,
-  Relationship,
+  Friendship,
   Thread,
   Parties_Customers,
   Customers_Bars,
