@@ -24,7 +24,7 @@ const CustomerProfile = ({setViewValue, gId}) => {
         console.log("PROFILE DATA", data)
         setData(data)
         setCustomerId(data.id)
-        // setCustomerId(2) // test data
+        // setCustomerId(3) // test data
       })
       .catch((error) => {
         console.error('Error:', error);
