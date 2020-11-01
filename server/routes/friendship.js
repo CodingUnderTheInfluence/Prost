@@ -7,19 +7,19 @@ const {
   Image,
   Menu,
   Party,
-  Relationship,
+  Friendship,
   Thread,
   Parties_Customers,
   Customers_Bars,
-} = require('../../server/db/models/dbindex.js');
+} = require('../db/models/dbindex.js');
 const { Router } = require('express');
 const { Op } = require('sequelize');
-const relationshipRouter = Router();
+const friendshipRouter = Router();
 
-relationshipRouter.get('/', (req, res) => {
-  Relationship.findAll()
-  .then((relationships) => {
-    res.send(relationships);
+friendshipRouter.get('/', (req, res) => {
+  Friendship.findAll()
+  .then((friendships) => {
+    res.send(friendships);
   })
   .catch((err) => {
     res.status(500).send(err);
@@ -28,5 +28,5 @@ relationshipRouter.get('/', (req, res) => {
 
   // 
 module.exports = {
-  relationshipRouter,
+  friendshipRouter,
 };

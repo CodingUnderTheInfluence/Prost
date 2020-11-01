@@ -80,8 +80,8 @@ const { messageRouter } = require('./routes/message');
 app.use('/db/message', messageRouter);
 const { cbRouter } = require('./routes/cb');
 app.use('/db/cb', cbRouter);
-const { relationshipRouter } = require('./routes/relationship');
-app.use('/db/relationship', relationshipRouter);
+const { friendshipRouter } = require('./routes/friendship');
+app.use('/db/friendship', friendshipRouter);
 const { menuRouter } = require('./routes/menu');
 app.use('/db/menu', menuRouter);
 const { eContactRouter } = require('./routes/eContact');
@@ -108,8 +108,8 @@ const connection = async () => {
 
 const syncModels = async () => {
   try {
-    // await models.sequelize.sync({ force: true });
-    await models.sequelize.sync();
+    await models.sequelize.sync({ force: true });
+    // await models.sequelize.sync();
     console.log('Models have been synced successfully.');
   } catch (error) {
     console.error('Unable to sync models:', error);
