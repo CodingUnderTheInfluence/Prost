@@ -44,6 +44,8 @@ function primeDB() {
         bar_name: 'Par 3 Restaurant & Lounge',
         phone_number: '123-456-7890',
         address: '1530 E Judge Perez Dr, Chalmette, LA 70043',
+        latitude: 29.937570,
+        longitude: -89.950240,
         id_owner: 1,
       }
     }))
@@ -58,6 +60,8 @@ function primeDB() {
         bar_name: 'Bar Tonique',
         phone_number: '123-456-7890',
         address: '820 N Rampart St, New Orleans, LA 70116',
+        latitude: 29.961620,
+        longitude: -90.067180,
         id_owner: 2,
       }
     }))
