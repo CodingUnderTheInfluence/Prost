@@ -5,8 +5,8 @@ CREATE TABLE "customer" (
   "first_name" varchar,
   "last_name" varchar,
   "user_name" varchar,
-  "id_facebook" int,
-  "id_google" int,
+  "id_facebook" varchar,
+  "id_google" varchar,
 );
 
 CREATE TABLE "owner" (
@@ -15,8 +15,8 @@ CREATE TABLE "owner" (
   "last_name" varchar,
   "user_name" varchar,
   "password" varchar,
-  "id_facebook" int,
-  "id_google" int,
+  "id_facebook" varchar,
+  "id_google" varchar,
 );
 
 CREATE TABLE "eContact" (
@@ -50,10 +50,10 @@ CREATE TABLE "party" (
   "size" int,
 );
 
-CREATE TABLE "relationship" (
+CREATE TABLE "friendship" (
   "id" SERIAL PRIMARY KEY,
-  "id_follower" int,
-  "id_following" int,
+  "id_customer" int,
+  "id_friend" int,
 );
 
 CREATE TABLE "message" (
@@ -80,6 +80,7 @@ CREATE TABLE "customers_bars" (
   "id" SERIAL PRIMARY KEY,
   "id_customer" int,
   "id_bar" int,
+  "favorite" boolean
 );
 
 CREATE TABLE "parties_customers" (
@@ -109,9 +110,9 @@ ALTER TABLE "parties_customers" ADD FOREIGN KEY ("id_customer") REFERENCES "cust
 
 ALTER TABLE "parties_customers" ADD FOREIGN KEY ("id_host") REFERENCES "customer" ("id");
 
-ALTER TABLE "relationship" ADD FOREIGN KEY ("id_follower") REFERENCES "customer" ("id");
+ALTER TABLE "friendship" ADD FOREIGN KEY ("id_customer") REFERENCES "customer" ("id");
 
-ALTER TABLE "relationship" ADD FOREIGN KEY ("id_following") REFERENCES "customer" ("id");
+ALTER TABLE "friendship" ADD FOREIGN KEY ("id_friend") REFERENCES "customer" ("id");
 
 ALTER TABLE "message" ADD FOREIGN KEY ("id_thread") REFERENCES "thread" ("id");
 

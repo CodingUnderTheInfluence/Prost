@@ -1,38 +1,39 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Home from './Home.jsx';
 import EContact from './EContact.jsx';
 import Favorite from './Favorite.jsx';
 import Translate from './Translate.jsx';
 import Checkin from './Checkin.jsx';
 import History from './History.jsx';
+import Friend from './Friend.jsx';
 
-const CustomerProfile = () => {
+const CustomerProfile = ({setViewValue, gId}) => {
     const [customerId, setCustomerId] = useState(1);
     const [view, setView] = useState('Home');
-    const [data, setData] = useState(false);
+    const [data, setData] = useState({
+      user_name: ''
+    });
 
     useEffect(() => {
-      fetch(`${process.env.REDIRECT}/db/customer`, {
+      // console.log("customer profile", gId)
+      fetch(`/db/customer/gId/${gId}`, {
         method: 'GET',
-        // headers: {
-        //   'Content-Type': 'application/json',
-        // },
-        // body: JSON.stringify(data),
       })
       .then(response => response.json())
       .then(data => {
-        console.log('Success:', data[2]); // change user
-        setData(data[2])
-        setCustomerId(data[2].id)
+        console.log("PROFILE DATA", data)
+        setData(data)
+        setCustomerId(data.id)
+        // setCustomerId(3) // test data
       })
       .catch((error) => {
         console.error('Error:', error);
       });
-    }, []);
+  }, []);
 
     switch(view){
         case 'Home':
-        return <Home setView={setView} name={data.user_name}/>
+        return <Home setView={setView} name={data.user_name} setViewValue={setViewValue} img={data.profile_image} />
         case 'EContact':
         return <EContact setView={setView} customerId={customerId}/>
         case 'Checkin':
@@ -43,6 +44,8 @@ const CustomerProfile = () => {
         return <Favorite setView={setView} customerId={customerId}/>
         case 'Translate':
         return <Translate setView={setView} customerId={customerId}/>
+        case 'Friend':
+        return <Friend setView={setView} customerId={customerId}/>
     }
 }
 
