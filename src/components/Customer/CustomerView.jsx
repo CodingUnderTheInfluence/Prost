@@ -44,7 +44,7 @@ const CustomerView = ({ setViewValue, gId }) => {
             return <FriendsList />
         }
         if (value === 1) {
-            return <Create />
+            return <MapContainer />
         }
         if (value === 2) {
             return <Messages />
