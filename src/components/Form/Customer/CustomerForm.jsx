@@ -180,8 +180,8 @@ const CustomerForm = ({ setViewValue, gId, profileImage, username }) => {
                     </Grid>
                     <Button variant="outlined"
                         onClick={() => {
-                            setCounter(0);
                             eContactInformationSubmit();
+                            setViewValue('CustomerView')
                         }}
                     >
                         Submit
