@@ -50,7 +50,7 @@ customerRouter.post('/check', async (req, res) => {
         console.log('USER FOUND IN CUSTOMER TABLE')
         res.send('customer')
       } else {
-        Owner.findAll({ where: { first_name: 'Larry' } })
+        Owner.findAll({ where: { email: gProfile.email } })
           .then((owners) => {
             if (owners.length) {
               console.log('USER FOUND IN OWNER TABLE')

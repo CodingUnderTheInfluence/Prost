@@ -16,8 +16,10 @@ function App() {
   };
 
   useEffect(() => {
-    if (localStorage.token) {
+    if (localStorage.customerToken) {
       handleChange(null, 'CustomerView')
+    } else if (localStorage.ownerToken) {
+      handleChange(null, 'OwnerView')
     } else {
       handleChange(null, 'Landing')
     }
@@ -28,7 +30,7 @@ function App() {
   } else if (value === 'CustomerView') {
     return <CustomerView setViewValue={setViewValue} />
   } else if (value === 'OwnerView') {
-    return <OwnerView />
+    return <OwnerView setViewValue={setViewValue} />
   } else if (value === 'form') {
     return <Form setViewValue={setViewValue} gId={gId} profileImage={profileImage} username={username} />
   } else {

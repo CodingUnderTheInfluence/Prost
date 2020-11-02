@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { GoogleLogin } from 'react-google-login';
 import Axios from 'axios'
+import { Button } from '@material-ui/core'
 
 const clientId = '933644302187-agamsig0qalm5oi4fd44v11hfffpchs8.apps.googleusercontent.com'
 
@@ -23,7 +24,6 @@ const Login = ({ setViewValue, setId, setProfileImage, setUsername }) => {
         const googleToken = {
             authToken: token,
         }
-        localStorage.setItem('token', res.tokenId)
         setId(profile.googleId);
         setProfileImage(profile.imageUrl);
         setUsername(profile.name);
@@ -34,6 +34,10 @@ const Login = ({ setViewValue, setId, setProfileImage, setUsername }) => {
                 console.log(data);
                 if (data === 'customer') {
                     setViewValue('CustomerView')
+                    localStorage.setItem('customerToken', res.tokenId)
+                } else if (data === 'Owner') {
+                    setViewValue('OwnerView')
+                    localStorage.setItem('ownerToken', res.tokenId)
                 } else if (data === 'form') {
                     setViewValue('form')
                 }
@@ -47,6 +51,11 @@ const Login = ({ setViewValue, setId, setProfileImage, setUsername }) => {
         <div>
             <GoogleLogin
                 clientId={clientId}
+                render={renderProps => (
+                    <Button variant="outlined" color="primary" onClick={renderProps.onClick} disabled={renderProps.disabled}>
+                        Login Here
+                    </Button>
+                )}
                 buttonText='Login'
                 onSuccess={onSuccess}
                 onFailure={onFailure}
