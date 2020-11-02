@@ -1,4 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
+  const { Op } = sequelize;
   const Thread = sequelize.define('thread', {
   }, {
     freezeTableName: true,

@@ -1,9 +1,38 @@
-import React from 'react'
+import React, {useState} from 'react'
+import MessageList from './messageList.jsx';
+import {Button, Grid} from '@material-ui/core'
+import useSocket from 'use-socket.io-client';
+import MessageForm from './MessageForm.jsx';
 
-function Messages() {
+
+
+//render a search bar at the top
+//should render a list of message
+//render a create new message button
+
+
+function Messages({username}) {
+    const [id, setId] = useState('');
+    const [socket] = useSocket();
+
+    socket.connect();
+    console.log(socket);
+
     return (
         <div>
-            List of Messages
+            <Grid
+                container
+                direction="column"
+                justify="center"
+                alignItems="stretch"
+                spacing={1}
+            >
+                <MessageList socket={socket} />
+            </Grid>
+                
+            <div>
+                <MessageForm socket={socket} username={username} />
+            </div>
         </div>
     )
 }
