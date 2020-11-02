@@ -99,6 +99,21 @@ function primeDB() {
       }
       return console.error('❌ barbie owner undefined');
     })
+    .then(() => Owner.findOrCreate({
+      where: {
+        first_name: 'Larry',
+        last_name: 'Schwall',
+        user_name: 'big dong',
+        password: '123456',
+        email: 'larryschwall@gmail.com'
+      }
+    }))
+    .then((numberEffected) => {
+      if (numberEffected) {
+        return console.log('✅ barbie owner Created');
+      }
+      return console.error('❌ barbie owner undefined');
+    })
     .then(() => Customer.findOrCreate({
       where: {
         first_name: 'Nami',

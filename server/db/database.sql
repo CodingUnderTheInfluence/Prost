@@ -9,15 +9,15 @@ CREATE TABLE "customer" (
   "id_google" varchar,
 );
 
+--CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE TABLE "owner" (
   "id" SERIAL PRIMARY KEY,
-  "first_name" varchar,
-  "last_name" varchar,
-  "user_name" varchar,
-  "password" varchar,
-  "id_facebook" varchar,
-  "id_google" varchar,
-);
+  "user_name" varchar(255), 
+  "first_name" varchar(255),
+  "last_name" varchar(255),
+  "password" varchar(255),
+  "email" varchar(255),
+ );
 
 CREATE TABLE "eContact" (
   "id" SERIAL PRIMARY KEY,
