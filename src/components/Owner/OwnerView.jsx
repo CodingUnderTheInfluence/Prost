@@ -10,13 +10,14 @@ import QrScanner from './QrCodeScanner.jsx';
 
 
 
+
 const useStyles = makeStyles({
     root: {
         maxWidth: 500,
     },
 });
 
-const OwnerView = () => {
+const OwnerView = ({ setViewValue }) => {
     const classes = useStyles();
     const [value, setValue] = useState();
 
@@ -32,7 +33,7 @@ const OwnerView = () => {
             return <QrScanner />
         }
         if (value === 2) {
-            return <OwnerProfile />
+            return <OwnerProfile setViewValue={setViewValue} />
         }
         return (<div>PLACE INSTRUCTIONS HERE</div>)
     }
