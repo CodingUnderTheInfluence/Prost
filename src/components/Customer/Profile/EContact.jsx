@@ -18,7 +18,7 @@ export default function EContact({setView, customerId}) {
   const [cView, setCView] = useState('add');
 
   const getData = () => {
-    fetch(`${process.env.REDIRECT}/db/eContact/customer/${customerId}`, {
+    fetch(`/db/eContact/customer/${customerId}`, {
       method: 'GET',
     })
     .then(response => response.json())
@@ -54,7 +54,7 @@ export default function EContact({setView, customerId}) {
         delete obj[key];
       }
     }
-    fetch(`${process.env.REDIRECT}/db/eContact/edit`, {
+    fetch(`/db/eContact/edit`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -70,7 +70,8 @@ export default function EContact({setView, customerId}) {
   }
     
   const addContact = async () => {
-    const result = await fetch(`${process.env.REDIRECT}/db/eContact/add`, {
+    try {
+      const result = await fetch(`/db/eContact/add`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -81,10 +82,13 @@ export default function EContact({setView, customerId}) {
         last_name,
         phone_number,
         email
-      }),
-    })
-    getData();
-    setShowForm();
+        }),
+      })
+      getData();
+      setShowForm();
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   const context = (e) => {

@@ -35,8 +35,37 @@ const googleAuth = async (authToken) => {
 }
 
 customerRouter.post('/', (req, res) => {
-  // const { authToken } = req.body.googleToken
-  // googleAuth(authToken);
+  const { authToken } = req.body.googleToken
+  googleAuth(authToken);
+})
+
+customerRouter.get('/gId/:gId', (req, res) => {
+  const { gId } = req.params;
+  Customer.findOne({
+    where: {
+      "id_google": `${gId}`
+    }
+  })
+  .then((customers) => {
+    res.send(customers);
+  })
+  .catch((err) => {
+    console.error('ERROR IN CHECK FOR CUSTOMER BY GoogleID')
+  })
+})
+
+customerRouter.get('/all', (req, res) => {
+  Customer.findAll()
+  .then((customers) => {
+    if (customers.length > 0) {
+      res.send(customers)
+    } else {
+      res.send('empty')
+    }
+  })
+  .catch((err) => {
+    console.error('ERROR IN CHECK FOR ALL CUSTOMERS')
+  })
 })
 
 customerRouter.post('/check', async (req, res) => {

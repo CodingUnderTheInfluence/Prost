@@ -9,6 +9,12 @@ module.exports = (sequelize, DataTypes) => {
     address: {
       type: DataTypes.STRING,
     },
+    latitude: {
+      type: DataTypes.DECIMAL
+    },
+    longitude: {
+      type: DataTypes.DECIMAL
+    },
     qrcode: {
       type: DataTypes.STRING,
     },

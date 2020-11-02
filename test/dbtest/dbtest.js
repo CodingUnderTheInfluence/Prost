@@ -8,7 +8,7 @@ const {
   Image,
   Menu,
   Party,
-  Relationship,
+  Friendship,
   Thread,
   Parties_Customers,
   Customers_Bars,
@@ -44,6 +44,8 @@ function primeDB() {
         bar_name: 'Par 3 Restaurant & Lounge',
         phone_number: '123-456-7890',
         address: '1530 E Judge Perez Dr, Chalmette, LA 70043',
+        latitude: 29.937570,
+        longitude: -89.950240,
         id_owner: 1,
       }
     }))
@@ -58,6 +60,8 @@ function primeDB() {
         bar_name: 'Bar Tonique',
         phone_number: '123-456-7890',
         address: '820 N Rampart St, New Orleans, LA 70116',
+        latitude: 29.961620,
+        longitude: -90.067180,
         id_owner: 2,
       }
     }))
@@ -251,29 +255,29 @@ function primeDB() {
       }
       return console.error('❌ image bar user undefined');
     })
-    .then(() => Relationship.findOrCreate({
+    .then(() => Friendship.findOrCreate({
       where: {
-        id_follower: 2,
-        id_following: 1,
+        id_friend: 2,
+        id_customer: 1,
       }
     }))
     .then((numberEffected) => {
       if (numberEffected) {
-        return console.log('✅ relationship Created');
+        return console.log('✅ friendship Created');
       }
-      return console.error('❌ relationship user undefined');
+      return console.error('❌ friendship user undefined');
     })
-    .then(() => Relationship.findOrCreate({
+    .then(() => Friendship.findOrCreate({
       where: {
-        id_follower: 3,
-        id_following: 4,
+        id_friend: 3,
+        id_customer: 4,
       }
     }))
     .then((numberEffected) => {
       if (numberEffected) {
-        return console.log('✅ relationship Created');
+        return console.log('✅ friendship Created');
       }
-      return console.error('❌ relationship user undefined');
+      return console.error('❌ friendship user undefined');
     })
     .then(() => Thread.findOrCreate({
       where: {
@@ -380,6 +384,7 @@ function primeDB() {
       where: {
         id_customer: 1,
         id_bar: 1,
+        favorite: false
       }
     }))
     .then((numberEffected) => {
@@ -392,6 +397,7 @@ function primeDB() {
       where: {
         id_customer: 2,
         id_bar: 2,
+        favorite: false
       }
     }))
     .then((numberEffected) => {
@@ -404,6 +410,7 @@ function primeDB() {
       where: {
         id_customer: 4,
         id_bar: 2,
+        favorite: false
       }
     }))
     .then((numberEffected) => {
@@ -416,6 +423,7 @@ function primeDB() {
       where: {
         id_customer: 3,
         id_bar: 1,
+        favorite: false
       }
     }))
     .then((numberEffected) => {

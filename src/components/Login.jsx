@@ -31,7 +31,7 @@ const Login = ({ setViewValue, setId, setProfileImage, setUsername }) => {
         // Axios.post('/db/customer', { googleToken }); //this is a post to check for the google token
         Axios.post('/db/customer/check', { googleProfile, googleToken })
             .then(({ data }) => {
-                console.log(data);
+                // console.log(data);
                 if (data === 'customer') {
                     setViewValue('CustomerView')
                     localStorage.setItem('customerToken', res.tokenId)

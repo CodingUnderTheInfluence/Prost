@@ -1,13 +1,13 @@
 module.exports = (sequelize, DataTypes) => {
-  const Relationship = sequelize.define('relationship', {
-    id_follower: {
+  const Friendship = sequelize.define('friendship', {
+    id_customer: {
       type: DataTypes.INTEGER,
       references: {
         model: "customer",
         key: "id"
       }
     },
-    id_following: {
+    id_friend: {
       type: DataTypes.INTEGER,
       references: {
         model: "customer",
@@ -17,5 +17,5 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     freezeTableName: true,
   });
-  return Relationship;
+  return Friendship;
 };

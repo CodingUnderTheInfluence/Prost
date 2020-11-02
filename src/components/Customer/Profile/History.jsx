@@ -6,12 +6,12 @@ import HistoryList from './HistoryList.jsx'
 export default function History({setView, customerId}) {
   const [list, setList] = useState(null);
   const getData = () => {
-    fetch(`${process.env.REDIRECT}/db/cb/history/${customerId}`, {
+    fetch(`/db/cb/history/${customerId}`, {
       method: 'GET',
     })
     .then(response => response.json())
     .then(res => {
-      console.log('Contact Success :', res)
+      // console.log('Contact Success :', res)
       setList(res);
     })
     .catch((error) => {
@@ -28,7 +28,10 @@ export default function History({setView, customerId}) {
       <ArrowBackIosIcon color="primary" onClick={()=> setView('Home')} />
       Hello from History
       {list && (list.map((bar, key) => 
-        <HistoryList key={key} list={bar} />
+        <div>
+          <HistoryList key={key} list={bar} customerId={customerId} s/>
+          <hr key={`0${key}`}/>
+        </div>
       ))} 
     </div>
   )

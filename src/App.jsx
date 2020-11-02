@@ -28,7 +28,7 @@ function App() {
   if (value === 'Landing') {
     return <LandingPage setViewValue={setViewValue} setId={setId} setProfileImage={setProfileImage} setUsername={setUsername} />
   } else if (value === 'CustomerView') {
-    return <CustomerView setViewValue={setViewValue} />
+    return <CustomerView setViewValue={setViewValue} gId={gId} />
   } else if (value === 'OwnerView') {
     return <OwnerView setViewValue={setViewValue} />
   } else if (value === 'form') {

@@ -4,28 +4,28 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import DeleteOutlinedIcon from  '@material-ui/icons/DeleteOutlined'
 import HistoryList from './HistoryList.jsx'
 
-export default function Favorite({setView, customerId}) {
+export default function Friend({setView, customerId}) {
   const [list, setList] = useState(null);
   const getData = () => {
-    fetch(`/db/cb/favorite/${customerId}`, {
+    fetch(`/db/friendship/all/friends/${customerId}`, {
       method: 'GET',
     })
     .then(response => response.json())
     .then(res => {
-      // console.log('Contact Success :', res)
+      console.log('Contact Success :', res)
       setList(res);
     })
     .catch((error) => {
       console.error('Error:', error);
     });
   }
-  const deleteFavorite = async (num) => {
+  const deleteFriend = async (num) => {
     try {
       const obj = {
         id_bar: num,
         id_customer: customerId
       }
-      const result = await fetch(`/db/cb/delete/favorite`, {
+      const result = await fetch(`/db/cb/delete/Friend`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -45,13 +45,11 @@ export default function Favorite({setView, customerId}) {
   return(
     <div>
       <ArrowBackIosIcon color="primary" onClick={()=> setView('Home')} />
-      Hello from Favorite
-      {list && (list.map((bar, key) => 
+      Hello from Friend
+      {list && (list.map((friend, key) => 
         <div key={key}>
-        <p>{bar.bar_name}</p>
-        <p>{bar.address}</p> 
-        <p>{bar.phone_number}</p> 
-        <DeleteOutlinedIcon onClick={() => deleteFavorite(bar.id)}/>
+        <p>{friend.user_name}</p>
+        {/* <DeleteOutlinedIcon onClick={() => deleteFriend(friend.id)}/> */}
       </div>
       ))} 
     </div>

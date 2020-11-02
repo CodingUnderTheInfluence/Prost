@@ -55,14 +55,23 @@ const CustomerForm = ({ setViewValue, gId, profileImage, username }) => {
     const [emNumber, setEmNumber] = useState();
     //EMERGENCY CONTACT INFORMATION SUBMIT
     const eContactInformationSubmit = () => {
+        console.log('add econtact', {
+            first: emFirst,
+            last: emLast,
+            email: emEmail,
+            number: emNumber,
+            id: gId
+        })
         const emergencyParams = {
             first: emFirst,
             last: emLast,
             email: emEmail,
             number: emNumber,
+            id: gId
         }
-        axios.post('/db/eContact/create', { emergencyParams })
-            .then(() => {
+        axios.post('/db/eContact/add', emergencyParams)
+            .then((res) => {
+                // console.log(res)
                 console.log(` Successfully posted ${personalFirst}'s Emergency Contact Information to the server`)
             })
     }
@@ -171,8 +180,8 @@ const CustomerForm = ({ setViewValue, gId, profileImage, username }) => {
                     </Grid>
                     <Button variant="outlined"
                         onClick={() => {
-                            setCounter(0);
                             eContactInformationSubmit();
+                            setViewValue('CustomerView')
                         }}
                     >
                         Submit
