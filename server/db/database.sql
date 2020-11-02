@@ -35,6 +35,9 @@ CREATE TABLE "bar" (
   "phone_number" varchar,
   "id_owner" int,
   "address" varchar,
+  "city" varchar, 
+  "state" varchar, 
+  "zip" varchar,
   "qrcode" varchar,
 );
 

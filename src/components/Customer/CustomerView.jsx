@@ -60,7 +60,7 @@ const CustomerView = ({ setViewValue, gId, username }) => {
                 {renderView()}
             </Grid>
             <Grid item container direction="row" justify="center" alignItems="center">
-                <Paper className={classes.root}>
+                <Paper className={classes.stickToBottom}>
                     <BottomNavigation
                         value={value}
                         onChange={handleChange}
