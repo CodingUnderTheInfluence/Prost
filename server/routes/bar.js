@@ -70,19 +70,21 @@ barRouter.get('/parties', (req, res) => {
 
 barRouter.post('/create', (req, res) => {
   const {
-    bar_name,
+    barName,
     address,
-    phone_number,
-    latitude,
-    longitude
-  } = req.body;
+    city,
+    state,
+    zip,
+    number
+  } = req.body.params;
   Bar.findOrCreate({
     where: {
-      bar_name: bar_name,
+      bar_name: barName,
       address: address,
-      phone_number: phone_number,
-      latitude: latitude,
-      longitude: longitude
+      city: city,
+      state: state,
+      zip: zip,
+      phone_number: number,
     }
   })
     .then((bar) => {

@@ -99,7 +99,7 @@ io.on('connect', (socket) => {
   console.log(`new client connected : ${socket.id}`);
   connectedUsers[socket.id] = socket.id
   socket.emit('connection', null);
-  
+
   socket.on('sendMessage', (data) => {
     console.log(data);
     // socket.broadcast.emit('newMessage', data)

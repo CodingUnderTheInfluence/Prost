@@ -9,6 +9,15 @@ module.exports = (sequelize, DataTypes) => {
     address: {
       type: DataTypes.STRING,
     },
+    city: {
+      type: DataTypes.STRING,
+    },
+    state: {
+      type: DataTypes.STRING,
+    },
+    zip: {
+      type: DataTypes.STRING,
+    },
     latitude: {
       type: DataTypes.DECIMAL
     },

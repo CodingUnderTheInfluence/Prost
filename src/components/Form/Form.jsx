@@ -3,7 +3,7 @@ import CustomerForm from './Customer/CustomerForm.jsx';
 import OwnerForm from './Owner/OwnerForm.jsx';
 import { Grid, Button, Typography } from '@material-ui/core'
 
-const Form = ({ setViewValue, gId, profileImage, username }) => {
+const Form = ({ setViewValue, gId, profileImage, username, mapLatLng }) => {
     const [formView, setFormView] = useState();
 
     const renderView = () => {
@@ -11,7 +11,7 @@ const Form = ({ setViewValue, gId, profileImage, username }) => {
             return <CustomerForm setViewValue={setViewValue} gId={gId} profileImage={profileImage} username={username} />
         }
         if (formView === 'owner') {
-            return <OwnerForm />
+            return <OwnerForm setViewValue={setViewValue} />
         }
         return (
             <div>
