@@ -18,7 +18,7 @@ const useStyles = makeStyles({
     },
     stickToBottom: {
         width: '100vw',
-        position: 'sticky',
+        position: 'fixed',
         bottom: '0',
         marginLeft: 'auto',
         marginRight: 'auto',
