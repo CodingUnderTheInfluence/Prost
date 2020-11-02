@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import MessageList from './messageList.jsx';
-import {Button} from '@material-ui/core'
+import {Button, Grid} from '@material-ui/core'
 import useSocket from 'use-socket.io-client';
 import MessageForm from './MessageForm.jsx';
 
@@ -20,9 +20,16 @@ function Messages({username}) {
 
     return (
         <div>
-            <div>
+            <Grid
+                container
+                direction="column"
+                justify="center"
+                alignItems="stretch"
+                spacing={1}
+            >
                 <MessageList socket={socket} />
-            </div>
+            </Grid>
+                
             <div>
                 <MessageForm socket={socket} username={username} />
             </div>
