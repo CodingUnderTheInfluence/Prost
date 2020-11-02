@@ -44,20 +44,20 @@ const searchBox = {
 };
 
 
-const MapContainer = () => {
-  const [ currentPosition, setCurrentPosition ] = useState({
+const MapContainer = ({ setMapLatLng }) => {
+  const [currentPosition, setCurrentPosition] = useState({
     lat: 29.951065,
     lng: -90.071533
   });
-  const [ publicLocations, setPublicLocations ] = useState([]);
-  const [ friendLocations, setFriendLocations ] = useState([]);
-  const [ selectedItem, setSelectedItem ] = useState({});
-  const [ myLocation, setMyLocation ] = useState({});
-  const [ markers, setMarkers ] = useState([]);
-  const [ parties, setParties ] = useState([]);
-  const [ searchMarker, setSearchMarker ] = useState({});
-  const [ click, setClick ] = useState(false);
-  const [ placeInfo, setplaceInfo ] = useState(null);
+  const [publicLocations, setPublicLocations] = useState([]);
+  const [friendLocations, setFriendLocations] = useState([]);
+  const [selectedItem, setSelectedItem] = useState({});
+  const [myLocation, setMyLocation] = useState({});
+  const [markers, setMarkers] = useState([]);
+  const [parties, setParties] = useState([]);
+  const [searchMarker, setSearchMarker] = useState({});
+  const [click, setClick] = useState(false);
+  const [placeInfo, setplaceInfo] = useState(null);
 
   const defaultCenter = {
     lat: 29.951065,
@@ -73,7 +73,7 @@ const MapContainer = () => {
     let isMounted = true;
     if (isMounted) {
       axios.get('/db/bar/all')
-        .then(({data}) => {
+        .then(({ data }) => {
           setParties(data);
         });
     }
@@ -94,7 +94,7 @@ const MapContainer = () => {
   // sets the makers to the user click
   const onMapClick = useCallback((e) => {
     setMarkers(current => [
-      ...current, 
+      ...current,
       {
         lat: e.latLng.lat(),
         lng: e.latLng.lng(),
@@ -130,63 +130,64 @@ const MapContainer = () => {
 
   // get places info from search bar
   const getPlaceInfo = useCallback((results) => {
-    const { lat, lng } = results; 
+    const { lat, lng } = results;
     setSearchMarker({ lat, lng });
     setplaceInfo(results);
   }, []);
 
   if (loadError) {
     return 'Error loading maps';
-  } 
+  }
   if (!isLoaded) {
     return 'Loading maps';
   }
 
   return (
 
-    <div style={{align: 'center'}} con={console.log(parties)}>
+    <div style={{ align: 'center' }} con={console.log(parties)}>
       {/* <PeopleSearch searchBox={searchBox} /> */}
-      <Search 
+      <Search
         panTo={panTo}
         currentPosition={currentPosition}
         searchBox={searchBox}
         getPlaceInfo={getPlaceInfo}
       />
-      {click  
+      {click
         ? <BarInfo
           placeInfo={placeInfo}
-          searchMarker={searchMarker} /> 
+          searchMarker={searchMarker} />
         : null}
-      <GoogleMap 
+      <GoogleMap
         mapContainerStyle={mapStyles}
         zoom={15}
-        center={currentPosition  ? currentPosition : defaultCenter}
+        center={currentPosition ? currentPosition : defaultCenter}
         options={options}
         draggable={true}
         // onClick={onMapClick}
         onLoad={onMapLoad}
       >
-          <Marker
-            onClick={handleMarkerClick}
-            key={searchMarker.lat}
-            position={{
-              lat: +searchMarker.lat, 
-              lng: +searchMarker.lng
-            }}
-          />
-        {parties.map(({latitude, longitude, id}) => {
+        <Marker
+          onClick={handleMarkerClick}
+          key={searchMarker.lat}
+          position={{
+            lat: +searchMarker.lat,
+            lng: +searchMarker.lng
+          }}
+        />
+        {parties.map(({ latitude, longitude, id }) => {
           console.log(latitude, longitude)
           return (
             <Marker
-              key={id} 
-              position={{ 
+              key={id}
+              position={{
                 lat: +latitude,
-                lng: +longitude 
+                lng: +longitude
               }}
             />
-          )}
+          )
+        }
         )}
-          {/* {click ? <BarInfo
+        {/* {click ? <BarInfo
             placeInfo={placeInfo}
             searchMarker={searchMarker}  
           /> : null} */}
@@ -201,11 +202,11 @@ const MapContainer = () => {
       </GoogleMap>
       <QuickCreate
         style={{
-          position: 'absolute', 
+          position: 'absolute',
           zIndex: 10,
           bottom: 100
-        }} 
-        getMyLocation={getMyLocation} 
+        }}
+        getMyLocation={getMyLocation}
         panTo={panTo}
       />
     </div>

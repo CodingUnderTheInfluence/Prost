@@ -5,7 +5,6 @@ import axios from 'axios';
 
 const CustomerForm = ({ setViewValue, gId, profileImage, username }) => {
     const [counter, setCounter] = useState(0);
-    const [value, setValue] = useState('female');
 
     //PERSONAL INFORMATION FIELDS
     const [personalFirst, setPersonalFirst] = useState('');

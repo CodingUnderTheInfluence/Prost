@@ -11,6 +11,7 @@ function App() {
   const [gId, setId] = useState('');
   const [profileImage, setProfileImage] = useState('');
   const [username, setUsername] = useState('');
+  const [mapLatLng, setMapLatLng] = useState('');
   const handleChange = (event, newValue) => {
     setViewValue(newValue);
   };
@@ -28,7 +29,7 @@ function App() {
   if (value === 'Landing') {
     return <LandingPage setViewValue={setViewValue} setId={setId} setProfileImage={setProfileImage} setUsername={setUsername} />
   } else if (value === 'CustomerView') {
-    return <CustomerView setViewValue={setViewValue} gId={gId} username={username}/>
+    return <CustomerView setViewValue={setViewValue} gId={gId} username={username} setMapLatLng={setMapLatLng} />
   } else if (value === 'OwnerView') {
     return <OwnerView setViewValue={setViewValue} />
   } else if (value === 'form') {

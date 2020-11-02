@@ -27,13 +27,16 @@ const bcrypt = require('bcrypt')
 //     });
 // })
 
-const createOwner = async (res, name, email, password) => {
+const createOwner = async (res, firstName, lastName, number, username, email, password) => {
   const saltRound = 10;
   const salt = await bcrypt.genSalt(saltRound);
   const bcryptPassword = await bcrypt.hash(password, salt);
   //adds new userinside database
   Owner.create({
-    first_name: name,
+    user_name: username,
+    first_name: firstName,
+    last_name: lastName,
+    phone_number: number,
     email: email,
     password: bcryptPassword,
   })
@@ -43,15 +46,17 @@ const createOwner = async (res, name, email, password) => {
 }
 
 ownerRouter.post('/register', async (req, res) => {
-  const { name, email, password } = req.body;
+  // const { name, email, password } = req.body;
+  const { firstName, lastName, number, password, email, username } = req.body.params
+  console.log('FORM PARAMS', req.body.params)
 
   Owner.findAll({ where: { email: email } })
     .then((owner) => {
       if (owner.length !== 0) {
         res.status(200).send(owner)
-        console.log('OWNER ALREADY EXISTS IN OWNER TABLE')
+        console.log('OWNER ALREADY EXISTS IN OWNER')
       } else {
-        createOwner(res, name, email, password);
+        createOwner(res, firstName, lastName, number, username, email, password);
       }
     })
     .catch(err => {

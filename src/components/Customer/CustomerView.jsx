@@ -10,6 +10,7 @@ import Messages from './Social/Messages.jsx';
 import Logout from '../Logout.jsx'
 import CustomerProfile from './Profile/CustomerProfile.jsx';
 import regeneratorRuntime from "regenerator-runtime";
+import FriendsList from '../Customer/Friends/FriendsList.jsx'
 
 
 
@@ -21,7 +22,7 @@ const useStyles = makeStyles({
     },
     stickToBottom: {
         width: '100vw',
-        position: 'sticky',
+        position: 'fixed',
         bottom: '0',
         marginLeft: 'auto',
         marginRight: 'auto',
@@ -30,7 +31,7 @@ const useStyles = makeStyles({
     }
 });
 
-const CustomerView = ({ setViewValue, gId, username }) => {
+const CustomerView = ({ setViewValue, gId, username, setMapLatLng }) => {
     const classes = useStyles();
     const [value, setValue] = useState();
 
@@ -44,10 +45,10 @@ const CustomerView = ({ setViewValue, gId, username }) => {
             return <FriendsList />
         }
         if (value === 1) {
-            return <MapContainer />
+            return <MapContainer setMapLatLng={setMapLatLng} />
         }
         if (value === 2) {
-            return <Messages username={username}/>
+            return <Messages username={username} />
         }
         if (value === 3) {
             return <CustomerProfile setViewValue={setViewValue} gId={gId} />
