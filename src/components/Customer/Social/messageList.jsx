@@ -7,7 +7,7 @@ import SingleMessage from './singleMessage.jsx';
 
 
 function messageList({socket}) {
-    const [messages, setMessages] = useState([{user: 'test', body: 'Test Body'}]);
+    const [messages, setMessages] = useState([]);
     
     useEffect(()=> {
         socket.once('newMessage', (m) => {
