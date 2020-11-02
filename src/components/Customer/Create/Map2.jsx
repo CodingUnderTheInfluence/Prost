@@ -10,6 +10,7 @@ import BarCard from './BarInfoCardTest.jsx';
 import mapStyle from '../../../helpers/mapStyle';
 import mapParties from '../../../helpers/mapStyle';
 import { Details } from '@material-ui/icons';
+import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 
 // used for the load script to get google places
 const libraries = ['places'];
@@ -144,9 +145,8 @@ const MapContainer = ({ setMapLatLng }) => {
 
   return (
 
-    <div style={{ align: 'center' }} con={console.log(parties)}>
-      {/* <PeopleSearch searchBox={searchBox} /> */}
-      <Search
+    <div style={{align: 'center'}} con={console.log(parties)}>
+      <Search 
         panTo={panTo}
         currentPosition={currentPosition}
         searchBox={searchBox}
@@ -166,38 +166,23 @@ const MapContainer = ({ setMapLatLng }) => {
         // onClick={onMapClick}
         onLoad={onMapLoad}
       >
-        <Marker
-          onClick={handleMarkerClick}
-          key={searchMarker.lat}
-          position={{
-            lat: +searchMarker.lat,
-            lng: +searchMarker.lng
-          }}
-        />
-        {parties.map(({ latitude, longitude, id }) => {
-          console.log(latitude, longitude)
-          return (
-            <Marker
-              key={id}
-              position={{
-                lat: +latitude,
-                lng: +longitude
-              }}
-            />
-          )
-        }
-        )}
-        {/* {click ? <BarInfo
-            placeInfo={placeInfo}
-            searchMarker={searchMarker}  
-          /> : null} */}
-
-        {/* {markers.map(({lat, lng, time}) => (
-            <Marker 
-            key={time.toISOString()} 
-            position={{ lat, lng }}
-            />
-          ))} */}
+          <Marker
+            onClick={handleMarkerClick}
+            key={searchMarker.lat}
+            position={{
+              lat: +searchMarker.lat, 
+              lng: +searchMarker.lng
+            }}
+          />
+        {parties.map(({latitude, longitude, id}) => (
+          <Marker
+            key={id} 
+            position={{ 
+              lat: +latitude,
+              lng: +longitude 
+            }}
+          />
+        ))}
 
       </GoogleMap>
       <QuickCreate
@@ -213,20 +198,6 @@ const MapContainer = ({ setMapLatLng }) => {
   );
 
 };
-
-
-// {click ? <InfoWindow
-//   position={{
-//     lat: +searchMarker.lat, 
-//     lng: +searchMarker.lng
-//   }}
-// >
-//   <div>
-
-//   </div>
-// </InfoWindow> 
-
-// : null}
 
 // //////////////////////////////////////////////////////////////////////////
 // ///////////////////             dummy info            ///////////////////
