@@ -56,6 +56,8 @@ const { menuRouter } = require('./routes/menu');
 app.use('/db/menu', menuRouter);
 const { eContactRouter } = require('./routes/eContact');
 app.use('/db/eContact', eContactRouter);
+const { mapRouter } = require('./routes/map');
+app.use('/db/maps', mapRouter);
 // app.use('/auth', auth);
 
 
