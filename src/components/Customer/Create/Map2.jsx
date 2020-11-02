@@ -168,6 +168,7 @@ const MapContainer = () => {
       >
           <Marker
             onClick={handleMarkerClick}
+            key={searchMarker.lat}
             position={{
               lat: +searchMarker.lat, 
               lng: +searchMarker.lng
@@ -176,12 +177,12 @@ const MapContainer = () => {
         {parties.map(({latitude, longitude, id}) => {
           console.log(latitude, longitude)
           return (
-            <Marker 
-            key={id} 
-            position={{ 
-              lat: +latitude,
-              lng: +longitude 
-            }}
+            <Marker
+              key={id} 
+              position={{ 
+                lat: +latitude,
+                lng: +longitude 
+              }}
             />
           )}
         )}
