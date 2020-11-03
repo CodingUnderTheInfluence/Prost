@@ -74,6 +74,10 @@ SEQUEL_DATABASE=<br />
 Place in the same .env file
 
 GOOGLE_MAPS_API_KEY=<br />
+GOOGLE_CLIENT_ID=<br />
+GOOGLE_CLIENT_SECRET=<br />
+REDIRECT=<br />
+COOKIE_SESSION_KEY=<br />
 
 ## Tech-Stack
     --ToDo

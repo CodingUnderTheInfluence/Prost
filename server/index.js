@@ -56,6 +56,8 @@ const { menuRouter } = require('./routes/menu');
 app.use('/db/menu', menuRouter);
 const { eContactRouter } = require('./routes/eContact');
 app.use('/db/eContact', eContactRouter);
+const { mapRouter } = require('./routes/map');
+app.use('/db/maps', mapRouter);
 // app.use('/auth', auth);
 
 
@@ -80,8 +82,8 @@ const connection = async () => {
 
 const syncModels = async () => {
   try {
-    await models.sequelize.sync();
-    // await models.sequelize.sync({ force: true });
+    // await models.sequelize.sync();
+    await models.sequelize.sync({ force: true });
     console.log('Models have been synced successfully.');
   } catch (error) {
     console.error('Unable to sync models:', error);

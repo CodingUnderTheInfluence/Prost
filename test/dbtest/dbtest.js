@@ -12,6 +12,7 @@ const {
   Thread,
   Parties_Customers,
   Customers_Bars,
+  Maps
 } = require('../../server/db/models/dbindex.js');
 
 function primeDB() {
@@ -235,6 +236,34 @@ function primeDB() {
       where: {
         image: 'https://source.unsplash.com/random',
         id_customer: 1,
+      }
+    }))
+    .then((numberEffected) => {
+      if (numberEffected) {
+        return console.log('✅ map customer1 Created');
+      }
+      return console.error('❌ map customer1 undefined');
+    })
+    .then(() => Maps.findOrCreate({
+      where: {
+        user_name: 'big dong',
+        id_google: '114252099336753341135',
+        latitude: 29.924110,
+        longitude: -90.107380
+      }
+    }))
+    .then((numberEffected) => {
+      if (numberEffected) {
+        return console.log('✅ map customer2 Created');
+      }
+      return console.error('❌ map customer2 undefined');
+    })
+    .then(() => Maps.findOrCreate({
+      where: {
+        user_name: 'hotdog',
+        id_google: '1352532099336753341135',
+        latitude: 29.923389,
+        longitude: -90.087357
       }
     }))
     .then((numberEffected) => {
