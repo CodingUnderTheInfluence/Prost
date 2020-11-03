@@ -46,7 +46,7 @@ const Login = ({ setViewValue, setId, setProfileImage, setUsername }) => {
             userName: profile.name,
             gId: profile.googleId
         })
-            .then(({ data }) => console.log('post to maps in login', data));
+            .catch(err => console.error('error in post to maps', err));
     }
 
     const onFailure = (res) => {

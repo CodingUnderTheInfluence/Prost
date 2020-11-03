@@ -3,6 +3,7 @@ import axios from 'axios';
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
 import Search from './Search.jsx';
 import BarInfo from './BarInfo.jsx';
+import PrivateSwitch from './PrivateSwitch.jsx';
 import Create from './Create.jsx';
 import PeopleSearch from './PeopleSearch.jsx';
 import QuickCreate from './QuickCreate.jsx';
@@ -136,6 +137,8 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
   };
 
   const getMyLocation = ({ latitude, longitude }) => {
+    axios.put(`/db/maps/${gId}`, { latitude, longitude })
+      .then(data => console.log('axios.put', data));
     setMyLocation({
       lat: latitude,
       lng: longitude
@@ -199,6 +202,7 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
         )) : null}
 
       </GoogleMap>
+      <PrivateSwitch gId={gId} />
       <QuickCreate
         style={{
           position: 'absolute',

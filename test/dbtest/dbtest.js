@@ -250,7 +250,6 @@ function primeDB() {
         id_google: '114252099336753341135',
         latitude: 29.924110,
         longitude: -90.107380,
-        private: false
       }
     }))
     .then((numberEffected) => {
@@ -265,7 +264,6 @@ function primeDB() {
         id_google: '1352532099336753341135',
         latitude: 29.923389,
         longitude: -90.087357,
-        private: true
       }
     }))
     .then((numberEffected) => {

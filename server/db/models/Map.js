@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     id_google: {
       type: DataTypes.STRING,
+      unique: true
     },
     latitude: {
       type: DataTypes.DECIMAL
@@ -13,7 +14,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DECIMAL
     },
     private: {
-      type: DataTypes.BOOLEAN
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
     }
   }, {
     freezeTableName: true,

@@ -10,6 +10,7 @@ const QuickCreate = ({getMyLocation, panTo}) => {
 
 const success = (pos) => {
   const { latitude, longitude } = pos.coords;
+  console.log(pos.coords);
   getMyLocation({ latitude, longitude });
   panTo({lat: latitude, lng: longitude})
 }

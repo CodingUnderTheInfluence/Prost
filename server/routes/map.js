@@ -12,6 +12,21 @@ mapRouter.get('/', (req, res) => {
     });
 });
 
+// mapRouter.post('/', (req, res) => {
+//   const {
+//     userName,
+//     gId,
+//     latitude,
+//     longitude,
+//     private
+//   } = req.body;
+//   Maps.findOrCreate({
+//     where: { id_google: gId }
+//   })
+//     .spread(data => console.log(data))
+
+// });
+
 mapRouter.post('/', (req, res) => {
   const {
     userName,
@@ -28,14 +43,19 @@ mapRouter.post('/', (req, res) => {
     private: private
   })
     .then(data => res.status(201).send(data))
-    .catch(err => res.status(500).send('error in map post:', err))
+    .catch(err => res.sendStatus(500))
 });
 
 mapRouter.put('/:gId', (req, res) => {
   const { gId } = req.params;
-  const { private } = req.body;
+  const { private, latitude, longitude } = req.body;
+  console.log(req.body)
   Maps.update(
-    { private: private },
+    {
+      latitude: latitude,
+      longitude: longitude,
+      private: private
+    },
     {
       returning: true,
       where: { id_google: gId }
