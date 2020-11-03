@@ -45,13 +45,13 @@ const searchBox = {
 };
 
 
-const MapContainer = ({ setMapLatLng }) => {
+const MapContainer = ({ setMapLatLng, username, gId }) => {
   const [currentPosition, setCurrentPosition] = useState({
     lat: 29.951065,
     lng: -90.071533
   });
   const [publicLocations, setPublicLocations] = useState([]);
-  const [friendLocations, setFriendLocations] = useState([]);
+  const [friendLocations, setFriendLocations] = useState(null);
   const [selectedItem, setSelectedItem] = useState({});
   const [myLocation, setMyLocation] = useState({});
   const [markers, setMarkers] = useState([]);
@@ -73,13 +73,26 @@ const MapContainer = ({ setMapLatLng }) => {
   useEffect(() => {
     let isMounted = true;
     if (isMounted) {
-      axios.get('/db/bar/all')
-        .then(({ data }) => {
-          setParties(data);
-        });
+      axios.get('/db/maps')
+        .then(({data}) => {
+          setFriendLocations(data);
+      });
     }
     return () => { isMounted = false };
   }, []);
+
+
+  /////////////       get info for bars to display        /////////////////////////////
+  // useEffect(() => {
+  //   let isMounted = true;
+  //   if (isMounted) {
+  //     axios.get('/db/bar/all')
+  //       .then(({ data }) => {
+  //         setParties(data);
+  //       });
+  //   }
+  //   return () => { isMounted = false };
+  // }, []);
 
   // const onMapClick = useCallback((e) => {
   //   setMarkers(current => [
@@ -102,7 +115,7 @@ const MapContainer = ({ setMapLatLng }) => {
         time: new Date()
       }
     ]);
-  });
+  }); 
 
   // save reference to map to use it later and not reload state
   const mapRef = useRef();
@@ -145,7 +158,7 @@ const MapContainer = ({ setMapLatLng }) => {
 
   return (
 
-    <div style={{align: 'center'}} con={console.log(parties)}>
+    <div style={{align: 'center'}}>
       <Search 
         panTo={panTo}
         currentPosition={currentPosition}
@@ -174,15 +187,16 @@ const MapContainer = ({ setMapLatLng }) => {
               lng: +searchMarker.lng
             }}
           />
-        {parties.map(({latitude, longitude, id}) => (
+        {friendLocations ? friendLocations.map(({latitude, longitude, gId}) => (
           <Marker
-            key={id} 
+            cons={console.log(latitude, longitude)}
+            key={gId} 
             position={{ 
               lat: +latitude,
               lng: +longitude 
             }}
           />
-        ))}
+        )) : null}
 
       </GoogleMap>
       <QuickCreate
@@ -199,111 +213,6 @@ const MapContainer = ({ setMapLatLng }) => {
 
 };
 
-// //////////////////////////////////////////////////////////////////////////
-// ///////////////////             dummy info            ///////////////////
-
-// import { results } from './places.json';
-
-// const MapContainer = () => {
-
-//   const [ currentPosition, setCurrentPosition ] = useState(null);
-//   const [ publicLocations, setPublicLocations ] = useState([]);
-//   const [ friendLocations, setFriendLocations ] = useState([]);
-//   const [ selectedItem, setSelectedItem ] = useState({});
-//   const [ myLocation, setMyLocation ] = useState({});
-//   const [ markers, setMarkers ] = useState([]);
-//   const [ searchMarker, setSearchMarker ] = useState({});
-
-//   const [ bars, setBars ] = useState(results);
-
-//   const mapStyles = {
-//     width: '100vw',
-//     height: '100vh'
-//   };
-//   const defaultCenter = {
-//     lat: 29.951065,
-//     lng: -90.071533,
-//   };
-//   const options = {
-//     zoomControl: true
-//   };
-
-//   const { isLoaded, loadError } = useLoadScript({
-//     googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY,
-//     libraries
-//   });
-
-//   // sets the makers to the user click
-//   const onMapClick = useCallback((e) => {
-//     setMarkers(current => [
-//       ...current, 
-//       {
-//         lat: e.latLng.lat(),
-//         lng: e.latLng.lng(),
-//         time: new Date()
-//       }
-//     ]);
-//   });
-
-//   // save reference to map to use it later and not reload state
-//   const mapRef = useRef();
-//   const onMapLoad = useCallback((map) => {
-//     mapRef.current = map;
-//   }, []);
-
-//   // move map to the where the user has searched
-//   const panTo = useCallback(({ lat, lng }) => {
-//     console.log('current mapref', mapRef.current);
-//     mapRef.current.panTo({ lat, lng });
-//     mapRef.current.setZoom(16);
-//     setCurrentPosition({ lat, lng });
-//     setSearchMarker({ lat, lng });
-//   }, []);
-
-//   // get places info from search bar
-//   // const searchInfo = useCallback(({ lat, lng}) => {
-//   //   setSearchMarker({ lat, lng });
-//   // }, []);
-
-//   if (loadError) {
-//     return 'Error loading maps';
-//   } 
-//   if (!isLoaded) {
-//     return 'Loading maps';
-//   }
-
-//   return (
-//     <>
-//       <Search panTo={panTo} />
-//       <GoogleMap 
-//         mapContainerStyle={mapStyles}
-//         zoom={15}
-//         center={currentPosition  ? currentPosition : defaultCenter}
-//         options={options}
-//         draggable={true}
-//         onClick={onMapClick}
-//         onLoad={onMapLoad}
-//       >
-//         {/* <Marker 
-//           position={{
-//             lat: +searchMarker.lat, 
-//             lng: +searchMarker.lng
-//           }}/> */}
-//         {bars.map(({ geometry: { location: { lat, lng } } }) => (
-//           <Marker 
-//             position={{ lat, lng }}
-//             onClick={}
-//           />
-//         ))}
-//       </GoogleMap>
-//     </>
-
-//   );
-
-// };
-
-////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////
 
 
 export default MapContainer;

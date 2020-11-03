@@ -52,7 +52,7 @@ const CustomerView = ({ setViewValue, gId, username, setMapLatLng }) => {
             return <FriendsList />
         }
         if (value === 1) {
-            return <MapContainer setMapLatLng={setMapLatLng} />
+            return <MapContainer setMapLatLng={setMapLatLng} username={username} gId={gId} />
         }
         if (value === 2) {
             return <Messages username={username} socket={socket}/>
@@ -60,7 +60,7 @@ const CustomerView = ({ setViewValue, gId, username, setMapLatLng }) => {
         if (value === 3) {
             return <CustomerProfile setViewValue={setViewValue} gId={gId} />
         }
-        return <MapContainer />
+        return <MapContainer setMapLatLng={setMapLatLng} username={username} gId={gId} />
     }
     return (
         <Grid container direction="column" justify="center" alignItems="center">

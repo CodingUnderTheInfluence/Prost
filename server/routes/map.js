@@ -4,13 +4,28 @@ const mapRouter = Router();
 
 mapRouter.get('/', (req, res) => {
   Maps.findAll()
-    .then(map => {
-      res.status(200).send(map);
+    .then(maps => {
+      res.status(200).send(maps);
     })
     .catch(err => {
       res.send(500).send(err);
     });
 });
 
+mapRouter.put('/:gId', (req, res) => {
+  const { gId } = req.params;
+  const { private } = req.body;
+  Maps.update(
+    { private: private },
+    {
+      returning: true,
+      where: { id_google: gId }
+    }
+  )
+    .then(([udatedLine, [updatedPrivate]]) => {
+      res.status(201).send(updatedPrivate)
+    })
+    .catch(err => res.status(500).send('error in map put:', err));
+});
 
 module.exports = { mapRouter };
