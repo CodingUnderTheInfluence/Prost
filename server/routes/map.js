@@ -12,6 +12,25 @@ mapRouter.get('/', (req, res) => {
     });
 });
 
+mapRouter.post('/', (req, res) => {
+  const {
+    userName,
+    gId,
+    latitude,
+    longitude,
+    private
+  } = req.body;
+  Maps.create({
+    user_name: userName,
+    id_google: gId,
+    latitude: latitude,
+    longitude: longitude,
+    private: private
+  })
+    .then(data => res.status(201).send(data))
+    .catch(err => res.status(500).send('error in map post:', err))
+});
+
 mapRouter.put('/:gId', (req, res) => {
   const { gId } = req.params;
   const { private } = req.body;
