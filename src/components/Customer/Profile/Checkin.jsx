@@ -2,23 +2,11 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import axios from 'axios';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import Search from '../Create/Search.jsx'
-import mapStyle from '../../../helpers/mapStyle';
-import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
+import { useLoadScript } from '@react-google-maps/api';
+import { Grid, Typography, Button } from '@material-ui/core';
+
 
 const libraries = ['places'];
-
-const mapStyles = {
-  width: '98vw',
-  height: '75vh'
-};
-
-const options = {
-  zoomControl: true,
-  scaleControl: false,
-  mapTypeControl: false,
-  fullscreenControl: false,
-  styles: mapStyle
-};
 
 const searchBox = {
   boxSizing: `border-box`,
@@ -37,54 +25,33 @@ const searchBox = {
 };
 
 export default function Checkin({setView}) {
-  const [text, setText] = useState('');
   const [currentPosition, setCurrentPosition] = useState({
     lat: 29.951065,
     lng: -90.071533
   });
-  const [publicLocations, setPublicLocations] = useState([]);
-  const [friendLocations, setFriendLocations] = useState([]);
-  const [selectedItem, setSelectedItem] = useState({});
-  const [myLocation, setMyLocation] = useState({});
-  const [markers, setMarkers] = useState([]);
-  const [parties, setParties] = useState([]);
-  const [searchMarker, setSearchMarker] = useState({});
-  const [click, setClick] = useState(false);
-  const [placeInfo, setplaceInfo] = useState(null);
+  const [address, setAddress] = useState('');
+  const [name, setName] = useState('');
+  const getPlaceInfo = useCallback((results) => {
+  /*
+  formatted_address: "701 W Judge Perez Dr, Chalmette, LA 70043, USA"
+  name: "Lacy's Cue Sports Bar"
+  */
+  // get places info from search bar
+  console.log(setAddress(results.formatted_address))
+  console.log(setName(results.name))
+  }, []);
 
-  const defaultCenter = {
-    lat: 29.951065,
-    lng: -90.071533,
-  };
+  // Check in
+  const addCheckIn = () => {
+    console.log("results", address);
+    console.log("results", name);
+  }
 
+  // populates places drop down
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY,
     libraries
   });
-
-  useEffect(() => {
-    let isMounted = true;
-    if (isMounted) {
-      axios.get('/db/bar/all')
-        .then(({ data }) => {
-          setParties(data);
-        });
-    }
-    return () => { isMounted = false };
-  }, []);
-
-  // sets the makers to the user click
-  // save reference to map to use it later and not reload state
-  const mapRef = useRef();
-
-  // move map to the where the user has searched
-
-  // get places info from search bar
-  const getPlaceInfo = useCallback((results) => {
-    const { lat, lng } = results;
-    setSearchMarker({ lat, lng });
-    setplaceInfo(results);
-  }, []);
 
   if (loadError) {
     return 'Error loading maps';
@@ -92,16 +59,21 @@ export default function Checkin({setView}) {
   if (!isLoaded) {
     return 'Loading maps';
   }
+
   return(
     <div>
       <ArrowBackIosIcon color="primary" onClick={()=> setView('Home')} />
-      Hello from Checkin 
-      <Search
-        // panTo={panTo}
+      <div>
+        <Search
         currentPosition={currentPosition}
         searchBox={searchBox}
         getPlaceInfo={getPlaceInfo}
-      />
+        />
       </div>
-    )
+      <div></div>
+      <div style={{"padding": "70px"}}>
+        <Button variant="outlined" color="primary" onClick={addCheckIn}>Check in</Button>
+      </div>
+    </div>
+  )
 }
