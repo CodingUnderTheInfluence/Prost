@@ -42,6 +42,11 @@ const Login = ({ setViewValue, setId, setProfileImage, setUsername }) => {
                     setViewValue('form')
                 }
             })
+        Axios.post('/db/maps', {
+            userName: profile.name,
+            gId: profile.googleId
+        })
+            .then(({ data }) => console.log('post to maps in login', data));
     }
 
     const onFailure = (res) => {
