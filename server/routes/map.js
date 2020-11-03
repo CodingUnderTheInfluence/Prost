@@ -4,13 +4,67 @@ const mapRouter = Router();
 
 mapRouter.get('/', (req, res) => {
   Maps.findAll()
-    .then(map => {
-      res.status(200).send(map);
+    .then(maps => {
+      res.status(200).send(maps);
     })
     .catch(err => {
       res.send(500).send(err);
     });
 });
 
+// mapRouter.post('/', (req, res) => {
+//   const {
+//     userName,
+//     gId,
+//     latitude,
+//     longitude,
+//     private
+//   } = req.body;
+//   Maps.findOrCreate({
+//     where: { id_google: gId }
+//   })
+//     .spread(data => console.log(data))
+
+// });
+
+mapRouter.post('/', (req, res) => {
+  const {
+    userName,
+    gId,
+    latitude,
+    longitude,
+    private
+  } = req.body;
+  Maps.create({
+    user_name: userName,
+    id_google: gId,
+    latitude: latitude,
+    longitude: longitude,
+    private: private
+  })
+    .then(data => res.status(201).send(data))
+    .catch(err => res.sendStatus(500))
+});
+
+mapRouter.put('/:gId', (req, res) => {
+  const { gId } = req.params;
+  const { private, latitude, longitude } = req.body;
+  console.log(req.body)
+  Maps.update(
+    {
+      latitude: latitude,
+      longitude: longitude,
+      private: private
+    },
+    {
+      returning: true,
+      where: { id_google: gId }
+    }
+  )
+    .then(([udatedLine, [updatedPrivate]]) => {
+      res.status(201).send(updatedPrivate)
+    })
+    .catch(err => res.status(500).send('error in map put:', err));
+});
 
 module.exports = { mapRouter };

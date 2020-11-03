@@ -5,12 +5,17 @@ module.exports = (sequelize, DataTypes) => {
     },
     id_google: {
       type: DataTypes.STRING,
+      unique: true
     },
     latitude: {
       type: DataTypes.DECIMAL
     },
     longitude: {
       type: DataTypes.DECIMAL
+    },
+    private: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
     }
   }, {
     freezeTableName: true,

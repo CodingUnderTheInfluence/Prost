@@ -249,7 +249,7 @@ function primeDB() {
         user_name: 'big dong',
         id_google: '114252099336753341135',
         latitude: 29.924110,
-        longitude: -90.107380
+        longitude: -90.107380,
       }
     }))
     .then((numberEffected) => {
@@ -263,7 +263,7 @@ function primeDB() {
         user_name: 'hotdog',
         id_google: '1352532099336753341135',
         latitude: 29.923389,
-        longitude: -90.087357
+        longitude: -90.087357,
       }
     }))
     .then((numberEffected) => {
