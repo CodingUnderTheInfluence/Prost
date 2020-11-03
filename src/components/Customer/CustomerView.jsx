@@ -11,6 +11,8 @@ import Logout from '../Logout.jsx'
 import CustomerProfile from './Profile/CustomerProfile.jsx';
 import regeneratorRuntime from "regenerator-runtime";
 import FriendsList from '../Customer/Friends/FriendsList.jsx'
+import useSocket from 'use-socket.io-client';
+
 
 
 
@@ -34,6 +36,11 @@ const useStyles = makeStyles({
 const CustomerView = ({ setViewValue, gId, username, setMapLatLng }) => {
     const classes = useStyles();
     const [value, setValue] = useState();
+    const [id, setId] = useState('');
+    const [socket] = useSocket();
+
+    socket.connect();
+    console.log(socket);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -48,7 +55,7 @@ const CustomerView = ({ setViewValue, gId, username, setMapLatLng }) => {
             return <MapContainer setMapLatLng={setMapLatLng} />
         }
         if (value === 2) {
-            return <Messages username={username} />
+            return <Messages username={username} socket={socket}/>
         }
         if (value === 3) {
             return <CustomerProfile setViewValue={setViewValue} gId={gId} />
