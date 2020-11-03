@@ -11,6 +11,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     longitude: {
       type: DataTypes.DECIMAL
+    },
+    private: {
+      type: DataTypes.BOOLEAN
     }
   }, {
     freezeTableName: true,
