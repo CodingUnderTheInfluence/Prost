@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
 import MessageList from './messageList.jsx';
 import {Button, Grid} from '@material-ui/core'
-import useSocket from 'use-socket.io-client';
 import MessageForm from './MessageForm.jsx';
 
 
@@ -11,12 +10,8 @@ import MessageForm from './MessageForm.jsx';
 //render a create new message button
 
 
-function Messages({username}) {
-    const [id, setId] = useState('');
-    const [socket] = useSocket();
-
-    socket.connect();
-    console.log(socket);
+function Messages({username, socket}) {
+    
 
     return (
         <div>
