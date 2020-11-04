@@ -83,7 +83,8 @@ CREATE TABLE "customers_bars" (
   "id" SERIAL PRIMARY KEY,
   "id_customer" int,
   "id_bar" int,
-  "favorite" boolean
+  "favorite" boolean,
+  "checkin" boolean
 );
 
 CREATE TABLE "parties_customers" (
