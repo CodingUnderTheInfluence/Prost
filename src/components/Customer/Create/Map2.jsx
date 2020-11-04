@@ -4,15 +4,13 @@ import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
 import Search from './Search.jsx';
 import BarInfo from './BarInfo.jsx';
 import PrivateSwitch from './PrivateSwitch.jsx';
+import FriendsMarkers from './FriendsMarkers.jsx';
 import Create from './Create.jsx';
 import PeopleSearch from './PeopleSearch.jsx';
 import QuickCreate from './QuickCreate.jsx';
 import BarCard from './BarInfoCardTest.jsx';
 import mapStyle from '../../../helpers/mapStyle';
 import mapParties from '../../../helpers/mapStyle';
-import { Details } from '@material-ui/icons';
-import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
-
 // used for the load script to get google places
 const libraries = ['places'];
 
@@ -190,16 +188,7 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
               lng: +searchMarker.lng
             }}
           />
-        {friendLocations ? friendLocations.map(({latitude, longitude, gId}) => (
-          <Marker
-            cons={console.log(latitude, longitude)}
-            key={gId} 
-            position={{ 
-              lat: +latitude,
-              lng: +longitude 
-            }}
-          />
-        )) : null}
+          <FriendsMarkers friendLocations={friendLocations} />
 
       </GoogleMap>
       <PrivateSwitch gId={gId} />

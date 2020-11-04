@@ -8,7 +8,7 @@ const PrivateSwitch = ({gId}) => {
   const handleChange = (e) => {
     setPrivate(!isPrivate);
     console.log(gId);
-    axios.put(`/db/maps/${gId}`, { private: !isPrivate })
+    axios.put(`/db/maps/${gId}`, { isPrivate: !isPrivate })
       .then(data => console.log('axios.put', data));
 
   };

@@ -33,14 +33,14 @@ mapRouter.post('/', (req, res) => {
     gId,
     latitude,
     longitude,
-    private
+    isPrivate
   } = req.body;
   Maps.create({
     user_name: userName,
     id_google: gId,
     latitude: latitude,
     longitude: longitude,
-    private: private
+    isPrivate: isPrivate
   })
     .then(data => res.status(201).send(data))
     .catch(err => res.sendStatus(500))
@@ -48,12 +48,12 @@ mapRouter.post('/', (req, res) => {
 
 mapRouter.put('/:gId', (req, res) => {
   const { gId } = req.params;
-  const { private, latitude, longitude } = req.body;
+  const { isPrivate, latitude, longitude } = req.body;
   Maps.update(
     {
       latitude: latitude,
       longitude: longitude,
-      private: private
+      isPrivate: isPrivate
     },
     {
       returning: true,
