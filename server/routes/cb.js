@@ -110,6 +110,29 @@ cbRouter.get('/favorite/:customerId', (req, res) => {
     });
 });
 
+cbRouter.get('/checkin/:customerId', (req, res) => {
+  const { customerId } = req.params;
+  Customers_Bars.findAll({
+    where: {
+      id_customer: customerId,
+      checkin: true,
+    },
+  })
+    .then((cbs) => {
+      const ids = cbs.map((bar) => ({ id: bar.id_bar }));
+      // res.send(ids);
+      Bar.findAll({
+        where: {
+          [Op.or]: ids,
+        },
+      })
+        .then((rtn) => (rtn ? res.send(rtn) : res.send('Empty')))
+        .catch((err) => {
+          res.status(500).send(err);
+        });
+    });
+});
+
 cbRouter.put('/add/favorite', (req, res) => {
   const {
     id_customer,
@@ -151,6 +174,28 @@ cbRouter.delete('/delete/favorite', (req, res) => {
       res.status(500).send(err);
     });
 });
+
+cbRouter.delete('/checkout', (req, res) => {
+  const {
+    id_customer,
+    id_bar,
+  } = req.body;
+  Customers_Bars.update({
+    checkin: false,
+  }, {
+    where: {
+      id_customer,
+      id_bar,
+    },
+  })
+    .then((response) => {
+      res.send(response);
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+});
+
 module.exports = {
   cbRouter,
 };
