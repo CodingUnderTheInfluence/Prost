@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { FormGroup, FormControlLabel, Switch } from '@material-ui/core';
 
-const PrivateSwitch = ({gId}) => {
+const PrivateSwitch = ({gId, getSwitch}) => {
   const [isPrivate, setPrivate] = useState(false);
 
   const handleChange = (e) => {
-    setPrivate(!isPrivate);
-    console.log(gId);
-    axios.put(`/db/maps/${gId}`, { private: !isPrivate })
+    setPrivate(e.target.checked);
+    getSwitch(isPrivate);
+    axios.put(`/db/maps/${gId}`, { isPrivate: e.target.checked })
       .then(data => console.log('axios.put', data));
 
   };

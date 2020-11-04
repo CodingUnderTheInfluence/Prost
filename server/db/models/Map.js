@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     longitude: {
       type: DataTypes.DECIMAL
     },
-    private: {
+    isPrivate: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     }

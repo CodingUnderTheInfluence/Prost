@@ -4,15 +4,13 @@ import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
 import Search from './Search.jsx';
 import BarInfo from './BarInfo.jsx';
 import PrivateSwitch from './PrivateSwitch.jsx';
+import FriendsMarkers from './FriendsMarkers.jsx';
 import Create from './Create.jsx';
 import PeopleSearch from './PeopleSearch.jsx';
 import QuickCreate from './QuickCreate.jsx';
 import BarCard from './BarInfoCardTest.jsx';
 import mapStyle from '../../../helpers/mapStyle';
 import mapParties from '../../../helpers/mapStyle';
-import { Details } from '@material-ui/icons';
-import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
-
 // used for the load script to get google places
 const libraries = ['places'];
 
@@ -29,7 +27,7 @@ const options = {
   styles: mapStyle
 };
 
-const searchBox = {
+const searchBoxStyle = {
   boxSizing: `border-box`,
   border: `1px solid transparent`,
   width: `240px`,
@@ -53,6 +51,7 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
   });
   const [publicLocations, setPublicLocations] = useState([]);
   const [friendLocations, setFriendLocations] = useState(null);
+  const [privateSwitch, setPrivateSwitch] = useState(false);
   const [selectedItem, setSelectedItem] = useState({});
   const [myLocation, setMyLocation] = useState({});
   const [markers, setMarkers] = useState([]);
@@ -71,6 +70,9 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
     libraries
   });
 
+  // get the toggle for the switch to update state
+  const getSwitch = (pSwitch) => setPrivateSwitch(pSwitch);
+
   useEffect(() => {
     let isMounted = true;
     if (isMounted) {
@@ -80,7 +82,7 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
       });
     }
     return () => { isMounted = false };
-  }, []);
+  }, [privateSwitch]);
 
 
   /////////////       get info for bars to display        /////////////////////////////
@@ -122,7 +124,7 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
     mapRef.current = map;
-  }, []);
+  }, [friendLocations]);
 
   // move map to the where the user has searched
   const panTo = useCallback(({ lat, lng }) => {
@@ -138,7 +140,8 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
 
   const getMyLocation = ({ latitude, longitude }) => {
     axios.put(`/db/maps/${gId}`, { latitude, longitude })
-      .then(data => console.log('axios.put', data));
+      .then(data => console.info('maps put success'))
+      .catch(() => console.warn('maps put failed'))
     setMyLocation({
       lat: latitude,
       lng: longitude
@@ -162,16 +165,10 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
   return (
 
     <div style={{align: 'center'}}>
-      <Search 
-        panTo={panTo}
-        currentPosition={currentPosition}
-        searchBox={searchBox}
-        getPlaceInfo={getPlaceInfo}
-      />
       {click
         ? <BarInfo
-          placeInfo={placeInfo}
-          searchMarker={searchMarker} />
+        placeInfo={placeInfo}
+        searchMarker={searchMarker} />
         : null}
       <GoogleMap
         mapContainerStyle={mapStyles}
@@ -182,6 +179,12 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
         // onClick={onMapClick}
         onLoad={onMapLoad}
       >
+        <Search 
+          panTo={panTo}
+          currentPosition={currentPosition}
+          searchBoxStyle={searchBoxStyle}
+          getPlaceInfo={getPlaceInfo}
+        />
           <Marker
             onClick={handleMarkerClick}
             key={searchMarker.lat}
@@ -190,19 +193,10 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
               lng: +searchMarker.lng
             }}
           />
-        {friendLocations ? friendLocations.map(({latitude, longitude, gId}) => (
-          <Marker
-            cons={console.log(latitude, longitude)}
-            key={gId} 
-            position={{ 
-              lat: +latitude,
-              lng: +longitude 
-            }}
-          />
-        )) : null}
+          <FriendsMarkers friendLocations={friendLocations} />
 
       </GoogleMap>
-      <PrivateSwitch gId={gId} />
+      <PrivateSwitch gId={gId} getSwitch={getSwitch} />
       <QuickCreate
         style={{
           position: 'absolute',
