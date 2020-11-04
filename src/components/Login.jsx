@@ -9,10 +9,9 @@ const Login = ({ setViewValue, setId, setProfileImage, setUsername }) => {
 
     useEffect(() => {
         Axios.get('/db/customer')
-            .then(({ data }) => { console.log('DATA') })
+            .then(({ data }) => { console.log(data, 'DATA') })
             .catch((err) => { console.error(err) })
     }, [])
-
 
     const onSuccess = (res) => {
         // console.log('[Login Success] currentUser:', res.profileObj)
