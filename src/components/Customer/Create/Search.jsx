@@ -53,7 +53,7 @@ const Search = ({
             const results = await getGeocode({ address });
             const details = await getDetails(results[0]);
             getPlaceInfo(details);
-            console.log('this is results', results);
+            console.info('this is results', results);
 
             const { lat, lng } = await getLatLng(results[0]);
             panTo({ lat, lng });

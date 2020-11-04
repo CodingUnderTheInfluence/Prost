@@ -1,6 +1,15 @@
 import React, {
+<<<<<<< HEAD
   useState, useEffect, useRef, useCallback,
 } from 'react';
+=======
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+} from 'react';
+import PropTypes from 'prop-types';
+>>>>>>> ab07d21... (Fix) linting errors
 import axios from 'axios';
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
 import { Details } from '@material-ui/icons';
@@ -8,12 +17,12 @@ import Search from './Search.jsx';
 import BarInfo from './BarInfo.jsx';
 import PrivateSwitch from './PrivateSwitch.jsx';
 import FriendsMarkers from './FriendsMarkers.jsx';
-import Create from './Create.jsx';
-import PeopleSearch from './PeopleSearch.jsx';
+// import Create from './Create.jsx';
+// import PeopleSearch from './PeopleSearch.jsx';
 import QuickCreate from './QuickCreate.jsx';
-import BarCard from './BarInfoCardTest.jsx';
+// import BarCard from './BarInfoCardTest.jsx';
 import mapStyle from '../../../helpers/mapStyle';
-import mapParties from '../../../helpers/mapStyle';
+// import mapParties from '../../../helpers/mapStyle';
 // used for the load script to get google places
 const libraries = ['places'];
 
@@ -30,7 +39,11 @@ const options = {
   styles: mapStyle,
 };
 
+<<<<<<< HEAD
 const searchBox = {
+=======
+const searchBoxStyle = {
+>>>>>>> ab07d21... (Fix) linting errors
   boxSizing: 'border-box',
   border: '1px solid transparent',
   width: '240px',
@@ -84,7 +97,23 @@ const MapContainer = ({ setMapLatLng, gId }) => {
         });
     }
     return () => { isMounted = false; };
+<<<<<<< HEAD
   }, []);
+=======
+  }, [privateSwitch]);
+
+  /// //////////       get info for bars to display        /////////////////////////////
+  // useEffect(() => {
+  //   let isMounted = true;
+  //   if (isMounted) {
+  //     axios.get('/db/bar/all')
+  //       .then(({ data }) => {
+  //         setParties(data);
+  //       });
+  //   }
+  //   return () => { isMounted = false };
+  // }, []);
+>>>>>>> ab07d21... (Fix) linting errors
 
   // const onMapClick = useCallback((e) => {
   //   setMarkers(current => [
@@ -98,6 +127,7 @@ const MapContainer = ({ setMapLatLng, gId }) => {
   // });
 
   // sets the makers to the user click
+<<<<<<< HEAD
   const onMapClick = useCallback((e) => {
     setMarkers((current) => [
       ...current,
@@ -108,6 +138,18 @@ const MapContainer = ({ setMapLatLng, gId }) => {
       },
     ]);
   });
+=======
+  // const onMapClick = useCallback((e) => {
+  //   setMarkers(current => [
+  //     ...current,
+  //     {
+  //       lat: e.latLng.lat(),
+  //       lng: e.latLng.lng(),
+  //       time: new Date(),
+  //     },
+  //   ]);
+  // });
+>>>>>>> ab07d21... (Fix) linting errors
 
   // save reference to map to use it later and not reload state
   const mapRef = useRef();
@@ -123,13 +165,17 @@ const MapContainer = ({ setMapLatLng, gId }) => {
     setSearchMarker({ lat, lng });
   }, []);
 
-  const handleMarkerClick = (e) => {
+  const handleMarkerClick = () => {
     setClick(!click);
   };
 
   const getMyLocation = ({ latitude, longitude }) => {
     axios.put(`/db/maps/${gId}`, { latitude, longitude })
+<<<<<<< HEAD
       .then((data) => console.info('maps put success'))
+=======
+      .then(() => console.info('maps put success'))
+>>>>>>> ab07d21... (Fix) linting errors
       .catch(() => console.warn('maps put failed'));
     setMyLocation({
       lat: latitude,
@@ -154,6 +200,7 @@ const MapContainer = ({ setMapLatLng, gId }) => {
 
   return (
 
+<<<<<<< HEAD
     <div style={{ align: 'center' }} con={console.info(parties)}>
       {/* <PeopleSearch searchBox={searchBox} /> */}
       <Search
@@ -162,23 +209,27 @@ const MapContainer = ({ setMapLatLng, gId }) => {
         searchBox={searchBox}
         getPlaceInfo={getPlaceInfo}
       />
-      {click
-        ? (
-          <BarInfo
-            placeInfo={placeInfo}
-            searchMarker={searchMarker}
-          />
-        )
-        : null}
-      <GoogleMap
-        mapContainerStyle={mapStyles}
-        zoom={15}
-        center={currentPosition || defaultCenter}
-        options={options}
-        draggable
-        // onClick={onMapClick}
-        onLoad={onMapLoad}
-      >
+=======
+    <div style={{ align: 'center' }}>
+>>>>>>> ab07d21... (Fix) linting errors
+        {click
+          ? (
+            <BarInfo
+              placeInfo={placeInfo}
+              searchMarker={searchMarker}
+            />
+          )
+          : null}
+        <GoogleMap
+          mapContainerStyle={mapStyles}
+          zoom={15}
+          center={currentPosition || defaultCenter}
+          options={options}
+          draggable
+          // onClick={onMapClick}
+          onLoad={onMapLoad}
+        >
+<<<<<<< HEAD
         <Marker
           onClick={handleMarkerClick}
           key={searchMarker.lat}
@@ -210,6 +261,23 @@ const MapContainer = ({ setMapLatLng, gId }) => {
             position={{ lat, lng }}
             />
           ))} */}
+=======
+        <Search
+          panTo={panTo}
+          currentPosition={currentPosition}
+          searchBoxStyle={searchBoxStyle}
+          getPlaceInfo={getPlaceInfo}
+        />
+        <Marker
+          onClick={handleMarkerClick}
+          key={searchMarker.lat}
+          position={{
+            lat: +searchMarker.lat,
+            lng: +searchMarker.lng,
+          }}
+        />
+        <FriendsMarkers friendLocations={friendLocations} />
+>>>>>>> ab07d21... (Fix) linting errors
 
       </GoogleMap>
       <PrivateSwitch gId={gId} getSwitch={getSwitch} />
@@ -226,6 +294,7 @@ const MapContainer = ({ setMapLatLng, gId }) => {
   );
 };
 
+<<<<<<< HEAD
 // {click ? <InfoWindow
 //   position={{
 //     lat: +searchMarker.lat,
@@ -345,4 +414,12 @@ const MapContainer = ({ setMapLatLng, gId }) => {
 /// /////////////////////////////////////////////////////////////////////////
 /// /////////////////////////////////////////////////////////////////////////
 
+=======
+MapContainer.propTypes = {
+  setMapLatLng: PropTypes.func.isRequired,
+  username: PropTypes.string.isRequired,
+  gId: PropTypes.number.isRequired,
+};
+
+>>>>>>> ab07d21... (Fix) linting errors
 export default MapContainer;
