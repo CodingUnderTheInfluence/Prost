@@ -51,6 +51,7 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
   });
   const [publicLocations, setPublicLocations] = useState([]);
   const [friendLocations, setFriendLocations] = useState(null);
+  const [privateSwitch, setPrivateSwitch] = useState(false);
   const [selectedItem, setSelectedItem] = useState({});
   const [myLocation, setMyLocation] = useState({});
   const [markers, setMarkers] = useState([]);
@@ -69,6 +70,12 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
     libraries
   });
 
+  // get the toggle for the switch to update state
+  const getSwitch = (pSwitch) => {
+    console.log(pSwitch);
+    setPrivateSwitch(pSwitch);
+  } 
+
   useEffect(() => {
     let isMounted = true;
     if (isMounted) {
@@ -78,7 +85,7 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
       });
     }
     return () => { isMounted = false };
-  }, [friendLocations]);
+  }, [privateSwitch]);
 
 
   /////////////       get info for bars to display        /////////////////////////////
@@ -191,7 +198,7 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
           <FriendsMarkers friendLocations={friendLocations} />
 
       </GoogleMap>
-      <PrivateSwitch gId={gId} />
+      <PrivateSwitch gId={gId} getSwitch={getSwitch} />
       <QuickCreate
         style={{
           position: 'absolute',
