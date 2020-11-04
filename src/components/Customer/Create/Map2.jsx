@@ -71,10 +71,7 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
   });
 
   // get the toggle for the switch to update state
-  const getSwitch = (pSwitch) => {
-    console.log(pSwitch);
-    setPrivateSwitch(pSwitch);
-  } 
+  const getSwitch = (pSwitch) => setPrivateSwitch(pSwitch);
 
   useEffect(() => {
     let isMounted = true;
@@ -143,7 +140,8 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
 
   const getMyLocation = ({ latitude, longitude }) => {
     axios.put(`/db/maps/${gId}`, { latitude, longitude })
-      .then(data => console.log('axios.put', data));
+      .then(data => console.info('maps put success'))
+      .catch(() => console.warn('maps put failed'))
     setMyLocation({
       lat: latitude,
       lng: longitude
