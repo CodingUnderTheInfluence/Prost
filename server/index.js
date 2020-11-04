@@ -90,9 +90,9 @@ io.on('connect', (socket) => {
   console.log(`new client connected : ${socket.id}`);
 
   socket.on('userInfo', data => {
-    console.log(data, `incoming data!`);
+    // console.log(data, `incoming data!`);
     connectedUsers[socket.id] = data.gId;
-    console.log(connectedUsers);
+    // console.log(connectedUsers);
     socket.emit('onlineUsers', connectedUsers);
   })
 
@@ -105,7 +105,7 @@ io.on('connect', (socket) => {
   socket.on('disconnect', () => {
     delete connectedUsers[socket.id];
     console.log(socket.id, 'disconnected')
-    console.log(connectedUsers, 'Remaining connected')
+    // console.log(connectedUsers, 'Remaining connected')
     io.emit('onlineUsers', connectedUsers);
   })
 

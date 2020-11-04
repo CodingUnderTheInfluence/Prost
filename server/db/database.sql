@@ -57,6 +57,7 @@ CREATE TABLE "friendship" (
   "id" SERIAL PRIMARY KEY,
   "id_customer" int,
   "id_friend" int,
+  "status" int,
 );
 
 CREATE TABLE "message" (

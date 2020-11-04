@@ -15,7 +15,6 @@ function MessageForm({socket}) {
     };
 
 
-
     return (
         <Grid
         container

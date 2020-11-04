@@ -26,6 +26,8 @@ const Login = ({ setViewValue, setId, setProfileImage, setUsername }) => {
         setId(profile.googleId);
         setProfileImage(profile.imageUrl);
         setUsername(profile.name);
+        localStorage.setItem('username', profile.name)
+        localStorage.setItem('gId', profile.googleId)
         // console.log(localStorage);
         // Axios.post('/db/customer', { googleToken }); //this is a post to check for the google token
         Axios.post('/db/customer/check', { googleProfile, googleToken })

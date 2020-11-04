@@ -33,13 +33,17 @@ const useStyles = makeStyles({
     }
 });
 
-const CustomerView = ({ setViewValue, gId, username, setMapLatLng }) => {
+const CustomerView = ({ setViewValue, gId, username, setMapLatLng, setUsername, setId }) => {
     const classes = useStyles();
     const [value, setValue] = useState();
-    const [socket] = useSocket();
-    console.log(username, 'UserName!')
-    const userInfo = {username, gId};
+    if (localStorage.username) { () => setUsername(localStorage.username); }
+    if (localStorage.gId) { () => setId(localStorage.gId) }
 
+    if (!gId.length && localStorage.gId) {gId = localStorage.gId}
+    if (!username.length && localStorage.username) { username = localStorage.username}
+    
+    const [socket] = useSocket();
+    const userInfo = {username, gId};
     let onlineUsers;
 
     socket.connect();
