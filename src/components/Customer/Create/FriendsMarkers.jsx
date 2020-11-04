@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Marker } from '@react-google-maps/api';
 
 
 
 const FriendsMarkers = (({ friendLocations }) => {
 
-  console.log('friends locatons', friendLocations)
+  useEffect(() => {
+
+  });
+  
   return (
     friendLocations ? friendLocations.filter(({isPrivate}) => !isPrivate)
       .map(({latitude, longitude, gId}) => (

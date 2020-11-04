@@ -78,7 +78,7 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
       });
     }
     return () => { isMounted = false };
-  }, []);
+  }, [friendLocations]);
 
 
   /////////////       get info for bars to display        /////////////////////////////
@@ -120,7 +120,7 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
     mapRef.current = map;
-  }, []);
+  }, [friendLocations]);
 
   // move map to the where the user has searched
   const panTo = useCallback(({ lat, lng }) => {
