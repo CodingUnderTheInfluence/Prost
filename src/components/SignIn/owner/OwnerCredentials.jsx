@@ -14,7 +14,23 @@ function OwnerCredentials() {
         }
         axios.post('/db/owner/login', { params })
             .then(({ data }) => {
-                console.log('token from owner', data); //=> should output token
+                if (data === 'Email or Password Incorrect') {
+                    console.log('TRY AGAIN')
+                } else {
+                    console.log((data, '~~~~~~~~~> LOGIN TOKEN'))
+                    localStorage.setItem('ownerToken', data) //stores token in localstorage
+                    axios(
+                        {
+                            method: 'POST',
+                            url: '/db/owner/is-verify',
+                            headers: {
+                                token: localStorage.ownerToken
+                            },
+                        })
+                        .then(({ data }) => {
+                            console.log(data, 'RESPONSE FROM IS VERIFY')
+                        })
+                }
             })
     }
 

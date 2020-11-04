@@ -105,11 +105,11 @@ const validatePassword = async (loginPass, oPassword, res, oEmail) => {
   const validPassword = await bcrypt.compare(loginPass, oPassword)
   if (!validPassword) {
     // res.status(401).sendFile(denied)
-    res.status(401).send('Email or password incorrect')
+    res.status(401).send('Email or Password Incorrect')
   } else {
     const token = jwtGenerator(oEmail);
     // res.sendFile(welcomed)
-    res.json(`Dobby has returned with your token master....${token}`)
+    res.send(token)
     console.log(`Password validated. ${oEmail}'s token is being created...`)
     setTimeout(() => { console.log('Generated Token:', token) }, 2000)
   }
