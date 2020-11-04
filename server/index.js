@@ -33,6 +33,7 @@ const { friendshipRouter } = require('./routes/friendship');
 const { menuRouter } = require('./routes/menu');
 const { eContactRouter } = require('./routes/eContact');
 const { connected } = require('process');
+const { mapRouter} = require('./routes/map')
 app.use('/db/eContact', eContactRouter);
 // app.use('/auth', auth);
 
