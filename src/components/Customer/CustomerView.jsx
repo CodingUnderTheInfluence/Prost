@@ -36,11 +36,19 @@ const useStyles = makeStyles({
 const CustomerView = ({ setViewValue, gId, username, setMapLatLng }) => {
     const classes = useStyles();
     const [value, setValue] = useState();
-    const [id, setId] = useState('');
     const [socket] = useSocket();
+    console.log(username, 'UserName!')
+    const userInfo = {username, gId};
+
+    let onlineUsers;
 
     socket.connect();
-    console.log(socket);
+    socket.emit('userInfo', userInfo)
+    socket.on('onlineUsers', (data) => {
+        onlineUsers = data
+        console.log(onlineUsers, 'Everyone Online Right Now!')
+    })
+    // console.log(socket);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);

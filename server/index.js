@@ -32,7 +32,10 @@ const { cbRouter } = require('./routes/cb');
 const { friendshipRouter } = require('./routes/friendship');
 const { menuRouter } = require('./routes/menu');
 const { eContactRouter } = require('./routes/eContact');
-const { mapRouter } = require('./routes/map');
+const { connected } = require('process');
+app.use('/db/eContact', eContactRouter);
+// app.use('/auth', auth);
+
 
 app.use('/db/customer', customerRouter);
 app.use('/db/bar', barRouter);
@@ -85,14 +88,27 @@ const connectedUsers = {};
 
 io.on('connect', (socket) => {
   console.log(`new client connected : ${socket.id}`);
-  connectedUsers[socket.id] = socket.id;
-  socket.emit('connection', null);
+
+  socket.on('userInfo', data => {
+    console.log(data, `incoming data!`);
+    connectedUsers[socket.id] = data.gId;
+    console.log(connectedUsers);
+    socket.emit('onlineUsers', connectedUsers);
+  })
 
   socket.on('sendMessage', (data) => {
     console.log(data);
     // socket.broadcast.emit('newMessage', data)
-    io.emit('newMessage', data);
-  });
+    io.emit('newMessage', data)
+  })
+
+  socket.on('disconnect', () => {
+    delete connectedUsers[socket.id];
+    console.log(socket.id, 'disconnected')
+    console.log(connectedUsers, 'Remaining connected')
+    io.emit('onlineUsers', connectedUsers);
+  })
+
 });
 
 http.listen(port, () => {
