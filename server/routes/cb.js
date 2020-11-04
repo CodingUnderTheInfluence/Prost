@@ -1,20 +1,11 @@
-const {
-  Customer,
-  Owner,
-  EContact,
-  Bar,
-  Message,
-  Image,
-  Menu,
-  Party,
-  Relationship,
-  Thread,
-  Parties_Customers,
-  Customers_Bars,
-} = require('../../server/db/models/dbindex.js');
-
+/* eslint-disable camelcase */
 const { Router } = require('express');
 const { Op } = require('sequelize');
+const {
+  Bar,
+  Customers_Bars,
+} = require('../db/models/dbindex.js');
+
 const cbRouter = Router();
 
 cbRouter.get('/', (req, res) => {
@@ -25,22 +16,65 @@ cbRouter.get('/', (req, res) => {
     .catch((err) => {
       res.status(500).send(err);
     });
-})
+});
+
+cbRouter.post('/checkin/create', (req, res) => {
+  const {
+    barName,
+    address,
+    city,
+    state,
+    zip,
+    number,
+    customerId,
+    lat,
+    lng,
+  } = req.body;
+
+  Bar.findOrCreate({
+    where: {
+      bar_name: barName,
+      phone_number: number,
+      address,
+      city,
+      state,
+      zip,
+      latitude: lat,
+      longitude: lng,
+    },
+  })
+    .then((bar) => {
+      const barId = bar[0].dataValues.id;
+      Customers_Bars.findOrCreate({
+        where: {
+          id_customer: customerId,
+          id_bar: barId,
+          checkin: true,
+        },
+      })
+        .then((response) => {
+          res.status(201).send(response);
+        })
+        .catch((err) => {
+          res.status(500).send(err);
+        });
+    });
+});
 
 cbRouter.get('/history/:customerId', (req, res) => {
   const { customerId } = req.params;
   Customers_Bars.findAll({
     where: {
-      id_customer: customerId
-    }
+      id_customer: customerId,
+    },
   })
     .then((cbs) => {
-      const ids = cbs.map(bar => ({ "id": bar["id_bar"] }))
+      const ids = cbs.map((bar) => ({ id: bar.id_bar }));
       // res.send(ids);
       Bar.findAll({
         where: {
           [Op.or]: ids,
-        }
+        },
       })
         .then((rtn) => {
           res.send(rtn);
@@ -48,24 +82,24 @@ cbRouter.get('/history/:customerId', (req, res) => {
         .catch((err) => {
           res.status(500).send(err);
         });
-    })
-})
+    });
+});
 
 cbRouter.get('/favorite/:customerId', (req, res) => {
   const { customerId } = req.params;
   Customers_Bars.findAll({
     where: {
       id_customer: customerId,
-      favorite: true
-    }
+      favorite: true,
+    },
   })
     .then((cbs) => {
-      const ids = cbs.map(bar => ({ "id": bar["id_bar"] }))
+      const ids = cbs.map((bar) => ({ id: bar.id_bar }));
       // res.send(ids);
       Bar.findAll({
         where: {
           [Op.or]: ids,
-        }
+        },
       })
         .then((rtn) => {
           res.send(rtn);
@@ -73,21 +107,21 @@ cbRouter.get('/favorite/:customerId', (req, res) => {
         .catch((err) => {
           res.status(500).send(err);
         });
-    })
-})
+    });
+});
 
 cbRouter.put('/add/favorite', (req, res) => {
   const {
     id_customer,
-    id_bar
+    id_bar,
   } = req.body;
   Customers_Bars.update({
-    favorite: true
+    favorite: true,
   }, {
     where: {
       id_customer,
-      id_bar
-    }
+      id_bar,
+    },
   })
     .then((response) => {
       res.send(response);
@@ -95,20 +129,20 @@ cbRouter.put('/add/favorite', (req, res) => {
     .catch((err) => {
       res.status(500).send(err);
     });
-})
+});
 
 cbRouter.delete('/delete/favorite', (req, res) => {
   const {
     id_customer,
-    id_bar
+    id_bar,
   } = req.body;
   Customers_Bars.update({
-    favorite: false
+    favorite: false,
   }, {
     where: {
       id_customer,
-      id_bar
-    }
+      id_bar,
+    },
   })
     .then((response) => {
       res.send(response);
@@ -116,7 +150,7 @@ cbRouter.delete('/delete/favorite', (req, res) => {
     .catch((err) => {
       res.status(500).send(err);
     });
-})
+});
 module.exports = {
   cbRouter,
 };
