@@ -60,6 +60,19 @@ Test Database Commands and Populates w/ Sample Data
 npm run test-db
 ```
 
+## Database for deployment
+
+Install: 
+``` 
+sudo apt update
+sudo apt install postgresql postgresql-contrib
+```
+Loggin In:
+```
+sudo -i -u postgres
+```
+
+
 ### Environment Variables for DB
 Place in a .env file in outermost directory
 
