@@ -48,7 +48,23 @@ friendshipRouter.get('/all/friends/:customerId', (req, res) => {
     });
   })
 })
+friendshipRouter.post('/newFriend', (req, res) =>{
+  const {sender, recipient, status} = req.body;
+  // console.log(sender, recipient, status);
+  Friendship.create({
+    id_customer: sender,
+    id_friend: recipient,
+    status: status
+  })
+  res.send('Friend Request Sent!');
+});
 
+friendshipRouter.get('/myFriends', (req, res) => {
+  const {customerId} = req.query;
+  console.log(customerId, 'customerId')
+  Friendship.findAll({where: {id_customer: customerId}})
+  .then(friendships => res.send(friendships))
+})
   // 
 module.exports = {
   friendshipRouter,

@@ -141,6 +141,30 @@ customerRouter.post('/location', (req, res) => {
   }, { where: { id_google: googleId } })
 })
 
+customerRouter.get('/search', (req, res) => {
+  const {username} = req.query
+  Customer.findAll({where: {
+    user_name: {[Op.like]: `%${username}%`}
+  }})
+    .then(customers => {
+      // console.log(customers,'customers')s
+      res.send(customers);
+    })
+});
+
+customerRouter.get('/findMe', (req, res) => {
+  console.log(req.query)
+  const { username } = req.query;
+  Customer.findAll({where: {user_name: username}})
+    .then(customer => res.send(customer))
+})
+
+customerRouter.get('/getFriendById', (req, res) => {
+  let {customerId} = req.query;
+  Customer.findOne({where: {id: customerId}})
+    .then(customer => res.send(customer))
+});
+
 // Customer.create({
 //   first_name: first,
 //   last_name: last,
