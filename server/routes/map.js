@@ -49,7 +49,6 @@ mapRouter.post('/', (req, res) => {
 mapRouter.put('/:gId', (req, res) => {
   const { gId } = req.params;
   const { private, latitude, longitude } = req.body;
-  console.log(req.body)
   Maps.update(
     {
       latitude: latitude,

@@ -29,7 +29,7 @@ const options = {
   styles: mapStyle
 };
 
-const searchBox = {
+const searchBoxStyle = {
   boxSizing: `border-box`,
   border: `1px solid transparent`,
   width: `240px`,
@@ -162,16 +162,10 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
   return (
 
     <div style={{align: 'center'}}>
-      <Search 
-        panTo={panTo}
-        currentPosition={currentPosition}
-        searchBox={searchBox}
-        getPlaceInfo={getPlaceInfo}
-      />
       {click
         ? <BarInfo
-          placeInfo={placeInfo}
-          searchMarker={searchMarker} />
+        placeInfo={placeInfo}
+        searchMarker={searchMarker} />
         : null}
       <GoogleMap
         mapContainerStyle={mapStyles}
@@ -182,6 +176,12 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
         // onClick={onMapClick}
         onLoad={onMapLoad}
       >
+        <Search 
+          panTo={panTo}
+          currentPosition={currentPosition}
+          searchBoxStyle={searchBoxStyle}
+          getPlaceInfo={getPlaceInfo}
+        />
           <Marker
             onClick={handleMarkerClick}
             key={searchMarker.lat}

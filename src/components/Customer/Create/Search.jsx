@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { StandaloneSearchBox } from '@react-google-maps/api';
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
@@ -13,6 +14,7 @@ import {
   ComboboxOption,
   ComboboxOptionText,
 } from "@reach/combobox";
+import { ContactPhoneSharp } from '@material-ui/icons';
 // import "@reach/combobox/styles.css";
 
 
@@ -23,9 +25,8 @@ const searchStyle = {
   padding: '10px',
 };
 
-
-
-const Search = ({panTo, currentPosition, searchBox, getPlaceInfo}) => {
+  
+const Search = ({panTo, currentPosition, searchBoxStyle, getPlaceInfo}) => {
 
   // const [ placeInfo, setPlaceInfo ] = useState(null);
   const {
@@ -41,6 +42,7 @@ const Search = ({panTo, currentPosition, searchBox, getPlaceInfo}) => {
         lng: () => currentPosition.lng
       },
       radius: 1000,
+      types: ['establishment']
     }
   });
 
@@ -54,6 +56,7 @@ const Search = ({panTo, currentPosition, searchBox, getPlaceInfo}) => {
             const results = await getGeocode({ address });
             const details = await getDetails(results[0]);
             getPlaceInfo(details);
+            console.log('this is results', results);
 
             const { lat, lng } = await getLatLng(results[0]);
             panTo({ lat, lng });
@@ -67,7 +70,7 @@ const Search = ({panTo, currentPosition, searchBox, getPlaceInfo}) => {
         }}
       >
         <ComboboxInput 
-          style={searchBox}
+          style={searchBoxStyle}
           value={value} 
           onChange={(e) => {
             setValue(e.target.value);
@@ -90,7 +93,52 @@ const Search = ({panTo, currentPosition, searchBox, getPlaceInfo}) => {
     </div>
   );
 };
-  
+
+
+
+// const Search = ({panTo, currentPosition, getPlaceInfo}) => {
+//   const [ value, setValue ] = useState('');
+
+//   const { latitude, longitude} = currentPosition;
+
+//   const onLoad = (ref) => {
+//     console.log(this);
+//   }
+
+//   return (
+//     <StandaloneSearchBox
+//       bounds={[latitude, longitude]}
+//       onLoad={onLoad}
+//       // onPlacesChanged={handlePlacesChange}
+
+//     >
+//       <input
+//         type="text"
+//         placeholder="Customized your placeholder"
+//         style={{
+//           boxSizing: `border-box`,
+//           border: `1px solid transparent`,
+//           width: `240px`,
+//           height: `32px`,
+//           padding: `0 12px`,
+//           borderRadius: `3px`,
+//           boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
+//           fontSize: `14px`,
+//           outline: `none`,
+//           textOverflow: `ellipses`,
+//           position: "absolute",
+//           left: "50%",
+//           marginLeft: "-120px",
+//           zIndex: 10
+//         }}
+
+//       />
+//     </StandaloneSearchBox>
+//   );
+
+
+// };
+
 ////////////////////        dummy data          ////////////////////  
 
 // const Search = ({panTo, searchInfo}) => {
