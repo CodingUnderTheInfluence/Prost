@@ -29,6 +29,7 @@ function OwnerCredentials() {
                         })
                         .then(({ data }) => {
                             console.log(data, 'RESPONSE FROM IS VERIFY')
+                            //need to send to owner on validation
                         })
                 }
             })
