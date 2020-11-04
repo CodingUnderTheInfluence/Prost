@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import usePlacesAutocomplete, { getUrl } from 'use-places-autocomplete';
+import PropTypes from 'prop-types';
+// import usePlacesAutocomplete, { getUrl } from 'use-places-autocomplete';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Card,
@@ -43,18 +44,19 @@ const BarInfo = ({ placeInfo, searchMarker }) => {
       {show ? (
         <div style={searchStyle}>
           <Card>
-            <CardMedia>
-              <img src={photo} style={{ width: 300, height: 200, alignItems: 'center' }} />
-            </CardMedia>
+            <CardMedia
+              image={photo}
+              title={`${placeInfo.name} photo`}
+            />
             <CardContent>
-              <Typography className={classes.title} variant="h4" con={console.info(placeInfo)}>
+              <Typography className={classes.title} variant="h4" con={console.log(placeInfo)}>
                 {placeInfo.name}
               </Typography>
               <Typography className={classes.phone} component="p">
                 {placeInfo.formatted_phone_number}
               </Typography>
               {placeInfo.opening_hours !== undefined
-                ? placeInfo.opening_hours.weekday_text.map((day) => (
+                ? placeInfo.opening_hours.weekday_text.map(day => (
                   <Typography className={classes.time} component="p">{day}</Typography>
                 ))
                 : <Typography className={classes.time} component="p">no info avaiable</Typography>}
@@ -88,5 +90,11 @@ const BarInfo = ({ placeInfo, searchMarker }) => {
     </>
   );
 };
+
+BarInfo.propTypes = {
+  placeInfo: PropTypes.func.isRequired,
+};
+
+// <img src={photo} style={{width: 300, height: 200, alignItems: 'center'}} />
 
 export default BarInfo;
