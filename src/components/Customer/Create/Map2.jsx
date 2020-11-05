@@ -56,7 +56,7 @@ const MapContainer = ({ setMapLatLng, gId }) => {
     lng: -90.071533,
   });
   const [publicLocations, setPublicLocations] = useState([]);
-  const [friendLocations, setFriendLocations] = useState(null);
+  const [friendLocations, setFriendLocations] = useState([]);
   const [privateSwitch, setPrivateSwitch] = useState(false);
   const [selectedItem, setSelectedItem] = useState({});
   const [myLocation, setMyLocation] = useState({});
