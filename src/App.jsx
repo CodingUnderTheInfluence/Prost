@@ -38,6 +38,7 @@ function App() {
         profileImage={profileImage}
         setGEmail={setGEmail}
         gEmail={gEmail}
+        mapLatLng={mapLatLng}
       />
     );
   } if (value === 'CustomerView') {

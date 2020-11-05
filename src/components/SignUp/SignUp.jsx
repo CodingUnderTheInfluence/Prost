@@ -1,12 +1,20 @@
 import React, { useState } from 'react';
 import { Grid, Button } from '@material-ui/core';
-import OwnerSignUpForm from './Form/OwnerSignUpForm.jsx';
+import OwnerForm from '../Form/Owner/OwnerForm.jsx';
 import CustomerSignUpForm from './Form/CustomerSignUpForm.jsx';
 import SignUpGoogleButton from './GoogleSignUp/SignUpGoogleButton.jsx';
 
 const SignUp = ({
-  setViewValue, setId, setProfileImage, setUsername, gId, profileImage,
-  username, gEmail, setGEmail,
+  setViewValue,
+  setId,
+  setProfileImage,
+  setUsername,
+  gId,
+  profileImage,
+  username,
+  gEmail,
+  setGEmail,
+  mapLatLng,
 }) => {
   const [counter, setCounter] = useState(0);
   const [formCounter, setFormCounter] = useState(0);
@@ -17,7 +25,7 @@ const SignUp = ({
 
   const setFormView = () => {
     if (formCounter === 1) {
-      return <OwnerSignUpForm />;
+      return <OwnerForm setViewValue={setViewValue} mapLatLng={mapLatLng} />;
     } if (formCounter === 2) {
       return (
         <CustomerSignUpForm
