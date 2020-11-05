@@ -1,6 +1,9 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, {
+  useState, useEffect, useRef, useCallback,
+} from 'react';
 import axios from 'axios';
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
+import { Details } from '@material-ui/icons';
 import Search from './Search.jsx';
 import BarInfo from './BarInfo.jsx';
 import Create from './Create.jsx';
@@ -9,14 +12,13 @@ import QuickCreate from './QuickCreate.jsx';
 import BarCard from './BarInfoCardTest.jsx';
 import mapStyle from '../../../helpers/mapStyle';
 import mapParties from '../../../helpers/mapStyle';
-import { Details } from '@material-ui/icons';
 
 // used for the load script to get google places
 const libraries = ['places'];
 
 const mapStyles = {
   width: '98vw',
-  height: '75vh'
+  height: '75vh',
 };
 
 const options = {
@@ -24,30 +26,29 @@ const options = {
   scaleControl: false,
   mapTypeControl: false,
   fullscreenControl: false,
-  styles: mapStyle
+  styles: mapStyle,
 };
 
 const searchBox = {
-  boxSizing: `border-box`,
-  border: `1px solid transparent`,
-  width: `240px`,
-  height: `32px`,
-  padding: `0 12px`,
-  borderRadius: `3px`,
-  boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
-  fontSize: `14px`,
-  outline: `none`,
-  textOverflow: `ellipses`,
-  position: "absolute",
-  left: "50%",
-  marginLeft: "-120px"
+  boxSizing: 'border-box',
+  border: '1px solid transparent',
+  width: '240px',
+  height: '32px',
+  padding: '0 12px',
+  borderRadius: '3px',
+  boxShadow: '0 2px 6px rgba(0, 0, 0, 0.3)',
+  fontSize: '14px',
+  outline: 'none',
+  textOverflow: 'ellipses',
+  position: 'absolute',
+  left: '50%',
+  marginLeft: '-120px',
 };
-
 
 const MapContainer = ({ setMapLatLng }) => {
   const [currentPosition, setCurrentPosition] = useState({
     lat: 29.951065,
-    lng: -90.071533
+    lng: -90.071533,
   });
   const [publicLocations, setPublicLocations] = useState([]);
   const [friendLocations, setFriendLocations] = useState([]);
@@ -66,7 +67,7 @@ const MapContainer = ({ setMapLatLng }) => {
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY,
-    libraries
+    libraries,
   });
 
   useEffect(() => {
@@ -77,12 +78,12 @@ const MapContainer = ({ setMapLatLng }) => {
           setParties(data);
         });
     }
-    return () => { isMounted = false };
+    return () => { isMounted = false; };
   }, []);
 
   // const onMapClick = useCallback((e) => {
   //   setMarkers(current => [
-  //     ...current, 
+  //     ...current,
   //     {
   //       lat: e.latLng.lat(),
   //       lng: e.latLng.lng(),
@@ -93,13 +94,13 @@ const MapContainer = ({ setMapLatLng }) => {
 
   // sets the makers to the user click
   const onMapClick = useCallback((e) => {
-    setMarkers(current => [
+    setMarkers((current) => [
       ...current,
       {
         lat: e.latLng.lat(),
         lng: e.latLng.lng(),
-        time: new Date()
-      }
+        time: new Date(),
+      },
     ]);
   });
 
@@ -124,7 +125,7 @@ const MapContainer = ({ setMapLatLng }) => {
   const getMyLocation = ({ latitude, longitude }) => {
     setMyLocation({
       lat: latitude,
-      lng: longitude
+      lng: longitude,
     });
   };
 
@@ -144,7 +145,7 @@ const MapContainer = ({ setMapLatLng }) => {
 
   return (
 
-    <div style={{ align: 'center' }} con={console.log(parties)}>
+    <div style={{ align: 'center' }} con={console.info(parties)}>
       {/* <PeopleSearch searchBox={searchBox} /> */}
       <Search
         panTo={panTo}
@@ -153,16 +154,19 @@ const MapContainer = ({ setMapLatLng }) => {
         getPlaceInfo={getPlaceInfo}
       />
       {click
-        ? <BarInfo
-          placeInfo={placeInfo}
-          searchMarker={searchMarker} />
+        ? (
+          <BarInfo
+            placeInfo={placeInfo}
+            searchMarker={searchMarker}
+          />
+        )
         : null}
       <GoogleMap
         mapContainerStyle={mapStyles}
         zoom={15}
-        center={currentPosition ? currentPosition : defaultCenter}
+        center={currentPosition || defaultCenter}
         options={options}
-        draggable={true}
+        draggable
         // onClick={onMapClick}
         onLoad={onMapLoad}
       >
@@ -171,30 +175,29 @@ const MapContainer = ({ setMapLatLng }) => {
           key={searchMarker.lat}
           position={{
             lat: +searchMarker.lat,
-            lng: +searchMarker.lng
+            lng: +searchMarker.lng,
           }}
         />
         {parties.map(({ latitude, longitude, id }) => {
-          console.log(latitude, longitude)
+          console.info(latitude, longitude);
           return (
             <Marker
               key={id}
               position={{
                 lat: +latitude,
-                lng: +longitude
+                lng: +longitude,
               }}
             />
-          )
-        }
-        )}
+          );
+        })}
         {/* {click ? <BarInfo
             placeInfo={placeInfo}
-            searchMarker={searchMarker}  
+            searchMarker={searchMarker}
           /> : null} */}
 
         {/* {markers.map(({lat, lng, time}) => (
-            <Marker 
-            key={time.toISOString()} 
+            <Marker
+            key={time.toISOString()}
             position={{ lat, lng }}
             />
           ))} */}
@@ -204,27 +207,25 @@ const MapContainer = ({ setMapLatLng }) => {
         style={{
           position: 'absolute',
           zIndex: 10,
-          bottom: 100
+          bottom: 100,
         }}
         getMyLocation={getMyLocation}
         panTo={panTo}
       />
     </div>
   );
-
 };
-
 
 // {click ? <InfoWindow
 //   position={{
-//     lat: +searchMarker.lat, 
+//     lat: +searchMarker.lat,
 //     lng: +searchMarker.lng
 //   }}
 // >
 //   <div>
 
 //   </div>
-// </InfoWindow> 
+// </InfoWindow>
 
 // : null}
 
@@ -265,7 +266,7 @@ const MapContainer = ({ setMapLatLng }) => {
 //   // sets the makers to the user click
 //   const onMapClick = useCallback((e) => {
 //     setMarkers(current => [
-//       ...current, 
+//       ...current,
 //       {
 //         lat: e.latLng.lat(),
 //         lng: e.latLng.lng(),
@@ -282,7 +283,7 @@ const MapContainer = ({ setMapLatLng }) => {
 
 //   // move map to the where the user has searched
 //   const panTo = useCallback(({ lat, lng }) => {
-//     console.log('current mapref', mapRef.current);
+//     console.info('current mapref', mapRef.current);
 //     mapRef.current.panTo({ lat, lng });
 //     mapRef.current.setZoom(16);
 //     setCurrentPosition({ lat, lng });
@@ -296,7 +297,7 @@ const MapContainer = ({ setMapLatLng }) => {
 
 //   if (loadError) {
 //     return 'Error loading maps';
-//   } 
+//   }
 //   if (!isLoaded) {
 //     return 'Loading maps';
 //   }
@@ -304,7 +305,7 @@ const MapContainer = ({ setMapLatLng }) => {
 //   return (
 //     <>
 //       <Search panTo={panTo} />
-//       <GoogleMap 
+//       <GoogleMap
 //         mapContainerStyle={mapStyles}
 //         zoom={15}
 //         center={currentPosition  ? currentPosition : defaultCenter}
@@ -313,13 +314,13 @@ const MapContainer = ({ setMapLatLng }) => {
 //         onClick={onMapClick}
 //         onLoad={onMapLoad}
 //       >
-//         {/* <Marker 
+//         {/* <Marker
 //           position={{
-//             lat: +searchMarker.lat, 
+//             lat: +searchMarker.lat,
 //             lng: +searchMarker.lng
 //           }}/> */}
 //         {bars.map(({ geometry: { location: { lat, lng } } }) => (
-//           <Marker 
+//           <Marker
 //             position={{ lat, lng }}
 //             onClick={}
 //           />
@@ -331,9 +332,7 @@ const MapContainer = ({ setMapLatLng }) => {
 
 // };
 
-////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////
-
+/// /////////////////////////////////////////////////////////////////////////
+/// /////////////////////////////////////////////////////////////////////////
 
 export default MapContainer;
-

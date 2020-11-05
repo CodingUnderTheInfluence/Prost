@@ -18,24 +18,24 @@ function primeDB() {
   Party.findOrCreate({
     where: {
       size: 2,
-      id_bar: 1
-    }
+      id_bar: 1,
+    },
   })
     .then((numberEffected) => {
       if (numberEffected) {
-        return console.log('✅ Party of 2 Created');
+        return console.info('✅ Party of 2 Created');
       }
       return console.error('❌ Party of 2 undefined');
     })
     .then(() => Party.findOrCreate({
       where: {
         size: 3,
-        id_bar: 2
-      }
+        id_bar: 2,
+      },
     }))
     .then((numberEffected) => {
       if (numberEffected) {
-        return console.log('✅ Party of 3 Created');
+        return console.info('✅ Party of 3 Created');
       }
       return console.error('❌ Party of 3 undefined');
     })
@@ -47,11 +47,11 @@ function primeDB() {
         latitude: 29.937570,
         longitude: -89.950240,
         id_owner: 1,
-      }
+      },
     }))
     .then((numberEffected) => {
       if (numberEffected) {
-        return console.log('✅ Par 3 Bar Created');
+        return console.info('✅ Par 3 Bar Created');
       }
       return console.error('❌ Par 3 Bar undefined');
     })
@@ -63,11 +63,11 @@ function primeDB() {
         latitude: 29.961620,
         longitude: -90.067180,
         id_owner: 2,
-      }
+      },
     }))
     .then((numberEffected) => {
       if (numberEffected) {
-        return console.log('✅ Bar Tonique Created');
+        return console.info('✅ Bar Tonique Created');
       }
       return console.error('❌ Bar Tonique undefined');
     })
@@ -77,11 +77,11 @@ function primeDB() {
         last_name: 'Roberts',
         user_name: 'jroberts',
         password: 'password',
-      }
+      },
     }))
     .then((numberEffected) => {
       if (numberEffected) {
-        return console.log('✅ jroberts owner Created');
+        return console.info('✅ jroberts owner Created');
       }
       return console.error('❌ jroberts owner undefined');
     })
@@ -91,11 +91,11 @@ function primeDB() {
         last_name: 'Minaj',
         user_name: 'barbie',
         password: 'password',
-      }
+      },
     }))
     .then((numberEffected) => {
       if (numberEffected) {
-        return console.log('✅ barbie owner Created');
+        return console.info('✅ barbie owner Created');
       }
       return console.error('❌ barbie owner undefined');
     })
@@ -105,12 +105,12 @@ function primeDB() {
         last_name: 'Schwall',
         user_name: 'big dong',
         password: '123456',
-        email: 'larryschwall@gmail.com'
-      }
+        email: 'larryschwall@gmail.com',
+      },
     }))
     .then((numberEffected) => {
       if (numberEffected) {
-        return console.log('✅ barbie owner Created');
+        return console.info('✅ barbie owner Created');
       }
       return console.error('❌ barbie owner undefined');
     })
@@ -119,11 +119,11 @@ function primeDB() {
         first_name: 'Nami',
         last_name: 'Unknown',
         user_name: 'Navigator',
-      }
+      },
     }))
     .then((numberEffected) => {
       if (numberEffected) {
-        return console.log('✅ Navigator user Created');
+        return console.info('✅ Navigator user Created');
       }
       return console.error('❌ Navigator user undefined');
     })
@@ -132,11 +132,11 @@ function primeDB() {
         first_name: 'Monkey D.',
         last_name: 'Luffy',
         user_name: 'PirateKing',
-      }
+      },
     }))
     .then((numberEffected) => {
       if (numberEffected) {
-        return console.log('✅ PirateKing user Created');
+        return console.info('✅ PirateKing user Created');
       }
       return console.error('❌ PirateKing user undefined');
     })
@@ -145,11 +145,11 @@ function primeDB() {
         first_name: 'Roronoa',
         last_name: 'Zoro',
         user_name: 'SwordMaster',
-      }
+      },
     }))
     .then((numberEffected) => {
       if (numberEffected) {
-        return console.log('✅ SwordMaster user Created');
+        return console.info('✅ SwordMaster user Created');
       }
       return console.error('❌ SwordMaster user undefined');
     })
@@ -158,11 +158,11 @@ function primeDB() {
         first_name: 'Nico',
         last_name: 'Robin',
         user_name: 'DevilChild',
-      }
+      },
     }))
     .then((numberEffected) => {
       if (numberEffected) {
-        return console.log('✅ DevilChild user Created');
+        return console.info('✅ DevilChild user Created');
       }
       return console.error('❌ DevilChild user undefined');
     })
@@ -171,11 +171,11 @@ function primeDB() {
         id_customer: 2,
         host: 1,
         id_party: 1,
-      }
+      },
     }))
     .then((numberEffected) => {
       if (numberEffected) {
-        return console.log('✅ party Created');
+        return console.info('✅ party Created');
       }
       return console.error('❌ party user undefined');
     })
@@ -184,11 +184,11 @@ function primeDB() {
         id_customer: 3,
         host: 1,
         id_party: 1,
-      }
+      },
     }))
     .then((numberEffected) => {
       if (numberEffected) {
-        return console.log('✅ party Created');
+        return console.info('✅ party Created');
       }
       return console.error('❌ party user undefined');
     })
@@ -197,11 +197,11 @@ function primeDB() {
         id_customer: 1,
         host: 2,
         id_party: 2,
-      }
+      },
     }))
     .then((numberEffected) => {
       if (numberEffected) {
-        return console.log('✅ party Created');
+        return console.info('✅ party Created');
       }
       return console.error('❌ party user undefined');
     })
@@ -210,11 +210,11 @@ function primeDB() {
         id_customer: 3,
         host: 2,
         id_party: 2,
-      }
+      },
     }))
     .then((numberEffected) => {
       if (numberEffected) {
-        return console.log('✅ party Created');
+        return console.info('✅ party Created');
       }
       return console.error('❌ party user undefined');
     })
@@ -223,11 +223,11 @@ function primeDB() {
         id_customer: 4,
         host: 2,
         id_party: 2,
-      }
+      },
     }))
     .then((numberEffected) => {
       if (numberEffected) {
-        return console.log('✅ party Created');
+        return console.info('✅ party Created');
       }
       return console.error('❌ party user undefined');
     })
@@ -235,11 +235,11 @@ function primeDB() {
       where: {
         image: 'https://source.unsplash.com/random',
         id_customer: 1,
-      }
+      },
     }))
     .then((numberEffected) => {
       if (numberEffected) {
-        return console.log('✅ image customer Created');
+        return console.info('✅ image customer Created');
       }
       return console.error('❌ image customer user undefined');
     })
@@ -247,11 +247,11 @@ function primeDB() {
       where: {
         image: 'https://source.unsplash.com/random',
         id_bar: 1,
-      }
+      },
     }))
     .then((numberEffected) => {
       if (numberEffected) {
-        return console.log('✅ image bar Created');
+        return console.info('✅ image bar Created');
       }
       return console.error('❌ image bar user undefined');
     })
@@ -259,11 +259,11 @@ function primeDB() {
       where: {
         id_friend: 2,
         id_customer: 1,
-      }
+      },
     }))
     .then((numberEffected) => {
       if (numberEffected) {
-        return console.log('✅ friendship Created');
+        return console.info('✅ friendship Created');
       }
       return console.error('❌ friendship user undefined');
     })
@@ -271,33 +271,33 @@ function primeDB() {
       where: {
         id_friend: 3,
         id_customer: 4,
-      }
+      },
     }))
     .then((numberEffected) => {
       if (numberEffected) {
-        return console.log('✅ friendship Created');
+        return console.info('✅ friendship Created');
       }
       return console.error('❌ friendship user undefined');
     })
     .then(() => Thread.findOrCreate({
       where: {
-        id: 1
-      }
+        id: 1,
+      },
     }))
     .then((numberEffected) => {
       if (numberEffected) {
-        return console.log('✅ Thread Created');
+        return console.info('✅ Thread Created');
       }
       return console.error('❌ Thread user undefined');
     })
     .then(() => Thread.findOrCreate({
       where: {
-        id: 2
-      }
+        id: 2,
+      },
     }))
     .then((numberEffected) => {
       if (numberEffected) {
-        return console.log('✅ Thread Created');
+        return console.info('✅ Thread Created');
       }
       return console.error('❌ Thread user undefined');
     })
@@ -305,12 +305,12 @@ function primeDB() {
       where: {
         body: 'Are you coming?',
         id_thread: 1,
-        id_customer: 1
-      }
+        id_customer: 1,
+      },
     }))
     .then((numberEffected) => {
       if (numberEffected) {
-        return console.log('✅ Message Created');
+        return console.info('✅ Message Created');
       }
       return console.error('❌ Message user undefined');
     })
@@ -318,12 +318,12 @@ function primeDB() {
       where: {
         body: 'See you at 10',
         id_thread: 1,
-        id_customer: 2
-      }
+        id_customer: 2,
+      },
     }))
     .then((numberEffected) => {
       if (numberEffected) {
-        return console.log('✅ Message Created');
+        return console.info('✅ Message Created');
       }
       return console.error('❌ Message user undefined');
     })
@@ -331,12 +331,12 @@ function primeDB() {
       where: {
         body: 'I can\'t make it',
         id_thread: 2,
-        id_customer: 4
-      }
+        id_customer: 4,
+      },
     }))
     .then((numberEffected) => {
       if (numberEffected) {
-        return console.log('✅ Message Created');
+        return console.info('✅ Message Created');
       }
       return console.error('❌ Message user undefined');
     })
@@ -344,24 +344,24 @@ function primeDB() {
       where: {
         body: 'Too bad',
         id_thread: 2,
-        id_customer: 3
-      }
+        id_customer: 3,
+      },
     }))
     .then((numberEffected) => {
       if (numberEffected) {
-        return console.log('✅ Message Created');
+        return console.info('✅ Message Created');
       }
       return console.error('❌ Message user undefined');
     })
     .then(() => Menu.findOrCreate({
       where: {
         image: 'https://cdn.localdatacdn.com/la/chalmette/4270737/original/E00mtC9Jui.jpg',
-        id_bar: 1
-      }
+        id_bar: 1,
+      },
     }))
     .then((numberEffected) => {
       if (numberEffected) {
-        return console.log('✅ Menu Created');
+        return console.info('✅ Menu Created');
       }
       return console.error('❌ Menu user undefined');
     })
@@ -372,11 +372,11 @@ function primeDB() {
         last_name: 'Sanji',
         phone_number: '123-456-7890',
         email: 'sanji@test.test',
-      }
+      },
     }))
     .then((numberEffected) => {
       if (numberEffected) {
-        return console.log('✅ EContact Created');
+        return console.info('✅ EContact Created');
       }
       return console.error('❌ EContact user undefined');
     })
@@ -384,12 +384,12 @@ function primeDB() {
       where: {
         id_customer: 1,
         id_bar: 1,
-        favorite: false
-      }
+        favorite: false,
+      },
     }))
     .then((numberEffected) => {
       if (numberEffected) {
-        return console.log('✅ Customers_Bars Created');
+        return console.info('✅ Customers_Bars Created');
       }
       return console.error('❌ Customers_Bars user undefined');
     })
@@ -397,12 +397,12 @@ function primeDB() {
       where: {
         id_customer: 2,
         id_bar: 2,
-        favorite: false
-      }
+        favorite: false,
+      },
     }))
     .then((numberEffected) => {
       if (numberEffected) {
-        return console.log('✅ Customers_Bars Created');
+        return console.info('✅ Customers_Bars Created');
       }
       return console.error('❌ Customers_Bars user undefined');
     })
@@ -410,12 +410,12 @@ function primeDB() {
       where: {
         id_customer: 4,
         id_bar: 2,
-        favorite: false
-      }
+        favorite: false,
+      },
     }))
     .then((numberEffected) => {
       if (numberEffected) {
-        return console.log('✅ Customers_Bars Created');
+        return console.info('✅ Customers_Bars Created');
       }
       return console.error('❌ Customers_Bars user undefined');
     })
@@ -423,12 +423,12 @@ function primeDB() {
       where: {
         id_customer: 3,
         id_bar: 1,
-        favorite: false
-      }
+        favorite: false,
+      },
     }))
     .then((numberEffected) => {
       if (numberEffected) {
-        return console.log('✅ Customers_Bars Created');
+        return console.info('✅ Customers_Bars Created');
       }
       return console.error('❌ Customers_Bars user undefined');
     })
@@ -436,11 +436,11 @@ function primeDB() {
       where: {
         image: 'https://source.unsplash.com/random',
         id_message: 1,
-      }
+      },
     }))
     .then((numberEffected) => {
       if (numberEffected) {
-        return console.log('✅ image message Created');
+        return console.info('✅ image message Created');
       }
       return console.error('❌ image message user undefined');
     })

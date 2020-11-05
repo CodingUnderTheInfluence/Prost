@@ -18,9 +18,9 @@ module.exports = (sequelize, DataTypes) => {
     id_customer: {
       type: DataTypes.INTEGER,
       reference: {
-        model: "customer",
-        key: "id"
-      }
+        model: 'customer',
+        key: 'id',
+      },
     },
   }, {
     freezeTableName: true,
@@ -44,7 +44,6 @@ module.exports = (sequelize, DataTypes) => {
 //      }
 //      axios.post('/db/eContact/create', { emergencyParams })
 //          .then(() => {
-//              console.log(` Successfully posted ${personalFirst}'s Emergency Contact Information to the server`)
+//              console.info(` Successfully posted ${personalFirst}'s Emergency Contact Information to the server`)
 //          })
 //  }
-

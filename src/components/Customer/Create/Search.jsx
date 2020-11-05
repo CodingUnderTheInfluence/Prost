@@ -3,7 +3,7 @@ import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
   getDetails,
-} from "use-places-autocomplete";
+} from 'use-places-autocomplete';
 
 import {
   Combobox,
@@ -12,41 +12,39 @@ import {
   ComboboxList,
   ComboboxOption,
   ComboboxOptionText,
-} from "@reach/combobox";
+} from '@reach/combobox';
 // import "@reach/combobox/styles.css";
 
-
 const searchStyle = {
-  position: 'absolute', 
+  position: 'absolute',
   zIndex: 2,
   left: '50%',
   padding: '10px',
 };
 
-
-
-const Search = ({panTo, currentPosition, searchBox, getPlaceInfo}) => {
-
+const Search = ({
+  panTo, currentPosition, searchBox, getPlaceInfo,
+}) => {
   // const [ placeInfo, setPlaceInfo ] = useState(null);
   const {
-    ready, 
+    ready,
     value,
     suggestions: { status, data },
     setValue,
-    clearSuggestions
+    clearSuggestions,
   } = usePlacesAutocomplete({
     requestOptions: {
       location: {
         lat: () => currentPosition.lat,
-        lng: () => currentPosition.lng
+        lng: () => currentPosition.lng,
       },
       radius: 1000,
-    }
+    },
   });
 
   return (
     <div style={searchStyle}>
-      <Combobox 
+      <Combobox
         onSelect={async (address) => {
           setValue(address, false);
           clearSuggestions();
@@ -60,25 +58,24 @@ const Search = ({panTo, currentPosition, searchBox, getPlaceInfo}) => {
             setValue('');
 
             // setPlaceInfo(details);
-          }
-          catch(err) {
+          } catch (err) {
             console.error(err);
           }
         }}
       >
-        <ComboboxInput 
+        <ComboboxInput
           style={searchBox}
-          value={value} 
+          value={value}
           onChange={(e) => {
             setValue(e.target.value);
           }}
-          disabled={!ready} 
-          placeholder='Find bars'
+          disabled={!ready}
+          placeholder="Find bars"
         />
         {/* takes the suggestions from google places */}
         <ComboboxPopover>
           <ComboboxList>
-            {status === 'OK' 
+            {status === 'OK'
               && data.map(({ place_id, description }) => (
                 <ComboboxOption key={place_id} value={description} />
               ))}
@@ -90,14 +87,14 @@ const Search = ({panTo, currentPosition, searchBox, getPlaceInfo}) => {
     </div>
   );
 };
-  
-////////////////////        dummy data          ////////////////////  
+
+/// /////////////////        dummy data          ////////////////////
 
 // const Search = ({panTo, searchInfo}) => {
 //   const [ placeInfo, setPlaceInfo ] = useState(null);
 //   const [ bars, setBars ] = useState(results);
 //   const {
-//     ready, 
+//     ready,
 //     value,
 //     suggestions: { status, data },
 //     setValue,
@@ -117,21 +114,21 @@ const Search = ({panTo, currentPosition, searchBox, getPlaceInfo}) => {
 //       <Combobox onSelect={async (address) => {
 //         setValue(address, false);
 //         clearSuggestions();
-//         console.log(bars);
+//         console.info(bars);
 //       }}
 //       >
-//         <ComboboxInput 
-//           value={value} 
+//         <ComboboxInput
+//           value={value}
 //           onChange={(e) => {
 //             setValue(e.target.value);
 //           }}
-//           disabled={!ready} 
+//           disabled={!ready}
 //           placeholder='Find bars'
 //         />
 //         {/* takes the suggestions from google places */}
 //         <ComboboxPopover>
 //           <ComboboxList>
-//             {status === 'OK' 
+//             {status === 'OK'
 //               && bars.map(({ place_id, description }) => (
 //                 <ComboboxOption key={place_id} value={description} />
 //               ))}

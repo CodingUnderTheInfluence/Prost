@@ -1,19 +1,20 @@
-const passport = require('passport')
+const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+
 passport.serializeUser((user, done) => {
   // Setting userId obj on req.session
   done(null, user);
 });
 
 passport.deserializeUser((user, done) => {
-  //attach user obj and pass back
-  done(null, user)
+  // attach user obj and pass back
+  done(null, user);
 });
 
 passport.use(new LocalStrategy(
-  function(username, password, done) {
-    // console.log('~~~~~~~~~~~~');
-    // console.log(username, password);
+  (username, password, done) => {
+    // console.info('~~~~~~~~~~~~');
+    // console.info(username, password);
     // User.findOne({ username: username }, function(err, user) {
     //   if (err) { return done(err); }
     //   if (!user) {
@@ -24,6 +25,6 @@ passport.use(new LocalStrategy(
     //   }
     //   return done(null, user);
     // });
-    done(null,'user')
-  }
+    done(null, 'user');
+  },
 ));
