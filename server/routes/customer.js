@@ -34,6 +34,10 @@ const googleAuth = async (authToken) => {
     sub, email, name, picture,
   } = payload;
   const userId = sub;
+<<<<<<< HEAD
+=======
+  // console.info(userId, email)
+>>>>>>> 5e56945... (update) Ability to sign up with google and sign in with google complete
   return {
     userId, email, fullName: name, photoUrl: picture,
   };
@@ -55,7 +59,11 @@ customerRouter.get('/gId/:gId', (req, res) => {
       res.send(customers);
     })
     .catch((err) => {
+<<<<<<< HEAD
       console.warn('ERROR IN CHECK FOR CUSTOMER BY GoogleID');
+=======
+      console.error('ERROR IN CHECK FOR CUSTOMER BY GoogleID');
+>>>>>>> 5e56945... (update) Ability to sign up with google and sign in with google complete
     });
 });
 
@@ -69,7 +77,11 @@ customerRouter.get('/all', (req, res) => {
       }
     })
     .catch((err) => {
+<<<<<<< HEAD
       console.warn('ERROR IN CHECK FOR ALL CUSTOMERS');
+=======
+      console.error('ERROR IN CHECK FOR ALL CUSTOMERS');
+>>>>>>> 5e56945... (update) Ability to sign up with google and sign in with google complete
     });
 });
 
@@ -88,7 +100,11 @@ customerRouter.post('/check', async (req, res) => {
       }
     })
     .catch((err) => {
+<<<<<<< HEAD
       console.warn('ERROR IN CHECK FOR CUSTOMER OR OWNER');
+=======
+      console.error('ERROR IN CHECK FOR CUSTOMER OR OWNER');
+>>>>>>> 5e56945... (update) Ability to sign up with google and sign in with google complete
     });
 });
 
@@ -107,7 +123,11 @@ customerRouter.post('/register', async (req, res) => {
       }
     })
     .catch((err) => {
+<<<<<<< HEAD
       console.warn('ERROR IN CHECK FOR CUSTOMER OR OWNER');
+=======
+      console.error('ERROR IN CHECK FOR CUSTOMER OR OWNER');
+>>>>>>> 5e56945... (update) Ability to sign up with google and sign in with google complete
     });
 });
 
@@ -139,7 +159,11 @@ customerRouter.post('/create', (req, res) => {
           })
           .catch((err) => {
             res.status(401).send('UNABLE TO ADD');
+<<<<<<< HEAD
             console.warn(err);
+=======
+            console.error(err);
+>>>>>>> 5e56945... (update) Ability to sign up with google and sign in with google complete
           });
       }
     });

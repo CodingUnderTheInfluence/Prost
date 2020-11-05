@@ -29,6 +29,11 @@ eContactRouter.get('/', (req, res) => {
 
 eContactRouter.get('/customer/:customerId', (req, res) => {
   const { customerId } = req.params;
+<<<<<<< HEAD
+=======
+  // console.info(customerId, "from econt get customer contact")
+  // res.send(`id ${customerId}`)
+>>>>>>> 5e56945... (update) Ability to sign up with google and sign in with google complete
   EContact.findAll({
     where: {
       id_customer: customerId,
@@ -50,13 +55,22 @@ eContactRouter.post('/add', (req, res) => {
     number,
     id,
   } = req.body;
+<<<<<<< HEAD
 
+=======
+  // console.info("@@@START@@@", first, last, email, number, id)
+  // res.send(`${first}, ${last}, ${email}, ${number}, ${id}`)
+>>>>>>> 5e56945... (update) Ability to sign up with google and sign in with google complete
   Customer.findOne({
     where: {
       id_google: `${id}`,
     },
   })
     .then((result) => {
+<<<<<<< HEAD
+=======
+    // console.info("@@@@@@", result)
+>>>>>>> 5e56945... (update) Ability to sign up with google and sign in with google complete
       const customerId = result.id;
       EContact.create({
         id_customer: customerId,

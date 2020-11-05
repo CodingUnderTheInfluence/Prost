@@ -7,7 +7,10 @@ import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import ForumIcon from '@material-ui/icons/Forum';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import regeneratorRuntime from 'regenerator-runtime';
+<<<<<<< HEAD
 import useSocket from 'use-socket.io-client';
+=======
+>>>>>>> 5e56945... (update) Ability to sign up with google and sign in with google complete
 import MapContainer from './Create/Map2.jsx';
 import Create from './Create/Create.jsx';
 import Messages from './Social/Messages.jsx';
@@ -63,7 +66,11 @@ const CustomerView = ({
       return <FriendsList />;
     }
     if (value === 1) {
+<<<<<<< HEAD
       return <MapContainer setMapLatLng={setMapLatLng} gId={gId} />;
+=======
+      return <MapContainer setMapLatLng={setMapLatLng} />;
+>>>>>>> 5e56945... (update) Ability to sign up with google and sign in with google complete
     }
     if (value === 2) {
       return <Messages username={username} />;
