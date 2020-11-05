@@ -38,10 +38,10 @@ export default function Checkin({ setView, customerId }) {
   const [coordinates, setCoordinates] = useState([]);
 
   const getPlaceInfo = useCallback((results) => {
-  /*
-  formatted_address: "701 W Judge Perez Dr, Chalmette, LA 70043, USA"
-  name: "Lacy's Cue Sports Bar"
-  */
+    /*
+    formatted_address: "701 W Judge Perez Dr, Chalmette, LA 70043, USA"
+    name: "Lacy's Cue Sports Bar"
+    */
     // get places info from search bar
     const {
       formatted_address,
