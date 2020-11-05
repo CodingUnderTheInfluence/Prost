@@ -13,6 +13,7 @@ const LandingPage = ({
   username,
   setGEmail,
   gEmail,
+  mapLatLng,
 }) => (
   <Grid container direction="column">
     <Grid item container direction="row" justify="center" alignItems="center">
@@ -44,6 +45,7 @@ const LandingPage = ({
         profileImage={profileImage}
         setGEmail={setGEmail}
         gEmail={gEmail}
+        mapLatLng={mapLatLng}
       />
     </Grid>
   </Grid>

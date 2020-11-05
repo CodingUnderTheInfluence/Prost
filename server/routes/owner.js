@@ -62,6 +62,15 @@ const createOwner = async (res, firstName, lastName, number, username, email, pa
 */
 ownerRouter.post('/register', validInfo, async (req, res) => {
   // postman use
+  // const {
+  //   firstName,
+  //   lastName,
+  //   number,
+  //   password,
+  //   email,
+  //   username,
+  // } = req.body;
+  // client side of app
   const {
     firstName,
     lastName,
@@ -69,16 +78,7 @@ ownerRouter.post('/register', validInfo, async (req, res) => {
     password,
     email,
     username,
-  } = req.body;
-  // client side of app
-  // const {
-  //   firstName,
-  //   lastName,
-  //   number,
-  //   password,
-  //   email,
-  //   username
-  // } = req.body.params
+  } = req.body.params;
 
   /*
     Checks through all of database to see if user exists, if user does not exist then it creates a user with params from req.body
