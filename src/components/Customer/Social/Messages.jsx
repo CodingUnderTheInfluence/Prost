@@ -13,8 +13,6 @@ function Messages({ username }) {
   const [socket] = useSocket();
 
   socket.connect();
-  console.info(socket);
-
   return (
     <div>
       <Grid

@@ -11,11 +11,10 @@ export default function History({ setView, customerId }) {
     })
       .then((response) => response.json())
       .then((res) => {
-      // console.info('Contact Success :', res)
         setList(res);
       })
       .catch((error) => {
-        console.error('Error:', error);
+        console.warn('Error:', error);
       });
   };
 

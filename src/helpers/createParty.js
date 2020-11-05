@@ -1,7 +1,6 @@
 const axios = require('axios');
 
 const createParty = async (barInfo, size = 1) => {
-  // console.info('from create a party', barInfo.geometry.location.lat())
   const {
     name,
     formatted_address,
@@ -10,7 +9,6 @@ const createParty = async (barInfo, size = 1) => {
   } = barInfo;
   const lat = location.lat();
   const lng = location.lng();
-  console.info('lat, lng', lat, lng);
   const bar = await axios.post('/db/bar/create', {
     bar_name: name,
     phone_number: formatted_phone_number,

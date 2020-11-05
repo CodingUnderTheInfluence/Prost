@@ -8,14 +8,7 @@ const clientId = '933644302187-agamsig0qalm5oi4fd44v11hfffpchs8.apps.googleuserc
 const Login = ({
   setViewValue, setId, setProfileImage, setUsername,
 }) => {
-  useEffect(() => {
-    Axios.get('/db/customer')
-      .then(({ data }) => { console.info(data, 'DATA'); })
-      .catch((err) => { console.error(err); });
-  }, []);
-
   const onSuccess = (res) => {
-    // console.info('[Login Success] currentUser:', res.profileObj)
     const token = res.tokenId;
     const profile = res.profileObj;
     const googleProfile = {
@@ -27,11 +20,10 @@ const Login = ({
     setId(profile.googleId);
     setProfileImage(profile.imageUrl);
     setUsername(profile.name);
-    // console.info(localStorage);
-    // Axios.post('/db/customer', { googleToken }); //this is a post to check for the google token
+    localStorage.setItem('username', profile.name);
+    localStorage.setItem('gId', profile.googleId);
     Axios.post('/db/customer/check', { googleProfile, googleToken })
       .then(({ data }) => {
-        // console.info(data);
         if (data === 'customer') {
           setViewValue('CustomerView');
           localStorage.setItem('customerToken', res.tokenId);

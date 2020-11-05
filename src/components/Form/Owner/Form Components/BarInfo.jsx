@@ -21,8 +21,7 @@ function BarInfo({ setCounter, mapLatLng }) {
       zip,
       number,
     };
-    axios.post('/db/bar/create', { params })
-      .then(({ data }) => { console.info(data); });
+    axios.post('/db/bar/create', { params });
   };
 
   return (

@@ -34,7 +34,6 @@ const googleAuth = async (authToken) => {
     sub, email, name, picture,
   } = payload;
   const userId = sub;
-  // console.info(userId, email)
   return {
     userId, email, fullName: name, photoUrl: picture,
   };
@@ -56,7 +55,7 @@ customerRouter.get('/gId/:gId', (req, res) => {
       res.send(customers);
     })
     .catch((err) => {
-      console.error('ERROR IN CHECK FOR CUSTOMER BY GoogleID');
+      console.warn('ERROR IN CHECK FOR CUSTOMER BY GoogleID');
     });
 });
 
@@ -70,7 +69,7 @@ customerRouter.get('/all', (req, res) => {
       }
     })
     .catch((err) => {
-      console.error('ERROR IN CHECK FOR ALL CUSTOMERS');
+      console.warn('ERROR IN CHECK FOR ALL CUSTOMERS');
     });
 });
 
@@ -89,7 +88,7 @@ customerRouter.post('/check', async (req, res) => {
       }
     })
     .catch((err) => {
-      console.error('ERROR IN CHECK FOR CUSTOMER OR OWNER');
+      console.warn('ERROR IN CHECK FOR CUSTOMER OR OWNER');
     });
 });
 
@@ -108,7 +107,7 @@ customerRouter.post('/register', async (req, res) => {
       }
     })
     .catch((err) => {
-      console.error('ERROR IN CHECK FOR CUSTOMER OR OWNER');
+      console.warn('ERROR IN CHECK FOR CUSTOMER OR OWNER');
     });
 });
 
@@ -140,7 +139,7 @@ customerRouter.post('/create', (req, res) => {
           })
           .catch((err) => {
             res.status(401).send('UNABLE TO ADD');
-            console.error(err);
+            console.warn(err);
           });
       }
     });
@@ -173,7 +172,7 @@ customerRouter.post('/create', (req, res) => {
   //     }
   //   })
   //   .catch((err) => {
-  //     console.error('ERROR IN CREATING CUSTOMERS');
+  //     console.warn('ERROR IN CREATING CUSTOMERS');
   //   });
 });
 
@@ -187,6 +186,32 @@ customerRouter.post('/location', (req, res) => {
     state,
     zip,
   }, { where: { id_google: googleId } });
+});
+
+customerRouter.get('/search', (req, res) => {
+  const { username } = req.query;
+  Customer.findAll({
+    where: {
+      user_name: { [Op.like]: `%${username}%` },
+    },
+  })
+    .then((customers) => {
+      // console.log(customers,'customers')s
+      res.send(customers);
+    });
+});
+
+customerRouter.get('/findMe', (req, res) => {
+  console.log(req.query);
+  const { username } = req.query;
+  Customer.findAll({ where: { user_name: username } })
+    .then((customer) => res.send(customer));
+});
+
+customerRouter.get('/getFriendById', (req, res) => {
+  const { customerId } = req.query;
+  Customer.findOne({ where: { id: customerId } })
+    .then((customer) => res.send(customer));
 });
 
 module.exports = {

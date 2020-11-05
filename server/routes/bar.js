@@ -85,7 +85,6 @@ barRouter.post('/create', (req, res) => {
     },
   })
     .then((bar) => {
-      console.info('barname post', bar);
       res.status(201).send(bar);
     })
     .catch((err) => {
@@ -93,21 +92,6 @@ barRouter.post('/create', (req, res) => {
     });
 });
 
-// barRouter.post('/:bar_name', (req, res) => {
-//   const { bar_name, address, } = req.body;
-//   Bar.findOrCreate({
-//     where: { bar_name }
-//   })
-//     .then((bar) => {
-//       console.info('barname post', bar);
-//       res.status(201).send(bar);
-//     })
-//     .catch((err) => {
-//       res.status(500).send(err);
-//     });
-// });
-
-//
 module.exports = {
   barRouter,
 };

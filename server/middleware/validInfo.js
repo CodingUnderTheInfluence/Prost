@@ -1,7 +1,7 @@
 module.exports = (req, res, next) => {
-  // CLIENT
+  // TODO: Client
   const { email, username, password } = req.body.params;
-  // POSTMAN
+  // TODO: POSTMAN
   // const { email, username, password } = req.body;
 
   function validEmail(userEmail) {

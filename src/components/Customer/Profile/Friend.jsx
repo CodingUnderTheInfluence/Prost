@@ -12,11 +12,10 @@ export default function Friend({ setView, customerId }) {
     })
       .then((response) => response.json())
       .then((res) => {
-        console.info('Contact Success :', res);
         setList(res);
       })
       .catch((error) => {
-        console.error('Error:', error);
+        console.warn('Error:', error);
       });
   };
   const deleteFriend = async (num) => {
@@ -34,7 +33,7 @@ export default function Friend({ setView, customerId }) {
       });
       getData();
     } catch (err) {
-      console.error(err);
+      console.warn(err);
     }
   };
 

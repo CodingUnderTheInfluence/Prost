@@ -28,7 +28,6 @@ export default function EContact({ setView, customerId }) {
       .then((response) => response.json())
       .then((data) => {
         const [result] = data;
-        // console.info('Contact Success :', result)
         if (result !== 'Empty') {
           setContact(result);
           setEContactId(result.id);
@@ -38,7 +37,7 @@ export default function EContact({ setView, customerId }) {
         }
       })
       .catch((error) => {
-        console.error('Error:', error);
+        console.warn('Error:', error);
       });
   };
   useEffect(() => {
@@ -91,13 +90,12 @@ export default function EContact({ setView, customerId }) {
       getData();
       setShowForm();
     } catch (err) {
-      console.error(err);
+      console.warn(err);
     }
   };
 
   const context = (e) => {
     e.preventDefault();
-    // console.info(cView);
     return cView === 'edit' ? editEContact() : addContact();
   };
 

@@ -16,10 +16,9 @@ export default function HistoryList({ list, customerId }) {
         },
         body: JSON.stringify(obj),
       });
-      // console.info(result);
       alert('added');
     } catch (err) {
-      console.error(err);
+      console.warn(err);
     }
   };
 

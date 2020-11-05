@@ -16,7 +16,6 @@ function SafetyDialog({ setViewValue, setCounter }) {
 
   const deleteLocal = () => {
     delete localStorage.token;
-    console.info(localStorage);
     setViewValue('Landing');
   };
 

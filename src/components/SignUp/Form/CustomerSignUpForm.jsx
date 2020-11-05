@@ -44,10 +44,7 @@ const CustomerSignUpForm = ({
       zip,
       googleId: gId,
     };
-    axios.post('/db/customer/location', { locationParams })
-      .then(() => {
-        console.info(` Successfully posted ${personalFirst}'s Location Information to the server`);
-      });
+    axios.post('/db/customer/location', { locationParams });
   };
 
   // EMERGENCY CONTACT INFORMATION FIELDS
@@ -57,13 +54,6 @@ const CustomerSignUpForm = ({
   const [emNumber, setEmNumber] = useState();
   // EMERGENCY CONTACT INFORMATION SUBMIT
   const eContactInformationSubmit = () => {
-    console.info('add econtact', {
-      first: emFirst,
-      last: emLast,
-      email: emEmail,
-      number: emNumber,
-      id: gId,
-    });
     const emergencyParams = {
       first: emFirst,
       last: emLast,
@@ -71,14 +61,7 @@ const CustomerSignUpForm = ({
       number: emNumber,
       id: gId,
     };
-    axios.post('/db/eContact/add', emergencyParams)
-      .then((res) => {
-        // console.info(res)
-        console.info(`Successfully posted ${personalFirst}'s Emergency Contact Information to the server`);
-      })
-      .catch((err) => {
-        console.info(`Unsuccessfully posted ${personalFirst}'s Emergency Contact Information to the server`);
-      });
+    axios.post('/db/eContact/add', emergencyParams);
   };
 
   const handleChange = (e) => {

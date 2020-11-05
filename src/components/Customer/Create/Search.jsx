@@ -61,7 +61,7 @@ const Search = ({
 
             // setPlaceInfo(details);
           } catch (err) {
-            console.error(err);
+            console.warn(err);
           }
         }}
       >
@@ -89,58 +89,5 @@ const Search = ({
     </div>
   );
 };
-
-/// /////////////////        dummy data          ////////////////////
-
-// const Search = ({panTo, searchInfo}) => {
-//   const [ placeInfo, setPlaceInfo ] = useState(null);
-//   const [ bars, setBars ] = useState(results);
-//   const {
-//     ready,
-//     value,
-//     suggestions: { status, data },
-//     setValue,
-//     clearSuggestions
-//   } = usePlacesAutocomplete({
-//     requestOptions: {
-//       location: {
-//         lat: () => 29.951065,
-//         lng: () => -90.071533,
-//       },
-//       radius: 10 * 1610,
-//     }
-//   });
-
-//   return (
-//     <div>
-//       <Combobox onSelect={async (address) => {
-//         setValue(address, false);
-//         clearSuggestions();
-//         console.info(bars);
-//       }}
-//       >
-//         <ComboboxInput
-//           value={value}
-//           onChange={(e) => {
-//             setValue(e.target.value);
-//           }}
-//           disabled={!ready}
-//           placeholder='Find bars'
-//         />
-//         {/* takes the suggestions from google places */}
-//         <ComboboxPopover>
-//           <ComboboxList>
-//             {status === 'OK'
-//               && bars.map(({ place_id, description }) => (
-//                 <ComboboxOption key={place_id} value={description} />
-//               ))}
-//           </ComboboxList>
-//         </ComboboxPopover>
-//       </Combobox>
-
-//       <BarInfo placeInfo={placeInfo} />
-//     </div>
-//   );
-// };
 
 export default Search;

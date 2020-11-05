@@ -5,5 +5,5 @@ module.exports = getUser = (user) => {
     .then((data) => {
       console.info(data);
     })
-    .catch((err) => console.info(err));
+    .catch((err) => console.warn(err));
 };

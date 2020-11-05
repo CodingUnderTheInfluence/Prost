@@ -6,9 +6,7 @@ function messageList({ socket }) {
 
   useEffect(() => {
     socket.once('newMessage', (m) => {
-      console.info(m, 'Incoming Message');
       setMessages([...messages, m]);
-      console.info(messages, 'Messages');
     }, [messages]);
   });
 

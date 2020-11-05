@@ -26,7 +26,7 @@ function primeDB() {
       if (numberEffected) {
         return console.info('✅ Party of 2 Created');
       }
-      return console.error('❌ Party of 2 undefined');
+      return console.warn('❌ Party of 2 undefined');
     })
     .then(() => Party.findOrCreate({
       where: {
@@ -38,7 +38,7 @@ function primeDB() {
       if (numberEffected) {
         return console.info('✅ Party of 3 Created');
       }
-      return console.error('❌ Party of 3 undefined');
+      return console.warn('❌ Party of 3 undefined');
     })
     .then(() => Bar.findOrCreate({
       where: {
@@ -54,7 +54,7 @@ function primeDB() {
       if (numberEffected) {
         return console.info('✅ Par 3 Bar Created');
       }
-      return console.error('❌ Par 3 Bar undefined');
+      return console.warn('❌ Par 3 Bar undefined');
     })
     .then(() => Bar.findOrCreate({
       where: {
@@ -70,7 +70,7 @@ function primeDB() {
       if (numberEffected) {
         return console.info('✅ Bar Tonique Created');
       }
-      return console.error('❌ Bar Tonique undefined');
+      return console.warn('❌ Bar Tonique undefined');
     })
     .then(() => Owner.findOrCreate({
       where: {
@@ -84,7 +84,7 @@ function primeDB() {
       if (numberEffected) {
         return console.info('✅ jroberts owner Created');
       }
-      return console.error('❌ jroberts owner undefined');
+      return console.warn('❌ jroberts owner undefined');
     })
     .then(() => Owner.findOrCreate({
       where: {
@@ -98,7 +98,7 @@ function primeDB() {
       if (numberEffected) {
         return console.info('✅ barbie owner Created');
       }
-      return console.error('❌ barbie owner undefined');
+      return console.warn('❌ barbie owner undefined');
     })
     .then(() => Owner.findOrCreate({
       where: {
@@ -113,7 +113,7 @@ function primeDB() {
       if (numberEffected) {
         return console.info('✅ barbie owner Created');
       }
-      return console.error('❌ barbie owner undefined');
+      return console.warn('❌ barbie owner undefined');
     })
     .then(() => Customer.findOrCreate({
       where: {
@@ -126,7 +126,7 @@ function primeDB() {
       if (numberEffected) {
         return console.info('✅ Navigator user Created');
       }
-      return console.error('❌ Navigator user undefined');
+      return console.warn('❌ Navigator user undefined');
     })
     .then(() => Customer.findOrCreate({
       where: {
@@ -139,7 +139,7 @@ function primeDB() {
       if (numberEffected) {
         return console.info('✅ PirateKing user Created');
       }
-      return console.error('❌ PirateKing user undefined');
+      return console.warn('❌ PirateKing user undefined');
     })
     .then(() => Customer.findOrCreate({
       where: {
@@ -152,7 +152,7 @@ function primeDB() {
       if (numberEffected) {
         return console.info('✅ SwordMaster user Created');
       }
-      return console.error('❌ SwordMaster user undefined');
+      return console.warn('❌ SwordMaster user undefined');
     })
     .then(() => Customer.findOrCreate({
       where: {
@@ -165,7 +165,7 @@ function primeDB() {
       if (numberEffected) {
         return console.info('✅ DevilChild user Created');
       }
-      return console.error('❌ DevilChild user undefined');
+      return console.warn('❌ DevilChild user undefined');
     })
     .then(() => Parties_Customers.findOrCreate({
       where: {
@@ -178,7 +178,7 @@ function primeDB() {
       if (numberEffected) {
         return console.info('✅ party Created');
       }
-      return console.error('❌ party user undefined');
+      return console.warn('❌ party user undefined');
     })
     .then(() => Parties_Customers.findOrCreate({
       where: {
@@ -191,7 +191,7 @@ function primeDB() {
       if (numberEffected) {
         return console.info('✅ party Created');
       }
-      return console.error('❌ party user undefined');
+      return console.warn('❌ party user undefined');
     })
     .then(() => Parties_Customers.findOrCreate({
       where: {
@@ -204,7 +204,7 @@ function primeDB() {
       if (numberEffected) {
         return console.info('✅ party Created');
       }
-      return console.error('❌ party user undefined');
+      return console.warn('❌ party user undefined');
     })
     .then(() => Parties_Customers.findOrCreate({
       where: {
@@ -217,7 +217,7 @@ function primeDB() {
       if (numberEffected) {
         return console.info('✅ party Created');
       }
-      return console.error('❌ party user undefined');
+      return console.warn('❌ party user undefined');
     })
     .then(() => Parties_Customers.findOrCreate({
       where: {
@@ -230,7 +230,7 @@ function primeDB() {
       if (numberEffected) {
         return console.info('✅ party Created');
       }
-      return console.error('❌ party user undefined');
+      return console.warn('❌ party user undefined');
     })
     .then(() => Image.findOrCreate({
       where: {
@@ -242,7 +242,7 @@ function primeDB() {
       if (numberEffected) {
         return console.info('✅ image customer Created');
       }
-      return console.error('❌ image customer user undefined');
+      return console.warn('❌ image customer user undefined');
     })
     .then(() => Image.findOrCreate({
       where: {
@@ -254,7 +254,7 @@ function primeDB() {
       if (numberEffected) {
         return console.info('✅ image bar Created');
       }
-      return console.error('❌ image bar user undefined');
+      return console.warn('❌ image bar user undefined');
     })
     .then(() => Friendship.findOrCreate({
       where: {
@@ -266,7 +266,7 @@ function primeDB() {
       if (numberEffected) {
         return console.info('✅ friendship Created');
       }
-      return console.error('❌ friendship user undefined');
+      return console.warn('❌ friendship user undefined');
     })
     .then(() => Friendship.findOrCreate({
       where: {
@@ -278,7 +278,7 @@ function primeDB() {
       if (numberEffected) {
         return console.info('✅ friendship Created');
       }
-      return console.error('❌ friendship user undefined');
+      return console.warn('❌ friendship user undefined');
     })
     .then(() => Thread.findOrCreate({
       where: {
@@ -289,7 +289,7 @@ function primeDB() {
       if (numberEffected) {
         return console.info('✅ Thread Created');
       }
-      return console.error('❌ Thread user undefined');
+      return console.warn('❌ Thread user undefined');
     })
     .then(() => Thread.findOrCreate({
       where: {
@@ -300,7 +300,7 @@ function primeDB() {
       if (numberEffected) {
         return console.info('✅ Thread Created');
       }
-      return console.error('❌ Thread user undefined');
+      return console.warn('❌ Thread user undefined');
     })
     .then(() => Message.findOrCreate({
       where: {
@@ -313,7 +313,7 @@ function primeDB() {
       if (numberEffected) {
         return console.info('✅ Message Created');
       }
-      return console.error('❌ Message user undefined');
+      return console.warn('❌ Message user undefined');
     })
     .then(() => Message.findOrCreate({
       where: {
@@ -326,7 +326,7 @@ function primeDB() {
       if (numberEffected) {
         return console.info('✅ Message Created');
       }
-      return console.error('❌ Message user undefined');
+      return console.warn('❌ Message user undefined');
     })
     .then(() => Message.findOrCreate({
       where: {
@@ -339,7 +339,7 @@ function primeDB() {
       if (numberEffected) {
         return console.info('✅ Message Created');
       }
-      return console.error('❌ Message user undefined');
+      return console.warn('❌ Message user undefined');
     })
     .then(() => Message.findOrCreate({
       where: {
@@ -352,7 +352,7 @@ function primeDB() {
       if (numberEffected) {
         return console.info('✅ Message Created');
       }
-      return console.error('❌ Message user undefined');
+      return console.warn('❌ Message user undefined');
     })
     .then(() => Menu.findOrCreate({
       where: {
@@ -364,7 +364,7 @@ function primeDB() {
       if (numberEffected) {
         return console.info('✅ Menu Created');
       }
-      return console.error('❌ Menu user undefined');
+      return console.warn('❌ Menu user undefined');
     })
     .then(() => EContact.findOrCreate({
       where: {
@@ -379,7 +379,7 @@ function primeDB() {
       if (numberEffected) {
         return console.info('✅ EContact Created');
       }
-      return console.error('❌ EContact user undefined');
+      return console.warn('❌ EContact user undefined');
     })
     .then(() => Customers_Bars.findOrCreate({
       where: {
@@ -392,7 +392,7 @@ function primeDB() {
       if (numberEffected) {
         return console.info('✅ Customers_Bars Created');
       }
-      return console.error('❌ Customers_Bars user undefined');
+      return console.warn('❌ Customers_Bars user undefined');
     })
     .then(() => Customers_Bars.findOrCreate({
       where: {
@@ -405,7 +405,7 @@ function primeDB() {
       if (numberEffected) {
         return console.info('✅ Customers_Bars Created');
       }
-      return console.error('❌ Customers_Bars user undefined');
+      return console.warn('❌ Customers_Bars user undefined');
     })
     .then(() => Customers_Bars.findOrCreate({
       where: {
@@ -418,7 +418,7 @@ function primeDB() {
       if (numberEffected) {
         return console.info('✅ Customers_Bars Created');
       }
-      return console.error('❌ Customers_Bars user undefined');
+      return console.warn('❌ Customers_Bars user undefined');
     })
     .then(() => Customers_Bars.findOrCreate({
       where: {
@@ -431,7 +431,7 @@ function primeDB() {
       if (numberEffected) {
         return console.info('✅ Customers_Bars Created');
       }
-      return console.error('❌ Customers_Bars user undefined');
+      return console.warn('❌ Customers_Bars user undefined');
     })
     .then(() => Image.findOrCreate({
       where: {
@@ -443,10 +443,10 @@ function primeDB() {
       if (numberEffected) {
         return console.info('✅ image message Created');
       }
-      return console.error('❌ image message user undefined');
+      return console.warn('❌ image message user undefined');
     })
     .catch((err) => {
-      console.error(`❌${err}`);
+      console.warn(`❌${err}`);
     });
 }
 

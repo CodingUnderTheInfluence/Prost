@@ -7,7 +7,6 @@ const Logout = ({ setViewValue }) => {
   const onSuccess = () => {
     delete localStorage.customerToken;
     delete localStorage.ownerToken;
-    console.info(localStorage);
     setViewValue('Landing');
   };
 

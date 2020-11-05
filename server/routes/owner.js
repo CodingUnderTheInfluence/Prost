@@ -93,7 +93,7 @@ ownerRouter.post('/register', validInfo, async (req, res) => {
       }
     })
     .catch((err) => {
-      console.error('ISSUE IN GRABBING USER');
+      console.warn('ISSUE IN GRABBING USER');
     });
 });
 
@@ -105,25 +105,21 @@ ownerRouter.post('/register', validInfo, async (req, res) => {
 const validatePassword = async (loginPass, oPassword, res, oEmail) => {
   const validPassword = await bcrypt.compare(loginPass, oPassword);
   if (!validPassword) {
-    // res.status(401).sendFile(denied)
     res.status(401).send('Email or Password Incorrect');
   } else {
     const token = jwtGenerator(oEmail);
-    // res.sendFile(welcomed)
     res.send(token);
-    console.info(`Password validated. ${oEmail}'s token is being created...`);
     setTimeout(() => { console.info('Generated Token:', token); }, 2000);
   }
 };
-// login router
 ownerRouter.post('/login', validInfo, async (req, res) => {
-  // postman
+  // TODO: postman
   // const {
   //   email,
   //   password
   // } = req.body;
 
-  // client side
+  // TODO: client side
   const {
     email,
     password,
@@ -135,7 +131,6 @@ ownerRouter.post('/login', validInfo, async (req, res) => {
       if (owner.length > 0) {
         const oPassword = owner[0].password;
         const oEmail = owner[0].email;
-        // console.info(typeof loginPass, 'LOGIN PASS')
         validatePassword(loginPass, oPassword, res, oEmail);
       } else {
         // res.status(401).sendFile(denied)
@@ -148,7 +143,7 @@ ownerRouter.post('/is-verify', authorization, async (req, res) => {
   try {
     res.json(true);
   } catch (err) {
-    console.error(err);
+    console.warn(err);
     res.status(500).send('Server Error');
   }
 });

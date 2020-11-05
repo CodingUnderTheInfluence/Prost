@@ -20,7 +20,7 @@ export default function CheckinList({ customerId }) {
       .then((data) => {
         data.length > 0 ? setList(data) : setList([]);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.warn(err));
   };
 
   const checkout = async (num) => {
@@ -29,7 +29,7 @@ export default function CheckinList({ customerId }) {
         id_bar: num,
         id_customer: customerId,
       };
-      const result = await fetch(`/db/cb/checkout`, {
+      const result = await fetch('/db/cb/checkout', {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -38,7 +38,7 @@ export default function CheckinList({ customerId }) {
       });
       getList();
     } catch (err) {
-      console.error(err);
+      console.warn(err);
     }
   };
 

@@ -10,7 +10,6 @@ const SignUpGoogleButton = ({
   username, setGEmail,
 }) => {
   const onSuccess = async (res) => {
-    console.info('[Login Success] currentUser:', res.profileObj.email);
     const token = res.tokenId;
     const profile = res.profileObj;
     const googleProfile = {
@@ -23,18 +22,12 @@ const SignUpGoogleButton = ({
     setId(res.profileObj.googleId);
     setProfileImage(profile.imageUrl);
     setUsername(profile.name);
-    // const formCounter = await setFormCounter(2);
-    // console.info(localStorage);
-    // Axios.post('/db/customer', { googleToken }); //this is a post to check for the google token
     Axios.post('/db/customer/register', { googleProfile, googleToken })
       .then(({ data }) => {
-        // console.info(data);
         if (data === 'customer') {
           console.info('THIS CUSTOMER HAS BEEN FOUND');
         } else if (data === 'form') {
-          console.info('PLEASE REGISTER WITH OUR APP');
           localStorage.setItem('customerToken', res.tokenId);
-          // formCounter;
           setFormCounter(2);
         }
       });

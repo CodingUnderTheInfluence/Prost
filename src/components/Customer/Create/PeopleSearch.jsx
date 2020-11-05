@@ -5,19 +5,8 @@ const PeopleSearch = ({ searchBox }) => {
   const [input, setInput] = useState('');
   const [friends, setFriends] = useState([]);
 
-  // const handleClick = async () => {
-  //   try {
-  //     const friendsDB = axios.get(`/db/customer/:${input}`);
-  //     console.info(friendsDB);
-  //   }
-  //   catch(err) {
-  //     console.error(err);
-  //   }
-  // };
-
   const handleInput = (e) => {
     setInput(e.target.value);
-    // console.info(input);
   };
 
   const submit = async (e) => {
@@ -27,7 +16,7 @@ const PeopleSearch = ({ searchBox }) => {
         const { data } = friends;
         setFriends(data);
       } catch (err) {
-        console.error(err);
+        console.warn(err);
       }
       setInput('');
     }

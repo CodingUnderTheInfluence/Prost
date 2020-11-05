@@ -15,19 +15,16 @@ const CustomerProfile = ({ setViewValue, gId }) => {
   });
 
   useEffect(() => {
-    // console.info("customer profile", gId)
     fetch(`/db/customer/gId/${gId}`, {
       method: 'GET',
     })
       .then((response) => response.json())
       .then((data) => {
-        console.info('PROFILE DATA', data);
         setData(data);
         setCustomerId(data.id);
-        // setCustomerId(3) // test data
       })
       .catch((error) => {
-        console.error('Error:', error);
+        console.warn('Error:', error);
       });
   }, []);
 

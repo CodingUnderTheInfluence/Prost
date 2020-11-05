@@ -30,7 +30,7 @@ const Create = () => {
       .then(() => {
         setParty(true);
       })
-      .catch((err) => console.error('error in party create', err));
+      .catch((err) => console.warn('error in party create', err));
   };
 
   const classes = useStyles();
@@ -94,11 +94,6 @@ const Create = () => {
 const QuickCreate = () => {
   function success(pos) {
     const crd = pos.coords;
-
-    console.info('Your current position is:');
-    console.info(`Latitude : ${crd.latitude}`);
-    console.info(`Longitude: ${crd.longitude}`);
-    console.info(`More or less ${crd.accuracy} meters.`);
   }
 
   function error(err) {
@@ -115,14 +110,3 @@ const QuickCreate = () => {
 };
 
 export default Create;
-
-/// /////////////////////////////////////        get bar info        ////////////////////////////////////////
-
-// const storeBar = () => {
-//   axios.get(`/db/bar/create?bar_name=${search}`)
-//     .then(({data}) => {
-//       if (data) {
-//         console.info(data[0].id);
-//       }
-//     })
-// };
