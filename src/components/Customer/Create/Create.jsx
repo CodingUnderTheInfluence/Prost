@@ -30,7 +30,11 @@ const Create = () => {
       .then(() => {
         setParty(true);
       })
+<<<<<<< HEAD
       .catch((err) => console.warn('error in party create', err));
+=======
+      .catch((err) => console.error('error in party create', err));
+>>>>>>> 5e56945... (update) Ability to sign up with google and sign in with google complete
   };
 
   const classes = useStyles();

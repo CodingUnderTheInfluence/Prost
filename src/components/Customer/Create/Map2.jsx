@@ -14,6 +14,10 @@ import QuickCreate from './QuickCreate.jsx';
 import BarCard from './BarInfoCardTest.jsx';
 import mapStyle from '../../../helpers/mapStyle';
 import mapParties from '../../../helpers/mapStyle';
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5e56945... (update) Ability to sign up with google and sign in with google complete
 // used for the load script to get google places
 const libraries = ['places'];
 

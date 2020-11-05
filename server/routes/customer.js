@@ -139,11 +139,11 @@ customerRouter.post('/create', (req, res) => {
           })
           .catch((err) => {
             res.status(401).send('UNABLE TO ADD');
-            console.error(err);
+            console.warn(err);
           });
       }
     });
-})
+});
 
 customerRouter.post('/location', (req, res) => {
   const {
@@ -167,22 +167,22 @@ customerRouter.get('/search', (req, res) => {
     .then((customers) => {
       res.send(customers);
     })
-    .catch(err => console.warn(err));
+    .catch((err) => console.warn(err));
 });
 
 customerRouter.get('/findMe', (req, res) => {
   const { gId } = req.query;
   Customer.findOne({ where: { id_google: gId } })
     .then((customer) => res.send(customer))
-    .catch(err => console.warn(err));
+    .catch((err) => console.warn(err));
 });
 
 customerRouter.get('/getFriendById', (req, res) => {
   const { customerId } = req.query;
-  console.info('Grabbing information for customerID: ', customerId)
+  console.info('Grabbing information for customerID: ', customerId);
   Customer.findOne({ where: { id: customerId } })
     .then((customer) => res.send(customer))
-    .catch(err => console.warn(err));
+    .catch((err) => console.warn(err));
 });
 
 module.exports = {

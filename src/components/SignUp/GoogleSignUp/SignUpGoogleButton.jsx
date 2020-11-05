@@ -10,6 +10,10 @@ const SignUpGoogleButton = ({
   username, setGEmail,
 }) => {
   const onSuccess = async (res) => {
+<<<<<<< HEAD
+=======
+    console.info('[Login Success] currentUser:', res.profileObj.email);
+>>>>>>> 5e56945... (update) Ability to sign up with google and sign in with google complete
     const token = res.tokenId;
     const profile = res.profileObj;
     const googleProfile = {

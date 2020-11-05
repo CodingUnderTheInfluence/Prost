@@ -33,7 +33,11 @@ export default function Favorite({ setView, customerId }) {
       });
       getData();
     } catch (err) {
+<<<<<<< HEAD
       console.warn(err);
+=======
+      console.error(err);
+>>>>>>> 5e56945... (update) Ability to sign up with google and sign in with google complete
     }
   };
 
