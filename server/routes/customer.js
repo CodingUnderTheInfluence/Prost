@@ -27,8 +27,10 @@ const googleAuth = async (authToken) => {
     idToken: authToken,
     audience: '933644302187-agamsig0qalm5oi4fd44v11hfffpchs8.apps.googleusercontent.com',
   });
+  console.log('ticket', ticket);
   const payload = ticket.getPayload();
-  console.info(`USER ${payload.name} VERIFIED`);
+  console.log('payload', payload)
+  console.log(`USER ${payload.name} VERIFIED`)
 
   const {
     sub, email, name, picture,
@@ -48,30 +50,30 @@ customerRouter.get('/gId/:gId', (req, res) => {
   const { gId } = req.params;
   Customer.findOne({
     where: {
-      id_google: `${gId}`,
-    },
+      "id_google": `${gId}`
+    }
   })
     .then((customers) => {
       res.send(customers);
     })
     .catch((err) => {
-      console.warn('ERROR IN CHECK FOR CUSTOMER BY GoogleID');
-    });
-});
+      console.error('ERROR IN CHECK FOR CUSTOMER BY GoogleID')
+    })
+})
 
 customerRouter.get('/all', (req, res) => {
   Customer.findAll()
     .then((customers) => {
       if (customers.length > 0) {
-        res.send(customers);
+        res.send(customers)
       } else {
-        res.send('empty');
+        res.send('empty')
       }
     })
     .catch((err) => {
-      console.warn('ERROR IN CHECK FOR ALL CUSTOMERS');
-    });
-});
+      console.error('ERROR IN CHECK FOR ALL CUSTOMERS')
+    })
+})
 
 customerRouter.post('/check', async (req, res) => {
   const { authToken } = req.body.googleToken;

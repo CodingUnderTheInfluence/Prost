@@ -23,9 +23,7 @@ const searchStyle = {
   padding: '10px',
 };
 
-const Search = ({
-  panTo, currentPosition, searchBox, getPlaceInfo,
-}) => {
+const Search = ({ panTo, currentPosition, searchBoxStyle, getPlaceInfo }) => {
   // const [ placeInfo, setPlaceInfo ] = useState(null);
   const {
     ready,
@@ -60,8 +58,9 @@ const Search = ({
             setValue('');
 
             // setPlaceInfo(details);
-          } catch (err) {
-            console.warn(err);
+          }
+          catch (err) {
+            console.error(err);
           }
         }}
       >
@@ -89,5 +88,49 @@ const Search = ({
     </div>
   );
 };
+
+////////////////////        search function currently being worked on          ////////////////////
+
+// const Search = ({panTo, currentPosition, getPlaceInfo}) => {
+//   const [ value, setValue ] = useState('');
+
+//   const { latitude, longitude} = currentPosition;
+
+//   const onLoad = (ref) => {
+//     console.log(this);
+//   }
+
+//   return (
+//     <StandaloneSearchBox
+//       bounds={[latitude, longitude]}
+//       onLoad={onLoad}
+//       // onPlacesChanged={handlePlacesChange}
+
+//     >
+//       <input
+//         type="text"
+//         placeholder="Customized your placeholder"
+//         style={{
+//           boxSizing: `border-box`,
+//           border: `1px solid transparent`,
+//           width: `240px`,
+//           height: `32px`,
+//           padding: `0 12px`,
+//           borderRadius: `3px`,
+//           boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
+//           fontSize: `14px`,
+//           outline: `none`,
+//           textOverflow: `ellipses`,
+//           position: "absolute",
+//           left: "50%",
+//           marginLeft: "-120px",
+//           zIndex: 10
+//         }}
+
+//       />
+//     </StandaloneSearchBox>
+//   );
+
+// };
 
 export default Search;
