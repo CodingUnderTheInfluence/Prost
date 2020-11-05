@@ -7,6 +7,7 @@ import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import ForumIcon from '@material-ui/icons/Forum';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import regeneratorRuntime from 'regenerator-runtime';
+import useSocket from 'use-socket.io-client';
 import MapContainer from './Create/Map2.jsx';
 import Create from './Create/Create.jsx';
 import Messages from './Social/Messages.jsx';
@@ -63,7 +64,7 @@ const CustomerView = ({
       return <FriendsList />;
     }
     if (value === 1) {
-      return <MapContainer setMapLatLng={setMapLatLng} />;
+      return <MapContainer setMapLatLng={setMapLatLng} gId={gId} />;
     }
     if (value === 2) {
       return <Messages username={username} />;

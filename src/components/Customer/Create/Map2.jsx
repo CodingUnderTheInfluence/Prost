@@ -46,7 +46,7 @@ const searchBox = {
   marginLeft: '-120px',
 };
 
-const MapContainer = ({ setMapLatLng }) => {
+const MapContainer = ({ setMapLatLng, gId }) => {
   const [currentPosition, setCurrentPosition] = useState({
     lat: 29.951065,
     lng: -90.071533,
