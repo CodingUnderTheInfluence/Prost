@@ -60,7 +60,7 @@ const Search = ({ panTo, currentPosition, searchBoxStyle, getPlaceInfo }) => {
             // setPlaceInfo(details);
           }
           catch (err) {
-            console.error(err);
+            console.warn(err);
           }
         }}
       >
@@ -89,6 +89,7 @@ const Search = ({ panTo, currentPosition, searchBoxStyle, getPlaceInfo }) => {
   );
 };
 
+// TODO:
 ////////////////////        search function currently being worked on          ////////////////////
 
 // const Search = ({panTo, currentPosition, getPlaceInfo}) => {

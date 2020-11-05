@@ -12,6 +12,7 @@ import Search from './Search.jsx';
 import BarInfo from './BarInfo.jsx';
 import PrivateSwitch from './PrivateSwitch.jsx';
 import FriendsMarkers from './FriendsMarkers.jsx';
+import Directions from '../Directions/Directions.jsx';
 // import Create from './Create.jsx';
 // import PeopleSearch from './PeopleSearch.jsx';
 import QuickCreate from './QuickCreate.jsx';
@@ -229,6 +230,7 @@ const MapContainer = ({ setMapLatLng, gId }) => {
           searchBoxStyle={searchBoxStyle}
           getPlaceInfo={getPlaceInfo}
         />
+        <Directions />
         <Marker
           onClick={handleMarkerClick}
           key={searchMarker.lat}

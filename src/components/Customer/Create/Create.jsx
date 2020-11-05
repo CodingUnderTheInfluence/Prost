@@ -29,7 +29,7 @@ const Create = () => {
       .then(() => {
         setParty(true);
       })
-      .catch((err) => console.error('error in party create', err));
+      .catch((err) => console.warn('error in party create', err));
   };
   const classes = useStyles();
 
