@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
-import { Grid, Typography, Button } from '@material-ui/core'
+import { Grid, Typography, Button } from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
@@ -17,23 +17,21 @@ export default function EContact({ setView, customerId }) {
   const [eContactId, setEContactId] = useState(contact.id);
   const [cView, setCView] = useState('add');
 
-  const renderQrCodeView = () => {
-    return (
-      <img src={`https://api.qrserver.com/v1/create-qr-code/?data=tel:${contact.phone_number}&amp;size=100x100`} alt="" title="" />
-    )
-  }
+  const renderQrCodeView = () => (
+    <img src={`https://api.qrserver.com/v1/create-qr-code/?data=tel:${contact.phone_number}&amp;size=100x100`} alt="" title="" />
+  );
 
   const getData = () => {
     fetch(`/db/eContact/customer/${customerId}`, {
       method: 'GET',
     })
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         const [result] = data;
-        // console.log('Contact Success :', result)
+        // console.info('Contact Success :', result)
         if (result !== 'Empty') {
-          setContact(result)
-          setEContactId(result.id)
+          setContact(result);
+          setEContactId(result.id);
           setCView('edit');
         } else {
           setCView('add');
@@ -42,7 +40,7 @@ export default function EContact({ setView, customerId }) {
       .catch((error) => {
         console.error('Error:', error);
       });
-  }
+  };
   useEffect(() => {
     getData();
   }, []);
@@ -53,31 +51,31 @@ export default function EContact({ setView, customerId }) {
       first_name,
       last_name,
       phone_number,
-      email
-    }
-    for (let key in obj) {
+      email,
+    };
+    for (const key in obj) {
       if (!obj[key]) {
         delete obj[key];
       }
     }
-    fetch(`/db/eContact/edit`, {
+    fetch('/db/eContact/edit', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(obj),
     })
-      .then(result => {
+      .then((result) => {
         if (result.status === 200) {
-          getData()
+          getData();
         }
-      })
+      });
     setShowForm(false);
-  }
+  };
 
   const addContact = async () => {
     try {
-      const result = await fetch(`/db/eContact/add`, {
+      const result = await fetch('/db/eContact/add', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -87,21 +85,21 @@ export default function EContact({ setView, customerId }) {
           first_name,
           last_name,
           phone_number,
-          email
+          email,
         }),
-      })
+      });
       getData();
       setShowForm();
     } catch (err) {
       console.error(err);
     }
-  }
+  };
 
   const context = (e) => {
     e.preventDefault();
-    // console.log(cView);
-    return cView === 'edit' ? editEContact() : addContact()
-  }
+    // console.info(cView);
+    return cView === 'edit' ? editEContact() : addContact();
+  };
 
   return (
     <div>
@@ -110,31 +108,40 @@ export default function EContact({ setView, customerId }) {
       </div>
       <br />
       Hello from EContact
-      { contact ? (<div>
-        <p>Name: {`${contact.first_name} ${contact.last_name}`}</p>
-        <p>Phone Number: {contact.phone_number}</p>
-        <Grid container direction="column" justify="center" alignItems="center">
-          <Grid item container direction="row" justify="center" alignItems="center">
-            <Typography variant="subtitle1">
-              Scan to Call
-            </Typography>
+      { contact ? (
+        <div>
+          <p>
+            Name:
+            {`${contact.first_name} ${contact.last_name}`}
+          </p>
+          <p>
+            Phone Number:
+            {contact.phone_number}
+          </p>
+          <Grid container direction="column" justify="center" alignItems="center">
+            <Grid item container direction="row" justify="center" alignItems="center">
+              <Typography variant="subtitle1">
+                Scan to Call
+              </Typography>
+            </Grid>
+            <Grid item container direction="row" justify="center" alignItems="center">
+              {renderQrCodeView()}
+            </Grid>
           </Grid>
-          <Grid item container direction="row" justify="center" alignItems="center">
-            {renderQrCodeView()}
-          </Grid>
-        </Grid>
-        <Fab color="secondary" aria-label="edit">
-          <EditIcon onClick={() => setShowForm(true)} />
-        </Fab>
-      </div>
-      )
-        :
-        (<div>
-          <Fab color="primary" aria-label="add">
-            <AddIcon onClick={() => setShowForm(true)} />
+          <Fab color="secondary" aria-label="edit">
+            <EditIcon onClick={() => setShowForm(true)} />
           </Fab>
-        </div>)}
-      {showForm &&
+        </div>
+      )
+        : (
+          <div>
+            <Fab color="primary" aria-label="add">
+              <AddIcon onClick={() => setShowForm(true)} />
+            </Fab>
+          </div>
+        )}
+      {showForm
+        && (
         <form className="EContact" noValidate autoComplete="off" onSubmit={(e) => context(e)}>
           <TextField id="filled-basic" label="First Name" variant="filled" onChange={(e) => setFirstName(e.target.value)} />
           <TextField id="filled-basic" label="Last Name" variant="filled" onChange={(e) => setLastName(e.target.value)} />
@@ -144,7 +151,7 @@ export default function EContact({ setView, customerId }) {
             <Button variant="outlined" type="submit" color="primary">Submit</Button>
           </div>
         </form>
-      }
+        )}
     </div>
-  )
+  );
 }

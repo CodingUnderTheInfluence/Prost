@@ -1,10 +1,9 @@
 const axios = require('axios');
 
-
 module.exports = getUser = (user) => {
   axios.get(`/db/customer/${user}`)
     .then((data) => {
-      console.log(data);
+      console.info(data);
     })
-    .catch(err => console.log(err))
+    .catch((err) => console.info(err));
 };

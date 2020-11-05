@@ -5,41 +5,37 @@ import { Button } from '@material-ui/core';
 
 const clientId = '933644302187-agamsig0qalm5oi4fd44v11hfffpchs8.apps.googleusercontent.com';
 
-const Login = ({
-  setViewValue, setId, setProfileImage, setUsername,
+const SignUpGoogleButton = ({
+  setViewValue, setId, setProfileImage, setUsername, setFormCounter, profileImage,
+  username, setGEmail,
 }) => {
-  useEffect(() => {
-    Axios.get('/db/customer')
-      .then(({ data }) => { console.info(data, 'DATA'); })
-      .catch((err) => { console.error(err); });
-  }, []);
-
-  const onSuccess = (res) => {
-    // console.info('[Login Success] currentUser:', res.profileObj)
+  const onSuccess = async (res) => {
+    console.info('[Login Success] currentUser:', res.profileObj.email);
     const token = res.tokenId;
     const profile = res.profileObj;
     const googleProfile = {
-      gProfile: profile,
+      gProfile: res.profileObj,
     };
     const googleToken = {
       authToken: token,
     };
-    setId(profile.googleId);
+    setGEmail(res.profileObj.email);
+    setId(res.profileObj.googleId);
     setProfileImage(profile.imageUrl);
     setUsername(profile.name);
+    // const formCounter = await setFormCounter(2);
     // console.info(localStorage);
     // Axios.post('/db/customer', { googleToken }); //this is a post to check for the google token
-    Axios.post('/db/customer/check', { googleProfile, googleToken })
+    Axios.post('/db/customer/register', { googleProfile, googleToken })
       .then(({ data }) => {
         // console.info(data);
         if (data === 'customer') {
-          setViewValue('CustomerView');
-          localStorage.setItem('customerToken', res.tokenId);
-        } else if (data === 'Owner') {
-          setViewValue('OwnerView');
-          localStorage.setItem('ownerToken', res.tokenId);
+          console.info('THIS CUSTOMER HAS BEEN FOUND');
         } else if (data === 'form') {
           console.info('PLEASE REGISTER WITH OUR APP');
+          localStorage.setItem('customerToken', res.tokenId);
+          // formCounter;
+          setFormCounter(2);
         }
       });
   };
@@ -67,4 +63,4 @@ const Login = ({
   );
 };
 
-export default Login;
+export default SignUpGoogleButton;
