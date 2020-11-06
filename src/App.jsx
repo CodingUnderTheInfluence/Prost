@@ -43,11 +43,28 @@ function App() {
       />
     );
   } if (value === 'CustomerView') {
-    return <CustomerView setViewValue={setViewValue} gId={gId} username={username} userId={userId} setMapLatLng={setMapLatLng} setId={setId} setUsername={setUsername} />;
+    return (
+      <CustomerView
+        setViewValue={setViewValue}
+        gId={gId}
+        username={username}
+        userId={userId}
+        setMapLatLng={setMapLatLng}
+        setId={setId}
+        setUsername={setUsername}
+      />
+    );
   } if (value === 'OwnerView') {
     return <OwnerView setViewValue={setViewValue} />;
   } if (value === 'form') {
-    return <Form setViewValue={setViewValue} gId={gId} profileImage={profileImage} username={username} />;
+    return (
+      <Form
+        setViewValue={setViewValue}
+        gId={gId}
+        profileImage={profileImage}
+        username={username}
+      />
+    );
   }
   return <LandingPage setViewValue={setViewValue} />;
 }
