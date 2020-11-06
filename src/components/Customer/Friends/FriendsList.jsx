@@ -32,7 +32,7 @@ function FriendsList() {
             const tempPendingFriends = [];
             const tempConfirmedFriends = [];
             const tempIncomingFriends = [];
-            console.log(data);
+            console.info(data);
 
             data.forEach((friendship) => {
               if (friendship.status === 0) {
@@ -51,12 +51,12 @@ function FriendsList() {
       });
     // Axios.get('/db/friendship/')
     //     .then(({data}) => {
-    //         console.log(data, 'FRIENDSHIPS DATA')
+    //         console.info(data, 'FRIENDSHIPS DATA')
     //         setFriends(data);
     //         setPendingFriends(data);
     //         setConfirmedFriends(data);
     //     })
-    //     .catch(err => console.log(err, 'ERROR IN FRIENDSHIP GET REQUESTS'))
+    //     .catch(err => console.info(err, 'ERROR IN FRIENDSHIP GET REQUESTS'))
   }, []);
 
   if (addFriend) {

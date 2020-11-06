@@ -12,12 +12,12 @@ const Directions = () => {
 
     if (response !== null) {
       response.status === 'OK' ? setResponse(() => response)
-        : console.log('direction response: ', response);
+        : console.info('direction response: ', response);
     }
   };
 
   return (
-    <>
+    <div>
       <DirectionsService
         options={{
           origin: origin,
@@ -28,9 +28,9 @@ const Directions = () => {
       />
       {response && <DirectionsRenderer
         options={{ directions: response }}
-        onLoad={(dirs) => console.log('directions: ', dirs)}
+        onLoad={(dirs) => console.info('directions: ', dirs)}
       />}
-    </>
+    </div>
   );
 };
 

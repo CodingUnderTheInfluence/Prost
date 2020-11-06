@@ -18,12 +18,12 @@ const friendshipRouter = Router();
 
 friendshipRouter.get('/', (req, res) => {
   Friendship.findAll()
-  .then((friendships) => {
-    res.send(friendships);
-  })
-  .catch((err) => {
-    res.status(500).send(err);
-  });
+    .then((friendships) => {
+      res.send(friendships);
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
 })
 
 friendshipRouter.get('/all/friends/:customerId', (req, res) => {
@@ -33,24 +33,24 @@ friendshipRouter.get('/all/friends/:customerId', (req, res) => {
       id_customer: customerId
     }
   })
-  .then((friendships) => {
-    const ids = friendships.map(friend => ({"id": friend.id}));
-    Customer.findAll({
-      where: {
-        [Op.or]: ids
-      }
+    .then((friendships) => {
+      const ids = friendships.map(friend => ({ "id": friend.id }));
+      Customer.findAll({
+        where: {
+          [Op.or]: ids
+        }
+      })
+        .then((details) => {
+          details.length > 0 ? res.send(details) : res.send('Empty')
+        })
+        .catch((err) => {
+          res.status(500).send(err);
+        });
     })
-    .then((details) => {
-      details.length > 0 ? res.send(details) : res.send('Empty')
-    })
-    .catch((err) => {
-      res.status(500).send(err);
-    });
-  })
 })
-friendshipRouter.post('/newFriend', (req, res) =>{
-  const {sender, recipient, status} = req.body;
-  // console.log(sender, recipient, status);
+friendshipRouter.post('/newFriend', (req, res) => {
+  const { sender, recipient, status } = req.body;
+  // console.info(sender, recipient, status);
   Friendship.create({
     id_customer: sender,
     id_friend: recipient,
@@ -60,12 +60,12 @@ friendshipRouter.post('/newFriend', (req, res) =>{
 });
 
 friendshipRouter.get('/myFriends', (req, res) => {
-  const {customerId} = req.query;
-  console.log(customerId, 'customerId')
-  Friendship.findAll({where: {id_customer: customerId}})
-  .then(friendships => res.send(friendships))
+  const { customerId } = req.query;
+  console.info(customerId, 'customerId')
+  Friendship.findAll({ where: { id_customer: customerId } })
+    .then(friendships => res.send(friendships))
 })
-  // 
+// 
 module.exports = {
   friendshipRouter,
 };

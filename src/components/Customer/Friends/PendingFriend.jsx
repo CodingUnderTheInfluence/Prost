@@ -7,11 +7,11 @@ function PendingFriend({ f }) {
   useEffect(() => {
     Axios.get(`/db/customer/getFriendById?customerId=${f.id_friend}`)
       .then(({ data }) => {
-        console.log(data, 'Pending Friend Data');
+        console.info(data, 'Pending Friend Data');
         setData(data);
       });
   }, []);
-  console.log(f);
+  console.info(f);
   if (data) {
     return (
       <div>
