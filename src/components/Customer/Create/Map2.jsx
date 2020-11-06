@@ -7,7 +7,6 @@ import React, {
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
-import { Details } from '@material-ui/icons';
 import Search from './Search.jsx';
 import BarInfo from './BarInfo.jsx';
 import PrivateSwitch from './PrivateSwitch.jsx';
@@ -51,7 +50,8 @@ const searchBoxStyle = {
   marginLeft: '-120px',
 };
 
-const MapContainer = ({ setMapLatLng, gId }) => {
+
+const MapContainer = ({ setMapLatLng, username, gId }) => {
   const [currentPosition, setCurrentPosition] = useState({
     lat: 29.951065,
     lng: -90.071533,
@@ -135,7 +135,6 @@ const MapContainer = ({ setMapLatLng, gId }) => {
   // save reference to map to use it later and not reload state
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
-    console.log('map rerender?')
     mapRef.current = map;
     // --removed priviteSwitch in second arg to reload state when marker was clicked 
   }, []);
@@ -203,45 +202,11 @@ const MapContainer = ({ setMapLatLng, gId }) => {
 
       <GoogleMap
         mapContainerStyle={mapStyles}
-        zoom={15}
-        center={currentPosition || defaultCenter}
-        options={options}
-        draggable
-        // onClick={onMapClick}
-        onLoad={onMapLoad}
-      >
-        <Marker
-          onClick={handleMarkerClick}
-          key={searchMarker.lat}
-          position={{
-            lat: +searchMarker.lat,
-            lng: +searchMarker.lng,
-          }}
-        />
-        {parties.map(({ latitude, longitude, id }) => {
-          console.info(latitude, longitude);
-          return (
-            <Marker
-              key={id}
-              position={{
-                lat: +latitude,
-                lng: +longitude,
-              }}
-            />
-          );
-        })}
-        {/* {click ? <BarInfo
-            placeInfo={placeInfo}
-            searchMarker={searchMarker}
-          />
-        )
-        : null}
-      <GoogleMap
-        mapContainerStyle={mapStyles}
         zoom={12}
         center={currentPosition || defaultCenter}
         options={options}
         draggable={true}
+        // TODO: 
         // onClick={onMapClick}
         onLoad={onMapLoad}
       >

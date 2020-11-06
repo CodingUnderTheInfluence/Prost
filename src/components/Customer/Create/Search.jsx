@@ -4,7 +4,7 @@ import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
   getDetails,
-} from 'use-places-autocomplete';
+} from "use-places-autocomplete";
 
 import {
   Combobox,
@@ -13,8 +13,10 @@ import {
   ComboboxList,
   ComboboxOption,
   ComboboxOptionText,
-} from '@reach/combobox';
+} from "@reach/combobox";
+import { ContactPhoneSharp } from '@material-ui/icons';
 // import "@reach/combobox/styles.css";
+
 
 const searchStyle = {
   position: 'absolute',
@@ -38,6 +40,7 @@ const Search = ({ panTo, currentPosition, searchBoxStyle, getPlaceInfo }) => {
         lng: () => currentPosition.lng,
       },
       radius: 1000,
+      types: ['establishment'],
     },
   });
 
@@ -65,7 +68,7 @@ const Search = ({ panTo, currentPosition, searchBoxStyle, getPlaceInfo }) => {
         }}
       >
         <ComboboxInput
-          style={searchBox}
+          style={searchBoxStyle}
           value={value}
           onChange={(e) => {
             setValue(e.target.value);
