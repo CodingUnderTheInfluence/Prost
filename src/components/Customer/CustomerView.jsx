@@ -1,102 +1,101 @@
 import React, { useState } from 'react';
-import { makeStyles, Paper, Tabs, Tab, Grid, Button, Typography, BottomNavigation, BottomNavigationAction } from '@material-ui/core';
+import {
+  makeStyles, Paper, Tabs, Tab, Grid, Button, Typography, BottomNavigation, BottomNavigationAction,
+} from '@material-ui/core';
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import ForumIcon from '@material-ui/icons/Forum';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import regeneratorRuntime from 'regenerator-runtime';
+import useSocket from 'use-socket.io-client';
 import MapContainer from './Create/Map2.jsx';
 import Create from './Create/Create.jsx';
 import Messages from './Social/Messages.jsx';
-import Logout from '../Logout.jsx'
+import Logout from '../Logout.jsx';
 import CustomerProfile from './Profile/CustomerProfile.jsx';
-import regeneratorRuntime from "regenerator-runtime";
-import FriendsList from '../Customer/Friends/FriendsList.jsx'
-import useSocket from 'use-socket.io-client';
-
-
-
-
+import FriendsList from './Friends/FriendsList.jsx';
 
 const useStyles = makeStyles({
-    root: {
-        maxWidth: 500,
-        borderRadius: '10px'
-    },
-    stickToBottom: {
-        width: '100vw',
-        position: 'fixed',
-        bottom: '0',
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        borderRadius: '10px',
-        border: 'solid #0365b0 1px'
-    }
+  root: {
+    maxWidth: 500,
+    borderRadius: '10px',
+  },
+  stickToBottom: {
+    width: '100vw',
+    position: 'fixed',
+    bottom: '0',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    borderRadius: '10px',
+    border: 'solid #0365b0 1px',
+  },
 });
 
-const CustomerView = ({ setViewValue, gId, username, setMapLatLng, setUsername, setId }) => {
-    const classes = useStyles();
-    const [value, setValue] = useState();
-    if (localStorage.username) { () => setUsername(localStorage.username); }
-    if (localStorage.gId) { () => setId(localStorage.gId) }
+const CustomerView = ({
+  setViewValue, gId, username, setMapLatLng, setUsername, setId,
+}) => {
+  const classes = useStyles();
+  const [value, setValue] = useState();
+  if (localStorage.username) { () => setUsername(localStorage.username); }
+  if (localStorage.gId) { () => setId(localStorage.gId); }
 
-    if (!gId.length && localStorage.gId) {gId = localStorage.gId}
-    if (!username.length && localStorage.username) { username = localStorage.username}
-    
-    const [socket] = useSocket();
-    const userInfo = {username, gId};
-    let onlineUsers;
+  if (!gId.length && localStorage.gId) { gId = localStorage.gId; }
+  if (!username.length && localStorage.username) { username = localStorage.username; }
 
-    socket.connect();
-    socket.emit('userInfo', userInfo)
-    socket.on('onlineUsers', (data) => {
-        onlineUsers = data
-        console.log(onlineUsers, 'Everyone Online Right Now!')
-    })
-    // console.log(socket);
+  const [socket] = useSocket();
+  const userInfo = { username, gId };
+  let onlineUsers;
 
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-        // console.log('!!!!CustomerView', gId)
-    };
+  socket.connect();
+  socket.emit('userInfo', userInfo);
+  socket.on('onlineUsers', (data) => {
+    onlineUsers = data;
+    console.log(onlineUsers, 'Everyone Online Right Now!');
+  });
+  // console.log(socket);
 
-    const renderView = () => {
-        if (value === 0) {
-            return <FriendsList />
-        }
-        if (value === 1) {
-            return <MapContainer setMapLatLng={setMapLatLng} username={username} gId={gId} />
-        }
-        if (value === 2) {
-            return <Messages username={username} socket={socket}/>
-        }
-        if (value === 3) {
-            return <CustomerProfile setViewValue={setViewValue} gId={gId} />
-        }
-        return <MapContainer setMapLatLng={setMapLatLng} username={username} gId={gId} />
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  const renderView = () => {
+    if (value === 0) {
+      return <FriendsList />;
     }
-    return (
-        <Grid container direction="column" justify="center" alignItems="center">
-            <Grid item container direction="row" justify="center" alignItems="center">
-                {renderView()}
-            </Grid>
-            <Grid item container direction="row" justify="center" alignItems="center">
-                <Paper className={classes.stickToBottom}>
-                    <BottomNavigation
-                        value={value}
-                        onChange={handleChange}
-                        indicatorColor="primary"
-                        textColor="primary"
-                        centered
-                        className={classes.stickToBottom}
-                    >
-                        <BottomNavigationAction icon={<PeopleAltIcon />} label="Friends" />
-                        <BottomNavigationAction icon={<AddCircleOutlineIcon />} label="Create" />
-                        <BottomNavigationAction icon={<ForumIcon />} label="Messages" />
-                        <BottomNavigationAction icon={<AccountCircleOutlinedIcon />} label="Profile" />
-                    </BottomNavigation>
-                </Paper>
-            </Grid>
-        </Grid>
-    );
-}
+    if (value === 1) {
+      return <MapContainer setMapLatLng={setMapLatLng} gId={gId} />;
+    }
+    if (value === 2) {
+      return <Messages username={username} />;
+    }
+    if (value === 3) {
+      return <CustomerProfile setViewValue={setViewValue} gId={gId} />;
+    }
+    return <MapContainer />;
+  };
+  return (
+    <Grid container direction="column" justify="center" alignItems="center">
+      <Grid item container direction="row" justify="center" alignItems="center">
+        {renderView()}
+      </Grid>
+      <Grid item container direction="row" justify="center" alignItems="center">
+        <Paper className={classes.stickToBottom}>
+          <BottomNavigation
+            value={value}
+            onChange={handleChange}
+            indicatorColor="primary"
+            textColor="primary"
+            centered
+            className={classes.stickToBottom}
+          >
+            <BottomNavigationAction icon={<PeopleAltIcon />} label="Friends" />
+            <BottomNavigationAction icon={<AddCircleOutlineIcon />} label="Create" />
+            <BottomNavigationAction icon={<ForumIcon />} label="Messages" />
+            <BottomNavigationAction icon={<AccountCircleOutlinedIcon />} label="Profile" />
+          </BottomNavigation>
+        </Paper>
+      </Grid>
+    </Grid>
+  );
+};
 export default CustomerView;

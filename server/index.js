@@ -1,7 +1,8 @@
 const express = require('express');
 const path = require('path'); // NEW
 const bodyParser = require('body-parser');
-require('dotenv').config();
+const dotenv = require('dotenv');
+// const googleAuth = require('./googleAuth');
 
 const app = express();
 const http = require('http').createServer(app);
@@ -13,7 +14,14 @@ const cors = require('cors');
 
 const io = require('socket.io')(http);
 const models = require('./db/models/dbindex');
-
+// app.use(
+//   cookieSession({
+//     name: 'prost',
+//     keys: [process.env.COOKIE_SESSION_KEY],
+//   }),
+// );
+// app.use(passport.initialize());
+// app.use(passport.session());
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -33,10 +41,10 @@ const { friendshipRouter } = require('./routes/friendship');
 const { menuRouter } = require('./routes/menu');
 const { eContactRouter } = require('./routes/eContact');
 const { connected } = require('process');
-const { mapRouter} = require('./routes/map')
+const { mapRouter } = require('./routes/map');
+
 app.use('/db/eContact', eContactRouter);
 // app.use('/auth', auth);
-
 
 app.use('/db/customer', customerRouter);
 app.use('/db/bar', barRouter);
@@ -65,9 +73,9 @@ app.get('/token', (req, res) => {
 const connection = async () => {
   try {
     await models.sequelize.authenticate();
-    console.log('Connection has been established successfully.');
+    console.info('Connection has been established successfully.');
   } catch (error) {
-    console.error('Unable to connect to the database:', error);
+    console.warn('Unable to connect to the database:', error);
   }
 };
 
@@ -75,9 +83,9 @@ const syncModels = async () => {
   try {
     await models.sequelize.sync();
     // await models.sequelize.sync({ force: true });
-    console.log('Models have been synced successfully.');
+    console.info('Models have been synced successfully.');
   } catch (error) {
-    console.error('Unable to sync models:', error);
+    console.warn('Unable to sync models:', error);
   }
 };
 
@@ -88,30 +96,17 @@ syncModels();
 const connectedUsers = {};
 
 io.on('connect', (socket) => {
-  console.log(`new client connected : ${socket.id}`);
-
-  socket.on('userInfo', data => {
-    // console.log(data, `incoming data!`);
-    connectedUsers[socket.id] = data.gId;
-    // console.log(connectedUsers);
-    socket.emit('onlineUsers', connectedUsers);
-  })
+  console.info(`new client connected : ${socket.id}`);
+  connectedUsers[socket.id] = socket.id;
+  socket.emit('connection', null);
 
   socket.on('sendMessage', (data) => {
-    console.log(data);
+    console.info(data);
     // socket.broadcast.emit('newMessage', data)
-    io.emit('newMessage', data)
-  })
-
-  socket.on('disconnect', () => {
-    delete connectedUsers[socket.id];
-    console.log(socket.id, 'disconnected')
-    // console.log(connectedUsers, 'Remaining connected')
-    io.emit('onlineUsers', connectedUsers);
-  })
-
+    io.emit('newMessage', data);
+  });
 });
 
 http.listen(port, () => {
-  console.log(`App listening on port: ${port}`);
+  console.info(`App listening on port: ${port}`);
 });

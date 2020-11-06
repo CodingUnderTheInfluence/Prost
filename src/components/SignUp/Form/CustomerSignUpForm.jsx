@@ -3,13 +3,12 @@ import {
   Grid, Button, Typography, TextField, Radio, RadioGroup, FormControl, FormControlLabel, FormLabel,
 } from '@material-ui/core';
 import axios from 'axios';
-import SafetyDialog from './Dialog.jsx';
+import SafetyDialog from './SignUpDialog.jsx';
 
-const CustomerForm = ({
-  setViewValue, gId, profileImage, username,
+const CustomerSignUpForm = ({
+  setViewValue, gId, profileImage, username, gEmail,
 }) => {
   const [counter, setCounter] = useState(0);
-
   // PERSONAL INFORMATION FIELDS
   const [personalFirst, setPersonalFirst] = useState('');
   const [personalLast, setPersonalLast] = useState('');
@@ -21,7 +20,7 @@ const CustomerForm = ({
     const personalParams = {
       first: personalFirst,
       last: personalLast,
-      email: personalEmail,
+      email: gEmail,
       number: personalNumber,
       gender: personalGender,
       image: profileImage,
@@ -87,9 +86,7 @@ const CustomerForm = ({
             <TextField id="standard-basic" label="First Name" onChange={(e) => { setPersonalFirst(e.target.value); }} />
             <TextField id="standard-basic" label="Last Name" onChange={(e) => { setPersonalLast(e.target.value); }} />
           </Grid>
-          <Grid item container direction="row" style={{ border: 'solid black 1px', padding: '10px', margin: '5px 0 5px 0' }}>
-            <TextField id="standard-basic" label="Email" onChange={(e) => { setPersonalEmail(e.target.value); }} />
-          </Grid>
+
           <Grid item container direction="row" style={{ border: 'solid black 1px', padding: '10px', margin: '5px 0 5px 0' }}>
             <TextField id="standard-basic" label="Phone Number" onChange={(e) => { setPersonalNumber(Number(e.target.value)); }} />
           </Grid>
@@ -191,4 +188,4 @@ const CustomerForm = ({
   );
 };
 
-export default CustomerForm;
+export default CustomerSignUpForm;

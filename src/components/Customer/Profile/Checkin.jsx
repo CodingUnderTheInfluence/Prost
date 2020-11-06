@@ -82,7 +82,7 @@ export default function Checkin({ setView, customerId }) {
       body: JSON.stringify(barInfo),
     })
       .then(({ data }) => { console.log(data); })
-      .catch((err) => console.error(err));
+      .catch((err) => console.warn(err));
   };
 
   // populates places drop down

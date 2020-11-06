@@ -3,7 +3,7 @@ import {
   Grid, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
 } from '@material-ui/core';
 
-function SafetyDialog({ setViewValue, setCounter }) {
+const SignUpDialog = ({ setViewValue, setCounter }) => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -55,6 +55,6 @@ function SafetyDialog({ setViewValue, setCounter }) {
       </DialogActions>
     </Dialog>
   );
-}
+};
 
-export default SafetyDialog;
+export default SignUpDialog;

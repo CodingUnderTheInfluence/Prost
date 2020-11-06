@@ -18,9 +18,9 @@ module.exports = (sequelize, DataTypes) => {
     id_customer: {
       type: DataTypes.INTEGER,
       reference: {
-        model: "customer",
-        key: "id"
-      }
+        model: 'customer',
+        key: 'id',
+      },
     },
   }, {
     freezeTableName: true,
@@ -28,23 +28,3 @@ module.exports = (sequelize, DataTypes) => {
 
   return EContact;
 };
-
-//  //EMERGENCY CONTACT INFORMATION FIELDS
-//  const [emFirst, setEmFirst] = useState('');
-//  const [emLast, setEmLast] = useState('');
-//  const [emEmail, setEmEmail] = useState('');
-//  const [emNumber, setEmNumber] = useState();
-//  //EMERGENCY CONTACT INFORMATION SUBMIT
-//  const eContactInformationSubmit = () => {
-//      const emergencyParams = {
-//          first: emFirst,
-//          last: emLast,
-//          email: emEmail,
-//          number: emNumber,
-//      }
-//      axios.post('/db/eContact/create', { emergencyParams })
-//          .then(() => {
-//              console.log(` Successfully posted ${personalFirst}'s Emergency Contact Information to the server`)
-//          })
-//  }
-
