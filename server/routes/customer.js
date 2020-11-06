@@ -27,8 +27,10 @@ const googleAuth = async (authToken) => {
     idToken: authToken,
     audience: '933644302187-agamsig0qalm5oi4fd44v11hfffpchs8.apps.googleusercontent.com',
   });
+  console.info('ticket', ticket);
   const payload = ticket.getPayload();
-  console.info(`USER ${payload.name} VERIFIED`);
+  console.info('payload', payload)
+  console.info(`USER ${payload.name} VERIFIED`)
 
   const {
     sub, email, name, picture,
@@ -48,30 +50,30 @@ customerRouter.get('/gId/:gId', (req, res) => {
   const { gId } = req.params;
   Customer.findOne({
     where: {
-      id_google: `${gId}`,
-    },
+      "id_google": `${gId}`
+    }
   })
     .then((customers) => {
       res.send(customers);
     })
     .catch((err) => {
-      console.warn('ERROR IN CHECK FOR CUSTOMER BY GoogleID');
-    });
-});
+      console.warn('ERROR IN CHECK FOR CUSTOMER BY GoogleID')
+    })
+})
 
 customerRouter.get('/all', (req, res) => {
   Customer.findAll()
     .then((customers) => {
       if (customers.length > 0) {
-        res.send(customers);
+        res.send(customers)
       } else {
-        res.send('empty');
+        res.send('empty')
       }
     })
     .catch((err) => {
-      console.warn('ERROR IN CHECK FOR ALL CUSTOMERS');
-    });
-});
+      console.warn('ERROR IN CHECK FOR ALL CUSTOMERS')
+    })
+})
 
 customerRouter.post('/check', async (req, res) => {
   const { authToken } = req.body.googleToken;
@@ -112,7 +114,7 @@ customerRouter.post('/register', async (req, res) => {
 });
 
 customerRouter.post('/create', (req, res) => {
-  // console.log(req.body.personalParams);
+  // console.info(req.body.personalParams);
   const {
     first, last, email, number, gender, googleId, image, username,
   } = req.body.personalParams;
@@ -165,16 +167,17 @@ customerRouter.get('/search', (req, res) => {
     },
   })
     .then((customers) => {
+      // console.info(customers,'customers')s
       res.send(customers);
     })
     .catch((err) => console.warn(err));
 });
 
 customerRouter.get('/findMe', (req, res) => {
-  const { gId } = req.query;
-  Customer.findOne({ where: { id_google: gId } })
-    .then((customer) => res.send(customer))
-    .catch((err) => console.warn(err));
+  console.info(req.query);
+  const { username } = req.query;
+  Customer.findAll({ where: { user_name: username } })
+    .then((customer) => res.send(customer));
 });
 
 customerRouter.get('/getFriendById', (req, res) => {

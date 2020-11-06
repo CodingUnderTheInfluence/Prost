@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import {
   Grid,
   Button,
-  Typography,
-  TextField,
   FormControl,
-  FormControlLabel,
-  FormLabel,
+  Card,
+  CardContent,
+  CardActions,
+  Typography,
+  CardMedia,
+  IconButton,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import createParty from '../../../helpers/createParty';
@@ -24,7 +25,6 @@ const Create = () => {
   const [search, setSearch] = useState('');
   const [size, setSize] = useState(1);
   const [party, setParty] = useState(false);
-
   const handleParty = () => {
     createParty(search, size)
       .then(() => {
@@ -32,81 +32,78 @@ const Create = () => {
       })
       .catch((err) => console.warn('error in party create', err));
   };
-
   const classes = useStyles();
 
   return (
-    <div>
-      {!party
-        ? (
-          <FormControl fullWidth className={classes.root}>
-            <TextField
-              id="standard-basic"
-              label="Search"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-            <Grid item container direction="row">
-              <TextField
-                id="standard-number"
-                label="Size"
-                type="number"
-                InputProps={{ inputProps: { min: 0, max: 10 } }}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                value={size}
-                onChange={(e) => setSize(e.target.value)}
-              />
-              {/* <TextField id="standard-basic" label="First Name" />
-            <TextField id="standard-basic" label="Last Name" /> */}
-            </Grid>
-            <Button
-              variant="outlined"
-              onClick={() => {
-                handleParty();
-                setSearch('');
-                setSize('');
-              }}
-            >
-              Submit
-            </Button>
+    <Card>
 
-          </FormControl>
-        )
-        : <h1>Party Created!</h1>}
-    </div>
-
-  // <>
-  //   <FormControl>
-  //     <Grid item container direction='row' className={classes.root}>
-  //       <TextField id="standard-basic" label="Search" />
-  //     </Grid>
-  //   </FormControl>
-  //   <Grid item container direction="row" className={classes.root}>
-  //     <TextField id="standard-basic" label="First Name" />
-  //     <TextField id="standard-basic" label="Last Name" />
-  //   </Grid>
-  // </>
-  );
-};
-
-const QuickCreate = () => {
-  function success(pos) {
-    const crd = pos.coords;
-  }
-
-  function error(err) {
-    console.warn(`ERROR(${err.code}): ${err.message}`);
-  }
-
-  const handleClick = () => {
-    navigator.geolocation.getCurrentPosition(success, error);
-  };
-
-  return (
-    <button onClick={handleClick}>I'm drinking!</button>
+    </Card>
   );
 };
 
 export default Create;
+
+//
+  // <div>
+    //   {!party ? (
+    //     <FormControl fullWidth className={classes.root}>
+    //       <TextField
+    //         id="standard-basic"
+    //         label="Search"
+    //         value={search}
+    //         onChange={(e) => setSearch(e.target.value)}
+    //       />
+    //       <Grid item container direction="row">
+    //         <TextField
+    //           id="standard-number"
+    //           label="Size"
+    //           type="number"
+    //           InputProps={{ inputProps: { min: 0, max: 10 } }}
+    //           InputLabelProps={{
+    //             shrink: true,
+    //           }}
+    //           value={size}
+    //           onChange={(e) => setSize(e.target.value)}
+    //         />
+    //         {/* TODO: */}
+    //         {/* <TextField id="standard-basic" label="First Name" />
+    //         <TextField id="standard-basic" label="Last Name" /> */}
+    //       </Grid>
+    //       <Button
+    //         variant="outlined"
+    //         onClick={() => {
+    //           handleParty();
+    //           setSearch('');
+    //           setSize('');
+    //         }}
+    //       >
+    //         Submit
+    //       </Button>
+
+    //     </FormControl>
+    //   )
+    //     : <h1>Party Created!</h1>}
+    // </div>
+    // TODO:
+    // <>
+    //   <FormControl>
+    //     <Grid item container direction='row' className={classes.root}>
+    //       <TextField id="standard-basic" label="Search" />
+    //     </Grid>
+    //   </FormControl>
+    //   <Grid item container direction="row" className={classes.root}>
+    //     <TextField id="standard-basic" label="First Name" />
+    //     <TextField id="standard-basic" label="Last Name" />
+    //   </Grid>
+    // </>
+
+/// ///////////////////////////////////        get bar info        ////////////////////////////////////////
+
+// const storeBar = () => {
+//   axios.get(`/db/bar/create?bar_name=${search}`)
+//     .then(({data}) => {
+//       if (data) {
+//         console.info(data[0].id);
+//       }
+//     })
+// }

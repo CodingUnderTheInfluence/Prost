@@ -33,18 +33,10 @@ const useStyles = makeStyles({
 });
 
 const CustomerView = ({
-  setViewValue,
-  gId, 
-  username, 
-  setMapLatLng, 
-  setUsername, 
-  setId,
+  setViewValue, gId, username, setMapLatLng, setUsername, setId,
 }) => {
-
   const classes = useStyles();
   const [value, setValue] = useState();
-  const [userData, setUserData] = useState();
-
   if (localStorage.username) { () => setUsername(localStorage.username); }
   if (localStorage.gId) { () => setId(localStorage.gId); }
 
@@ -59,20 +51,9 @@ const CustomerView = ({
   socket.emit('userInfo', userInfo);
   socket.on('onlineUsers', (data) => {
     onlineUsers = data;
-    console.log(onlineUsers, 'Everyone Online Right Now!');
+    console.info(onlineUsers, 'Everyone Online Right Now!');
   });
-
-  const findMe = (id) => {
-    return Axios.get(`/db/customer/findMe?gId=${id}`)
-      .then(({data}) => {
-        setUserData(data)
-      })
-      .catch(err => console.warn(err));
-  }
-
-  useEffect(() => {
-    console.log(findMe(gId),'FindMeData');
-  }, [])
+  // console.info(socket);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -80,7 +61,7 @@ const CustomerView = ({
 
   const renderView = () => {
     if (value === 0) {
-      return <FriendsList userData={userData} />;
+      return <FriendsList />;
     }
     if (value === 1) {
       return <MapContainer setMapLatLng={setMapLatLng} gId={gId} />;
