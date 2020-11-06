@@ -66,6 +66,10 @@ const MapContainer = ({ setMapLatLng, gId }) => {
   const [searchMarker, setSearchMarker] = useState({});
   const [click, setClick] = useState(false);
   const [placeInfo, setplaceInfo] = useState(null);
+  const [origin, setOrigin] = useState('');
+  const [destination, setDestination] = useState('');
+  const [getDirections, setGetDirections] = useState(false);
+
 
   const defaultCenter = {
     lat: 29.951065,
@@ -89,8 +93,10 @@ const MapContainer = ({ setMapLatLng, gId }) => {
         });
     }
     return () => { isMounted = false; };
-  }, [privateSwitch]);
+    // --removed priviteSwitch in second arg to reload state when marker was clicked 
+  }, []);
 
+  // TODO:
   /// //////////       get info for bars to display        /////////////////////////////
   // useEffect(() => {
   //   let isMounted = true;
@@ -129,8 +135,10 @@ const MapContainer = ({ setMapLatLng, gId }) => {
   // save reference to map to use it later and not reload state
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
+    console.log('map rerender?')
     mapRef.current = map;
-  }, [privateSwitch]);
+    // --removed priviteSwitch in second arg to reload state when marker was clicked 
+  }, []);
 
   // move map to the where the user has searched
   const panTo = useCallback(({ lat, lng }) => {
@@ -171,14 +179,27 @@ const MapContainer = ({ setMapLatLng, gId }) => {
   return (
 
     <div style={{ align: 'center' }}>
-      {click
-        ? (
-          <BarInfo
-            placeInfo={placeInfo}
-            searchMarker={searchMarker}
-          />
-        )
-        : null}
+      {click && (
+        <BarInfo
+          placeInfo={placeInfo}
+          searchMarker={searchMarker}
+        />
+      )}
+
+      {/* TODO: */}
+      {/* <input
+        value={origin}
+        onChange={(e) => {
+          e.preventDefault();
+          setOrigin(e.target.value);
+        }}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            setGetDirections(true);
+          }
+        }}
+      /> */}
+
       <GoogleMap
         mapContainerStyle={mapStyles}
         zoom={15}
@@ -229,7 +250,12 @@ const MapContainer = ({ setMapLatLng, gId }) => {
           searchBoxStyle={searchBoxStyle}
           getPlaceInfo={getPlaceInfo}
         />
-        <Directions />
+        {/* TODO: */}
+        {/* <Directions
+          origin={origin}
+          destination={destination}
+          getDirections={getDirections}
+        /> */}
         <Marker
           onClick={handleMarkerClick}
           key={searchMarker.lat}
