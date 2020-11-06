@@ -5,16 +5,12 @@ const FriendsMarkers = ({ friendLocations }) => {
   const [show, setShow] = useState(false);
   const [info, setInfo] = useState(null);
 
-  // const handleClick = () => {
-  //   setShow(!show);
-
-  // };
-
   return (
     <>
       {friendLocations.length && friendLocations.filter(({ isPrivate }) => !isPrivate)
         .map(({ latitude, longitude, user_name }, i) => (
           <Marker
+            // TODO:
             // onClick={handleClick}
             key={i}
             position={{
@@ -23,6 +19,7 @@ const FriendsMarkers = ({ friendLocations }) => {
             }}
           // icon={{url: '../../../../images/iconmonstr-beer-5.svg'}}
           >
+            {/* TODO: */}
             {/* <InfoWindow><div>{user_name}</div></InfoWindow> */}
           </Marker>
         ))}

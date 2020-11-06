@@ -1,13 +1,8 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import {
   Grid,
   Button,
-  Typography,
-  TextField,
-  FormControl,
-  FormControlLabel,
-  FormLabel,
+  FormControl
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import createParty from '../../../helpers/createParty';
@@ -55,6 +50,7 @@ const Create = () => {
               value={size}
               onChange={(e) => setSize(e.target.value)}
             />
+            {/* TODO: */}
             {/* <TextField id="standard-basic" label="First Name" />
             <TextField id="standard-basic" label="Last Name" /> */}
           </Grid>
@@ -73,7 +69,7 @@ const Create = () => {
       )
         : <h1>Party Created!</h1>}
     </div>
-
+    // TODO:
     // <>
     //   <FormControl>
     //     <Grid item container direction='row' className={classes.root}>
@@ -87,30 +83,6 @@ const Create = () => {
     // </>
   );
 };
-
-// const QuickCreate = () => {
-
-//     function success(pos) {
-//       var crd = pos.coords;
-
-//       console.log('Your current position is:');
-//       console.log(`Latitude : ${crd.latitude}`);
-//       console.log(`Longitude: ${crd.longitude}`);
-//       console.log(`More or less ${crd.accuracy} meters.`);
-//     }
-
-//     function error(err) {
-//       console.warn(`ERROR(${err.code}): ${err.message}`);
-//     }
-
-//     const handleClick = () => {
-//       navigator.geolocation.getCurrentPosition(success, error);
-//     };
-
-//       return (
-//         <button onClick={handleClick}>I'm drinking!</button>
-//       );
-//     };
 
 export default Create;
 
