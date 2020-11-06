@@ -50,7 +50,6 @@ eContactRouter.post('/add', (req, res) => {
     number,
     id,
   } = req.body;
-
   Customer.findOne({
     where: {
       id_google: `${id}`,

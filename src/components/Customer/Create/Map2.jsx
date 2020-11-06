@@ -68,7 +68,7 @@ const MapContainer = ({ setMapLatLng, gId }) => {
   };
 
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY,
+    googleMapsApiKey: 'AIzaSyANp7sI4cfvx8WLl6OgcsePepOM5oSuXZY',
     libraries,
   });
 
@@ -139,6 +139,7 @@ const MapContainer = ({ setMapLatLng, gId }) => {
 
   // get places info from search bar
   const getPlaceInfo = useCallback((results) => {
+    console.info(results, 'SEARCH RESULTS');
     const { lat, lng } = results;
     setSearchMarker({ lat, lng });
     setplaceInfo(results);
