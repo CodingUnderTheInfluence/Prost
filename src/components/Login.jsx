@@ -6,7 +6,7 @@ import { Button } from '@material-ui/core';
 const clientId = '933644302187-agamsig0qalm5oi4fd44v11hfffpchs8.apps.googleusercontent.com';
 
 const Login = ({
-  setViewValue, setId, setProfileImage, setUsername,
+  setViewValue, setId, setProfileImage, setUsername, setDbId
 }) => {
   const onSuccess = (res) => {
     const token = res.tokenId;

@@ -4,32 +4,35 @@ import Axios from 'axios';
 
 
 const IncomingFriend = ({r}) => {
-    const [data, setData] = useState();
+    const [person, setPerson] = useState();
     
+    const getData = () => {
+        console.log(r, 'R')
+        Axios.get(`/db/customer/getFriendById?customerId=${r.id_customer}`)
+        .then(({data}) => {
+            setPerson(data)
+        })
+        .catch(err => console.warn(err))
+    };
+
     useEffect(() => {
         getData();
     }, [])
 
-    const getData = () => {
-        Axios.get(`/db/customer/getFriendById?customerId=${r.customerId}`)
-        .then(({data}) => {
-            setData(data)
-        })
-        .catch(err => console.warn(err))
-    };
+
     
     const acceptRequest = () => {
-        alert(`Friend request ${r.id} accepted. You are now friends with ${data.user_name}`)
+        alert(`Friend request ${r.id} accepted. You are now friends with ${person.first_name}`)
     }
 
     const rejectRequest = () => {
-        alert(`Friend request ${r.id} rejected. You are NOT friends with ${data.user_name}`)
+        alert(`Friend request ${r.id} rejected. You are NOT friends with ${person.first_name}`)
     };
 
-    if (data) {
+    if (person) {
         return (
             <div>
-                {data.user_name} has not decided to be your friend yet.
+                {person.first_name} wants to be your friend.
                 <Button onClick={acceptRequest}>Accept</Button><Button onClick={rejectRequest}>Decline</Button>
             </div>
         )

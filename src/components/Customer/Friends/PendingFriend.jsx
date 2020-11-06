@@ -3,9 +3,9 @@ import { Button } from '@material-ui/core';
 import Axios from 'axios'
 
 function PendingFriend({f}) {
-    //useEffect to gather userInfo from database
 
     const [data, setData] = useState();
+    const [cancelled, setCancelled] = useState(false);
     
     useEffect(() => {
         getData();
@@ -20,14 +20,19 @@ function PendingFriend({f}) {
     };
     
     const cancelRequest = () => {
-        alert('Friend Request Cancelled')
+        Axios.delete('/db/friendship/removeRequest', {data: f})
+            .catch(err => console.warn(err))
     }
 
     if (data) {
         return (
             <div>
-                {data.user_name} has not decided to be your friend yet.
-                <Button onClick={acceptRequest}>Cancel Request</Button>
+                {data.user_name} has not accepted your request yet.
+                {cancelled ? 'Friend Request Cancelled' : <Button onClick={ () => {
+                    cancelRequest()
+                    setCancelled(true)
+                    }}>Cancel Request</Button>}
+                
             </div>
         )
     } else {

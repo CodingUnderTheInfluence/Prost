@@ -68,6 +68,15 @@ friendshipRouter.get('/myFriends', (req, res) => {
     res.send(friendships)
   })
 })
+
+friendshipRouter.delete('/removeRequest', (req, res) => {
+  let f = req.body;
+  // console.log(f);
+  Friendship.destroy({where: {id: f.id}})
+    .then(res => console.log(res))
+    .catch(err => console.warn(err))
+  res.send("Reqest received");
+});
   // 
 module.exports = {
   friendshipRouter,

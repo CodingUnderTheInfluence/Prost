@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     status: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BOOLEAN,
     }
   }, {
     freezeTableName: true,
