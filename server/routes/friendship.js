@@ -58,12 +58,15 @@ friendshipRouter.post('/newFriend', (req, res) =>{
   })
   res.send('Friend Request Sent!');
 });
-
+// Friendship.findAll({where: {id_customer: customerId}})
 friendshipRouter.get('/myFriends', (req, res) => {
   const {customerId} = req.query;
   console.log(customerId, 'customerId')
-  Friendship.findAll({where: {id_customer: customerId}})
-  .then(friendships => res.send(friendships))
+  Friendship.findAll({where: {[Op.or]: [{id_customer: customerId}, {id_friend: customerId}]}})
+  .then(friendships => {
+    // console.log(friendships, 'All friendship data')
+    res.send(friendships)
+  })
 })
   // 
 module.exports = {

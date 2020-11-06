@@ -135,46 +135,15 @@ customerRouter.post('/create', (req, res) => {
           profile_image: image,
         })
           .then((customer) => {
-            res.send(`Customer has been created under: ${email}`);
+            res.send(`Customer has been created under: ${customer[0].email}`);
           })
           .catch((err) => {
             res.status(401).send('UNABLE TO ADD');
-            console.warn(err);
+            console.error(err);
           });
       }
     });
-
-  // Customer.findAll({ where: { id_google: googleId } })
-  //   .then((customers) => {
-  //     if (customers.length > 0) {
-  //       res.send('FOUND USER');
-  //       Customer.update({
-  //         first_name: first,
-  //         last_name: last,
-  //         user_name: username,
-  //         id_google: googleId,
-  //         email,
-  //         phone_number: number,
-  //         gender_type: gender,
-  //         profile_image: image,
-  //       });
-  //     } else {
-  //       Customer.create({
-  //         first_name: first,
-  //         last_name: last,
-  //         user_name: username,
-  //         id_google: googleId,
-  //         email,
-  //         phone_number: number,
-  //         gender_type: gender,
-  //         profile_image: image,
-  //       });
-  //     }
-  //   })
-  //   .catch((err) => {
-  //     console.warn('ERROR IN CREATING CUSTOMERS');
-  //   });
-});
+})
 
 customerRouter.post('/location', (req, res) => {
   const {

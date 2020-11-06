@@ -5,59 +5,89 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import PendingFriend from './PendingFriend.jsx';
 import ConfirmedFriend from './ConfirmedFriend.jsx';
 import FriendForm from './FriendForm.jsx';
+import IncomingFriend from './IncomingFriend.jsx';
 
 function FriendsList() {
-  // get request server for all entries in friend table with signed in users google ID
-  // if userID in sent column, check if accepted is 1 or 0
-  // 1  => render as confirmed friend
-  // 0 => render as friend request pending
-  // if userID in received column, go through above check again
-  // 1 => render as confirmed friend
-  // 0 => render as incoming friend request, option to accept or decline
-  // Confirmed friends:
-  // see online status, name, phone number
-  // ability to DM them if online
-  const [incomingRequests, setIncomingRequests] = useState([]);
-  const [friends, setFriends] = useState([]);
-  const [pendingFriends, setPendingFriends] = useState([]);
-  const [confirmedFriends, setConfirmedFriends] = useState([]);
-  const [addFriend, setAddFriend] = useState(false);
-  const [allFriendships, setAllFriendships] = useState([]);
+    //TODO
+    //get request server for all entries in friend table with signed in users google ID
+    //if userID in sent column, check if accepted is 1 or 0
+        // 1  => render as confirmed friend
+        // 0 => render as friend request pending
+    //if userID in received column, go through above check again
+        // 1 => render as confirmed friend
+        // 0 => render as incoming friend request, option to accept or decline
+    //Confirmed friends:
+        // see online status, name, phone number
+        // ability to DM them if online
+    const [incomingRequests, setIncomingRequests] = useState([]);
+    const [friends, setFriends] = useState([]);
+    const [pendingFriends, setPendingFriends] = useState([]);
+    const [confirmedFriends, setConfirmedFriends] = useState([])
+    const [addFriend, setAddFriend] = useState(false);
 
-  useEffect(() => {
-    Axios.get(`/db/customer/findMe?username=${localStorage.username}`)
-      .then(({ data }) => {
-        Axios.get(`/db/friendship/myFriends?customerId=${data[0].id}`)
-          .then(({ data }) => {
-            const tempPendingFriends = [];
-            const tempConfirmedFriends = [];
-            const tempIncomingFriends = [];
-            console.log(data);
 
-            data.forEach((friendship) => {
-              if (friendship.status === 0) {
-                tempPendingFriends.push(friendship);
-              } else if (friendship.status === 1) {
-                tempConfirmedFriends.push(friendship);
-              } else {
-                tempIncomingFriends.push(friendship);
-              }
-            });
-            setPendingFriends(tempPendingFriends);
+    const getMyId = () => {
+        return Axios.get(`/db/customer/findMe?username=${localStorage.username}`)
+    };
+
+    const getMyFriendData = (id) => {
+        Axios.get(`/db/friendship/myFriends?customerId=${id}`)
+        .then(({data}) => {
+            let tempOutgoingFriends = [];
+            let tempConfirmedFriends = [];
+            let tempIncomingFriends = [];
+            console.log(data, 'All friendship data')
+        
+            data.forEach(friendship => {
+                if (friendship.status === true) {
+                    tempConfirmedFriends.push(friendship);
+                } else if (friendship.customerId === id && !friendship.status) {
+                    tempOutgoingFriends.push(friendship);
+                } else if (friendship.id_friend === id && !friendship.status) {
+                    tempIncomingFriends.push(friendship)
+                }
+            })
+            setPendingFriends(tempOutgoingFriends);
             setConfirmedFriends(tempConfirmedFriends);
             setIncomingRequests(tempIncomingFriends);
             setFriends(data);
-          });
-      });
-    // Axios.get('/db/friendship/')
-    //     .then(({data}) => {
-    //         console.log(data, 'FRIENDSHIPS DATA')
-    //         setFriends(data);
-    //         setPendingFriends(data);
-    //         setConfirmedFriends(data);
-    //     })
-    //     .catch(err => console.log(err, 'ERROR IN FRIENDSHIP GET REQUESTS'))
-  }, []);
+        })
+    };
+
+    useEffect(async () => {
+        let {data} = await getMyId();
+        // console.log(data, 'My Data inside UseEffect returned from function call')
+        // // getMyFriendData(mydata.data[0].id)
+        // console.log(data[0].id, 'myId')
+        getMyFriendData(data[0].id);
+        
+    }, [])
+
+    if (addFriend) {
+        return (
+            <FriendForm setAddFriend={setAddFriend} />
+        )
+    } else {
+        if (!friends.length) {
+            return(<div>Loading Friends... please wait</div>)
+        } else{
+            return (
+                <Grid >
+                <Grid className='pending'>
+                    {pendingFriends.map(f => <PendingFriend f={f} />)}
+                </Grid>
+                <Grid>
+                    {incomingRequests.map(r => <IncomingFriend r={r} />)}
+                </Grid>
+                <Grid className='confirmed'>
+                    {confirmedFriends.map(f => <ConfirmedFriend f={f} />)}
+                </Grid>
+                    <Fab color='primary' position='center' onClick={()=> setAddFriend(true)}><AddCircleIcon /></Fab>
+            </Grid>
+            )
+        }
+    }
+}
 
   if (addFriend) {
     return (
