@@ -13,15 +13,15 @@ const FriendsMarkers = ({ friendLocations }) => {
   return (
     <div>
       {friendLocations.length && friendLocations.filter(({ isPrivate }) => !isPrivate)
-        .map(({ latitude, longitude, user_name }, i) => (
+        .map(({ latitude, longitude, user_name }) => (
           <Marker
             onClick={handleClick}
-            key={i}
+            key={user_name}
             position={{
               lat: +latitude,
               lng: +longitude,
             }}
-            {/* TODO: */}
+          // {/* TODO: */}
           // icon={{ url: '../../../../images/iconmonstr-beer-5.svg' }}
           >
           </Marker>

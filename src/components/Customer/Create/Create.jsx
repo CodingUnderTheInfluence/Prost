@@ -2,7 +2,14 @@ import React, { useState } from 'react';
 import {
   Grid,
   Button,
-  FormControl
+  FormControl,
+  Card,
+  CardContent,
+  CardActions,
+  Typography,
+  CardMedia,
+  Button,
+  IconButton,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import createParty from '../../../helpers/createParty';
@@ -29,46 +36,55 @@ const Create = () => {
   const classes = useStyles();
 
   return (
-    <div>
-      {!party ? (
-        <FormControl fullWidth className={classes.root}>
-          <TextField
-            id="standard-basic"
-            label="Search"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-          <Grid item container direction="row">
-            <TextField
-              id="standard-number"
-              label="Size"
-              type="number"
-              InputProps={{ inputProps: { min: 0, max: 10 } }}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              value={size}
-              onChange={(e) => setSize(e.target.value)}
-            />
-            {/* TODO: */}
-            {/* <TextField id="standard-basic" label="First Name" />
-            <TextField id="standard-basic" label="Last Name" /> */}
-          </Grid>
-          <Button
-            variant="outlined"
-            onClick={() => {
-              handleParty();
-              setSearch('');
-              setSize('');
-            }}
-          >
-            Submit
-          </Button>
+    <Card>
 
-        </FormControl>
-      )
-        : <h1>Party Created!</h1>}
-    </div>
+    </Card>
+  );
+};
+
+export default Create;
+
+//
+  // <div>
+    //   {!party ? (
+    //     <FormControl fullWidth className={classes.root}>
+    //       <TextField
+    //         id="standard-basic"
+    //         label="Search"
+    //         value={search}
+    //         onChange={(e) => setSearch(e.target.value)}
+    //       />
+    //       <Grid item container direction="row">
+    //         <TextField
+    //           id="standard-number"
+    //           label="Size"
+    //           type="number"
+    //           InputProps={{ inputProps: { min: 0, max: 10 } }}
+    //           InputLabelProps={{
+    //             shrink: true,
+    //           }}
+    //           value={size}
+    //           onChange={(e) => setSize(e.target.value)}
+    //         />
+    //         {/* TODO: */}
+    //         {/* <TextField id="standard-basic" label="First Name" />
+    //         <TextField id="standard-basic" label="Last Name" /> */}
+    //       </Grid>
+    //       <Button
+    //         variant="outlined"
+    //         onClick={() => {
+    //           handleParty();
+    //           setSearch('');
+    //           setSize('');
+    //         }}
+    //       >
+    //         Submit
+    //       </Button>
+
+    //     </FormControl>
+    //   )
+    //     : <h1>Party Created!</h1>}
+    // </div>
     // TODO:
     // <>
     //   <FormControl>
@@ -81,10 +97,6 @@ const Create = () => {
     //     <TextField id="standard-basic" label="Last Name" />
     //   </Grid>
     // </>
-  );
-};
-
-export default Create;
 
 /// ///////////////////////////////////        get bar info        ////////////////////////////////////////
 

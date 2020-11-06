@@ -65,12 +65,12 @@ const BarInfo = ({ placeInfo, searchMarker }) => {
               >
                 Close
               </Button>
-              {/* <Button
-            style={{float: 'right'}}
-            onClick={() => createParty(placeInfo)}
-          >
-          Create Party
-        </Button> */}
+              <Button
+                style={{ float: 'right' }}
+                onClick={() => createParty(placeInfo)}
+              >
+                Create Party
+              </Button>
               <IconButton
                 aria-label="at bar"
                 onClick={() => {
