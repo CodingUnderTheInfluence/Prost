@@ -15,6 +15,7 @@ const IncomingFriend = ({r}) => {
         .then(({data}) => {
             setData(data)
         })
+        .catch(err => console.warn(err))
     };
     
     const acceptRequest = () => {

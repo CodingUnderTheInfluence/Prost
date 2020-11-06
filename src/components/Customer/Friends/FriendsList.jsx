@@ -9,13 +9,6 @@ import IncomingFriend from './IncomingFriend.jsx';
 
 function FriendsList() {
     //TODO
-    //get request server for all entries in friend table with signed in users google ID
-    //if userID in sent column, check if accepted is 1 or 0
-        // 1  => render as confirmed friend
-        // 0 => render as friend request pending
-    //if userID in received column, go through above check again
-        // 1 => render as confirmed friend
-        // 0 => render as incoming friend request, option to accept or decline
     //Confirmed friends:
         // see online status, name, phone number
         // ability to DM them if online
@@ -52,13 +45,11 @@ function FriendsList() {
             setIncomingRequests(tempIncomingFriends);
             setFriends(data);
         })
+        .catch(err => console.warn(err))
     };
 
     useEffect(async () => {
         let {data} = await getMyId();
-        // console.log(data, 'My Data inside UseEffect returned from function call')
-        // // getMyFriendData(mydata.data[0].id)
-        // console.log(data[0].id, 'myId')
         getMyFriendData(data[0].id);
         
     }, [])
