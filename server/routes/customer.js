@@ -135,46 +135,15 @@ customerRouter.post('/create', (req, res) => {
           profile_image: image,
         })
           .then((customer) => {
-            res.send(`Customer has been created under: ${email}`);
+            res.send(`Customer has been created under: ${customer[0].email}`);
           })
           .catch((err) => {
             res.status(401).send('UNABLE TO ADD');
-            console.warn(err);
+            console.error(err);
           });
       }
     });
-
-  // Customer.findAll({ where: { id_google: googleId } })
-  //   .then((customers) => {
-  //     if (customers.length > 0) {
-  //       res.send('FOUND USER');
-  //       Customer.update({
-  //         first_name: first,
-  //         last_name: last,
-  //         user_name: username,
-  //         id_google: googleId,
-  //         email,
-  //         phone_number: number,
-  //         gender_type: gender,
-  //         profile_image: image,
-  //       });
-  //     } else {
-  //       Customer.create({
-  //         first_name: first,
-  //         last_name: last,
-  //         user_name: username,
-  //         id_google: googleId,
-  //         email,
-  //         phone_number: number,
-  //         gender_type: gender,
-  //         profile_image: image,
-  //       });
-  //     }
-  //   })
-  //   .catch((err) => {
-  //     console.warn('ERROR IN CREATING CUSTOMERS');
-  //   });
-});
+})
 
 customerRouter.post('/location', (req, res) => {
   const {
@@ -196,22 +165,24 @@ customerRouter.get('/search', (req, res) => {
     },
   })
     .then((customers) => {
-      // console.log(customers,'customers')s
       res.send(customers);
-    });
+    })
+    .catch(err => console.warn(err));
 });
 
 customerRouter.get('/findMe', (req, res) => {
-  console.log(req.query);
-  const { username } = req.query;
-  Customer.findAll({ where: { user_name: username } })
-    .then((customer) => res.send(customer));
+  const { gId } = req.query;
+  Customer.findOne({ where: { id_google: gId } })
+    .then((customer) => res.send(customer))
+    .catch(err => console.warn(err));
 });
 
 customerRouter.get('/getFriendById', (req, res) => {
   const { customerId } = req.query;
+  console.info('Grabbing information for customerID: ', customerId)
   Customer.findOne({ where: { id: customerId } })
-    .then((customer) => res.send(customer));
+    .then((customer) => res.send(customer))
+    .catch(err => console.warn(err));
 });
 
 module.exports = {

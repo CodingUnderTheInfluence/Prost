@@ -4,7 +4,7 @@ import Login from '../Login.jsx';
 import OwnerLogin from './owner/OwnerLogin.jsx';
 
 const SignIn = ({
-  setViewValue, setId, setProfileImage, setUsername,
+  setViewValue, setId, setProfileImage, setUsername, setDbId,
 }) => {
   const [counter, setCounter] = useState(0);
   const [isClicked, setClicked] = useState(false);
@@ -19,6 +19,7 @@ const SignIn = ({
           <Grid container direction="column" justify="center" alignItems="center">
             <Grid item container direction="row" justify="center" alignItems="center">
               <Login
+                setDbId={setDbId}
                 setViewValue={setViewValue}
                 setId={setId}
                 setProfileImage={setProfileImage}
