@@ -34,10 +34,10 @@ const useStyles = makeStyles({
 
 const CustomerView = ({
   setViewValue,
-  gId, 
-  username, 
-  setMapLatLng, 
-  setUsername, 
+  gId,
+  username,
+  setMapLatLng,
+  setUsername,
   setId,
 }) => {
 
@@ -64,14 +64,14 @@ const CustomerView = ({
 
   const findMe = (id) => {
     return Axios.get(`/db/customer/findMe?gId=${id}`)
-      .then(({data}) => {
+      .then(({ data }) => {
         setUserData(data)
       })
       .catch(err => console.warn(err));
   }
 
   useEffect(() => {
-    console.log(findMe(gId),'FindMeData');
+    console.log(findMe(gId), 'FindMeData');
   }, [])
 
   const handleChange = (event, newValue) => {

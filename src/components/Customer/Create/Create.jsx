@@ -92,7 +92,7 @@ export default Create;
 //   axios.get(`/db/bar/create?bar_name=${search}`)
 //     .then(({data}) => {
 //       if (data) {
-//         console.log(data[0].id);
+//         console.info(data[0].id);
 //       }
 //     })
 // }

@@ -178,7 +178,7 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
 
   return (
 
-    <div style={{ align: 'center' }}>
+    <div>
       {click && (
         <BarInfo
           placeInfo={placeInfo}

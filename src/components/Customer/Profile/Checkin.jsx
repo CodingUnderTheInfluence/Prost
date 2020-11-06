@@ -55,7 +55,7 @@ export default function Checkin({ setView, customerId }) {
     setPhoneNumber(formatted_phone_number);
     setName(name);
     setCoordinates([lat, lng]);
-    console.log('results', results);
+    console.info('results', results);
   }, []);
 
   // Check in
@@ -73,7 +73,7 @@ export default function Checkin({ setView, customerId }) {
       lat: coordinates[0],
       lng: coordinates[1],
     };
-    console.log('barInfo', barInfo);
+    console.info('barInfo', barInfo);
     fetch('/db/cb/checkin/create', {
       method: 'POST',
       headers: {
@@ -81,7 +81,7 @@ export default function Checkin({ setView, customerId }) {
       },
       body: JSON.stringify(barInfo),
     })
-      .then(({ data }) => { console.log(data); })
+      .then(({ data }) => { console.info(data); })
       .catch((err) => console.warn(err));
   };
 

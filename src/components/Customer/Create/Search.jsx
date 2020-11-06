@@ -101,7 +101,7 @@ const Search = ({ panTo, currentPosition, searchBoxStyle, getPlaceInfo }) => {
 //   const { latitude, longitude} = currentPosition;
 
 //   const onLoad = (ref) => {
-//     console.log(this);
+//     console.info(this);
 //   }
 
 //   return (

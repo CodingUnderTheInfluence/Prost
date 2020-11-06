@@ -9,10 +9,10 @@ const PeopleSearch = ({ searchBox }) => {
   // const handleClick = async () => {
   //   try {
   //     const friendsDB = axios.get(`/db/customer/:${input}`);
-  //     console.log(friendsDB);
+  //     console.info(friendsDB);
   //   }
   //   catch(err) {
-  //     console.error(err);
+  //     console.warn(err);
   //   } 
   // };
 
