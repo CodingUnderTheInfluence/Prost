@@ -21,9 +21,9 @@ const FriendsMarkers = ({ friendLocations }) => {
               lat: +latitude,
               lng: +longitude,
             }}
+            {/* TODO: */}
           // icon={{ url: '../../../../images/iconmonstr-beer-5.svg' }}
           >
-            {/* TODO: */}
           </Marker>
         ))
       }
