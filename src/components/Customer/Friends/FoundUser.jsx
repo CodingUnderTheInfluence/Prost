@@ -5,19 +5,14 @@ import Axios from 'axios';
 function FoundUser({userData, u}) {
     const [friendStatus, setFriendStatus] = useState(false)
 
-    const postRequest = (requestObj) => {
-        Axios.post('/db/friendship/newFriend', friendRequest)
-            .then(res => console.log(res, 'response from friend request post'))
-    }
     const handleFriendRequest = (currentId, uId) => {
         let sender, recipient, status;
         sender = currentId;
         recipient = uId;
         status = false;
         const friendRequest = {sender, recipient, status}
-        console.log(friendRequest, 'Friend Request Obj')
         Axios.post('/db/friendship/newFriend', friendRequest)
-            .then(res => console.log(res))
+            .catch(err => console.warn(err));
     };
 
     return (

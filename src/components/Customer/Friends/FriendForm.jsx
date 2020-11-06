@@ -18,10 +18,9 @@ function FriendForm({setAddFriend, userData}) {
     const searchUsers = (str) => {
         Axios.get(`/db/customer/search?username=${str}`)
             .then(({data}) => {
-                console.log(data,'success')
                 setResults(data);
             })
-            .catch(err => console.log(err))
+            .catch(err => console.warn(err))
     }
 
     return (
@@ -30,7 +29,7 @@ function FriendForm({setAddFriend, userData}) {
             <TextField placeholder='username' onChange={(event) => handleChange(event)}/>
             <Grid>
                 <List>
-                    {results.map(u =><li><FoundUser userData={userData} u={u} /></li> )}
+                    {results.map(u =><FoundUser userData={userData} u={u} /> )}
                 </List>
             </Grid>
         </div>

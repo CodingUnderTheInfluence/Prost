@@ -7,7 +7,6 @@ const IncomingFriend = ({r}) => {
     const [person, setPerson] = useState();
     
     const getData = () => {
-        console.log(r, 'R')
         Axios.get(`/db/customer/getFriendById?customerId=${r.id_customer}`)
         .then(({data}) => {
             setPerson(data)
@@ -19,14 +18,15 @@ const IncomingFriend = ({r}) => {
         getData();
     }, [])
 
-
-    
     const acceptRequest = () => {
-        alert(`Friend request ${r.id} accepted. You are now friends with ${person.first_name}`)
+        Axios.put('/db/friendship/acceptRequest', {data: r})
+        .catch(err => console.warn(err))
     }
 
     const rejectRequest = () => {
-        alert(`Friend request ${r.id} rejected. You are NOT friends with ${person.first_name}`)
+        Axios.delete('/db/friendship/removeRequest', {data: r})
+        .catch(err => console.warn(err))
+
     };
 
     if (person) {

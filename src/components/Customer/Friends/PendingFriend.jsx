@@ -14,9 +14,9 @@ function PendingFriend({f}) {
     const getData = () => {
         Axios.get(`/db/customer/getFriendById?customerId=${f.id_friend}`)
         .then(({data}) => {
-            console.log(data, 'Pending Friend Data')
             setData(data)
         })
+        .catch(err => console.warn(err));
     };
     
     const cancelRequest = () => {

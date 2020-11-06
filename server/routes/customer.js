@@ -165,16 +165,16 @@ customerRouter.get('/search', (req, res) => {
     },
   })
     .then((customers) => {
-      // console.log(customers,'customers')s
       res.send(customers);
-    });
+    })
+    .catch(err => console.warn(err));
 });
 
 customerRouter.get('/findMe', (req, res) => {
-  console.log(req.query);
   const { gId } = req.query;
   Customer.findOne({ where: { id_google: gId } })
-    .then((customer) => res.send(customer));
+    .then((customer) => res.send(customer))
+    .catch(err => console.warn(err));
 });
 
 customerRouter.get('/getFriendById', (req, res) => {

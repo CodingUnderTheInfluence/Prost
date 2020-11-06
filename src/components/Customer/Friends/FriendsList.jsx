@@ -11,7 +11,12 @@ function FriendsList({userData}) {
     //TODO
     //Confirmed friends:
         // see online status, name, phone number
-        // ability to DM them if online
+        // ability to DM them
+    //Fab element
+        // remove inline styling
+    //Rendering
+        //cleanup render if else statements
+        
     const [incomingRequests, setIncomingRequests] = useState([]);
     const [friends, setFriends] = useState([]);
     const [pendingFriends, setPendingFriends] = useState([]);
@@ -25,12 +30,8 @@ function FriendsList({userData}) {
             let tempOutgoingFriends = [];
             let tempConfirmedFriends = [];
             let tempIncomingFriends = [];
-            console.log(data, 'All friendship data')
             
             data.forEach(friendship => {
-                console.log(id, 'my ID')
-                console.log(friendship, 'Current Friendship being processed')
-                console.log(friendship.status, 'current processee status')
                 if (friendship.status === true) {
                     tempConfirmedFriends.push(friendship);
                 } else if (friendship.id_customer === id && friendship.status === false) {
@@ -39,13 +40,7 @@ function FriendsList({userData}) {
                     tempIncomingFriends.push(friendship)
                 }
             })
-            console.log(tempOutgoingFriends ,'Temp Outgoing');
-            console.log(tempConfirmedFriends, 'Temp Confirmed');
-            console.log(tempIncomingFriends, 'Temp Incoming')
-            // results.incoming = tempIncomingFriends;
-            // results.outgoing = tempOutgoingFriends;
-            // results.confirmed = tempConfirmedFriends;
-            // results.all = data;
+
             setFriends(data)
             setIncomingRequests(tempIncomingFriends);
             setPendingFriends(tempOutgoingFriends);
@@ -56,7 +51,6 @@ function FriendsList({userData}) {
     };
 
     useEffect(async () => {
-        console.info(userData, 'userData from props')
         getMyFriendData(userData.id)
     }, [])
 
@@ -92,33 +86,5 @@ function FriendsList({userData}) {
         }
     }
 }
-
-//   if (addFriend) {
-//     return (
-//       <FriendForm setAddFriend={setAddFriend} />
-//     );
-//   }
-//   if (!friends.length) {
-//     return (
-//         <Grid>
-//             <Grid>Loading Friends... please wait</Grid>
-//             <Grid>
-//                 <Fab color="primary" position="center" onClick={() => setAddFriend(true)}><AddCircleIcon /></Fab>
-//             </Grid>
-//         </Grid>
-//         );
-//   } else {
-//         return (
-//     <Grid>
-//       <Grid className="pending">
-//         {pendingFriends.map((f) => <PendingFriend f={f} />)}
-//       </Grid>
-//       <Grid className="confirmed">
-//         {confirmedFriends.map((f) => <ConfirmedFriend f={f} />)}
-//       </Grid>
-//       <Fab color="primary" position="center" onClick={() => setAddFriend(true)}><AddCircleIcon /></Fab>
-//     </Grid>
-//   );
-//   }
 
 export default FriendsList;

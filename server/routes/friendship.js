@@ -50,7 +50,6 @@ friendshipRouter.get('/all/friends/:customerId', (req, res) => {
 })
 friendshipRouter.post('/newFriend', (req, res) =>{
   const {sender, recipient, status} = req.body;
-  // console.log(sender, recipient, status);
   Friendship.create({
     id_customer: sender,
     id_friend: recipient,
@@ -58,24 +57,28 @@ friendshipRouter.post('/newFriend', (req, res) =>{
   })
   res.send('Friend Request Sent!');
 });
-// Friendship.findAll({where: {id_customer: customerId}})
+
 friendshipRouter.get('/myFriends', (req, res) => {
   const {customerId} = req.query;
-  console.log(customerId, 'customerId')
   Friendship.findAll({where: {[Op.or]: [{id_customer: customerId}, {id_friend: customerId}]}})
-  .then(friendships => {
-    // console.log(friendships, 'All friendship data')
-    res.send(friendships)
-  })
+    .then(friendships => {
+      res.send(friendships)
+    })
+    .catch(err => console.warn(err));
 })
 
 friendshipRouter.delete('/removeRequest', (req, res) => {
   let f = req.body;
-  // console.log(f);
   Friendship.destroy({where: {id: f.id}})
-    .then(res => console.log(res))
+    .then(res => console.info(`Relationsip with Id ${f.id} destroyed`))
     .catch(err => console.warn(err))
-  res.send("Reqest received");
+});
+
+friendshipRouter.put('/acceptRequest', (req, res) => {
+  let {data} = req.body;
+  Friendship.update({status: true}, {where: {id: data.id}})
+    .catch(err => console.warn(err));
+  res.send('Put Request Received');
 });
   // 
 module.exports = {

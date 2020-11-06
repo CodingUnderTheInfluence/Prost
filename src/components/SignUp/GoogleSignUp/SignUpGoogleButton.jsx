@@ -20,8 +20,9 @@ const SignUpGoogleButton = ({
     };
     setGEmail(res.profileObj.email);
     setId(res.profileObj.googleId);
-    setProfileImage(profile.imageUrl);
-    setUsername(profile.name);
+    setProfileImage(res.profileObj.imageUrl);
+    setUsername(res.profileObj.name);
+
     Axios.post('/db/customer/register', { googleProfile, googleToken })
       .then(({ data }) => {
         if (data === 'customer') {
