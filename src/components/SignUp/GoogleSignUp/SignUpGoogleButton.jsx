@@ -43,7 +43,7 @@ const SignUpGoogleButton = ({
         clientId={clientId}
         render={(renderProps) => (
           <Button variant="outlined" color="primary" onClick={renderProps.onClick} disabled={renderProps.disabled}>
-            Login Here
+            SignIn with Google
           </Button>
         )}
         buttonText="Login"
