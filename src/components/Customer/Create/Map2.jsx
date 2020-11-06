@@ -249,7 +249,7 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
 MapContainer.propTypes = {
   setMapLatLng: PropTypes.func.isRequired,
   username: PropTypes.string.isRequired,
-  gId: PropTypes.number.isRequired,
+  gId: PropTypes.string.isRequired,
 };
 
 export default MapContainer;
