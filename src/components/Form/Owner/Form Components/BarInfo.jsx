@@ -1,28 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Grid, Button, Typography, TextField, Radio, RadioGroup, FormControl, FormControlLabel, FormLabel,
+  Grid,
+  Button,
+  TextField,
+  Typography
 } from '@material-ui/core';
 import axios from 'axios';
 
-function BarInfo({ setCounter, mapLatLng }) {
-  const [barName, setBarName] = useState('');
-  const [address, setAddress] = useState('');
-  const [city, setCity] = useState('');
-  const [state, setState] = useState('');
-  const [zip, setZip] = useState('');
-  const [number, setNumber] = useState('');
-
-  const submitBarInfo = () => {
-    const params = {
-      barName,
-      address,
-      city,
-      state,
-      zip,
-      number,
-    };
-    axios.post('/db/bar/create', { params });
-  };
+const BarInfo = (
+  { setCounter,
+    mapLatLng,
+    setBarName,
+    setAddress,
+    setCity,
+    setState,
+    setZip,
+    setNumber }
+) => {
 
   return (
     <Grid container direction="column" justify="center" column="center">
@@ -48,7 +42,6 @@ function BarInfo({ setCounter, mapLatLng }) {
       <Button
         variant="outlined"
         onClick={() => {
-          submitBarInfo();
           setCounter(2);
         }}
       >
