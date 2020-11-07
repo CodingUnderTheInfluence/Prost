@@ -27,6 +27,7 @@ export default function Translate({ setView, customerId }) {
   const [order, setOrder] = useState({});
   const [displayOrder, setDisplayOrder] = useState('');
   const [pref, setPref] = useState('en');
+  const [menuLang, setMenuLang] = useState('');
 
   const translateOrder = () =>{
     const newOrder = [];
@@ -39,7 +40,7 @@ export default function Translate({ setView, customerId }) {
     axios.get(`/api/translate`, {
       params: {
         text: orderStr,
-        target: 'es' 
+        target: menuLang
       }
     })
     .then(({data}) => {
@@ -54,9 +55,16 @@ export default function Translate({ setView, customerId }) {
   }
 
   const getMenu = (id) => {
-    console.info('getMenu', id);
     axios.get(`/db/menu/bar/${id}`)
-      .then(({ data }) => (data.length > 0 ? setMenus(data[0].info.split('&')) : setMenus(null)))
+      .then(({ data }) => {
+        if(data.length > 0){
+          setMenus(data[0].info.split('&'))
+          setMenuLang(data[0].lang)
+        } else {
+          setMenus(null)
+          setMenuLang('')
+        }
+      })
       .catch((err) => console.warn(err));
   };
 
