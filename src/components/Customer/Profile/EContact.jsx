@@ -7,7 +7,7 @@ import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
 import FormControl from '@material-ui/core/FormControl';
 
-export default function EContact({ setView, customerId }) {
+export default function EContact({ setView, customerId, setFriendNumber }) {
   const [contact, setContact] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [first_name, setFirstName] = useState(null);
@@ -17,9 +17,13 @@ export default function EContact({ setView, customerId }) {
   const [eContactId, setEContactId] = useState(contact.id);
   const [cView, setCView] = useState('add');
 
-  const renderQrCodeView = () => (
-    <img src={`https://api.qrserver.com/v1/create-qr-code/?data=tel:${contact.phone_number}&amp;size=100x100`} alt="" title="" />
-  );
+  const renderQrCodeView = () => {
+    setFriendNumber(phone_number)
+    return (
+      <img src={`https://api.qrserver.com/v1/create-qr-code/?data=tel:${contact.phone_number}&amp;size=100x100`} alt="" title="" />
+    )
+  }
+
 
   const getData = () => {
     fetch(`/db/eContact/customer/${customerId}`, {
@@ -140,15 +144,15 @@ export default function EContact({ setView, customerId }) {
         )}
       {showForm
         && (
-        <form className="EContact" noValidate autoComplete="off" onSubmit={(e) => context(e)}>
-          <TextField id="filled-basic" label="First Name" variant="filled" onChange={(e) => setFirstName(e.target.value)} />
-          <TextField id="filled-basic" label="Last Name" variant="filled" onChange={(e) => setLastName(e.target.value)} />
-          <TextField id="filled-basic" label="Phone Number" variant="filled" onChange={(e) => setPhoneNumber(e.target.value)} />
-          <TextField id="filled-basic" label="Email" variant="filled" onChange={(e) => setEmail(e.target.value)} />
-          <div>
-            <Button variant="outlined" type="submit" color="primary">Submit</Button>
-          </div>
-        </form>
+          <form className="EContact" noValidate autoComplete="off" onSubmit={(e) => context(e)}>
+            <TextField id="filled-basic" label="First Name" variant="filled" onChange={(e) => setFirstName(e.target.value)} />
+            <TextField id="filled-basic" label="Last Name" variant="filled" onChange={(e) => setLastName(e.target.value)} />
+            <TextField id="filled-basic" label="Phone Number" variant="filled" onChange={(e) => setPhoneNumber(e.target.value)} />
+            <TextField id="filled-basic" label="Email" variant="filled" onChange={(e) => setEmail(e.target.value)} />
+            <div>
+              <Button variant="outlined" type="submit" color="primary">Submit</Button>
+            </div>
+          </form>
         )}
     </div>
   );
