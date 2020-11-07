@@ -31,7 +31,7 @@ barRouter.get('/', (req, res) => {
   const { bar_name } = req.query;
   Bar.findAll({
     where: {
-      bar_name,
+      bar_name: bar_name,
     },
   })
     .then((bar) => {
@@ -90,8 +90,8 @@ barRouter.post('/create', (req, res) => {
     .then((bar) => {
       res.status(201).send(bar);
     })
-    .catch((err) => {
-      res.status(500).send(err);
+    .catch(() => {
+      res.status(500).send('error in bar create');
     });
 });
 

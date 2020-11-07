@@ -68,5 +68,4 @@ function App() {
   }
   return <LandingPage setViewValue={setViewValue} />;
 }
-
 export default App;
