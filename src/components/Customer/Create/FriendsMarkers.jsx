@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Marker, InfoWindow } from '@react-google-maps/api';
+// import beer from '../../../../images/beer.svg';
 
 const FriendsMarkers = ({ friendLocations }) => {
   const [show, setShow] = useState(false);
@@ -21,8 +22,8 @@ const FriendsMarkers = ({ friendLocations }) => {
               lat: +latitude,
               lng: +longitude,
             }}
-          // {/* TODO: */}
-          // icon={{ url: '../../../../images/iconmonstr-beer-5.svg' }}
+            // {/* TODO: */}
+            icon={{ url: 'http://maps.google.com/mapfiles/ms/icons/blue.png' }}
           >
           </Marker>
         ))
