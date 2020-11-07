@@ -10,13 +10,24 @@ import QrScanner from './QrCodeScanner.jsx';
 
 
 
+
 const useStyles = makeStyles({
     root: {
         maxWidth: 500,
+        borderRadius: '10px'
     },
+    stickToBottom: {
+        width: '100vw',
+        position: 'fixed',
+        bottom: '0',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        borderRadius: '10px',
+        border: 'solid #0365b0 1px'
+    }
 });
 
-const OwnerView = () => {
+const OwnerView = ({ setViewValue }) => {
     const classes = useStyles();
     const [value, setValue] = useState();
 
@@ -32,7 +43,7 @@ const OwnerView = () => {
             return <QrScanner />
         }
         if (value === 2) {
-            return <OwnerProfile />
+            return <OwnerProfile setViewValue={setViewValue} />
         }
         return (<div>PLACE INSTRUCTIONS HERE</div>)
     }
@@ -42,7 +53,7 @@ const OwnerView = () => {
                 {renderView()}
             </Grid>
             <Grid item container direction="row" justify="center" alignItems="center">
-                <Paper className={classes.root}>
+                <Paper className={classes.stickToBottom}>
                     <Tabs
                         value={value}
                         onChange={handleChange}

@@ -60,6 +60,19 @@ Test Database Commands and Populates w/ Sample Data
 npm run test-db
 ```
 
+## Database for deployment
+
+Install: 
+``` 
+sudo apt update
+sudo apt install postgresql postgresql-contrib
+```
+Loggin In:
+```
+sudo -i -u postgres
+```
+
+
 ### Environment Variables for DB
 Place in a .env file in outermost directory
 
@@ -74,6 +87,10 @@ SEQUEL_DATABASE=<br />
 Place in the same .env file
 
 GOOGLE_MAPS_API_KEY=<br />
+GOOGLE_CLIENT_ID=<br />
+GOOGLE_CLIENT_SECRET=<br />
+REDIRECT=<br />
+COOKIE_SESSION_KEY=<br />
 
 ## Tech-Stack
     --ToDo

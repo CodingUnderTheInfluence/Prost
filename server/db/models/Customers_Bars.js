@@ -14,6 +14,12 @@ module.exports = (sequelize, DataTypes) => {
         key: "id"
       }
     },
+    favorite: {
+      type: DataTypes.BOOLEAN,
+    },
+    checkin: {
+      type: DataTypes.BOOLEAN,
+    }
   }, {
     freezeTableName: true,
   });

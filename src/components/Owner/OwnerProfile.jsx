@@ -1,5 +1,6 @@
 import React from 'react';
 import { Grid, Typography, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core'
+import Logout from '../Logout.jsx';
 
 const barInfo = {
     Name: "The_BullDog",
@@ -7,7 +8,7 @@ const barInfo = {
     PhoneNumber: "123456789"
 }
 
-const OwnerProfile = () => {
+const OwnerProfile = ({ setViewValue }) => {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -38,9 +39,7 @@ const OwnerProfile = () => {
             <Button variant="outlined" color="primary" onClick={handleClickOpen}>
                 Call emergency Contact
             </Button>
-            <Button variant="outlined" color="primary">
-                Logout
-            </Button>
+            <Logout setViewValue={setViewValue} />
             <Dialog
                 open={open}
                 onClose={handleClose}

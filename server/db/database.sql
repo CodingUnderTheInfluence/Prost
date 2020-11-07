@@ -5,19 +5,19 @@ CREATE TABLE "customer" (
   "first_name" varchar,
   "last_name" varchar,
   "user_name" varchar,
-  "id_facebook" int,
-  "id_google" int,
+  "id_facebook" varchar,
+  "id_google" varchar,
 );
 
+--CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE TABLE "owner" (
   "id" SERIAL PRIMARY KEY,
-  "first_name" varchar,
-  "last_name" varchar,
-  "user_name" varchar,
-  "password" varchar,
-  "id_facebook" int,
-  "id_google" int,
-);
+  "user_name" varchar(255), 
+  "first_name" varchar(255),
+  "last_name" varchar(255),
+  "password" varchar(255),
+  "email" varchar(255),
+ );
 
 CREATE TABLE "eContact" (
   "id" SERIAL PRIMARY KEY,
@@ -35,6 +35,9 @@ CREATE TABLE "bar" (
   "phone_number" varchar,
   "id_owner" int,
   "address" varchar,
+  "city" varchar, 
+  "state" varchar, 
+  "zip" varchar,
   "qrcode" varchar,
 );
 
@@ -42,6 +45,7 @@ CREATE TABLE "menu" (
   "id" SERIAL PRIMARY KEY,
   "image" varchar,
   "id_bar" int,
+  "id_bar" varchar,
 );
 
 CREATE TABLE "party" (
@@ -50,10 +54,11 @@ CREATE TABLE "party" (
   "size" int,
 );
 
-CREATE TABLE "relationship" (
+CREATE TABLE "friendship" (
   "id" SERIAL PRIMARY KEY,
-  "id_follower" int,
-  "id_following" int,
+  "id_customer" int,
+  "id_friend" int,
+  "status" boolean,
 );
 
 CREATE TABLE "message" (
@@ -80,6 +85,8 @@ CREATE TABLE "customers_bars" (
   "id" SERIAL PRIMARY KEY,
   "id_customer" int,
   "id_bar" int,
+  "favorite" boolean,
+  "checkin" boolean
 );
 
 CREATE TABLE "parties_customers" (
@@ -109,9 +116,9 @@ ALTER TABLE "parties_customers" ADD FOREIGN KEY ("id_customer") REFERENCES "cust
 
 ALTER TABLE "parties_customers" ADD FOREIGN KEY ("id_host") REFERENCES "customer" ("id");
 
-ALTER TABLE "relationship" ADD FOREIGN KEY ("id_follower") REFERENCES "customer" ("id");
+ALTER TABLE "friendship" ADD FOREIGN KEY ("id_customer") REFERENCES "customer" ("id");
 
-ALTER TABLE "relationship" ADD FOREIGN KEY ("id_following") REFERENCES "customer" ("id");
+ALTER TABLE "friendship" ADD FOREIGN KEY ("id_friend") REFERENCES "customer" ("id");
 
 ALTER TABLE "message" ADD FOREIGN KEY ("id_thread") REFERENCES "thread" ("id");
 

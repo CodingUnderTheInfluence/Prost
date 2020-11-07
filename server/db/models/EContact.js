@@ -18,13 +18,13 @@ module.exports = (sequelize, DataTypes) => {
     id_customer: {
       type: DataTypes.INTEGER,
       reference: {
-        model: "customer",
-        key: "id"
-      }
+        model: 'customer',
+        key: 'id',
+      },
     },
   }, {
     freezeTableName: true,
   });
-  
+
   return EContact;
 };
