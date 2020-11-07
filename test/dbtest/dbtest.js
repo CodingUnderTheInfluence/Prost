@@ -58,19 +58,16 @@ function primeDB() {
     })
     .then(() => Bar.findOrCreate({
       where: {
-        bar_name: 'Bar Tonique',
-        phone_number: '123-456-7890',
-        address: '820 N Rampart St, New Orleans, LA 70116',
-        latitude: 29.961620,
-        longitude: -90.067180,
+        bar_name: 'Licoreria Limantour - Roma',
+        address: 'Álvaro Obregón 106 Colonia Roma. Del. Cuauhtémoc 06700 Ciudad de México',
         id_owner: 2,
       },
     }))
     .then((numberEffected) => {
       if (numberEffected) {
-        return console.info('✅ Bar Tonique Created');
+        return console.info('✅ Bar Licoreria Limantour - Roma Created');
       }
-      return console.warn('❌ Bar Tonique undefined');
+      return console.warn('❌ Bar Licoreria Limantour - Roma undefined');
     })
     .then(() => Owner.findOrCreate({
       where: {
@@ -359,6 +356,12 @@ function primeDB() {
         image: 'https://cdn.localdatacdn.com/la/chalmette/4270737/original/E00mtC9Jui.jpg',
         id_bar: 1,
         info: 'Appetizers\nWings\nChips&Drinks\nVodka Cranberry Cocktail\nAmaretto Sour',
+      },
+    }))
+    .then(() => Menu.findOrCreate({
+      where: {
+        id_bar: 2,
+        info: 'Food\nPreserved Beans Con Panza De Cerdo Frita&Drinks\nHerradura Antiguo Tequila Reposado \nJose Cuervo Reserva De La Familia Platino'
       },
     }))
     .then((numberEffected) => {
