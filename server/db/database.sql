@@ -45,6 +45,7 @@ CREATE TABLE "menu" (
   "id" SERIAL PRIMARY KEY,
   "image" varchar,
   "id_bar" int,
+  "id_bar" varchar,
 );
 
 CREATE TABLE "party" (
