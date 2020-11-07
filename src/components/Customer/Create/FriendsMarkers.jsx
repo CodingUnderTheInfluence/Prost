@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Marker, InfoWindow } from '@react-google-maps/api';
+// TODO:
 // import beer from '../../../../images/beer.svg';
 
 const FriendsMarkers = ({ friendLocations }) => {

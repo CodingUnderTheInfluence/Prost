@@ -11,6 +11,7 @@ import Search from './Search.jsx';
 import BarInfo from './BarInfo.jsx';
 import PrivateSwitch from './PrivateSwitch.jsx';
 import FriendsMarkers from './FriendsMarkers.jsx';
+import BarMarkers from './BarMarkers.jsx';
 import Directions from '../Directions/Directions.jsx';
 import Create from './Create.jsx';
 // import PeopleSearch from './PeopleSearch.jsx';
@@ -211,6 +212,7 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
           destination={destination}
           getDirections={getDirections}
         /> */}
+        {/* TODO: on page click shows a marker */}
         <Marker
           onClick={handleMarkerClick}
           key={searchMarker.lat}
@@ -219,6 +221,7 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
             lng: +searchMarker.lng,
           }}
         />
+        <BarMarkers parties={parties} />
         <FriendsMarkers friendLocations={friendLocations} />
 
       </GoogleMap>
