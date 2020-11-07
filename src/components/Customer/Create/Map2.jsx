@@ -205,7 +205,7 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
           searchBoxStyle={searchBoxStyle}
           getPlaceInfo={getPlaceInfo}
         />
-        {/* TODO: */}
+        {/* TODO: This is for directions */}
         {/* <Directions
           origin={origin}
           destination={destination}
