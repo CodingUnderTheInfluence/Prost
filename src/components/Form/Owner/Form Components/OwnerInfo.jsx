@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
         width: '25ch',
     },
 }));
-function OwnerInfo({ setCounter, setViewValue }) {
+function OwnerInfo({ setCounter, setViewValue, barName, address, city, state, zip, number }) {
     const classes = useStyles();
     const [username, setUsername] = useState('');
     const [firstName, setFirst] = useState('');
@@ -53,7 +53,24 @@ function OwnerInfo({ setCounter, setViewValue }) {
             email,
             password: values.password,
         }
+        // console.info(params, 'PARAMS')
         axios.post('/db/owner/register', { params })
+            .then(({ data }) => {
+                const bparams = {
+                    ownerId: data.owner.id,
+                    barName,
+                    address,
+                    city,
+                    state,
+                    zip,
+                    number,
+                };
+                axios.post('/db/bar/create', { bparams })
+                    .then(({ data }) => {
+                        console.log(data);
+                    })
+            })
+
     }
 
     return (
