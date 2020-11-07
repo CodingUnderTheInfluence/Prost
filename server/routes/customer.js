@@ -174,19 +174,20 @@ customerRouter.get('/search', (req, res) => {
 });
 
 customerRouter.get('/findMe', (req, res) => {
-  console.info(req.query);
-  const { username } = req.query;
-  Customer.findAll({ where: { user_name: username } })
-    .then((customer) => res.send(customer));
+  const { gId } = req.query;
+  Customer.findOne({ where: { id_google: gId } })
+    .then((customer) => res.send(customer))
+    .catch(err => console.warn(err));
 });
 
 customerRouter.get('/getFriendById', (req, res) => {
   const { customerId } = req.query;
-  console.info('Grabbing information for customerID: ', customerId);
+  console.info('Grabbing information for customerID: ', customerId)
   Customer.findOne({ where: { id: customerId } })
     .then((customer) => res.send(customer))
-    .catch((err) => console.warn(err));
+    .catch(err => console.warn(err));
 });
+
 
 module.exports = {
   customerRouter,
