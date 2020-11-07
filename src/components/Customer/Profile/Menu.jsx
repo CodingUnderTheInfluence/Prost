@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Menu({ menuStr, order }) {
+export default function Menu({ menuStr, order, pref }) {
   const classes = useStyles();
   const [heading, setHeading] = useState('');
   const [body, setBody] = useState([]);
@@ -36,7 +36,7 @@ export default function Menu({ menuStr, order }) {
     axios.get(`/api/translate`, {
       params: {
         text: orderStr,
-        target: 'en' 
+        target: pref
       }
     })
     .then(({data}) => setTranslate(data[0].split(',')))
@@ -51,7 +51,7 @@ export default function Menu({ menuStr, order }) {
     // console.info('FROM MENU JSX arr', arr);
     translateMenu(arr);
     setBody(arr);
-  }, [menuStr]);
+  }, [menuStr, pref]);
 
   return (
     <Grid className={classes.root}>
@@ -76,11 +76,11 @@ export default function Menu({ menuStr, order }) {
               onFocus={(event) => {
                 event.stopPropagation()
               }}
-              control={<Checkbox onChange={(e)=> handlechange(e, item)}/>}
+              control={<Checkbox onChange={(e)=> handlechange(e, translate[index])}/>}
               label={item}
             />
             <Grid>
-            <Typography color="textPrimary">
+            <Typography color="textSecondary">
               {translate[index]}
             </Typography>
             </Grid>
