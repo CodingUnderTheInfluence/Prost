@@ -7,6 +7,7 @@ const createParty = async (barInfo, size = 1) => {
     formatted_phone_number,
     geometry: { location },
   } = barInfo;
+  console.log('barInfo in creatParty???', barInfo);
   const lat = location.lat();
   const lng = location.lng();
   const bar = await axios.post('/db/bar/create', {
@@ -17,10 +18,15 @@ const createParty = async (barInfo, size = 1) => {
     longitude: lng,
   });
   const barId = bar.data[0].id;
-  await axios.post('db/party/create', {
-    id_bar: barId,
-    size,
-  });
+  try {
+    await axios.post('db/party/create', {
+      id_bar: barId,
+      size,
+    });
+    console.info('success in creating party')
+  } catch (err) {
+    console.warn('error in create party');
+  }
 };
 
 module.exports = createParty;

@@ -94,33 +94,22 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
     }
     return () => { isMounted = false; };
     // --removed priviteSwitch in second arg to reload state when marker was clicked 
-  }, []);
+  }, [privateSwitch]);
 
   // TODO:
   /// //////////       get info for bars to display        /////////////////////////////
-  // useEffect(() => {
-  //   let isMounted = true;
-  //   if (isMounted) {
-  //     axios.get('/db/bar/all')
-  //       .then(({ data }) => {
-  //         setParties(data);
-  //       });
-  //   }
-  //   return () => { isMounted = false };
-  // }, []);
+  useEffect(() => {
+    let isMounted = true;
+    if (isMounted) {
+      axios.get('/db/bar/all')
+        .then(({ data }) => {
+          setParties(data);
+        });
+    }
+    return () => { isMounted = false };
+  }, []);
 
-  // const onMapClick = useCallback((e) => {
-  //   setMarkers(current => [
-  //     ...current,
-  //     {
-  //       lat: e.latLng.lat(),
-  //       lng: e.latLng.lng(),
-  //       time: new Date()
-  //     }
-  //   ]);
-  // });
-
-  // sets the makers to the user click
+  // // sets the makers to the user click
   // const onMapClick = useCallback((e) => {
   //   setMarkers(current => [
   //     ...current,
