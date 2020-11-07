@@ -15,10 +15,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Menu({ menuStr }) {
+export default function Menu({ menuStr, order }) {
   const classes = useStyles();
   const [heading, setHeading] = useState('');
   const [body, setBody] = useState([]);
+
+  const handlechange = (e, item) => {
+    if(order.hasOwnProperty(item)){
+      order[item] ? order[item] = false : order[item] = true
+    } else {
+      order[item] = true;
+    }
+    console.info(order);
+  }
 
   useEffect(() => {
     console.info('FROM MENU JSX menuStr', menuStr);
@@ -45,9 +54,15 @@ export default function Menu({ menuStr }) {
           <AccordionDetails key={key}>
             <FormControlLabel
               aria-label="menu"
-              onClick={(event) => event.stopPropagation()}
-              onFocus={(event) => event.stopPropagation()}
-              control={<Checkbox />}
+              onClick={(event) => {
+                event.stopPropagation()
+                console.info('onClick', event.target)
+              }}
+              onFocus={(event) => {
+                event.stopPropagation()
+                console.info('onFocus', event.target)
+              }}
+              control={<Checkbox onChange={(e)=> handlechange(e, item)}/>}
               label={item}
             />
           </AccordionDetails>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
-  InputLabel, MenuItem, FormControl, FormHelperText, Grid, Typography,
+  InputLabel, MenuItem, FormControl, FormHelperText, Grid, Typography, Button
 } from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 
@@ -23,6 +23,14 @@ export default function Translate({ setView, customerId }) {
   const classes = useStyles();
   const [list, setList] = useState([]);
   const [menus, setMenus] = useState(null);
+  const [order, setOrder] = useState({});
+
+  const translateOrder = () =>{
+    console.info('place', order);
+  }
+  const clearOrder = () =>{
+    setOrder({});
+  }
 
   const getMenu = (id) => {
     console.info('getMenu', id);
@@ -60,7 +68,11 @@ export default function Translate({ setView, customerId }) {
       </FormControl>
       <Grid>
         Menu
-        {menus && menus.map((menuStr, key) => <Menu menuStr={menuStr} key={key} />)}
+        {menus && menus.map((menuStr, key) => <Menu order={order} menuStr={menuStr} key={key} />)}
+      </Grid>
+      <Grid>
+        <Button onClick={clearOrder} variant="outlined" color="secondary">Clear Order</Button>
+        <Button onClick={translateOrder} variant="contained" color="primary">Translate Order</Button>
       </Grid>
     </Grid>
   );
