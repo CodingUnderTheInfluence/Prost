@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
-import { Button, Grid, TextField, List } from '@material-ui/core';
+import React, {useState} from 'react'
+import {Button, Grid, TextField, List} from '@material-ui/core';
 import Axios from 'axios';
 import FoundUser from './FoundUser.jsx';
 
-function FriendForm({ setAddFriend, username }) {
+function FriendForm({setAddFriend, userData}) {
     const [searchCriteria, setSearchCriteria] = useState('');
     const [results, setResults] = useState([]);
 
@@ -17,24 +17,22 @@ function FriendForm({ setAddFriend, username }) {
 
     const searchUsers = (str) => {
         Axios.get(`/db/customer/search?username=${str}`)
-            .then(({ data }) => {
-                console.info(data, 'success')
+            .then(({data}) => {
                 setResults(data);
             })
-            .catch(err => console.info(err))
+            .catch(err => console.warn(err))
     }
 
     return (
         <div>
-            <Button onClick={() => setAddFriend(false)}>Back</Button>
-            <TextField placeholder='username' onChange={(event) => handleChange(event)} />
+            <Button onClick={()=> setAddFriend(false)}>Back</Button>
+            <TextField placeholder='username' onChange={(event) => handleChange(event)}/>
             <Grid>
                 <List>
-                    {results.map(u => <li><FoundUser u={u} /></li>)}
+                    {results.map(u =><FoundUser userData={userData} u={u} /> )}
                 </List>
             </Grid>
         </div>
     )
 }
-
 export default FriendForm
