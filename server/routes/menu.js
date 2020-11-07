@@ -27,6 +27,25 @@ menuRouter.get('/', (req, res) => {
     });
 });
 
+menuRouter.get('/allbars', (req, res) => {
+  Menu.findAll()
+    .then((menus) => {
+      const ids = menus.map((bar) => ({ id: bar.id_bar }));
+      // res.send(ids);
+      return Bar.findAll({
+        where: {
+          [Op.or]: ids,
+        },
+      });
+    })
+    .then((rtn) => {
+      res.send(rtn);
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+});
+
 menuRouter.get('/bar/:barId', (req, res) => {
   const { barId } = req.params;
   Menu.findAll({

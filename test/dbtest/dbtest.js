@@ -358,6 +358,7 @@ function primeDB() {
       where: {
         image: 'https://cdn.localdatacdn.com/la/chalmette/4270737/original/E00mtC9Jui.jpg',
         id_bar: 1,
+        info: 'Appetizers\nWings\nChips&Drinks\nVodka Cranberry Cocktail\nAmaretto Sour',
       },
     }))
     .then((numberEffected) => {
