@@ -24,9 +24,24 @@ export default function Translate({ setView, customerId }) {
   const [list, setList] = useState([]);
   const [menus, setMenus] = useState(null);
   const [order, setOrder] = useState({});
+  const [displayOrder, setDisplayOrder] = useState('');
 
   const translateOrder = () =>{
-    console.info('place', order);
+    const newOrder = [];
+    for(let key in order){
+      if(order[key]){
+        newOrder.push(key);
+      }
+    }
+    const orderStr = `I would like to order ${newOrder.join(',')} please`;
+    axios.get(`/api/translate`, {
+      params: {
+        text: orderStr,
+        target: 'es' 
+      }
+    })
+    .then(({data}) => setDisplayOrder(data[0]))
+    .catch((err) => console.warn(err));
   }
   const clearOrder = () =>{
     setOrder({});
@@ -53,7 +68,7 @@ export default function Translate({ setView, customerId }) {
   return (
     <Grid>
       <Grid>
-        <ArrowBackIosIcon color="primary" onClick={() => setView('Translate')} />
+        <ArrowBackIosIcon color="primary" onClick={() => setView('Home')} />
       </Grid>
       <FormControl className={classes.formControl}>
         <InputLabel id="demo-simple-select-label">Bars</InputLabel>
@@ -74,6 +89,9 @@ export default function Translate({ setView, customerId }) {
         <Button onClick={clearOrder} variant="outlined" color="secondary">Clear Order</Button>
         <Button onClick={translateOrder} variant="contained" color="primary">Translate Order</Button>
       </Grid>
+      {displayOrder && <Grid>
+        <p>{displayOrder}</p>
+      </Grid>}
     </Grid>
   );
 }
