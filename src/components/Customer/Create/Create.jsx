@@ -23,7 +23,6 @@ const useStyles = makeStyles({
 });
 
 const Create = ({ placeInfo }) => {
-  const [search, setSearch] = useState('');
   const [size, setSize] = useState(1);
   const [party, setParty] = useState(false);
   const handleParty = () => {
@@ -37,31 +36,20 @@ const Create = ({ placeInfo }) => {
   const classes = useStyles();
 
   return (
-    <Card>
-      <Typography>
-        <FormControl fullWidth className={classes.root}>
+    <div>
+      {!party ?
+        <FormControl>
           <TextField
-            id="standard-basic"
-            label="Search"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            id="standard-number"
+            label="Size"
+            type="number"
+            InputProps={{ inputProps: { min: 0, max: 10 } }}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            value={size}
+            onChange={(e) => setSize(e.target.value)}
           />
-          <Grid item container direction="row">
-            <TextField
-              id="standard-number"
-              label="Size"
-              type="number"
-              InputProps={{ inputProps: { min: 0, max: 10 } }}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              value={size}
-              onChange={(e) => setSize(e.target.value)}
-            />
-            {/* TODO: */}
-            {/* <TextField id="standard-basic" label="First Name" />
-            <TextField id="standard-basic" label="Last Name" /> */}
-          </Grid>
           <Button
             variant="outlined"
             onClick={() => {
@@ -72,12 +60,68 @@ const Create = ({ placeInfo }) => {
           >
             Submit
           </Button>
-
         </FormControl>
-      </Typography>
-    </Card>
+        : <div>Party Created!</div>
+      }
+    </div>
   );
 };
+// const Create = ({ placeInfo }) => {
+//   const [search, setSearch] = useState('');
+//   const [size, setSize] = useState(1);
+//   const [party, setParty] = useState(false);
+//   const handleParty = () => {
+//     console.log(placeInfo)
+//     createParty(placeInfo, size)
+//       .then(() => {
+//         setParty(true);
+//       })
+//       .catch((err) => console.warn('error in party create', err));
+//   };
+//   const classes = useStyles();
+
+//   return (
+//     <Card>
+//       <Typography>
+//         <FormControl fullWidth className={classes.root}>
+//           <TextField
+//             id="standard-basic"
+//             label="Search"
+//             value={search}
+//             onChange={(e) => setSearch(e.target.value)}
+//           />
+//           <Grid item container direction="row">
+//             <TextField
+//               id="standard-number"
+//               label="Size"
+//               type="number"
+//               InputProps={{ inputProps: { min: 0, max: 10 } }}
+//               InputLabelProps={{
+//                 shrink: true,
+//               }}
+//               value={size}
+//               onChange={(e) => setSize(e.target.value)}
+//             />
+//             {/* TODO: */}
+//             {/* <TextField id="standard-basic" label="First Name" />
+//             <TextField id="standard-basic" label="Last Name" /> */}
+//           </Grid>
+//           <Button
+//             variant="outlined"
+//             onClick={() => {
+//               handleParty();
+//               setSearch('');
+//               setSize('');
+//             }}
+//           >
+//             Submit
+//           </Button>
+
+//         </FormControl>
+//       </Typography>
+//     </Card>
+//   );
+// };
 
 export default Create;
 

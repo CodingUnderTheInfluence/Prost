@@ -223,7 +223,6 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
 
       </GoogleMap>
       <PrivateSwitch gId={gId} getSwitch={getSwitch} />
-      <Create placeInfo={placeInfo} />
       <QuickCreate
         style={{
           position: 'absolute',
