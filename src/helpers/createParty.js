@@ -1,5 +1,14 @@
 const axios = require('axios');
 
+/**
+ * 
+ * @param {Object} barInfo : 
+ * @param {Number} size :
+ * takes in an object that is retreved from places api and a party size
+ * if no party size then size is 1
+ * adds info into the database
+ */
+
 const createParty = async (barInfo, size = 1) => {
   const {
     name,

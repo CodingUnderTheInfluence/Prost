@@ -12,7 +12,7 @@ import BarInfo from './BarInfo.jsx';
 import PrivateSwitch from './PrivateSwitch.jsx';
 import FriendsMarkers from './FriendsMarkers.jsx';
 import Directions from '../Directions/Directions.jsx';
-// import Create from './Create.jsx';
+import Create from './Create.jsx';
 // import PeopleSearch from './PeopleSearch.jsx';
 import QuickCreate from './QuickCreate.jsx';
 // import BarCard from './BarInfoCardTest.jsx';
@@ -223,6 +223,7 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
 
       </GoogleMap>
       <PrivateSwitch gId={gId} getSwitch={getSwitch} />
+      <Create placeInfo={placeInfo} />
       <QuickCreate
         style={{
           position: 'absolute',
