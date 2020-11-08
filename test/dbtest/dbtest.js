@@ -19,26 +19,26 @@ function primeDB() {
   Party.findOrCreate({
     where: {
       size: 2,
-      id_bar: 1,
-    },
+      id_bar: 1
+    }
   })
     .then((numberEffected) => {
       if (numberEffected) {
-        return console.info('✅ Party of 2 Created');
+        return console.log('✅ Party of 2 Created');
       }
-      return console.warn('❌ Party of 2 undefined');
+      return console.error('❌ Party of 2 undefined');
     })
     .then(() => Party.findOrCreate({
       where: {
         size: 3,
-        id_bar: 2,
-      },
+        id_bar: 2
+      }
     }))
     .then((numberEffected) => {
       if (numberEffected) {
-        return console.info('✅ Party of 3 Created');
+        return console.log('✅ Party of 3 Created');
       }
-      return console.warn('❌ Party of 3 undefined');
+      return console.error('❌ Party of 3 undefined');
     })
     .then(() => Bar.findOrCreate({
       where: {
@@ -240,6 +240,34 @@ function primeDB() {
     }))
     .then((numberEffected) => {
       if (numberEffected) {
+        return console.log('✅ map customer1 Created');
+      }
+      return console.error('❌ map customer1 undefined');
+    })
+    .then(() => Maps.findOrCreate({
+      where: {
+        user_name: 'big dong',
+        id_google: '114252099336753341135',
+        latitude: 29.924110,
+        longitude: -90.107380,
+      }
+    }))
+    .then((numberEffected) => {
+      if (numberEffected) {
+        return console.log('✅ map customer2 Created');
+      }
+      return console.error('❌ map customer2 undefined');
+    })
+    .then(() => Maps.findOrCreate({
+      where: {
+        user_name: 'hotdog',
+        id_google: '1352532099336753341135',
+        latitude: 29.923389,
+        longitude: -90.087357,
+      }
+    }))
+    .then((numberEffected) => {
+      if (numberEffected) {
         return console.info('✅ image customer Created');
       }
       return console.warn('❌ image customer user undefined');
@@ -358,6 +386,7 @@ function primeDB() {
       where: {
         image: 'https://cdn.localdatacdn.com/la/chalmette/4270737/original/E00mtC9Jui.jpg',
         id_bar: 1,
+        info: 'Appetizers\nWings\nChips&Drinks\nVodka Cranberry Cocktail\nAmaretto Sour',
       },
     }))
     .then((numberEffected) => {

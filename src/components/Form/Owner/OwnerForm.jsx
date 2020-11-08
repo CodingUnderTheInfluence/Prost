@@ -9,12 +9,18 @@ import OwnerInfo from './Form Components/OwnerInfo.jsx';
 
 function OwnerForm({ setViewValue, mapLatLng }) {
   const [counter, setCounter] = useState(0);
+  const [barName, setBarName] = useState('');
+  const [address, setAddress] = useState('');
+  const [city, setCity] = useState('');
+  const [state, setState] = useState('');
+  const [zip, setZip] = useState('');
+  const [number, setNumber] = useState('');
 
   const renderOwnerForm = () => {
     if (counter === 1) {
-      return <BarInfo setCounter={setCounter} />;
+      return <BarInfo setCounter={setCounter} setBarName={setBarName} setAddress={setAddress} setCity={setCity} setState={setState} setZip={setZip} setNumber={setNumber} />;
     } if (counter === 2) {
-      return <OwnerInfo setCounter={setCounter} setViewValue={setViewValue} />;
+      return <OwnerInfo setCounter={setCounter} setViewValue={setViewValue} barName={barName} address={address} city={city} state={state} zip={zip} number={number} />;
     }
     return (
       <SafetyDialog setCounter={setCounter} />

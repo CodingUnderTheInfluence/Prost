@@ -11,6 +11,7 @@ import {
   IconButton,
 } from '@material-ui/core';
 import LocalBarIcon from '@material-ui/icons/LocalBar';
+import Create from './Create.jsx';
 import createParty from '../../../helpers/createParty.js';
 
 const useStyles = makeStyles({
@@ -34,12 +35,13 @@ const searchStyle = {
 const BarInfo = ({ placeInfo, searchMarker }) => {
   const [show, setShow] = useState(true);
   const [atBar, setAtBar] = useState(false);
+  const [party, setParty] = useState(false);
   const { photos, title, time } = placeInfo;
   const photo = photos[0].getUrl();
   const classes = useStyles();
 
   return (
-    <>
+    <div>
       {show ? (
         <div style={searchStyle}>
           <Card>
@@ -65,12 +67,14 @@ const BarInfo = ({ placeInfo, searchMarker }) => {
               >
                 Close
               </Button>
-              {/* <Button
-            style={{float: 'right'}}
-            onClick={() => createParty(placeInfo)}
-          >
-          Create Party
-        </Button> */}
+              <Button
+                style={{ float: 'right' }}
+                // onClick={() => createParty(placeInfo)}
+                onClick={() => setParty(true)}
+              >
+                Create Party
+              </Button>
+              {party && <Create placeInfo={placeInfo} />}
               <IconButton
                 aria-label="at bar"
                 onClick={() => {
@@ -85,7 +89,7 @@ const BarInfo = ({ placeInfo, searchMarker }) => {
         </div>
       )
         : null}
-    </>
+    </div>
   );
 };
 

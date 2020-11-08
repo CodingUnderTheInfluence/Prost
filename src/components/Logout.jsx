@@ -5,8 +5,10 @@ const clientId = '933644302187-agamsig0qalm5oi4fd44v11hfffpchs8.apps.googleuserc
 
 const Logout = ({ setViewValue }) => {
   const onSuccess = () => {
-    delete localStorage.customerToken;
-    delete localStorage.ownerToken;
+    localStorage.removeItem('customerToken');
+    localStorage.removeItem('ownerToken');
+    localStorage.removeItem('gId');
+    localStorage.removeItem('username');
     setViewValue('Landing');
   };
 

@@ -1,0 +1,165 @@
+{
+  "geocoded_waypoints": [
+      {
+          "geocoder_status": "OK",
+          "place_id": "ChIJAa0i3HmmIIYRG2YaEJGMjHA",
+          "types": [
+              "premise"
+          ]
+      },
+      {
+          "geocoder_status": "OK",
+          "place_id": "ChIJZYGmBhKmIIYRPBmyGfELFTs",
+          "types": [
+              "bar",
+              "establishment",
+              "food",
+              "point_of_interest",
+              "restaurant"
+          ]
+      }
+  ],
+  "routes": [
+      {
+          "bounds": {
+              "northeast": {
+                  "lat": 29.9559492,
+                  "lng": -90.0651646
+              },
+              "southwest": {
+                  "lat": 29.9372748,
+                  "lng": -90.07281519999999
+              }
+          },
+          "copyrights": "Map data ©2020 Google",
+          "legs": [
+              {
+                  "distance": {
+                      "text": "1.6 mi",
+                      "value": 2511
+                  },
+                  "duration": {
+                      "text": "8 mins",
+                      "value": 509
+                  },
+                  "end_address": "500 Chartres St, New Orleans, LA 70130, USA",
+                  "end_location": {
+                      "lat": 29.9559492,
+                      "lng": -90.0651646
+                  },
+                  "start_address": "1217 Magazine St, New Orleans, LA 70130, USA",
+                  "start_location": {
+                      "lat": 29.9388726,
+                      "lng": -90.0711257
+                  },
+                  "steps": [
+                      {
+                          "distance": {
+                              "text": "0.1 mi",
+                              "value": 183
+                          },
+                          "duration": {
+                              "text": "1 min",
+                              "value": 23
+                          },
+                          "end_location": {
+                              "lat": 29.9372748,
+                              "lng": -90.0715943
+                          },
+                          "html_instructions": "Head <b>south</b> on <b>Magazine St</b> toward <b>Thalia St</b>",
+                          "polyline": {
+                              "points": "}lvuDp_wdPzBb@bEv@"
+                          },
+                          "start_location": {
+                              "lat": 29.9388726,
+                              "lng": -90.0711257
+                          },
+                          "travel_mode": "DRIVING"
+                      },
+                      {
+                          "distance": {
+                              "text": "404 ft",
+                              "value": 123
+                          },
+                          "duration": {
+                              "text": "1 min",
+                              "value": 43
+                          },
+                          "end_location": {
+                              "lat": 29.9375838,
+                              "lng": -90.07281519999999
+                          },
+                          "html_instructions": "Turn <b>right</b> at the 2nd cross street onto <b>Melpomene St</b>",
+                          "maneuver": "turn-right",
+                          "polyline": {
+                              "points": "}bvuDlbwdPs@xEIZ"
+                          },
+                          "start_location": {
+                              "lat": 29.9372748,
+                              "lng": -90.0715943
+                          },
+                          "travel_mode": "DRIVING"
+                      },
+                      {
+                          "distance": {
+                              "text": "1.1 mi",
+                              "value": 1718
+                          },
+                          "duration": {
+                              "text": "5 mins",
+                              "value": 310
+                          },
+                          "end_location": {
+                              "lat": 29.9525012,
+                              "lng": -90.06827939999999
+                          },
+                          "html_instructions": "Turn <b>right</b> onto <b>Camp St</b>",
+                          "maneuver": "turn-right",
+                          "polyline": {
+                              "points": "{dvuDbjwdPyDy@iDo@m@K{Ba@_@IeCi@KAC?OCC?UCQAEAMACAWI]KOEoAUGAm@MaB[WMs@Og@K[GIAKAWGUCOE}@QaDq@q@MOESCcB]g@K_B[_@GUE{@QUEIAqAWOCKC{A]w@Oa@ISEc@KKASE_@Im@MOCqCi@q@OgCk@_@IKEQGw@WOEKEQM"
+                          },
+                          "start_location": {
+                              "lat": 29.9375838,
+                              "lng": -90.07281519999999
+                          },
+                          "travel_mode": "DRIVING"
+                      },
+                      {
+                          "distance": {
+                              "text": "0.3 mi",
+                              "value": 487
+                          },
+                          "duration": {
+                              "text": "2 mins",
+                              "value": 133
+                          },
+                          "end_location": {
+                              "lat": 29.9559492,
+                              "lng": -90.0651646
+                          },
+                          "html_instructions": "Continue straight onto <b>Chartres St</b><div style=\"font-size:0.9em\">Destination will be on the right</div>",
+                          "maneuver": "straight",
+                          "polyline": {
+                              "points": "cbyuDvmvdPEECCEEQQ[Y[WmBaBaBwAw@q@kAcAqAiASSKICCuBgBWW"
+                          },
+                          "start_location": {
+                              "lat": 29.9525012,
+                              "lng": -90.06827939999999
+                          },
+                          "travel_mode": "DRIVING"
+                      }
+                  ],
+                  "traffic_speed_entry": [],
+                  "via_waypoint": []
+              }
+          ],
+          "overview_polyline": {
+              "points": "}lvuDp_wdP~HzAs@xEIZyDy@iDo@iDm@uDu@{@Io@Om@QwAWoCi@WMs@OcASUC{Bc@wFiA}JmB{IiBmB_@aDm@yD{@uBo@[KWSw@u@cHcGoIoH"
+          },
+          "summary": "Camp St",
+          "warnings": [],
+          "waypoint_order": []
+      }
+  ],
+  "status": "OK"
+}

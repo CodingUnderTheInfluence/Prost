@@ -4,7 +4,7 @@ import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
   getDetails,
-} from 'use-places-autocomplete';
+} from "use-places-autocomplete";
 
 import {
   Combobox,
@@ -13,8 +13,10 @@ import {
   ComboboxList,
   ComboboxOption,
   ComboboxOptionText,
-} from '@reach/combobox';
+} from "@reach/combobox";
+import { ContactPhoneSharp } from '@material-ui/icons';
 // import "@reach/combobox/styles.css";
+
 
 const searchStyle = {
   position: 'absolute',
@@ -23,9 +25,7 @@ const searchStyle = {
   padding: '10px',
 };
 
-const Search = ({
-  panTo, currentPosition, searchBox, getPlaceInfo,
-}) => {
+const Search = ({ panTo, currentPosition, searchBoxStyle, getPlaceInfo }) => {
   // const [ placeInfo, setPlaceInfo ] = useState(null);
   const {
     ready,
@@ -40,6 +40,7 @@ const Search = ({
         lng: () => currentPosition.lng,
       },
       radius: 1000,
+      types: ['establishment'],
     },
   });
 
@@ -53,20 +54,21 @@ const Search = ({
             const results = await getGeocode({ address });
             const details = await getDetails(results[0]);
             getPlaceInfo(details);
-            console.log('this is results', results);
+            console.info('this is results', results);
 
             const { lat, lng } = await getLatLng(results[0]);
             panTo({ lat, lng });
             setValue('');
 
             // setPlaceInfo(details);
-          } catch (err) {
+          }
+          catch (err) {
             console.warn(err);
           }
         }}
       >
         <ComboboxInput
-          style={searchBox}
+          style={searchBoxStyle}
           value={value}
           onChange={(e) => {
             setValue(e.target.value);
@@ -89,5 +91,50 @@ const Search = ({
     </div>
   );
 };
+
+// TODO:
+////////////////////        search function currently being worked on          ////////////////////
+
+// const Search = ({panTo, currentPosition, getPlaceInfo}) => {
+//   const [ value, setValue ] = useState('');
+
+//   const { latitude, longitude} = currentPosition;
+
+//   const onLoad = (ref) => {
+//     console.info(this);
+//   }
+
+//   return (
+//     <StandaloneSearchBox
+//       bounds={[latitude, longitude]}
+//       onLoad={onLoad}
+//       // onPlacesChanged={handlePlacesChange}
+
+//     >
+//       <input
+//         type="text"
+//         placeholder="Customized your placeholder"
+//         style={{
+//           boxSizing: `border-box`,
+//           border: `1px solid transparent`,
+//           width: `240px`,
+//           height: `32px`,
+//           padding: `0 12px`,
+//           borderRadius: `3px`,
+//           boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
+//           fontSize: `14px`,
+//           outline: `none`,
+//           textOverflow: `ellipses`,
+//           position: "absolute",
+//           left: "50%",
+//           marginLeft: "-120px",
+//           zIndex: 10
+//         }}
+
+//       />
+//     </StandaloneSearchBox>
+//   );
+
+// };
 
 export default Search;

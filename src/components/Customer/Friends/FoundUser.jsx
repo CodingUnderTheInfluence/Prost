@@ -2,29 +2,25 @@ import React, {useState} from 'react'
 import {ListItem, Button} from '@material-ui/core';
 import Axios from 'axios';
 
-function FoundUser({u}) {
+function FoundUser({userData, u}) {
     const [friendStatus, setFriendStatus] = useState(false)
-    const handleFriendRequest = (u) => {
+
+    const handleFriendRequest = (currentId, uId) => {
         let sender, recipient, status;
-        Axios.get(`/db/customer/findMe?username=${localStorage.username}`)
-        .then(({data}) => {
-            // console.log(data, 'I am the logged in user!')
-            sender = data[0].id;
-            recipient = u.id;
-            status = 0;
-            const friendRequest = {sender, recipient, status}
-            console.log(friendRequest, 'Friend Request Obj')
-            Axios.post('/db/friendship/newFriend', friendRequest)
-            .then(res => console.log(res))
-        })
+        sender = currentId;
+        recipient = uId;
+        status = false;
+        const friendRequest = {sender, recipient, status}
+        Axios.post('/db/friendship/newFriend', friendRequest)
+            .catch(err => console.warn(err));
     };
 
     return (
         <ListItem>
-            <span>{u.first_name + u.last_name}</span><span><Button onClick={() => {
+            <span>{u.first_name + u.last_name}</span>{friendStatus ? <span>Friend Request Sent</span> :(<span><Button onClick={() => {
                 setFriendStatus(true)
-                handleFriendRequest(u)
-                }}>Send Friend Request</Button></span>
+                handleFriendRequest(userData.id, u.id)
+                }}>Send Friend Request</Button></span>)}
         </ListItem>
     )
 }

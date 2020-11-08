@@ -42,10 +42,10 @@ const { menuRouter } = require('./routes/menu');
 const { eContactRouter } = require('./routes/eContact');
 const { connected } = require('process');
 const { mapRouter } = require('./routes/map');
+const { gTranslateRouter } = require('./routes/gTranslate');
 
+app.use('/api/translate', gTranslateRouter);
 app.use('/db/eContact', eContactRouter);
-// app.use('/auth', auth);
-
 app.use('/db/customer', customerRouter);
 app.use('/db/bar', barRouter);
 app.use('/db/owner', ownerRouter);

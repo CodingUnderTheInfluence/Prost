@@ -20,8 +20,9 @@ const SignUpGoogleButton = ({
     };
     setGEmail(res.profileObj.email);
     setId(res.profileObj.googleId);
-    setProfileImage(profile.imageUrl);
-    setUsername(profile.name);
+    setProfileImage(res.profileObj.imageUrl);
+    setUsername(res.profileObj.name);
+
     Axios.post('/db/customer/register', { googleProfile, googleToken })
       .then(({ data }) => {
         if (data === 'customer') {
@@ -31,6 +32,13 @@ const SignUpGoogleButton = ({
           setFormCounter(2);
         }
       });
+
+    Axios.post('/db/maps', {
+      userName: profile.name,
+      gId: profile.googleId
+    })
+      .then(data => console.info('in the database', data))
+      .catch(err => console.error('error in post to maps', err));
   };
 
   const onFailure = (res) => {
@@ -42,7 +50,7 @@ const SignUpGoogleButton = ({
         clientId={clientId}
         render={(renderProps) => (
           <Button variant="outlined" color="primary" onClick={renderProps.onClick} disabled={renderProps.disabled}>
-            Login Here
+            SignIn with Google
           </Button>
         )}
         buttonText="Login"

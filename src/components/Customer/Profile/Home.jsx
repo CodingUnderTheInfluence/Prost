@@ -2,7 +2,7 @@ import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { Grid, Typography, Button } from '@material-ui/core'
 import Logout from '../../Logout.jsx'
 
-export default function Home({ setView, name, setViewValue, img}) {
+export default function Home({ setView, name, setViewValue, img }) {
 
     return (
         <Grid container direction="column" justify="center" alignItems="center">
@@ -20,6 +20,9 @@ export default function Home({ setView, name, setViewValue, img}) {
             <Button variant="outlined" color="primary" onClick={() => setView('EContact')}>
                 Emergency Contact
       </Button>
+            <Button variant="outlined" color="primary" onClick={() => setView('Ride')}>
+                Call a Ride
+      </Button>
             <Button variant="outlined" color="primary" onClick={() => setView('Checkin')}>
                 Check in
       </Button>
@@ -29,7 +32,7 @@ export default function Home({ setView, name, setViewValue, img}) {
             <Button variant="outlined" color="primary" onClick={() => setView('Translate')}>
                 Translate
       </Button>
-      <Button variant="outlined" color="primary" onClick={() => setView('Friend')}>
+            <Button variant="outlined" color="primary" onClick={() => setView('Friend')}>
                 Friend's List
       </Button>
             <Logout setViewValue={setViewValue} />

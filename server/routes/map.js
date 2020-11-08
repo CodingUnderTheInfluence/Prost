@@ -12,6 +12,7 @@ mapRouter.get('/', (req, res) => {
     });
 });
 
+// TODO:
 // mapRouter.post('/', (req, res) => {
 //   const {
 //     userName,
@@ -23,7 +24,7 @@ mapRouter.get('/', (req, res) => {
 //   Maps.findOrCreate({
 //     where: { id_google: gId }
 //   })
-//     .spread(data => console.log(data))
+//     .spread(data => console.info(data))
 
 // });
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   makeStyles, Paper, Tabs, Tab, Grid, Button, Typography, BottomNavigation, BottomNavigationAction,
 } from '@material-ui/core';
@@ -14,6 +14,7 @@ import Messages from './Social/Messages.jsx';
 import Logout from '../Logout.jsx';
 import CustomerProfile from './Profile/CustomerProfile.jsx';
 import FriendsList from './Friends/FriendsList.jsx';
+import Axios from 'axios';
 
 const useStyles = makeStyles({
   root: {
@@ -36,6 +37,8 @@ const CustomerView = ({
 }) => {
   const classes = useStyles();
   const [value, setValue] = useState();
+  const [userData, setUserData] = useState();
+
   if (localStorage.username) { () => setUsername(localStorage.username); }
   if (localStorage.gId) { () => setId(localStorage.gId); }
 
@@ -50,17 +53,29 @@ const CustomerView = ({
   socket.emit('userInfo', userInfo);
   socket.on('onlineUsers', (data) => {
     onlineUsers = data;
-    console.log(onlineUsers, 'Everyone Online Right Now!');
+    console.info(onlineUsers, 'Everyone Online Right Now!');
   });
-  // console.log(socket);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
+  const findMe = (id) => {
+    return Axios.get(`/db/customer/findMe?gId=${id}`)
+      .then(({data}) => {
+        console.log(data);
+        setUserData(data)
+      })
+      .catch(err => console.warn(err));
+  }
+
+  useEffect(() => {
+    findMe(gId);
+  }, [])
+
   const renderView = () => {
     if (value === 0) {
-      return <FriendsList />;
+      return <FriendsList userData={userData} />;
     }
     if (value === 1) {
       return <MapContainer setMapLatLng={setMapLatLng} gId={gId} />;

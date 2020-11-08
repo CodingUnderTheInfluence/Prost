@@ -1,9 +1,20 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+
 const PeopleSearch = ({ searchBox }) => {
   const [input, setInput] = useState('');
   const [friends, setFriends] = useState([]);
+
+  // const handleClick = async () => {
+  //   try {
+  //     const friendsDB = axios.get(`/db/customer/:${input}`);
+  //     console.info(friendsDB);
+  //   }
+  //   catch(err) {
+  //     console.warn(err);
+  //   } 
+  // };
 
   const handleInput = (e) => {
     setInput(e.target.value);
@@ -25,7 +36,7 @@ const PeopleSearch = ({ searchBox }) => {
   return (
     <>
       <input
-        type="text"
+        type='text'
         value={input}
         onKeyDown={submit}
         onChange={handleInput}
@@ -34,7 +45,8 @@ const PeopleSearch = ({ searchBox }) => {
         ? friends.map(({ first_name, last_name }) => (
           <div>{`${first_name} ${last_name}`}</div>
         ))
-        : null}
+        : null
+      }
     </>
   );
 };

@@ -1,19 +1,23 @@
 import React, {
-  useState, useEffect, useRef, useCallback,
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
 } from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
-import { Details } from '@material-ui/icons';
 import Search from './Search.jsx';
 import BarInfo from './BarInfo.jsx';
 import PrivateSwitch from './PrivateSwitch.jsx';
 import FriendsMarkers from './FriendsMarkers.jsx';
+import Directions from '../Directions/Directions.jsx';
 import Create from './Create.jsx';
-import PeopleSearch from './PeopleSearch.jsx';
+// import PeopleSearch from './PeopleSearch.jsx';
 import QuickCreate from './QuickCreate.jsx';
-import BarCard from './BarInfoCardTest.jsx';
+// import BarCard from './BarInfoCardTest.jsx';
 import mapStyle from '../../../helpers/mapStyle';
-import mapParties from '../../../helpers/mapStyle';
+// import mapParties from '../../../helpers/mapStyle';
 // used for the load script to get google places
 const libraries = ['places'];
 
@@ -30,7 +34,7 @@ const options = {
   styles: mapStyle,
 };
 
-const searchBox = {
+const searchBoxStyle = {
   boxSizing: 'border-box',
   border: '1px solid transparent',
   width: '240px',
@@ -46,13 +50,14 @@ const searchBox = {
   marginLeft: '-120px',
 };
 
-const MapContainer = ({ setMapLatLng, gId }) => {
+
+const MapContainer = ({ setMapLatLng, username, gId }) => {
   const [currentPosition, setCurrentPosition] = useState({
     lat: 29.951065,
     lng: -90.071533,
   });
   const [publicLocations, setPublicLocations] = useState([]);
-  const [friendLocations, setFriendLocations] = useState(null);
+  const [friendLocations, setFriendLocations] = useState([]);
   const [privateSwitch, setPrivateSwitch] = useState(false);
   const [selectedItem, setSelectedItem] = useState({});
   const [myLocation, setMyLocation] = useState({});
@@ -61,6 +66,10 @@ const MapContainer = ({ setMapLatLng, gId }) => {
   const [searchMarker, setSearchMarker] = useState({});
   const [click, setClick] = useState(false);
   const [placeInfo, setplaceInfo] = useState(null);
+  const [origin, setOrigin] = useState('');
+  const [destination, setDestination] = useState('');
+  const [getDirections, setGetDirections] = useState(false);
+
 
   const defaultCenter = {
     lat: 29.951065,
@@ -84,52 +93,56 @@ const MapContainer = ({ setMapLatLng, gId }) => {
         });
     }
     return () => { isMounted = false; };
+    // --removed priviteSwitch in second arg to reload state when marker was clicked 
+  }, [privateSwitch]);
+
+  // TODO:
+  /// //////////       get info for bars to display        /////////////////////////////
+  useEffect(() => {
+    let isMounted = true;
+    if (isMounted) {
+      axios.get('/db/bar/all')
+        .then(({ data }) => {
+          setParties(data);
+        });
+    }
+    return () => { isMounted = false };
   }, []);
 
+  // // sets the makers to the user click
   // const onMapClick = useCallback((e) => {
   //   setMarkers(current => [
   //     ...current,
   //     {
   //       lat: e.latLng.lat(),
   //       lng: e.latLng.lng(),
-  //       time: new Date()
-  //     }
+  //       time: new Date(),
+  //     },
   //   ]);
   // });
-
-  // sets the makers to the user click
-  const onMapClick = useCallback((e) => {
-    setMarkers((current) => [
-      ...current,
-      {
-        lat: e.latLng.lat(),
-        lng: e.latLng.lng(),
-        time: new Date(),
-      },
-    ]);
-  });
 
   // save reference to map to use it later and not reload state
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
     mapRef.current = map;
-  }, [friendLocations]);
+    // --removed priviteSwitch in second arg to reload state when marker was clicked 
+  }, []);
 
   // move map to the where the user has searched
   const panTo = useCallback(({ lat, lng }) => {
     mapRef.current.panTo({ lat, lng });
-    mapRef.current.setZoom(16);
+    mapRef.current.setZoom(15);
     setCurrentPosition({ lat, lng });
     setSearchMarker({ lat, lng });
   }, []);
 
-  const handleMarkerClick = (e) => {
+  const handleMarkerClick = () => {
     setClick(!click);
   };
 
   const getMyLocation = ({ latitude, longitude }) => {
     axios.put(`/db/maps/${gId}`, { latitude, longitude })
-      .then((data) => console.info('maps put success'))
+      .then(() => console.info('maps put success'))
       .catch(() => console.warn('maps put failed'));
     setMyLocation({
       lat: latitude,
@@ -154,31 +167,50 @@ const MapContainer = ({ setMapLatLng, gId }) => {
 
   return (
 
-    <div style={{ align: 'center' }} con={console.info(parties)}>
-      {/* <PeopleSearch searchBox={searchBox} /> */}
-      <Search
-        panTo={panTo}
-        currentPosition={currentPosition}
-        searchBox={searchBox}
-        getPlaceInfo={getPlaceInfo}
-      />
-      {click
-        ? (
-          <BarInfo
-            placeInfo={placeInfo}
-            searchMarker={searchMarker}
-          />
-        )
-        : null}
+    <div>
+      {click && (
+        <BarInfo
+          placeInfo={placeInfo}
+          searchMarker={searchMarker}
+        />
+      )}
+
+      {/* TODO: */}
+      {/* <input
+        value={origin}
+        onChange={(e) => {
+          e.preventDefault();
+          setOrigin(e.target.value);
+        }}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            setGetDirections(true);
+          }
+        }}
+      /> */}
+
       <GoogleMap
         mapContainerStyle={mapStyles}
-        zoom={15}
+        zoom={12}
         center={currentPosition || defaultCenter}
         options={options}
-        draggable
+        draggable={true}
+        // TODO: 
         // onClick={onMapClick}
         onLoad={onMapLoad}
       >
+        <Search
+          panTo={panTo}
+          currentPosition={currentPosition}
+          searchBoxStyle={searchBoxStyle}
+          getPlaceInfo={getPlaceInfo}
+        />
+        {/* TODO: This is for directions */}
+        {/* <Directions
+          origin={origin}
+          destination={destination}
+          getDirections={getDirections}
+        /> */}
         <Marker
           onClick={handleMarkerClick}
           key={searchMarker.lat}
@@ -187,29 +219,7 @@ const MapContainer = ({ setMapLatLng, gId }) => {
             lng: +searchMarker.lng,
           }}
         />
-        {parties.map(({ latitude, longitude, id }) => {
-          console.info(latitude, longitude);
-          return (
-            <Marker
-              key={id}
-              position={{
-                lat: +latitude,
-                lng: +longitude,
-              }}
-            />
-          );
-        })}
-        {/* {click ? <BarInfo
-            placeInfo={placeInfo}
-            searchMarker={searchMarker}
-          /> : null} */}
-
-        {/* {markers.map(({lat, lng, time}) => (
-            <Marker
-            key={time.toISOString()}
-            position={{ lat, lng }}
-            />
-          ))} */}
+        <FriendsMarkers friendLocations={friendLocations} />
 
       </GoogleMap>
       <PrivateSwitch gId={gId} getSwitch={getSwitch} />
@@ -226,123 +236,10 @@ const MapContainer = ({ setMapLatLng, gId }) => {
   );
 };
 
-// {click ? <InfoWindow
-//   position={{
-//     lat: +searchMarker.lat,
-//     lng: +searchMarker.lng
-//   }}
-// >
-//   <div>
-
-//   </div>
-// </InfoWindow>
-
-// : null}
-
-// //////////////////////////////////////////////////////////////////////////
-// ///////////////////             dummy info            ///////////////////
-
-// import { results } from './places.json';
-
-// const MapContainer = () => {
-
-//   const [ currentPosition, setCurrentPosition ] = useState(null);
-//   const [ publicLocations, setPublicLocations ] = useState([]);
-//   const [ friendLocations, setFriendLocations ] = useState([]);
-//   const [ selectedItem, setSelectedItem ] = useState({});
-//   const [ myLocation, setMyLocation ] = useState({});
-//   const [ markers, setMarkers ] = useState([]);
-//   const [ searchMarker, setSearchMarker ] = useState({});
-
-//   const [ bars, setBars ] = useState(results);
-
-//   const mapStyles = {
-//     width: '100vw',
-//     height: '100vh'
-//   };
-//   const defaultCenter = {
-//     lat: 29.951065,
-//     lng: -90.071533,
-//   };
-//   const options = {
-//     zoomControl: true
-//   };
-
-//   const { isLoaded, loadError } = useLoadScript({
-//     googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY,
-//     libraries
-//   });
-
-//   // sets the makers to the user click
-//   const onMapClick = useCallback((e) => {
-//     setMarkers(current => [
-//       ...current,
-//       {
-//         lat: e.latLng.lat(),
-//         lng: e.latLng.lng(),
-//         time: new Date()
-//       }
-//     ]);
-//   });
-
-//   // save reference to map to use it later and not reload state
-//   const mapRef = useRef();
-//   const onMapLoad = useCallback((map) => {
-//     mapRef.current = map;
-//   }, []);
-
-//   // move map to the where the user has searched
-//   const panTo = useCallback(({ lat, lng }) => {
-//     console.info('current mapref', mapRef.current);
-//     mapRef.current.panTo({ lat, lng });
-//     mapRef.current.setZoom(16);
-//     setCurrentPosition({ lat, lng });
-//     setSearchMarker({ lat, lng });
-//   }, []);
-
-//   // get places info from search bar
-//   // const searchInfo = useCallback(({ lat, lng}) => {
-//   //   setSearchMarker({ lat, lng });
-//   // }, []);
-
-//   if (loadError) {
-//     return 'Error loading maps';
-//   }
-//   if (!isLoaded) {
-//     return 'Loading maps';
-//   }
-
-//   return (
-//     <>
-//       <Search panTo={panTo} />
-//       <GoogleMap
-//         mapContainerStyle={mapStyles}
-//         zoom={15}
-//         center={currentPosition  ? currentPosition : defaultCenter}
-//         options={options}
-//         draggable={true}
-//         onClick={onMapClick}
-//         onLoad={onMapLoad}
-//       >
-//         {/* <Marker
-//           position={{
-//             lat: +searchMarker.lat,
-//             lng: +searchMarker.lng
-//           }}/> */}
-//         {bars.map(({ geometry: { location: { lat, lng } } }) => (
-//           <Marker
-//             position={{ lat, lng }}
-//             onClick={}
-//           />
-//         ))}
-//       </GoogleMap>
-//     </>
-
-//   );
-
-// };
-
-/// /////////////////////////////////////////////////////////////////////////
-/// /////////////////////////////////////////////////////////////////////////
+MapContainer.propTypes = {
+  setMapLatLng: PropTypes.func.isRequired,
+  username: PropTypes.string.isRequired,
+  gId: PropTypes.string.isRequired,
+};
 
 export default MapContainer;

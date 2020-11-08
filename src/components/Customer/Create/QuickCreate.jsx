@@ -6,22 +6,22 @@ import MyLocationIcon from '@material-ui/icons/MyLocation';
 
 // add to party db and customer party db
 
-const QuickCreate = ({getMyLocation, panTo}) => {
+const QuickCreate = ({ getMyLocation, panTo }) => {
 
-const success = (pos) => {
-  const { latitude, longitude } = pos.coords;
-  console.log(pos.coords);
-  getMyLocation({ latitude, longitude });
-  panTo({lat: latitude, lng: longitude})
-}
+  const success = (pos) => {
+    const { latitude, longitude } = pos.coords;
+    console.info(pos.coords);
+    getMyLocation({ latitude, longitude });
+    panTo({ lat: latitude, lng: longitude })
+  }
 
-const error = (err) => {
-  console.warn(`ERROR(${err.code}): ${err.message}`);
-}
+  const error = (err) => {
+    console.warn(`ERROR(${err.code}): ${err.message}`);
+  }
 
-const handleClick = () => {
-  navigator.geolocation.getCurrentPosition(success, error);
-};
+  const handleClick = () => {
+    navigator.geolocation.getCurrentPosition(success, error);
+  };
 
 
   return (
@@ -29,10 +29,10 @@ const handleClick = () => {
       justifyContent: 'center',
       alignItems: 'center'
     }}>
-      <Fab 
+      <Fab
         color='primary'
         onClick={handleClick}
-      ><MyLocationIcon  />
+      ><MyLocationIcon />
       </Fab >
     </div>
   );

@@ -45,6 +45,7 @@ CREATE TABLE "menu" (
   "id" SERIAL PRIMARY KEY,
   "image" varchar,
   "id_bar" int,
+  "id_bar" varchar,
 );
 
 CREATE TABLE "party" (
@@ -57,7 +58,7 @@ CREATE TABLE "friendship" (
   "id" SERIAL PRIMARY KEY,
   "id_customer" int,
   "id_friend" int,
-  "status" int,
+  "status" boolean,
 );
 
 CREATE TABLE "message" (
