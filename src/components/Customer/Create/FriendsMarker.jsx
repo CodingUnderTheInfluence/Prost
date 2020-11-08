@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { Marker, InfoWindow } from '@react-google-maps/api';
 
-const BarMarker = ({ party: { bar_name, id, latitude, longitude } }) => {
+const FriendsMarker = ({ friendsLocation: { id, user_name, latitude, longitude } }) => {
   const [show, setShow] = useState(false);
 
   const handleClick = (id) => {
     setShow(id);
   };
-
   return (
     <Marker
       key={id}
@@ -16,13 +15,14 @@ const BarMarker = ({ party: { bar_name, id, latitude, longitude } }) => {
         lng: +longitude,
       }}
       onClick={() => handleClick(id)}
+      icon={{ url: 'http://maps.google.com/mapfiles/ms/icons/blue.png' }}
     >
       {show &&
         <InfoWindow>
-          <div>{bar_name}</div>
+          <div>{user_name}</div>
         </InfoWindow>}
-    </Marker >
-  )
-}
+    </Marker>
+  );
+};
 
-export default BarMarker;
+export default FriendsMarker;
