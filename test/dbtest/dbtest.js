@@ -19,26 +19,26 @@ function primeDB() {
   Party.findOrCreate({
     where: {
       size: 2,
-      id_bar: 1,
-    },
+      id_bar: 1
+    }
   })
     .then((numberEffected) => {
       if (numberEffected) {
-        return console.info('✅ Party of 2 Created');
+        return console.log('✅ Party of 2 Created');
       }
-      return console.warn('❌ Party of 2 undefined');
+      return console.error('❌ Party of 2 undefined');
     })
     .then(() => Party.findOrCreate({
       where: {
         size: 3,
-        id_bar: 2,
-      },
+        id_bar: 2
+      }
     }))
     .then((numberEffected) => {
       if (numberEffected) {
-        return console.info('✅ Party of 3 Created');
+        return console.log('✅ Party of 3 Created');
       }
-      return console.warn('❌ Party of 3 undefined');
+      return console.error('❌ Party of 3 undefined');
     })
     .then(() => Bar.findOrCreate({
       where: {

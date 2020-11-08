@@ -53,7 +53,7 @@ const createOwner = async (res, firstName, lastName, number, username, email, pa
   })
     .then((owner) => {
       const token = jwtGenerator(owner.email);
-      res.json({ token });
+      res.json({ token, owner });
     });
 };
 

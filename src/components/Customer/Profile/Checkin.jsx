@@ -87,7 +87,7 @@ export default function Checkin({ setView, customerId }) {
 
   // populates places drop down
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY,
+    googleMapsApiKey: '',
     libraries,
   });
 
