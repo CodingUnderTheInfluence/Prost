@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Marker, InfoWindow } from '@react-google-maps/api';
 
 const BarMarker = ({ party: { bar_name, id, latitude, longitude } }) => {
+
   const [show, setShow] = useState(false);
 
   const handleClick = (id) => {
