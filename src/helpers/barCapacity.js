@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 const barCapacity = (barId) => {
-  axios.get(`/db/party/${barId}`)
+  return axios.get(`/db/party/${barId}`)
     .then(({ data }) => {
       console.log(data)
       return data.reduce((total, partySize) => {
