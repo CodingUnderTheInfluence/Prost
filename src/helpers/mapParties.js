@@ -10,18 +10,4 @@ const mapParties = async () => {
   });
 };
 
-
-// axios.get('/db/party')
-//   .then(({data}) => {
-//     if (isMounted) {
-//       data.map(party => {
-//         const { id_bar } = party;
-//         axios.get(`/db/bar/parties?id_bar=${id_bar}`)
-//           .then(({data}) => {
-//             setParties(data);
-//           })
-//       });
-//     }
-//   });
-
 module.exports = mapParties;
