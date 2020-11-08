@@ -212,6 +212,14 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
           destination={destination}
           getDirections={getDirections}
         /> */}
+        <Marker
+          onClick={handleMarkerClick}
+          key={searchMarker.lat}
+          position={{
+            lat: +searchMarker.lat,
+            lng: +searchMarker.lng,
+          }}
+        />
         <BarMarkers parties={parties} />
         <FriendsMarkers friendLocations={friendLocations} />
 
