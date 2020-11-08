@@ -53,7 +53,6 @@ function OwnerInfo({ setCounter, setViewValue, barName, address, city, state, zi
             email,
             password: values.password,
         }
-        // console.info(params, 'PARAMS')
         axios.post('/db/owner/register', { params })
             .then(({ data }) => {
                 const bparams = {
@@ -66,8 +65,9 @@ function OwnerInfo({ setCounter, setViewValue, barName, address, city, state, zi
                     number,
                 };
                 axios.post('/db/bar/create', { bparams })
+                axios.post('/db/cb/owner/list', { bparams })
                     .then(({ data }) => {
-                        console.log(data);
+                        window.alert(data);
                     })
             })
 

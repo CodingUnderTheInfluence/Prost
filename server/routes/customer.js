@@ -97,7 +97,7 @@ customerRouter.post('/check', async (req, res) => {
 customerRouter.post('/register', async (req, res) => {
   const { authToken } = req.body.googleToken;
   const auth = await googleAuth(authToken);
-  console.info(auth);
+  // console.info(auth);
   Customer.findAll({ where: { id_google: auth.userId } }) // findAll sends back an array
     .then((customers) => {
       if (customers.length > 0) {

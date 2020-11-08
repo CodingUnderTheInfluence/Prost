@@ -5,6 +5,7 @@ import {
   TextField,
   Typography
 } from '@material-ui/core';
+import BarSearch from './SearchPlace.jsx'
 import axios from 'axios';
 
 const BarInfo = (
@@ -22,7 +23,7 @@ const BarInfo = (
     <Grid container direction="column" justify="center" column="center">
       <Grid item container direction="row" justify="center" column="center">
         <Typography variant="subtitle1">
-          Bar Information
+          Find Your Bar!
         </Typography>
       </Grid>
       <Grid item container direction="row" justify="center" column="center">
@@ -38,6 +39,9 @@ const BarInfo = (
       </Grid>
       <Grid item container direction="row" justify="center" column="center">
         <TextField id="standard-basic" label="Phone Number" onChange={(e) => { setNumber(e.target.value); }} />
+      </Grid>
+      <Grid item container direction="row" justify="center" column="center">
+        <BarSearch />
       </Grid>
       <Button
         variant="outlined"
