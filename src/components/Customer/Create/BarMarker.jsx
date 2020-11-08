@@ -7,8 +7,11 @@ const BarMarker = ({ party: { bar_name, id, latitude, longitude } }) => {
 
 
   const handleClick = (id) => {
-    setShow(id);
-    console.log(barCapacity(id))
+    barCapacity(id)
+      .then(size => {
+        setShow(id);
+        setBarCapacity(size);
+      });
   };
 
   return (
@@ -22,7 +25,10 @@ const BarMarker = ({ party: { bar_name, id, latitude, longitude } }) => {
     >
       {show &&
         <InfoWindow>
-          <div>{bar_name}</div>
+          <div>
+            <div>{bar_name}</div>
+            <div>Capacity:{getBarCapacity}</div>
+          </div>
         </InfoWindow>}
     </Marker >
   )
