@@ -79,7 +79,7 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
   };
 
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: 'AIzaSyANp7sI4cfvx8WLl6OgcsePepOM5oSuXZY',
+    googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY,
     libraries,
   });
 
