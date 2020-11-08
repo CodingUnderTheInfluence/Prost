@@ -26,6 +26,37 @@ messageRouter.get('/', (req, res) => {
   });
 })
 
+messageRouter.get('/privateMessages', (req, res) => {
+  const {customerOne, customerTwo} = req.query;
+  Message.findAll({where : {
+    [Op.or]: [{id_sender: customerOne, id_recipient: customerTwo}, {id_sender: customerTwo, id_recipient: customerOne}]
+  }})
+    .then(messages => {
+      res.status(200).send(messages);
+    })
+    .catch(err => {
+      res.sendStatus(500);
+      console.warn(err);
+    })
+});
+
+messageRouter.post('/privateMessages', (req, res) => {
+  console.log(req.body,'Messages post body');
+  const {id_sender, id_recipient, body} = req.body;
+  Message.create({
+    id_sender: id_sender,
+    id_recipient: id_recipient,
+    body: body
+  })
+    .then(message => {
+      res.status(200).send('Message sent');
+    })
+    .catch(err => {
+      res.sendStatus(500);
+      console.warn(err);
+    })
+});
+
   // 
 module.exports = {
   messageRouter,

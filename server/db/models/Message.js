@@ -3,14 +3,14 @@ module.exports = (sequelize, DataTypes) => {
     body: {
       type: DataTypes.STRING,
     },
-    id_thread: {
+    id_recipient: {
       type: DataTypes.INTEGER,
       reference: {
-        model: 'thread',
+        model: 'customer',
         key: 'id'
       }
     },
-    id_customer: {
+    id_sender: {
       type: DataTypes.INTEGER,
       reference: {
         model: 'customer',

@@ -53,7 +53,6 @@ const CustomerView = ({
   socket.emit('userInfo', userInfo);
   socket.on('onlineUsers', (data) => {
     onlineUsers = data;
-    console.info(onlineUsers, 'Everyone Online Right Now!');
   });
 
   const handleChange = (event, newValue) => {
@@ -75,7 +74,7 @@ const CustomerView = ({
 
   const renderView = () => {
     if (value === 0) {
-      return <FriendsList userData={userData} />;
+      return <FriendsList userData={userData} socket={socket}/>;
     }
     if (value === 1) {
       return <MapContainer setMapLatLng={setMapLatLng} gId={gId} />;

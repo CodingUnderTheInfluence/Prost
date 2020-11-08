@@ -7,7 +7,7 @@ import ConfirmedFriend from './ConfirmedFriend.jsx';
 import FriendForm from './FriendForm.jsx';
 import IncomingFriend from './IncomingFriend.jsx';
 
-function FriendsList({ userData }) {
+function FriendsList({ userData, socket }) {
     //TODO
     //Confirmed friends:
     // see online status, name, phone number
@@ -72,13 +72,13 @@ function FriendsList({ userData }) {
             return (
                 <Grid >
                     <Grid className='pending'>
-                        {pendingFriends.map(f => <PendingFriend userData={userData} f={f} />)}
+                        {pendingFriends.map(f => <PendingFriend key={f.id} userData={userData} f={f} />)}
                     </Grid>
                     <Grid>
-                        {incomingRequests.map(r => <IncomingFriend userData={userData} r={r} />)}
+                        {incomingRequests.map(r => <IncomingFriend key={r.id} userData={userData} r={r} />)}
                     </Grid>
                     <Grid className='confirmed'>
-                        {confirmedFriends.map(f => <ConfirmedFriend userData={userData} f={f} />)}
+                        {confirmedFriends.map(f => <ConfirmedFriend key={f.id} userData={userData} f={f} socket={socket} />)}
                     </Grid>
                     <Fab color='primary' position='center' onClick={() => setAddFriend(true)}><AddCircleIcon /></Fab>
                 </Grid>
