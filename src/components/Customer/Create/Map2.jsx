@@ -111,6 +111,7 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
     return () => { isMounted = false; };
   }, []);
 
+  // TODO:
   // // sets the makers to the user click
   // const onMapClick = useCallback((e) => {
   //   setMarkers(current => [
