@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Grid, Typography, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core'
 import Logout from '../Logout.jsx';
 
@@ -9,7 +9,7 @@ const barInfo = {
 }
 
 const OwnerProfile = ({ setViewValue }) => {
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
 
     const handleClickOpen = () => {
         setOpen(true);

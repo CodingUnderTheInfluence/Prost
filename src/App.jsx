@@ -13,6 +13,7 @@ function App() {
   const [gEmail, setGEmail] = useState('');
   const [mapLatLng, setMapLatLng] = useState('');
   const [userId, setUserId] = useState('');
+  const [barId, setBarId] = useState('');
   const handleChange = (event, newValue) => {
     setViewValue(newValue);
   };
@@ -40,6 +41,7 @@ function App() {
         setGEmail={setGEmail}
         gEmail={gEmail}
         mapLatLng={mapLatLng}
+        setBarId={setBarId}
       />
     );
   } if (value === 'CustomerView') {
@@ -55,7 +57,7 @@ function App() {
       />
     );
   } if (value === 'OwnerView') {
-    return <OwnerView setViewValue={setViewValue} />;
+    return <OwnerView setViewValue={setViewValue} barId={barId} />;
   } if (value === 'form') {
     return (
       <Form
