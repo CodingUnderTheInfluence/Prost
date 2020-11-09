@@ -25,6 +25,9 @@ function OwnerForm({ setViewValue, mapLatLng }) {
   const [number, setNumber] = useState('');
   const [lat, setLat] = useState('');
   const [lng, setLng] = useState('');
+  const [image, setImage] = useState('');
+  const [occupency, setOccupency] = useState('');
+  const [currOcc, setCurrOcc] = useState('');
 
   const renderOwnerForm = () => {
     if (counter === 1) {
@@ -41,6 +44,8 @@ function OwnerForm({ setViewValue, mapLatLng }) {
         barName={barName}
         address={address}
         number={number}
+        setImage={setImage}
+        setOccupency={setOccupency}
       />;
     } if (counter === 2) {
       return <OwnerInfo
@@ -54,6 +59,8 @@ function OwnerForm({ setViewValue, mapLatLng }) {
         number={number}
         lat={lat}
         lng={lng}
+        image={image}
+        capacity={occupency}
       />;
     }
     return (

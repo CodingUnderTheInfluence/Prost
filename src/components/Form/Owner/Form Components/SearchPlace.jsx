@@ -5,7 +5,7 @@ import React, {
 import axios from 'axios';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { useLoadScript } from '@react-google-maps/api';
-import { Grid, Typography, Button } from '@material-ui/core';
+import { Grid, Typography, Button, TextField } from '@material-ui/core';
 import SearchBox from './SearchBox.jsx'
 
 const libraries = ['places'];
@@ -34,6 +34,8 @@ const BarSearch = ({
     setState,
     setZip,
     setNumber,
+    setImage,
+    setOccupency,
     barName,
     address,
     number
@@ -55,6 +57,7 @@ const BarSearch = ({
             formatted_address,
             formatted_phone_number,
             name,
+            photos,
             geometry: { location },
         } = results;
         const lat = location.lat();
@@ -64,6 +67,7 @@ const BarSearch = ({
         setBarName(name);
         setLat(lat);
         setLng(lng);
+        setImage(photos[0].getUrl())
         setSelected(true);
         console.info('results', results);
     }, []);
@@ -116,6 +120,9 @@ const BarSearch = ({
 
     return (
         <Grid container direction="column" justify="center" alignItems="center" style={{ margin: '10px 0 10px 0' }}>
+            <Grid item container direction="row" justify="center" column="center" style={{ margin: '10px 0 10px 0' }}>
+                <TextField label="Full Bar Capacity?" onChange={(e) => { setOccupency(e.target.value) }} />
+            </Grid>
             <Grid item container direction="row" justify="center" alignItems="center" style={{ margin: '10px 0 10px 0' }}>
                 <SearchBox
                     currentPosition={currentPosition}
