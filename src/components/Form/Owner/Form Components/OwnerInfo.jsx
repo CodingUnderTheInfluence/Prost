@@ -76,9 +76,8 @@ const OwnerInfo = ({
                     lng
                 };
                 axios.post('/db/bar/create', { bparams })
-                axios.post('/db/cb/owner/list', { bparams })
                     .then(({ data }) => {
-                        window.alert(data);
+                        console.log(data)
                     })
             })
 

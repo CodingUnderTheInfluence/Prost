@@ -27,7 +27,7 @@ const useStyles = makeStyles({
     }
 });
 
-const OwnerView = ({ setViewValue }) => {
+const OwnerView = ({ setViewValue, barId }) => {
     const classes = useStyles();
     const [value, setValue] = useState();
 
@@ -37,7 +37,7 @@ const OwnerView = ({ setViewValue }) => {
 
     const renderView = () => {
         if (value === 0) {
-            return <BarList />
+            return <BarList barId={barId} />
         }
         if (value === 1) {
             return <QrScanner />

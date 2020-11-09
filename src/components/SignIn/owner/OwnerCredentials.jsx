@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Grid, Button, TextField } from '@material-ui/core';
 import axios from 'axios';
+import { LocalConvenienceStoreOutlined } from '@material-ui/icons';
 
-function OwnerCredentials({ setViewValue }) {
+function OwnerCredentials({ setViewValue, setBarId }) {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
@@ -16,6 +17,7 @@ function OwnerCredentials({ setViewValue }) {
         if (data === 'Email or Password Incorrect') {
           console.info('TRY AGAIN');
         } else {
+          console.log(data)
           localStorage.setItem('ownerToken', data); // stores token in localstorage
           axios(
             {
@@ -34,6 +36,11 @@ function OwnerCredentials({ setViewValue }) {
             });
         }
       });
+    //TODO: data is the entire bar object
+    axios.post('/db/bar/id', { params })
+      .then(({ data }) => {
+        setBarId(data[0].id)
+      })
   };
 
   return (
