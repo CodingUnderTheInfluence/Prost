@@ -26,7 +26,7 @@ const Create = ({ placeInfo }) => {
   const [size, setSize] = useState(1);
   const [party, setParty] = useState(false);
   const handleParty = () => {
-    console.log(placeInfo)
+    console.info(placeInfo)
     createParty(placeInfo, size)
       .then(() => {
         setParty(true);
