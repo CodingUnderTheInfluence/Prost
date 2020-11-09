@@ -24,6 +24,12 @@ module.exports = (sequelize, DataTypes) => {
     longitude: {
       type: DataTypes.DECIMAL
     },
+    profile_image: {
+      type: DataTypes.STRING(1000),
+    },
+    bar_capacity: {
+      type: DataTypes.STRING,
+    },
     id_owner: {
       type: DataTypes.INTEGER,
       reference: {
