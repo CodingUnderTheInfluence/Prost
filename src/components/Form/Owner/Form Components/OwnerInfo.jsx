@@ -30,7 +30,9 @@ const OwnerInfo = ({
     zip,
     number,
     lat,
-    lng
+    lng,
+    image,
+    capacity
 }) => {
     const classes = useStyles();
     const [username, setUsername] = useState('');
@@ -73,11 +75,13 @@ const OwnerInfo = ({
                     zip,
                     number,
                     lat,
-                    lng
+                    lng,
+                    image,
+                    capacity
                 };
                 axios.post('/db/bar/create', { bparams })
                     .then(({ data }) => {
-                        console.log(data)
+                        console.log(data, 'DATA')
                     })
             })
 
