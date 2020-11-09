@@ -3,12 +3,6 @@ import { Marker, InfoWindow } from '@react-google-maps/api';
 import barCapacity from '../../../helpers/barCapacity';
 
 
-const style = {
-  red: 'red',
-  yellow: 'yellow',
-  green: 'green'
-}
-
 const BarMarker = ({ party: { bar_name, id, latitude, longitude } }) => {
   const [show, setShow] = useState(false);
   const [getBarCapacity, setBarCapacity] = useState(0);
@@ -20,12 +14,14 @@ const BarMarker = ({ party: { bar_name, id, latitude, longitude } }) => {
         setShow(id);
         if (size > 20) {
           setColor('red');
+          setBarCapacity('full');
         } else if (size > 10 && size < 19) {
-          setColor('yellow');
+          setColor('#f59314');
+          setBarCapacity(size);
         } else {
           setColor('green');
+          setBarCapacity(size);
         }
-        setBarCapacity(size);
       });
   };
 
