@@ -114,9 +114,18 @@ customerRouter.post('/register', async (req, res) => {
 });
 
 customerRouter.post('/create', (req, res) => {
-  // console.info(req.body.personalParams);
+  console.info(req.body.personalParams);
   const {
-    first, last, email, number, gender, googleId, image, username,
+    first,
+    last,
+    email,
+    number,
+    googleId,
+    image,
+    username,
+    emNumber,
+    // eFirst, 
+    // eLast
   } = req.body.personalParams;
   // // const {
   // //   first, last, email, number, gender, googleId, image, username,
@@ -131,13 +140,12 @@ customerRouter.post('/create', (req, res) => {
           last_name: last,
           user_name: username,
           id_google: googleId,
-          email,
+          email: email,
           phone_number: number,
-          gender_type: gender,
           profile_image: image,
         })
           .then((customer) => {
-            res.send(`Customer has been created under: ${customer[0].email}`);
+            res.send(`Customer has been created under: ${email}`);
           })
           .catch((err) => {
             res.status(401).send('UNABLE TO ADD');

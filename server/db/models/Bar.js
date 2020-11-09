@@ -24,9 +24,6 @@ module.exports = (sequelize, DataTypes) => {
     longitude: {
       type: DataTypes.DECIMAL
     },
-    qrcode: {
-      type: DataTypes.STRING,
-    },
     id_owner: {
       type: DataTypes.INTEGER,
       reference: {

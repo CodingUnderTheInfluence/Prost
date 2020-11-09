@@ -54,7 +54,6 @@ const SearchBox = ({ panTo, currentPosition, searchBoxStyle, getPlaceInfo }) => 
                         const details = await getDetails(results[0]);
                         getPlaceInfo(details);
                         console.info('this is results', results);
-
                         const { lat, lng } = await getLatLng(results[0]);
                         panTo({ lat, lng });
                         setValue('');

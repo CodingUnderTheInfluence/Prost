@@ -20,7 +20,18 @@ const useStyles = makeStyles((theme) => ({
         width: '25ch',
     },
 }));
-function OwnerInfo({ setCounter, setViewValue, barName, address, city, state, zip, number }) {
+const OwnerInfo = ({
+    setCounter,
+    setViewValue,
+    barName,
+    address,
+    city,
+    state,
+    zip,
+    number,
+    lat,
+    lng
+}) => {
     const classes = useStyles();
     const [username, setUsername] = useState('');
     const [firstName, setFirst] = useState('');
@@ -43,8 +54,6 @@ function OwnerInfo({ setCounter, setViewValue, barName, address, city, state, zi
         event.preventDefault();
     };
 
-
-
     const submitOwnerInfo = () => {
         const params = {
             username,
@@ -63,6 +72,8 @@ function OwnerInfo({ setCounter, setViewValue, barName, address, city, state, zi
                     state,
                     zip,
                     number,
+                    lat,
+                    lng
                 };
                 axios.post('/db/bar/create', { bparams })
                 axios.post('/db/cb/owner/list', { bparams })
