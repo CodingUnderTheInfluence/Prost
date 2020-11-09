@@ -147,6 +147,21 @@ ownerRouter.post('/is-verify', authorization, async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+
+ownerRouter.post('/id', (req, res) => {
+  const { email, password } = req.body.params;
+
+  Owner.findAll({ where: { email } })
+    .then((owner) => {
+      if (owner.length > 0) {
+        res.send(JSON.stringify(owner[0].id))
+      } else {
+        res.sendStatus(500)
+        console.info('OWNER NOT FOUND')
+      }
+    })
+    .catch((err) => { console.warn(err) })
+})
 module.exports = {
   ownerRouter,
 };

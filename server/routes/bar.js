@@ -99,6 +99,19 @@ barRouter.post('/create', (req, res) => {
     });
 });
 
+barRouter.post('/id', (req, res) => {
+  const { email, password } = req.body.params;
+  Owner.findAll({ where: { email: email } })
+    .then((owner) => {
+      if (owner.length > 0) {
+        Bar.findAll({ where: { id_owner: owner[0].id } })
+          .then((bar) => {
+            res.send(bar)
+          })
+      }
+    })
+})
+
 module.exports = {
   barRouter,
 };
