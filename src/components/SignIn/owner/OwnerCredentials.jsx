@@ -17,6 +17,7 @@ function OwnerCredentials({ setViewValue, setBarId }) {
         if (data === 'Email or Password Incorrect') {
           return;
         } else {
+          console.log(data)
           localStorage.setItem('ownerToken', data); // stores token in localstorage
           axios(
             {
