@@ -112,19 +112,41 @@ barRouter.post('/create/party', (req, res) => {
   const {
     bar_name,
     address,
-    latitude,
-    longitude,
-  } = req.body;
-  Bar.findOrCreate({
-    where: {
-      bar_name,
-      address,
-      latitude,
-      longitude,
-    },
-  })
+    city,
+    state,
+    zip,
+    number,
+    lat,
+    lng,
+    image,
+    capacity,
+  } = req.body.bparams;
+  console.log(req.body.bparams, 'BAR PARAMS');
+  Bar.findAll({ where: { id_owner: ownerId } })
     .then((bar) => {
-      res.status(201).send(bar);
+      if (bar.length > 0) {
+        console.info('BAR ALREADY EXISTS');
+        res.status(500).send('BAR ALREADY EXISTS');
+      } else {
+        console.log('BAR CREATED');
+        res.status(200).send('BAR CREATED');
+        Bar.create({
+          id_owner: ownerId,
+          bar_name: barName,
+          address,
+          city,
+          state,
+          zip,
+          phone_number: number,
+          latitude: lat,
+          longitude: lng,
+          profile_image: image,
+          bar_capacity: capacity,
+        })
+          .then((bar) => {
+            res.sendStatus(200, 'BAR CREATED');
+          });
+      }
     })
     .catch(() => {
       res.status(500).send('error in bar create');
