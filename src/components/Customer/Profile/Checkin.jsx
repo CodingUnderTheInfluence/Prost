@@ -8,6 +8,9 @@ import { useLoadScript } from '@react-google-maps/api';
 import { Grid, Typography, Button } from '@material-ui/core';
 import Search from '../Create/Search.jsx';
 import CheckinList from './CheckInList.jsx';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+import { makeStyles } from '@material-ui/core/styles';
 
 const libraries = ['places'];
 
@@ -26,6 +29,18 @@ const searchBox = {
   left: '50%',
   marginLeft: '-120px',
 };
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: '100%',
+    '& > * + *': {
+      marginTop: theme.spacing(2),
+    },
+  },
+}));
 
 export default function Checkin({ setView, customerId }) {
   const [currentPosition, setCurrentPosition] = useState({
@@ -36,13 +51,16 @@ export default function Checkin({ setView, customerId }) {
   const [name, setName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [coordinates, setCoordinates] = useState([]);
+  const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
 
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
   const getPlaceInfo = useCallback((results) => {
-    /*
-    formatted_address: "701 W Judge Perez Dr, Chalmette, LA 70043, USA"
-    name: "Lacy's Cue Sports Bar"
-    */
-    // get places info from search bar
     const {
       formatted_address,
       formatted_phone_number,
@@ -55,10 +73,8 @@ export default function Checkin({ setView, customerId }) {
     setPhoneNumber(formatted_phone_number);
     setName(name);
     setCoordinates([lat, lng]);
-    console.info('results', results);
   }, []);
 
-  // Check in
   const addCheckIn = () => {
     const arr = address.split(', ');
     const stateZip = arr[2].split(' ');
@@ -73,18 +89,15 @@ export default function Checkin({ setView, customerId }) {
       lat: coordinates[0],
       lng: coordinates[1],
     };
-    console.info('barInfo', barInfo);
-    fetch('/db/cb/checkin/create', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(barInfo),
-    })
-      .then(({ data }) => { console.info(data); })
+    axios.post('/db/cb/checkin/create', barInfo)
+      .then(({ data }) => { 
+        if(data === 'Empty'){
+          setOpen(true);
+        }
+        console.info(data); 
+      })
       .catch((err) => console.warn(err));
   };
-
   // populates places drop down
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: 'AIzaSyANp7sI4cfvx8WLl6OgcsePepOM5oSuXZY',
@@ -114,6 +127,13 @@ export default function Checkin({ setView, customerId }) {
       </div>
       <div>
         <CheckinList customerId={customerId} />
+      </div>
+      <div className={classes.root}>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="error">
+          Bar not found
+        </Alert>
+      </Snackbar>
       </div>
     </div>
   );

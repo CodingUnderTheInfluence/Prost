@@ -46,6 +46,7 @@ CREATE TABLE "menu" (
   "image" varchar,
   "id_bar" int,
   "id_bar" varchar,
+  "lang" varchar,
 );
 
 CREATE TABLE "party" (
