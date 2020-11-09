@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import {Button, Grid, TextField} from '@material-ui/core';
+import { flexbox } from '@material-ui/system';
 import Axios from 'axios';
 import SinglePrivateMessage from './SinglePrivateMessage.jsx';
 
