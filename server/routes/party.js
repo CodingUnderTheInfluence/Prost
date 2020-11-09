@@ -26,6 +26,19 @@ partyRouter.get('/', (req, res) => {
     });
 });
 
+partyRouter.get('/:id_bar', (req, res) => {
+  const { id_bar } = req.params
+  Party.findAll({
+    where: { id_bar: id_bar }
+  })
+    .then((bar) => {
+      res.send(bar);
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    })
+});
+
 partyRouter.post('/create', (req, res) => {
   const { id_bar, size } = req.body;
   Party.findOrCreate({
@@ -41,8 +54,6 @@ partyRouter.post('/create', (req, res) => {
       res.status(500).send(err);
     });
 });
-
-
 
 module.exports = {
   partyRouter,

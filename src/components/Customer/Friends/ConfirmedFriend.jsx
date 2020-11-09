@@ -1,10 +1,14 @@
 import React, {useState, useEffect} from 'react'
-import {Grid} from '@material-ui/core';
+import {Grid, Button} from '@material-ui/core';
+import CallIcon from '@material-ui/icons/Call';
+import ChatIcon from '@material-ui/icons/Chat';
 import Axios from 'axios';
+import PrivateMessage from './PrivateMessage.jsx';
 
-function ConfirmedFriend({f, userData}) {
+function ConfirmedFriend({f, userData, socket}) {
     
     const [friendData, setFriendData] = useState();
+    const [viewMessages, setViewMessages] = useState(false);
 
     //uses ID from f to grab customer information
     const getData = () => {
@@ -21,16 +25,34 @@ function ConfirmedFriend({f, userData}) {
         getData();
     }, [])
 
-    if (friendData) {
-        return (
-            <Grid>
-                {friendData.first_name + friendData.last_name} Message, View Info
-            </Grid>
-        )
+    if (viewMessages) {
+        return <PrivateMessage f={f} setViewMessages={setViewMessages} userData={userData} socket={socket}/>
     } else {
-        return (
-            <Grid>Loading data for friendf.</Grid>
-        )
+        if (friendData) {
+            console.log(friendData, 'Friend Data');
+            return (
+                <Grid>
+                    <Grid>
+                        {friendData.first_name + friendData.last_name}
+                    </Grid>
+                    <Grid>
+                        <Button variant="contained" color="primary" href={`tel:+1${friendData.phone_number}`} >
+                            <CallIcon/>
+                        </Button>
+                        <Button variant="contained" color="primary" onClick={() => setViewMessages(true)}>
+                            <ChatIcon />
+                        </Button> 
+    
+                    </Grid>
+    
+                </Grid>
+            )
+        } else {
+            return (
+                <Grid>Loading data for friend.</Grid>
+            )
+        }
+
     }
 }
 

@@ -65,8 +65,8 @@ CREATE TABLE "friendship" (
 CREATE TABLE "message" (
   "id" SERIAL PRIMARY KEY,
   "body" varchar,
-  "id_customer" int,
-  "id_thread" int,
+  "id_sender" int,
+  "id_recipient" int,
 );
 
 CREATE TABLE "thread" (

@@ -12,6 +12,7 @@ import Search from './Search.jsx';
 import BarInfo from './BarInfo.jsx';
 import PrivateSwitch from './PrivateSwitch.jsx';
 import FriendsMarkers from './FriendsMarkers.jsx';
+import BarMarkers from './BarMarkers.jsx';
 import Directions from '../Directions/Directions.jsx';
 import Create from './Create.jsx';
 // import PeopleSearch from './PeopleSearch.jsx';
@@ -78,7 +79,7 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
   };
 
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: 'AIzaSyANp7sI4cfvx8WLl6OgcsePepOM5oSuXZY',
+    googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY,
     libraries,
   });
 
@@ -110,6 +111,7 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
     return () => { isMounted = false; };
   }, []);
 
+  // TODO:
   // // sets the makers to the user click
   // const onMapClick = useCallback((e) => {
   //   setMarkers(current => [
@@ -220,6 +222,7 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
             lng: +searchMarker.lng,
           }}
         />
+        <BarMarkers parties={parties} />
         <FriendsMarkers friendLocations={friendLocations} />
 
       </GoogleMap>

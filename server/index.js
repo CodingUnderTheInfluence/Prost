@@ -96,12 +96,19 @@ syncModels();
 const connectedUsers = {};
 
 io.on('connect', (socket) => {
-  console.info(`new client connected : ${socket.id}`);
   connectedUsers[socket.id] = socket.id;
   socket.emit('connection', null);
 
+  socket.on('join', (room) => {
+    socket.join(room)
+  })
+
+  socket.on('privateMessage', (message) => {
+    io.to(message.room).emit('incomingPrivateMessage' ,message);
+
+  })
+
   socket.on('sendMessage', (data) => {
-    console.info(data);
     // socket.broadcast.emit('newMessage', data)
     io.emit('newMessage', data);
   });
