@@ -7,6 +7,7 @@ import React, {
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
+import { Details } from '@material-ui/icons';
 import Search from './Search.jsx';
 import BarInfo from './BarInfo.jsx';
 import PrivateSwitch from './PrivateSwitch.jsx';
@@ -106,7 +107,7 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
           setParties(data);
         });
     }
-    return () => { isMounted = false };
+    return () => { isMounted = false; };
   }, []);
 
   // // sets the makers to the user click

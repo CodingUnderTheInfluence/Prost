@@ -62,7 +62,7 @@ const CustomerView = ({
 
   const findMe = (id) => {
     return Axios.get(`/db/customer/findMe?gId=${id}`)
-      .then(({data}) => {
+      .then(({ data }) => {
         console.log(data);
         setUserData(data)
       })

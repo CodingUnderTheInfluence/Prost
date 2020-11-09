@@ -16,41 +16,41 @@ const LandingPage = ({
   gEmail,
   mapLatLng,
 }) => (
-  <Grid container direction="column">
-    <Grid item container direction="row" justify="center" alignItems="center">
-      <img
-        src="https://i.imgur.com/xqxjCwz.png"
-        alt="Logo"
-        style={{ maxWidth: '300px', maxHeight: '200px' }}
-      />
+    <Grid container direction="column">
+      <Grid item container direction="row" justify="center" alignItems="center">
+        <img
+          src="https://i.imgur.com/xqxjCwz.png"
+          alt="Logo"
+          style={{ maxWidth: '300px', maxHeight: '200px' }}
+        />
+      </Grid>
+      <Grid item container direction="row" justify="center" alignItems="center" style={{ margin: '10px 0 10px 0' }}>
+        <SignIn
+          setDbId={setDbId}
+          setViewValue={setViewValue}
+          setId={setId}
+          setProfileImage={setProfileImage}
+          setUsername={setUsername}
+          gId={gId}
+          username={username}
+          profileImage={profileImage}
+        />
+      </Grid>
+      <Grid item container direction="row" justify="center" alignItems="center" style={{ margin: '10px 0 10px 0' }}>
+        <SignUp
+          setViewValue={setViewValue}
+          setId={setId}
+          setProfileImage={setProfileImage}
+          setUsername={setUsername}
+          gId={gId}
+          username={username}
+          profileImage={profileImage}
+          setGEmail={setGEmail}
+          gEmail={gEmail}
+          mapLatLng={mapLatLng}
+        />
+      </Grid>
     </Grid>
-    <Grid item container direction="row" justify="center" alignItems="center" style={{ margin: '10px 0 10px 0' }}>
-      <SignIn
-        setDbId={setDbId}
-        setViewValue={setViewValue}
-        setId={setId}
-        setProfileImage={setProfileImage}
-        setUsername={setUsername}
-        gId={gId}
-        username={username}
-        profileImage={profileImage}
-      />
-    </Grid>
-    <Grid item container direction="row" justify="center" alignItems="center" style={{ margin: '10px 0 10px 0' }}>
-      <SignUp
-        setViewValue={setViewValue}
-        setId={setId}
-        setProfileImage={setProfileImage}
-        setUsername={setUsername}
-        gId={gId}
-        username={username}
-        profileImage={profileImage}
-        setGEmail={setGEmail}
-        gEmail={gEmail}
-        mapLatLng={mapLatLng}
-      />
-    </Grid>
-  </Grid>
-);
+  );
 
 export default LandingPage;

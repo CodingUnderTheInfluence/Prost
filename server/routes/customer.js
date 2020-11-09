@@ -123,9 +123,6 @@ customerRouter.post('/create', (req, res) => {
     googleId,
     image,
     username,
-    emNumber,
-    // eFirst, 
-    // eLast
   } = req.body.personalParams;
   // // const {
   // //   first, last, email, number, gender, googleId, image, username,
@@ -140,7 +137,7 @@ customerRouter.post('/create', (req, res) => {
           last_name: last,
           user_name: username,
           id_google: googleId,
-          email: email,
+          email,
           phone_number: number,
           profile_image: image,
         })
