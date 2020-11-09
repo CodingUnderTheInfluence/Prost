@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-
 const PeopleSearch = ({ searchBox }) => {
   const [input, setInput] = useState('');
   const [friends, setFriends] = useState([]);

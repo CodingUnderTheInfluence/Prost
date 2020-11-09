@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Grid, Button, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core'
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 
 const useStyles = makeStyles({
     root: {
@@ -19,10 +20,13 @@ const useStyles = makeStyles({
     }
 });
 
-const CallARide = ({ friendNumber }) => {
+const CallARide = ({ friendNumber, setView }) => {
     const classes = useStyles();
     return (
         <Grid container direction="column" className={classes.Grid}>
+            <Grid item direction="row" justify="left">
+                <ArrowBackIosIcon color="primary" onClick={() => setView('Home')} />
+            </Grid>
             <Grid item direction="row" className={classes.Grid}>
                 <Typography variant="subtitle1">
                     Don't be a fool! Call for a ride!

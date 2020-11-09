@@ -74,6 +74,8 @@ barRouter.post('/create', (req, res) => {
     state,
     zip,
     number,
+    lat,
+    lng
   } = req.body.bparams;
   console.log(req.body.bparams, 'BAR PARAMS')
   Bar.findOrCreate({
@@ -85,6 +87,8 @@ barRouter.post('/create', (req, res) => {
       state,
       zip,
       phone_number: number,
+      latitude: lat,
+      longitude: lng
     },
   })
     .then((bar) => {
