@@ -31,35 +31,40 @@ cbRouter.post('/checkin/create', (req, res) => {
     lng,
   } = req.body;
 
-  Bar.findOrCreate({
+  Bar.findAll({
     where: {
       bar_name: barName,
-      phone_number: number,
-      address,
-      city,
-      state,
-      zip,
-      latitude: lat,
-      longitude: lng,
+      // phone_number: number,
+      // address,
+      // city,
+      // state,
+      // zip,
+      // latitude: lat,
+      // longitude: lng,
     },
   })
     .then((bar) => {
-      const barId = bar[0].dataValues.id;
-      Customers_Bars.findOrCreate({
-        where: {
-          id_customer: customerId,
-          id_bar: barId,
-          checkin: true,
-        },
-      })
-        .then((response) => {
-          res.status(201).send(response);
+      if(bar.length === 0){
+        res.send('Empty');
+      } else {
+        const barId = bar[0].dataValues.id;
+        return Customers_Bars.findOrCreate({
+          where: {
+            id_customer: customerId,
+            id_bar: barId,
+            checkin: true,
+          },
         })
-        .catch((err) => {
-          res.status(500).send(err);
-        });
+      }
+    })
+    .then((response) => {
+      res.status(201).send(response);
+    })
+    .catch((err) => {
+      res.status(500).send(err);
     });
-});
+
+  });
 
 cbRouter.get('/history/:customerId', (req, res) => {
   const { customerId } = req.params;
