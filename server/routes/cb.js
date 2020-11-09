@@ -21,26 +21,12 @@ cbRouter.get('/', (req, res) => {
 cbRouter.post('/checkin/create', (req, res) => {
   const {
     barName,
-    address,
-    city,
-    state,
-    zip,
-    number,
     customerId,
-    lat,
-    lng,
   } = req.body;
 
   Bar.findAll({
     where: {
       bar_name: barName,
-      // phone_number: number,
-      // address,
-      // city,
-      // state,
-      // zip,
-      // latitude: lat,
-      // longitude: lng,
     },
   })
     .then((bar) => {
@@ -58,7 +44,7 @@ cbRouter.post('/checkin/create', (req, res) => {
       }
     })
     .then((response) => {
-      res.status(201).send(response);
+      res.status(201).send('Success');
     })
     .catch((err) => {
       res.status(500).send(err);
@@ -75,7 +61,6 @@ cbRouter.get('/history/:customerId', (req, res) => {
   })
     .then((cbs) => {
       const ids = cbs.map((bar) => ({ id: bar.id_bar }));
-      // res.send(ids);
       Bar.findAll({
         where: {
           [Op.or]: ids,
@@ -100,7 +85,6 @@ cbRouter.get('/favorite/:customerId', (req, res) => {
   })
     .then((cbs) => {
       const ids = cbs.map((bar) => ({ id: bar.id_bar }));
-      // res.send(ids);
       Bar.findAll({
         where: {
           [Op.or]: ids,
@@ -125,7 +109,6 @@ cbRouter.get('/checkin/:customerId', (req, res) => {
   })
     .then((cbs) => {
       const ids = cbs.map((bar) => ({ id: bar.id_bar }));
-      // res.send(ids);
       Bar.findAll({
         where: {
           [Op.or]: ids,
