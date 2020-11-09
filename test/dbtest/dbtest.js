@@ -330,8 +330,8 @@ function primeDB() {
     .then(() => Message.findOrCreate({
       where: {
         body: 'Are you coming?',
-        id_thread: 1,
-        id_customer: 1,
+        id_sender: 1,
+        id_recipient: 3,
       },
     }))
     .then((numberEffected) => {
@@ -343,8 +343,8 @@ function primeDB() {
     .then(() => Message.findOrCreate({
       where: {
         body: 'See you at 10',
-        id_thread: 1,
-        id_customer: 2,
+        id_sender: 1,
+        id_recipient: 2,
       },
     }))
     .then((numberEffected) => {
@@ -356,8 +356,8 @@ function primeDB() {
     .then(() => Message.findOrCreate({
       where: {
         body: 'I can\'t make it',
-        id_thread: 2,
-        id_customer: 4,
+        id_sender: 2,
+        id_recipient: 4,
       },
     }))
     .then((numberEffected) => {
@@ -369,8 +369,8 @@ function primeDB() {
     .then(() => Message.findOrCreate({
       where: {
         body: 'Too bad',
-        id_thread: 2,
-        id_customer: 3,
+        id_sender: 2,
+        id_recipient: 3,
       },
     }))
     .then((numberEffected) => {
