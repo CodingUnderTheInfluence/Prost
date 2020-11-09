@@ -32,6 +32,13 @@ const SignUpGoogleButton = ({
           setFormCounter(2);
         }
       });
+
+    Axios.post('/db/maps', {
+      userName: profile.name,
+      gId: profile.googleId
+    })
+      .then(data => console.info('in the database', data))
+      .catch(err => console.error('error in post to maps', err));
   };
 
   const onFailure = (res) => {
@@ -43,7 +50,7 @@ const SignUpGoogleButton = ({
         clientId={clientId}
         render={(renderProps) => (
           <Button variant="outlined" color="primary" onClick={renderProps.onClick} disabled={renderProps.disabled}>
-            Login Here
+            SignIn with Google
           </Button>
         )}
         buttonText="Login"

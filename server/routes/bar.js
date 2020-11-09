@@ -31,7 +31,7 @@ barRouter.get('/', (req, res) => {
   const { bar_name } = req.query;
   Bar.findAll({
     where: {
-      bar_name,
+      bar_name: bar_name,
     },
   })
     .then((bar) => {
@@ -67,28 +67,35 @@ barRouter.get('/parties', (req, res) => {
 
 barRouter.post('/create', (req, res) => {
   const {
+    ownerId,
     barName,
     address,
     city,
     state,
     zip,
     number,
-  } = req.body.params;
+    lat,
+    lng
+  } = req.body.bparams;
+  console.log(req.body.bparams, 'BAR PARAMS')
   Bar.findOrCreate({
     where: {
+      id_owner: ownerId,
       bar_name: barName,
       address,
       city,
       state,
       zip,
       phone_number: number,
+      latitude: lat,
+      longitude: lng
     },
   })
     .then((bar) => {
       res.status(201).send(bar);
     })
-    .catch((err) => {
-      res.status(500).send(err);
+    .catch(() => {
+      res.status(500).send('error in bar create');
     });
 });
 

@@ -26,7 +26,7 @@ function primeDB() {
       if (numberEffected) {
         return console.info('✅ Party of 2 Created');
       }
-      return console.warn('❌ Party of 2 undefined');
+      return console.error('❌ Party of 2 undefined');
     })
     .then(() => Party.findOrCreate({
       where: {
@@ -38,7 +38,7 @@ function primeDB() {
       if (numberEffected) {
         return console.info('✅ Party of 3 Created');
       }
-      return console.warn('❌ Party of 3 undefined');
+      return console.error('❌ Party of 3 undefined');
     })
     .then(() => Bar.findOrCreate({
       where: {
@@ -234,6 +234,34 @@ function primeDB() {
         image: 'https://source.unsplash.com/random',
         id_customer: 1,
       },
+    }))
+    .then((numberEffected) => {
+      if (numberEffected) {
+        return console.log('✅ map customer1 Created');
+      }
+      return console.error('❌ map customer1 undefined');
+    })
+    .then(() => Maps.findOrCreate({
+      where: {
+        user_name: 'big dong',
+        id_google: '114252099336753341135',
+        latitude: 29.924110,
+        longitude: -90.107380,
+      }
+    }))
+    .then((numberEffected) => {
+      if (numberEffected) {
+        return console.log('✅ map customer2 Created');
+      }
+      return console.error('❌ map customer2 undefined');
+    })
+    .then(() => Maps.findOrCreate({
+      where: {
+        user_name: 'hotdog',
+        id_google: '1352532099336753341135',
+        latitude: 29.923389,
+        longitude: -90.087357,
+      }
     }))
     .then((numberEffected) => {
       if (numberEffected) {

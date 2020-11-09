@@ -4,7 +4,7 @@ import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
   getDetails,
-} from "use-places-autocomplete";
+} from 'use-places-autocomplete';
 
 import {
   Combobox,
@@ -16,7 +16,6 @@ import {
 } from "@reach/combobox";
 import { ContactPhoneSharp } from '@material-ui/icons';
 // import "@reach/combobox/styles.css";
-
 
 const searchStyle = {
   position: 'absolute',

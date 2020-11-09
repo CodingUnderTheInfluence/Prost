@@ -1,3 +1,5 @@
+const { Data } = require("@react-google-maps/api");
+
 module.exports = (sequelize, DataTypes) => {
   const Customer = sequelize.define('customer', {
     first_name: {

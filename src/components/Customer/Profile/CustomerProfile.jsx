@@ -6,6 +6,7 @@ import Translate from './Translate.jsx';
 import Checkin from './Checkin.jsx';
 import History from './History.jsx';
 import Friend from './Friend.jsx';
+import CallARide from './CallARide.jsx';
 
 const CustomerProfile = ({ setViewValue, gId }) => {
   const [customerId, setCustomerId] = useState(1);
@@ -13,6 +14,7 @@ const CustomerProfile = ({ setViewValue, gId }) => {
   const [data, setData] = useState({
     user_name: ''
   });
+  const [friendNumber, setFriendNumber] = useState();
 
   useEffect(() => {
     // console.info("customer profile", gId)
@@ -35,7 +37,7 @@ const CustomerProfile = ({ setViewValue, gId }) => {
     case 'Home':
       return <Home setView={setView} name={data.user_name} setViewValue={setViewValue} img={data.profile_image} />
     case 'EContact':
-      return <EContact setView={setView} customerId={customerId} />
+      return <EContact setView={setView} customerId={customerId} setFriendNumber={setFriendNumber} />
     case 'Checkin':
       return <Checkin setView={setView} customerId={customerId} />
     case 'History':
@@ -46,6 +48,8 @@ const CustomerProfile = ({ setViewValue, gId }) => {
       return <Translate setView={setView} customerId={customerId} />
     case 'Friend':
       return <Friend setView={setView} customerId={customerId} />
+    case 'Ride':
+      return <CallARide setView={setView} customerId={customerId} friendNumber={friendNumber} />
   }
 }
 

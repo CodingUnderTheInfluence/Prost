@@ -12,9 +12,9 @@ const CustomerSignUpForm = ({
   // PERSONAL INFORMATION FIELDS
   const [personalFirst, setPersonalFirst] = useState('');
   const [personalLast, setPersonalLast] = useState('');
-  const [personalEmail, setPersonalEmail] = useState('');
   const [personalNumber, setPersonalNumber] = useState();
   const [personalGender, setPersonalGender] = useState('');
+
   // PERSONAL INFORMATION DATABASE SUBMIT
   const personalInformationSubmit = () => {
     const personalParams = {
@@ -52,6 +52,7 @@ const CustomerSignUpForm = ({
   const [emLast, setEmLast] = useState('');
   const [emEmail, setEmEmail] = useState('');
   const [emNumber, setEmNumber] = useState();
+
   // EMERGENCY CONTACT INFORMATION SUBMIT
   const eContactInformationSubmit = () => {
     const emergencyParams = {
@@ -153,14 +154,21 @@ const CustomerSignUpForm = ({
             </Typography>
           </Grid>
           <Grid item container direction="row" style={{ border: 'solid black 1px', padding: '10px', margin: '5px 0 5px 0' }}>
-            <TextField id="standard-basic" label="First Name" onChange={(e) => { setEmFirst(e.target.value); }} />
-            <TextField id="standard-basic" label="Last Name" onChange={(e) => { setEmLast(e.target.value); }} />
+            <TextField id="standard-basic" label="First Name"
+              onChange={(e) => {
+                setPersonalEFirst(e.target.value);
+              }} />
+            <TextField id="standard-basic" label="Last Name" onChange={(e) => {
+              setEmLast(e.target.value);
+            }} />
           </Grid>
           <Grid item container direction="row" style={{ border: 'solid black 1px', padding: '10px', margin: '5px 0 5px 0' }}>
             <TextField id="standard-basic" label="Email" onChange={(e) => { setEmEmail(e.target.value); }} />
           </Grid>
           <Grid item container direction="row" style={{ border: 'solid black 1px', padding: '10px', margin: '5px 0 5px 0' }}>
-            <TextField id="standard-basic" label="Phone Number" onChange={(e) => { setEmNumber(Number(e.target.value)); }} />
+            <TextField id="standard-basic" label="Phone Number" onChange={(e) => {
+              setEmNumber(Number(e.target.value));
+            }} />
           </Grid>
           <Button
             variant="outlined"
