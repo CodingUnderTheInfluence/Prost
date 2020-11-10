@@ -9,6 +9,7 @@ import PrivateMessage from './PrivateMessage.jsx';
 const useStyles = makeStyles({
     //TODO 
         //STYLE EACH ELEMENT
+        //Test each element thoroughly for functionality
 });
 
 const FriendsView = ({socket, userData}) => {
