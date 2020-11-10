@@ -19,13 +19,14 @@ const customerRouter = Router();
 const { OAuth2Client } = require('google-auth-library');
 const { FormatColorResetRounded } = require('@material-ui/icons');
 const { ownerWindow } = require('@material-ui/core');
+require('dotenv').config();
 
 const client = new OAuth2Client('');
 
 const googleAuth = async (authToken) => {
   const ticket = await client.verifyIdToken({
     idToken: authToken,
-    audience: '933644302187-agamsig0qalm5oi4fd44v11hfffpchs8.apps.googleusercontent.com',
+    audience: process.env.GOOGlE_CLIENT_ID,
   });
   console.info('ticket', ticket);
   const payload = ticket.getPayload();
