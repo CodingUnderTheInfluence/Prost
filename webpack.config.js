@@ -11,6 +11,7 @@ module.exports = {
   output: { // NEW
     path: path.join(__dirname, 'dist'),
     filename: '[name].js',
+    publicPath: 'public'
   }, // NEW Ends
   plugins: [
     htmlPlugin,
@@ -35,7 +36,7 @@ module.exports = {
       },
       {
         test: /\.svg$/,
-        loader: 'svg-inline-loader'
+        use: ['@svgr/webpack', 'url-loader'],
       }
     ],
   },

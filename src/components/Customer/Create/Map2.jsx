@@ -167,7 +167,6 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
   if (!isLoaded) {
     return 'Loading maps';
   }
-
   return (
     <div>
       {click && (
