@@ -184,24 +184,15 @@ cbRouter.delete('/checkout', (req, res) => {
     });
 });
 
-cbRouter.post('/owner/list', (req, res) => {
-  const { ownerId } = req.body.bparams
-  Customers_Bars.findAll({ where: { id_bar: ownerId } })
+cbRouter.get('/list', (req, res) => {
+  const { barId } = req.query
+  Customers_Bars.findAll({ where: { id_bar: barId, checkin: true } })
     .then((list) => {
-      Customer.findAll({ where: { id_customer: list.id_customer } })
-        .then((customerList) => {
-          if (customerList.length > 0) {
-            console.info(customerList)
-          } else {
-            console.warn('NO CUSTOMERS FOUND')
-          }
-        })
-        .catch(err => {
-          res.sendStatus(500, 'Error in retrieving customers from C_B table', err)
-        })
-    })
-    .catch(err => {
-      res.sendStatus(500, 'Error in finding ownerId in C_B table', err)
+      const arr = []
+      list.forEach(entry => {
+        arr.push(entry.id_customer)
+      })
+      res.send(arr)
     })
 })
 

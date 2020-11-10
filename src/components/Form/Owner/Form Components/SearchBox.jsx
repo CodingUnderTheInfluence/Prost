@@ -53,7 +53,7 @@ const SearchBox = ({ panTo, currentPosition, searchBoxStyle, getPlaceInfo }) => 
                         const results = await getGeocode({ address });
                         const details = await getDetails(results[0]);
                         getPlaceInfo(details);
-                        console.info('this is results', results);
+                        // console.info('this is results', results);
                         const { lat, lng } = await getLatLng(results[0]);
                         panTo({ lat, lng });
                         setValue('');
@@ -72,7 +72,7 @@ const SearchBox = ({ panTo, currentPosition, searchBoxStyle, getPlaceInfo }) => 
                         setValue(e.target.value);
                     }}
                     disabled={!ready}
-                    placeholder="Find bars"
+                    placeholder="Find Your Bar Here!"
                 />
                 {/* takes the suggestions from google places */}
                 <ComboboxPopover>

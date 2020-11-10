@@ -6,10 +6,8 @@ import TocOutlinedIcon from '@material-ui/icons/TocOutlined';
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
 import BarList from './BarCustomerList.jsx';
 import OwnerProfile from './OwnerProfile.jsx';
-import QrScanner from './QrCodeScanner.jsx';
-
-
-
+import WarningIcon from '@material-ui/icons/Warning';
+import QrScanner from './QrCodeScanner.jsx'
 
 const useStyles = makeStyles({
     root: {
@@ -27,7 +25,7 @@ const useStyles = makeStyles({
     }
 });
 
-const OwnerView = ({ setViewValue }) => {
+const OwnerView = ({ setViewValue, barId }) => {
     const classes = useStyles();
     const [value, setValue] = useState();
 
@@ -37,15 +35,28 @@ const OwnerView = ({ setViewValue }) => {
 
     const renderView = () => {
         if (value === 0) {
-            return <BarList />
+            return <BarList barId={barId} />
         }
         if (value === 1) {
             return <QrScanner />
         }
         if (value === 2) {
-            return <OwnerProfile setViewValue={setViewValue} />
+            return <OwnerProfile setViewValue={setViewValue} barId={barId} />
         }
-        return (<div>PLACE INSTRUCTIONS HERE</div>)
+        return (
+            <Grid container direction="column" justify="center" alignItems="center">
+                <Grid item container direction="row" justify="center" alignItems="center">
+                    <Typography variant="subtitle1">
+                        Welcome to your Owner Profile!
+                    </Typography>
+                </Grid>
+                <Grid item container direction="row" justify="center" alignItems="center">
+                    <Typography variant="subtitle2">
+                        Here you will find helpful information regarding your bar.
+                    </Typography>
+                </Grid>
+            </Grid>
+        )
     }
     return (
         <Grid container direction="column" justify="center" alignItems="center">
@@ -62,7 +73,7 @@ const OwnerView = ({ setViewValue }) => {
                         centered
                     >
                         <Tab icon={<TocOutlinedIcon />} label="Customers" />
-                        <Tab icon={<CameraAltOutlinedIcon />} label="Scan QR" />
+                        <Tab icon={<WarningIcon />} label="Alerts" />
                         <Tab icon={<AccountCircleOutlinedIcon />} label="Profile" />
                     </Tabs>
                 </Paper>

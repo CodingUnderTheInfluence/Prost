@@ -30,7 +30,9 @@ const OwnerInfo = ({
     zip,
     number,
     lat,
-    lng
+    lng,
+    image,
+    capacity
 }) => {
     const classes = useStyles();
     const [username, setUsername] = useState('');
@@ -64,6 +66,7 @@ const OwnerInfo = ({
         }
         axios.post('/db/owner/register', { params })
             .then(({ data }) => {
+                console.log(typeof data.owner.id, 'TYPE OWNER ID')
                 const bparams = {
                     ownerId: data.owner.id,
                     barName,
@@ -73,12 +76,13 @@ const OwnerInfo = ({
                     zip,
                     number,
                     lat,
-                    lng
+                    lng,
+                    image,
+                    capacity
                 };
                 axios.post('/db/bar/create', { bparams })
-                axios.post('/db/cb/owner/list', { bparams })
                     .then(({ data }) => {
-                        window.alert(data);
+                        console.log(data, 'DATA')
                     })
             })
 

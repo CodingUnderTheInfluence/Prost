@@ -1,46 +1,36 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Grid, Typography } from '@material-ui/core';
+import axios from 'axios';
+import CustomerEntry from './CustomerEntry.jsx'
 
-const BarList = () => {
-    let blank;
+const BarList = ({ barId }) => {
+    const [customerList, setCustomerList] = useState([]);
 
-    const arr = [
-        { name: "Larry", number: "123456" },
-        { name: "bri", number: "123456" },
-        { name: "jon", number: "123456" },
-        { name: "chris", number: "123456" },
-    ]
+    useEffect(() => {
+        axios.get(`/db/cb/list?barId=${barId}`)
+            .then(({ data }) => {
+                console.log(data)
+                setCustomerList(data);
+            })
+    }, [])
 
-    const renderCustomer = () => {
+    if (customerList.length === 0) {
         return (
-            <Grid item container direction="row">
-                {arr.map((entry) => (
-                    <Grid item container direction="row" style={{ border: 'solid 1px black', borderRadius: '10px', margin: "5px auto 5px auto" }}>
-                        <Grid item container direction="row" justify="center" alignItems="center">
-                            <Typography variant="subtitle1">
-                                name: {entry.name}
-                            </Typography>
-                        </Grid>
-                        <Grid item container direction="row" justify="center" alignItems="center">
-                            <Typography variant="subtitle1">
-                                number: {entry.number}
-                            </Typography>
-                        </Grid>
-                    </Grid>
-                ))}
+            <Grid container direction="column" justify="center" alignItems="center">
+                <Grid item container direction="row" justify="center" alignItems="center">
+                    <h1>No Customers Checked In</h1>
+                </Grid>
+            </Grid>
+        )
+    } else {
+        return (
+            <Grid container direction="column" justify="center" alignItems="center">
+                <Grid item container direction="row" justify="center" alignItems="center">
+                    <h1>CUSTOMER LIST</h1>
+                </Grid>
+                {customerList.map(customer => { return <CustomerEntry customer={customer} /> })}
             </Grid>
         )
     }
-
-    return (
-        <Grid container direction="column" justify="center" alignItems="center">
-            <Grid item container direction="row" justify="center" alignItems="center">
-                <h1>CUSTOMER LIST</h1>
-            </Grid>
-            <Grid item container direction="row">
-                {renderCustomer()}
-            </Grid>
-        </Grid>
-    )
 }
 export default BarList;

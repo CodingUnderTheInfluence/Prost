@@ -19,6 +19,8 @@ const BarInfo = (
     setNumber,
     setLat,
     setLng,
+    setImage,
+    setOccupency,
     barName,
     address,
     number
@@ -42,9 +44,11 @@ const BarInfo = (
           setNumber={setNumber}
           setLat={setLat}
           setLng={setLng}
+          setImage={setImage}
           barName={barName}
           address={address}
           number={number}
+          setOccupency={setOccupency}
         />
       </Grid>
     </Grid>
