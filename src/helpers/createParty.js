@@ -19,7 +19,7 @@ const createParty = async (barInfo, size = 1) => {
   console.log('barInfo in creatParty???', barInfo);
   const lat = location.lat();
   const lng = location.lng();
-  const bar = await axios.post('/db/bar/create', {
+  const bar = await axios.post('/db/bar/create/party', {
     bar_name: name,
     phone_number: formatted_phone_number,
     address: formatted_address,

@@ -66,36 +66,6 @@ barRouter.get('/parties', (req, res) => {
 });
 
 // TODO:
-// barRouter.post('/create', (req, res) => {
-//   const {
-//     ownerId,
-//     barName,
-//     address,
-//     city,
-//     state,
-//     zip,
-//     number,
-//   } = req.body.bparams;
-//   console.log(req.body.bparams, 'BAR PARAMS')
-//   Bar.findOrCreate({
-//     where: {
-//       id_owner: ownerId,
-//       bar_name: barName,
-//       address,
-//       city,
-//       state,
-//       zip,
-//       phone_number: number,
-//     },
-//   })
-//     .then((bar) => {
-//       res.status(201).send(bar);
-//     })
-//     .catch(() => {
-//       res.status(500).send('error in bar create');
-//     });
-// });
-
 barRouter.post('/create', (req, res) => {
   const {
     ownerId,
