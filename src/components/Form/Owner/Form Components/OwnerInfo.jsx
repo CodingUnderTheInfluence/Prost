@@ -66,6 +66,7 @@ const OwnerInfo = ({
         }
         axios.post('/db/owner/register', { params })
             .then(({ data }) => {
+                console.log(typeof data.owner.id, 'TYPE OWNER ID')
                 const bparams = {
                     ownerId: data.owner.id,
                     barName,

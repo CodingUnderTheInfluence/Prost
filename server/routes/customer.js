@@ -25,7 +25,7 @@ const client = new OAuth2Client('');
 const googleAuth = async (authToken) => {
   const ticket = await client.verifyIdToken({
     idToken: authToken,
-    audience: process.env.GOOGLE_CLIENT_ID,
+    audience: '933644302187-agamsig0qalm5oi4fd44v11hfffpchs8.apps.googleusercontent.com',
   });
   console.info('ticket', ticket);
   const payload = ticket.getPayload();
