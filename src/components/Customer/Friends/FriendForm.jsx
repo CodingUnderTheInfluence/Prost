@@ -3,7 +3,7 @@ import {Button, Grid, TextField, List} from '@material-ui/core';
 import Axios from 'axios';
 import FoundUser from './FoundUser.jsx';
 
-function FriendForm({setAddFriend, userData}) {
+function FriendForm({setAddFriend, userData, setViewValue}) {
     const [searchCriteria, setSearchCriteria] = useState('');
     const [results, setResults] = useState([]);
 
@@ -25,7 +25,7 @@ function FriendForm({setAddFriend, userData}) {
 
     return (
         <div>
-            <Button onClick={()=> setAddFriend(false)}>Back</Button>
+            <Button onClick={()=> setViewValue('FriendsList')}>Back</Button>
             <TextField placeholder='username' onChange={(event) => handleChange(event)}/>
             <Grid>
                 <List>

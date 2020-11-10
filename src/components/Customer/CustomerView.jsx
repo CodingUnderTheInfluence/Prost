@@ -14,6 +14,7 @@ import Messages from './Social/Messages.jsx';
 import Logout from '../Logout.jsx';
 import CustomerProfile from './Profile/CustomerProfile.jsx';
 import FriendsList from './Friends/FriendsList.jsx';
+import FriendsView from './Friends/FriendsView.jsx';
 import Axios from 'axios';
 
 const useStyles = makeStyles({
@@ -74,7 +75,7 @@ const CustomerView = ({
 
   const renderView = () => {
     if (value === 0) {
-      return <FriendsList userData={userData} socket={socket}/>;
+      return <FriendsView userData={userData} socket={socket}/>;
     }
     if (value === 1) {
       return <MapContainer setMapLatLng={setMapLatLng} gId={gId} />;
