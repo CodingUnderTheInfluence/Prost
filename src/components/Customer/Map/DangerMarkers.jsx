@@ -1,25 +1,16 @@
-import React from 'react'
-import { Marker, InfoWindow } from '@react-google-maps/api';
-import warning from '../../../../images/warning.png';
-// import { MdPriorityHigh } from "react-icons/md";
-
+import React from 'react';
+import DangerMarker from './DangerMarker.jsx';
 
 const DangerMarkers = ({ dangerMarkers }) => {
   return (
-    <div>
-      {dangerMarkers.map(({ lat, lng, time }) => (
-        <Marker
-          key={time.toISOString()}
-          position={{ lat, lng }}
-          icon={{ url: warning }}
-        >
-        </Marker>
-      ))
-      }
-
-    </div>
-  )
-}
+    dangerMarkers.length && dangerMarkers.map((danger) => (
+      <DangerMarker
+        key={danger.time.toISOString()}
+        danger={danger}
+      />
+    ))
+  );
+};
 
 export default DangerMarkers;
 
