@@ -11,8 +11,8 @@ import { Details } from '@material-ui/icons';
 import Search from './Search.jsx';
 import BarInfo from './BarInfo.jsx';
 import PrivateSwitch from './PrivateSwitch.jsx';
-import FriendsMarkers from './FriendsMarkers.jsx';
-import BarMarkers from './BarMarkers.jsx';
+import FriendsMarkers from '../Map/FriendsMarkers.jsx';
+import BarMarkers from '../Map/BarMarkers.jsx';
 import Directions from '../Directions/Directions.jsx';
 import Create from './Create.jsx';
 import DangerMarkers from '../Map/DangerMarkers.jsx';
@@ -111,8 +111,8 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
     return () => { isMounted = false; };
   }, []);
 
-  // TODO:
-  // // sets the makers to the user click
+
+  // sets the makers to the user click
   const onMapClick = useCallback((e) => {
     setDangerMarkers(current => [
       ...current,

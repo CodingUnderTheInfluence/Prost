@@ -4,7 +4,7 @@ import BarMarker from './BarMarker.jsx';
 const BarMarkers = ({ parties }) => {
   return (
     parties.length && parties.map(party => (
-      <BarMarker party={party} />
+      <BarMarker key={party.id} party={party} />
     ))
   );
 };

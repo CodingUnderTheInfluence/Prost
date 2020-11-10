@@ -6,7 +6,7 @@ import FriendsMarker from './FriendsMarker.jsx';
 const FriendsMarkers = ({ friendLocations }) => {
   return (
     friendLocations.length && friendLocations.map(friendsLocation => (
-      <FriendsMarker friendsLocation={friendsLocation} />
+      <FriendsMarker key={friendLocations.id} friendsLocation={friendsLocation} />
     )));
 };
 

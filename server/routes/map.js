@@ -8,7 +8,7 @@ mapRouter.get('/', (req, res) => {
       res.status(200).send(maps);
     })
     .catch(err => {
-      res.send(500).send(err);
+      res.sendStatus(err);
     });
 });
 
@@ -64,7 +64,7 @@ mapRouter.put('/:gId', (req, res) => {
     .then(([udatedLine, [updatedPrivate]]) => {
       res.status(201).send(updatedPrivate)
     })
-    .catch(err => res.status(500).send('error in map put:', err));
+    .catch(err => res.send(err));
 });
 
 module.exports = { mapRouter };

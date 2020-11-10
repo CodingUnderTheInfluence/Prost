@@ -11,7 +11,6 @@ module.exports = {
   output: { // NEW
     path: path.join(__dirname, 'dist'),
     filename: '[name].js',
-    publicPath: 'public'
   }, // NEW Ends
   plugins: [
     htmlPlugin,
