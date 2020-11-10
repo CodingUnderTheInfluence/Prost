@@ -113,16 +113,16 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
 
   // TODO:
   // // sets the makers to the user click
-  // const onMapClick = useCallback((e) => {
-  //   setMarkers(current => [
-  //     ...current,
-  //     {
-  //       lat: e.latLng.lat(),
-  //       lng: e.latLng.lng(),
-  //       time: new Date(),
-  //     },
-  //   ]);
-  // });
+  const onMapClick = useCallback((e) => {
+    setMarkers(current => [
+      ...current,
+      {
+        lat: e.latLng.lat(),
+        lng: e.latLng.lng(),
+        time: new Date(),
+      },
+    ]);
+  });
 
   // save reference to map to use it later and not reload state
   const mapRef = useRef();
@@ -199,7 +199,7 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
         options={options}
         draggable={true}
         // TODO: 
-        // onClick={onMapClick}
+        onClick={onMapClick}
         onLoad={onMapLoad}
       >
         <Search
@@ -214,6 +214,14 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
           destination={destination}
           getDirections={getDirections}
         /> */}
+        {markers.map(({ lat, lng, time }) => (
+          <Marker
+            key={time.toISOString()}
+            position={{ lat, lng }}
+          >
+
+          </Marker>
+        ))}
         <Marker
           onClick={handleMarkerClick}
           key={searchMarker.lat}
