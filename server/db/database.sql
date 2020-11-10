@@ -33,7 +33,7 @@ CREATE TABLE "bar" (
   "id" SERIAL PRIMARY KEY,
   "bar_name" varchar,
   "phone_number" varchar,
-  "id_owner" int,
+  "id_owner" varchar,
   "address" varchar,
   "city" varchar, 
   "state" varchar, 

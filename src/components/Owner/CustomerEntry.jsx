@@ -29,11 +29,7 @@ const CustomerEntry = ({ customer }) => {
                 <Grid item container direction="row" justify="center" alignItems="center">
                     <Typography variant="subtitle1">
                         {`${customerData.first_name} ${customerData.last_name}`}
-                    </Typography>
-                </Grid>
-                <Grid item container direction="row" justify="center" alignItems="center">
-                    <Typography variant="subtitle2">
-                        {customerData.phone_number} <a href={`tel:+1${customerData.phone_number}`} ><PhoneIcon /></a>
+                        <a href={`tel:+1${customerData.phone_number}`}><PhoneIcon /></a>
                     </Typography>
                 </Grid>
             </Grid>

@@ -98,7 +98,8 @@ barRouter.get('/parties', (req, res) => {
 
 barRouter.post('/create', (req, res) => {
   const {
-    bar_name,
+    ownerId,
+    barName,
     address,
     city,
     state,
