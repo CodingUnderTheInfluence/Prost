@@ -7,6 +7,7 @@ import React, {
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
+import beer from '../../../../images/beer.png';
 import { Details } from '@material-ui/icons';
 import Search from './Search.jsx';
 import BarInfo from './BarInfo.jsx';
@@ -217,6 +218,10 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
           position={{
             lat: +searchMarker.lat,
             lng: +searchMarker.lng,
+          }}
+          icon={{
+            url: beer,
+            scaledSize: new window.google.maps.Size(30, 30)
           }}
         />
         <DangerMarkers dangerMarkers={dangerMarkers} />

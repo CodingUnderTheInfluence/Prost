@@ -32,7 +32,10 @@ const BarMarker = ({ party: { id, bar_name, latitude, longitude } }) => {
         lat: +latitude,
         lng: +longitude,
       }}
-      icon={{ url: beer }}
+      icon={{
+        url: beer,
+        scaledSize: new window.google.maps.Size(30, 30)
+      }}
       onClick={() => handleClick(id)}
     >
       {show &&
