@@ -28,6 +28,7 @@ const useStyles = makeStyles({
 const OwnerView = ({ setViewValue, barId }) => {
     const classes = useStyles();
     const [value, setValue] = useState();
+    const [count, setCount] = useState(0);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -35,13 +36,13 @@ const OwnerView = ({ setViewValue, barId }) => {
 
     const renderView = () => {
         if (value === 0) {
-            return <BarList barId={barId} />
+            return <BarList barId={barId} setCount={setCount} />
         }
         if (value === 1) {
             return <QrScanner />
         }
         if (value === 2) {
-            return <OwnerProfile setViewValue={setViewValue} barId={barId} />
+            return <OwnerProfile setViewValue={setViewValue} barId={barId} count={count} />
         }
         return (
             <Grid container direction="column" justify="center" alignItems="center">

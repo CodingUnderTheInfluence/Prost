@@ -1,7 +1,7 @@
+const dotenv = require('dotenv').config();
 const express = require('express');
 const path = require('path'); // NEW
 const bodyParser = require('body-parser');
-const dotenv = require('dotenv');
 // const googleAuth = require('./googleAuth');
 
 const app = express();
@@ -104,7 +104,7 @@ io.on('connect', (socket) => {
   })
 
   socket.on('privateMessage', (message) => {
-    io.to(message.room).emit('incomingPrivateMessage' ,message);
+    io.to(message.room).emit('incomingPrivateMessage', message);
 
   })
 
