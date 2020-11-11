@@ -9,6 +9,12 @@ CREATE TABLE "customer" (
   "id_google" varchar,
 );
 
+CREATE TABLE "drinks" (
+  "id" SERIAL PRIMARY KEY,
+  "id_customer" int,
+  "drink_Count" int DEFAULT 0 NOT NULL
+);
+
 --CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE TABLE "owner" (
   "id" SERIAL PRIMARY KEY,

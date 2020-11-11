@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { Grid, Typography } from '@material-ui/core';
+import AddDrink from './AddDrink.jsx'
 import PhoneIcon from '@material-ui/icons/Phone';
-import PlusOneIcon from '@material-ui/icons/PlusOne';
 import axios from 'axios';
 
 
-const CustomerEntry = ({ customer }) => {
+const CustomerEntry = ({ customer, customerList }) => {
 
     const [customerData, setCustomerData] = useState();
     const getCustomerData = () => {
-        console.log(typeof customer, 'CUSTOMER')
         axios.get(`/db/customer/getFriendById?customerId=${customer}`)
             .then(({ data }) => {
                 console.log(data, 'DATA')
@@ -35,7 +34,7 @@ const CustomerEntry = ({ customer }) => {
                         <a href={`tel:+1${customerData.phone_number}`}><PhoneIcon /></a>
                     </Grid>
                     <Grid item container direction="column" xs={4} justify="center" alignItems="center">
-                        <PlusOneIcon />
+                        <AddDrink id={customerData.id} />
                     </Grid>
                 </Grid>
             </Grid>

@@ -18,6 +18,7 @@ const sequelize = new Sequelize(database, username, password, {
 const BarModel = require('./Bar');
 const CustomerModel = require('./Customer');
 const Customers_BarsModel = require('./Customers_Bars');
+const DrinksModel = require('./Drinks');
 const eContactModel = require('./EContact');
 const ImageModel = require('./Image');
 const MenuModel = require('./Menu');
@@ -32,6 +33,7 @@ const MapsModel = require('./Map');
 const Bar = BarModel(sequelize, Sequelize);
 const Customer = CustomerModel(sequelize, Sequelize);
 const Customers_Bars = Customers_BarsModel(sequelize, Sequelize);
+const Drinks = DrinksModel(sequelize, Sequelize);
 const EContact = eContactModel(sequelize, Sequelize);
 const Image = ImageModel(sequelize, Sequelize);
 const Menu = MenuModel(sequelize, Sequelize);
@@ -56,7 +58,8 @@ const models = {
   Thread,
   Parties_Customers,
   Customers_Bars,
-  Maps
+  Maps,
+  Drinks
 }
 
 Object.keys(models).forEach((model) => {
