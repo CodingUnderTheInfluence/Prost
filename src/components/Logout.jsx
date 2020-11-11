@@ -1,7 +1,7 @@
 import React from 'react';
 import { GoogleLogout } from 'react-google-login';
 
-const clientId = process.env.GOOGlE_CLIENT_ID;
+const clientId = process.env.GOOGLE_CLIENT_ID;
 const Logout = ({ setViewValue }) => {
   const onSuccess = () => {
     localStorage.removeItem('customerToken');

@@ -112,6 +112,29 @@ barRouter.post('/create', (req, res) => {
     });
 });
 
+barRouter.post('/create/party', (req, res) => {
+  const {
+    bar_name,
+    address,
+    latitude,
+    longitude,
+  } = req.body;
+  Bar.findOrCreate({
+    where: {
+      bar_name: bar_name,
+      address: address,
+      latitude: latitude,
+      longitude: longitude,
+    },
+  })
+    .then((bar) => {
+      res.status(201).send(bar);
+    })
+    .catch(() => {
+      res.status(500).send('error in bar create');
+    });
+});
+
 barRouter.post('/id', (req, res) => {
   const { email, password } = req.body.params;
   Owner.findAll({ where: { email: email } })

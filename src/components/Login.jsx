@@ -3,7 +3,7 @@ import { GoogleLogin } from 'react-google-login';
 import Axios from 'axios';
 import { Button } from '@material-ui/core';
 
-const clientId = process.env.GOOGlE_CLIENT_ID;
+const clientId = process.env.GOOGLE_CLIENT_ID;
 
 const Login = ({
   setViewValue, setId, setProfileImage, setUsername, setDbId
