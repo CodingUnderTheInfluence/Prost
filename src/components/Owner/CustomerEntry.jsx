@@ -8,6 +8,7 @@ import axios from 'axios';
 const CustomerEntry = ({ customer, barId }) => {
 
     const [customerData, setCustomerData] = useState();
+    const [drink, setDrinkCount] = useState('');
     const getCustomerData = () => {
         axios.get(`/db/customer/getFriendById?customerId=${customer}`)
             .then(({ data }) => {
@@ -34,7 +35,10 @@ const CustomerEntry = ({ customer, barId }) => {
                         <a href={`tel:+1${customerData.phone_number}`}><PhoneIcon /></a>
                     </Grid>
                     <Grid item container direction="column" xs={4} justify="center" alignItems="center">
-                        <AddDrink id={customerData.id} barId={barId} />
+                        <AddDrink id={customerData.id} barId={barId} setDrinkCount={setDrinkCount} />
+                    </Grid>
+                    <Grid item container direction="column" xs={4} justify="center" alignItems="center">
+                        Current total: {drink}
                     </Grid>
                 </Grid>
             </Grid>

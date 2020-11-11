@@ -27,7 +27,7 @@ drinksRouter.post('/drinksList', (req, res) => {
 drinksRouter.put('/updateCount', (req, res) => {
     // const { count, id, barId } = req.body;
     const { count, id, barId } = req.body
-    console.log(count, id, barId)
+    // console.log(count, id, barId)
     Drinks.increment({
         drink_Count: 1
     },
@@ -40,8 +40,11 @@ drinksRouter.put('/updateCount', (req, res) => {
 })
 
 drinksRouter.get('/count', (req, res) => {
-    const { customer, bar } = req.query;
-    console.log(customer, bar)
+    const { customerId, barId } = req.query;
+    Drinks.findOne({ where: { id_customer: customerId, id_bar: barId } })
+        .then((customerDrinks) => {
+            res.send(JSON.stringify(customerDrinks.drink_Count));
+        })
 })
 
 module.exports = {
