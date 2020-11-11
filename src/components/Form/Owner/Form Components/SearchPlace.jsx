@@ -73,12 +73,16 @@ const BarSearch = ({
     }, []);
     // Check in
     const addBar = () => {
-        const arr = searchAddress.split(', ');
-        const stateZip = arr[2].split(' ');
-        setAddress(arr[0])
-        setCity(arr[1])
-        setState(stateZip[0])
-        setZip(stateZip[1])
+        if (!searchAddress) {
+            return;
+        } else {
+            const arr = searchAddress.split(', ');
+            const stateZip = arr[2].split(' ');
+            setAddress(arr[0])
+            setCity(arr[1])
+            setState(stateZip[0])
+            setZip(stateZip[1])
+        }
     };
 
     //shows selected bar
@@ -107,7 +111,7 @@ const BarSearch = ({
 
     // populates places drop down
     const { isLoaded, loadError } = useLoadScript({
-        googleMapsApiKey: 'AIzaSyANp7sI4cfvx8WLl6OgcsePepOM5oSuXZY',
+        googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY,
         libraries,
     });
 
