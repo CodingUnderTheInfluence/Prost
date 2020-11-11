@@ -12,7 +12,8 @@ CREATE TABLE "customer" (
 CREATE TABLE "drinks" (
   "id" SERIAL PRIMARY KEY,
   "id_customer" int,
-  "drink_Count" int DEFAULT 0 NOT NULL
+  "drink_Count" int DEFAULT 0 NOT NULL,
+  "id_bar" int
 );
 
 --CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
