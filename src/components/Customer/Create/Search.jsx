@@ -54,22 +54,11 @@ const Search = ({ panTo, currentPosition, searchBoxStyle, getPlaceInfo }) => {
           try {
             const results = await getGeocode({ address });
             const { place_id } = results[0];
-            console.log(place_id)
             const details = await getDetails({ placeId: place_id });
             getPlaceInfo(details);
-
-            // new window.google.maps.places.PlacesService(window.google.maps).getDetails({ placeId: details }, (place, status) => {
-            //   console.log('hellllllllo', place, 'status', status)
-            // });
-
-            console.log('results----------------------', results);
-            console.info('this is details------------', details);
-
             const { lat, lng } = await getLatLng(results[0]);
             panTo({ lat, lng });
             setValue('');
-
-            // setPlaceInfo(details);
           }
           catch (err) {
             console.warn(err);

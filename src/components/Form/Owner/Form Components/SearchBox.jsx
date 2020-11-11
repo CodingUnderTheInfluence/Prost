@@ -51,7 +51,8 @@ const SearchBox = ({ panTo, currentPosition, searchBoxStyle, getPlaceInfo }) => 
                     clearSuggestions();
                     try {
                         const results = await getGeocode({ address });
-                        const details = await getDetails(results[0]);
+                        const { place_id } = results[0];
+                        const details = await getDetails({ placeId: place_id });
                         getPlaceInfo(details);
                         // console.info('this is results', results);
                         const { lat, lng } = await getLatLng(results[0]);
