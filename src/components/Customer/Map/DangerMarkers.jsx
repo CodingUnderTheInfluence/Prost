@@ -1,14 +1,26 @@
 import React from 'react';
+import { MarkerClusterer } from '@react-google-maps/api';
 import DangerMarker from './DangerMarker.jsx';
+
+const options = {
+  imagePath:
+    'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
+};
+
 
 const DangerMarkers = ({ dangerMarkers }) => {
   return (
-    dangerMarkers.length && dangerMarkers.map((danger) => (
-      <DangerMarker
-        key={danger.time.toISOString()}
-        danger={danger}
-      />
-    ))
+    <MarkerClusterer options={options}>
+      {(clusterer) => (
+        dangerMarkers.map((danger) => (
+          <DangerMarker
+            key={danger.time.toISOString()}
+            danger={danger}
+            clusterer={console.log(clusterer)}
+          />
+        )))
+      }
+    </MarkerClusterer>
   );
 };
 

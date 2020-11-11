@@ -43,17 +43,27 @@ const Search = ({ panTo, currentPosition, searchBoxStyle, getPlaceInfo }) => {
     },
   });
 
+  // console.log('data', data);
+
   return (
     <div style={searchStyle}>
       <Combobox
         onSelect={async (address) => {
-          setValue(address, false);
+          setValue(address);
           clearSuggestions();
           try {
             const results = await getGeocode({ address });
-            const details = await getDetails(results[0]);
+            const { place_id } = results[0];
+            console.log(place_id)
+            const details = await getDetails({ placeId: place_id });
             getPlaceInfo(details);
-            console.info('this is results', results);
+
+            // new window.google.maps.places.PlacesService(window.google.maps).getDetails({ placeId: details }, (place, status) => {
+            //   console.log('hellllllllo', place, 'status', status)
+            // });
+
+            console.log('results----------------------', results);
+            console.info('this is details------------', details);
 
             const { lat, lng } = await getLatLng(results[0]);
             panTo({ lat, lng });
@@ -79,9 +89,11 @@ const Search = ({ panTo, currentPosition, searchBoxStyle, getPlaceInfo }) => {
         <ComboboxPopover>
           <ComboboxList>
             {status === 'OK'
-              && data.map(({ place_id, description }) => (
-                <ComboboxOption key={place_id} value={description} />
-              ))}
+              && data.map((results) => {
+                return (
+                  <ComboboxOption key={results.place_id} value={results.description} />
+                )
+              })}
           </ComboboxList>
         </ComboboxPopover>
       </Combobox>
