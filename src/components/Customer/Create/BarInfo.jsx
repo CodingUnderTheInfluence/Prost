@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import usePlacesAutocomplete, { getUrl } from 'use-places-autocomplete';
+import useOnclickOutside from "react-cool-onclickoutside";
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Card,
@@ -36,13 +36,14 @@ const BarInfo = ({ placeInfo, searchMarker }) => {
   const [show, setShow] = useState(true);
   const [atBar, setAtBar] = useState(false);
   const [party, setParty] = useState(false);
+
   const { photos, title, time } = placeInfo;
   const photo = photos[0].getUrl();
   const classes = useStyles();
 
   return (
     <div>
-      {show ? (
+      {show && (
         <div style={searchStyle}>
           <Card>
             <CardMedia>
@@ -52,8 +53,9 @@ const BarInfo = ({ placeInfo, searchMarker }) => {
               <Typography className={classes.title} variant="h4" con={console.info(placeInfo)}>
                 {placeInfo.name}
               </Typography>
-              <Typography className={classes.phone} component="p">
-                {placeInfo.formatted_phone_number}
+              <Typography
+                className={classes.phone} component="p">
+                <a href={`tel:+1${placeInfo.formatted_phone_number}`}>{placeInfo.formatted_phone_number}</a>
               </Typography>
               {placeInfo.opening_hours !== undefined
                 ? placeInfo.opening_hours.weekday_text.map((day) => (
@@ -87,8 +89,7 @@ const BarInfo = ({ placeInfo, searchMarker }) => {
             </CardActions>
           </Card>
         </div>
-      )
-        : null}
+      )}
     </div>
   );
 };
