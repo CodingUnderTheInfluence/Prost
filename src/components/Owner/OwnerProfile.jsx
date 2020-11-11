@@ -14,7 +14,7 @@ import axios from 'axios';
 import Logout from '../Logout.jsx';
 
 
-const OwnerProfile = ({ setViewValue, barId }) => {
+const OwnerProfile = ({ setViewValue, barId, count }) => {
 
     /*
     This opens info Dialog
@@ -49,6 +49,10 @@ const OwnerProfile = ({ setViewValue, barId }) => {
     const handleClose = () => {
         setOpen(false);
     };
+
+    const occLevel = () => {
+        count
+    }
 
     const [barAddress, setBarAddress] = useState('');
     const [barNumber, setBarNumber] = useState('');
@@ -146,7 +150,7 @@ const OwnerProfile = ({ setViewValue, barId }) => {
                 <DialogTitle id="alert-dialog-title">{"Occupency Information"}</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        Will Update as customers are added
+                        {count}
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
