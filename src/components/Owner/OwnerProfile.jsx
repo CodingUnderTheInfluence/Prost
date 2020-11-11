@@ -14,8 +14,15 @@ import axios from 'axios';
 import Logout from '../Logout.jsx';
 
 
-const OwnerProfile = ({ setViewValue, barId, count }) => {
-
+const OwnerProfile = ({
+    setViewValue,
+    count,
+    image,
+    barName,
+    barAddress,
+    barNumber,
+    capacity
+}) => {
     /*
     This opens info Dialog
     */
@@ -50,58 +57,34 @@ const OwnerProfile = ({ setViewValue, barId, count }) => {
         setOpen(false);
     };
 
-    const occLevel = () => {
-        count
-    }
 
-    const [barAddress, setBarAddress] = useState('');
-    const [barNumber, setBarNumber] = useState('');
-    const [barName, setBarName] = useState('')
-    const [image, setImage] = useState('');
-    const [capacity, setCapacity] = useState('');
-
-    const barInfo = () => {
-        axios.get(`/db/bar/info?id=${barId}`)
-            .then(({ data }) => {
-                setImage(data[0].profile_image);
-                setBarName(data[0].bar_name);
-                setBarAddress(data[0].address)
-                setBarNumber(data[0].phone_number)
-                setCapacity(data[0].bar_capacity);
-            })
-    }
-
+    let covidCap = (capacity * .25)
+    let covidCapLow = covidCap * .25;
+    let covidCapHigh = covidCap * .75
+    // console.log(covidCap, 'COVID CAP')
     const occupencyStatus = () => {
-        if (0 <= count <= 9) {
+        if (count < covidCapLow) {
+            console.log(count, (covidCap * .25), 'COUNT')
             return (
                 <div>
-                    empty
+                    green
                 </div>
             )
-        } else if (10 <= count <= ((capacity / 4) / 2)) {
+        } else if (covidCapLow <= count < covidCapHigh) {
             return (
                 <div>
-                    Mmeh
+                    yellow
                 </div>
             )
-        } else if (count === (capacity / 4)) {
+        }
+        else if (covidCapHigh <= count < covidCap) {
             return (
                 <div>
-                    full
-                </div>
-            )
-        } else {
-            return (
-                <div>
-                    Loading Occupency...
+                    red
                 </div>
             )
         }
     }
-
-    useEffect(() => {
-        barInfo();
-    }, [])
 
     return (
         <Grid container direction="column" justify="center" alignItems="center">
@@ -178,6 +161,7 @@ const OwnerProfile = ({ setViewValue, barId, count }) => {
                 <DialogTitle id="alert-dialog-title">{"Occupency Information"}</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
+                        {count}
                         {occupencyStatus()}
                     </DialogContentText>
                 </DialogContent>

@@ -1,34 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Typography, Divider } from '@material-ui/core';
+import { Grid, Typography, Divider, Paper } from '@material-ui/core';
 import axios from 'axios';
 import CustomerEntry from './CustomerEntry.jsx';
 import PhoneIcon from '@material-ui/icons/Phone';
 import PlusOneIcon from '@material-ui/icons/PlusOne';
 
-const BarList = ({ barId, setCount }) => {
-    const [customerList, setCustomerList] = useState([]);
-
-    //TODO: Check out setInterval to grabbing the list of customers
-    const fetchCustomers = () => {
-        axios.get(`/db/cb/list?barId=${barId}`)
-            .then(({ data }) => {
-                setCustomerList(data);
-                setCount(data.length);
-            })
-    }
-
-    useEffect(() => {
-        fetchCustomers();
-        setTimeout(() => {
-            fetchCustomers();
-        }, 2000)
-    }, [])
-
+const BarList = ({ customerList }) => {
     if (customerList.length === 0) {
         return (
             <Grid container direction="column" justify="center" alignItems="center">
                 <Grid item container direction="row" justify="center" alignItems="center">
-                    <h1>No Customers Checked In</h1>
+                    <Typography variant="subtitle1">
+                        No Customers Currently Checked In
+                    </Typography>
                 </Grid>
             </Grid>
         )
@@ -53,9 +37,9 @@ const BarList = ({ barId, setCount }) => {
                         Add Drink
                     </Grid>
                 </Grid>
-                <Grid item container direction="row" justify="center" alignItems="center" style={{ border: "solid 5px black", height: "5px" }}>
+                <Grid item container direction="row" justify="center" alignItems="center">
+                    {customerList.map(customer => { return <CustomerEntry customer={customer} customerList={customerList} /> })}
                 </Grid>
-                {customerList.map(customer => { return <CustomerEntry customer={customer} /> })}
             </Grid>
         )
     }
