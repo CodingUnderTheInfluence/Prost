@@ -58,7 +58,7 @@ const OwnerProfile = ({ setViewValue, barId, count }) => {
     const [barNumber, setBarNumber] = useState('');
     const [barName, setBarName] = useState('')
     const [image, setImage] = useState('');
-    const [occ, setOcc] = useState('');
+    const [capacity, setCapacity] = useState('');
 
     const barInfo = () => {
         axios.get(`/db/bar/info?id=${barId}`)
@@ -67,8 +67,36 @@ const OwnerProfile = ({ setViewValue, barId, count }) => {
                 setBarName(data[0].bar_name);
                 setBarAddress(data[0].address)
                 setBarNumber(data[0].phone_number)
-                setOcc(data[0].capacity);
+                setCapacity(data[0].bar_capacity);
             })
+    }
+
+    const occupencyStatus = () => {
+        if (0 <= count <= 9) {
+            return (
+                <div>
+                    empty
+                </div>
+            )
+        } else if (10 <= count <= ((capacity / 4) / 2)) {
+            return (
+                <div>
+                    Mmeh
+                </div>
+            )
+        } else if (count === (capacity / 4)) {
+            return (
+                <div>
+                    full
+                </div>
+            )
+        } else {
+            return (
+                <div>
+                    Loading Occupency...
+                </div>
+            )
+        }
     }
 
     useEffect(() => {
@@ -126,7 +154,7 @@ const OwnerProfile = ({ setViewValue, barId, count }) => {
                                 </Grid>
                                 <Grid item container direction="row" justify="center" alignItems="center">
                                     <Typography variant="subtitle2">
-                                        Bar Capacity: {occ}
+                                        Bar Capacity: {capacity}
                                     </Typography>
                                 </Grid>
                             </Paper>
@@ -150,7 +178,7 @@ const OwnerProfile = ({ setViewValue, barId, count }) => {
                 <DialogTitle id="alert-dialog-title">{"Occupency Information"}</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        {count}
+                        {occupencyStatus()}
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
