@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Marker, InfoWindow } from '@react-google-maps/api';
 import barCapacity from '../../../helpers/barCapacity';
+import beer from '../../../../images/beer.png';
 
 
-const BarMarker = ({ party: { bar_name, id, latitude, longitude } }) => {
+const BarMarker = ({ party: { id, bar_name, latitude, longitude } }) => {
   const [show, setShow] = useState(false);
   const [getBarCapacity, setBarCapacity] = useState(0);
   const [color, setColor] = useState('green');
@@ -11,7 +12,7 @@ const BarMarker = ({ party: { bar_name, id, latitude, longitude } }) => {
   const handleClick = (id) => {
     barCapacity(id)
       .then(size => {
-        setShow(id);
+        setShow(!show);
         if (size > 20) {
           setColor('red');
           setBarCapacity('full');
@@ -27,10 +28,13 @@ const BarMarker = ({ party: { bar_name, id, latitude, longitude } }) => {
 
   return (
     <Marker
-      key={id}
       position={{
         lat: +latitude,
         lng: +longitude,
+      }}
+      icon={{
+        url: beer,
+        scaledSize: new window.google.maps.Size(30, 30)
       }}
       onClick={() => handleClick(id)}
     >

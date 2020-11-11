@@ -7,17 +7,18 @@ import React, {
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
+import beer from '../../../../images/beer.png';
 import { Details } from '@material-ui/icons';
 import Search from './Search.jsx';
 import BarInfo from './BarInfo.jsx';
 import PrivateSwitch from './PrivateSwitch.jsx';
-import FriendsMarkers from './FriendsMarkers.jsx';
-import BarMarkers from './BarMarkers.jsx';
+import FriendsMarkers from '../Map/FriendsMarkers.jsx';
+import BarMarkers from '../Map/BarMarkers.jsx';
 import Directions from '../Directions/Directions.jsx';
 import Create from './Create.jsx';
+import DangerMarkers from '../Map/DangerMarkers.jsx';
 // import PeopleSearch from './PeopleSearch.jsx';
 import QuickCreate from './QuickCreate.jsx';
-// import BarCard from './BarInfoCardTest.jsx';
 import mapStyle from '../../../helpers/mapStyle';
 // import mapParties from '../../../helpers/mapStyle';
 // used for the load script to get google places
@@ -63,7 +64,7 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
   const [privateSwitch, setPrivateSwitch] = useState(false);
   const [selectedItem, setSelectedItem] = useState({});
   const [myLocation, setMyLocation] = useState({});
-  const [markers, setMarkers] = useState([]);
+  const [dangerMarkers, setDangerMarkers] = useState([]);
   const [parties, setParties] = useState([]);
   const [searchMarker, setSearchMarker] = useState({});
   const [click, setClick] = useState(false);
@@ -111,18 +112,18 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
     return () => { isMounted = false; };
   }, []);
 
-  // TODO:
-  // // sets the makers to the user click
-  // const onMapClick = useCallback((e) => {
-  //   setMarkers(current => [
-  //     ...current,
-  //     {
-  //       lat: e.latLng.lat(),
-  //       lng: e.latLng.lng(),
-  //       time: new Date(),
-  //     },
-  //   ]);
-  // });
+
+  // sets the makers to the user click
+  const onMapClick = useCallback((e) => {
+    setDangerMarkers(current => [
+      ...current,
+      {
+        lat: e.latLng.lat(),
+        lng: e.latLng.lng(),
+        time: new Date(),
+      },
+    ]);
+  });
 
   // save reference to map to use it later and not reload state
   const mapRef = useRef();
@@ -167,9 +168,7 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
   if (!isLoaded) {
     return 'Loading maps';
   }
-
   return (
-
     <div>
       {click && (
         <BarInfo
@@ -177,7 +176,6 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
           searchMarker={searchMarker}
         />
       )}
-
       {/* TODO: */}
       {/* <input
         value={origin}
@@ -199,7 +197,7 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
         options={options}
         draggable={true}
         // TODO: 
-        // onClick={onMapClick}
+        onClick={onMapClick}
         onLoad={onMapLoad}
       >
         <Search
@@ -221,7 +219,12 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
             lat: +searchMarker.lat,
             lng: +searchMarker.lng,
           }}
+          icon={{
+            url: beer,
+            scaledSize: new window.google.maps.Size(30, 30)
+          }}
         />
+        <DangerMarkers dangerMarkers={dangerMarkers} />
         <BarMarkers parties={parties} />
         <FriendsMarkers friendLocations={friendLocations} />
 
