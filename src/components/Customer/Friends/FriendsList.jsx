@@ -7,7 +7,8 @@ import ConfirmedFriend from './ConfirmedFriend.jsx';
 import FriendForm from './FriendForm.jsx';
 import IncomingFriend from './IncomingFriend.jsx';
 
-function FriendsList({ userData, socket }) {
+
+function FriendsList({ userData, socket, setViewValue, setViewObject }) {
     //TODO
     //Confirmed friends:
     // see online status, name, phone number
@@ -56,7 +57,7 @@ function FriendsList({ userData, socket }) {
 
     if (addFriend) {
         return (
-            <FriendForm userData={userData} setAddFriend={setAddFriend} />
+            <FriendForm userData={userData} setAddFriend={setAddFriend} setViewValue={setViewValue}/>
         )
     } else {
         if (!friends) {
@@ -78,9 +79,9 @@ function FriendsList({ userData, socket }) {
                         {incomingRequests.map(r => <IncomingFriend key={r.id} userData={userData} r={r} />)}
                     </Grid>
                     <Grid className='confirmed'>
-                        {confirmedFriends.map(f => <ConfirmedFriend key={f.id} userData={userData} f={f} socket={socket} />)}
+                        {confirmedFriends.map(f => <ConfirmedFriend key={f.id} userData={userData} f={f} socket={socket} setViewValue={setViewValue} setViewObject={setViewObject}/>)}
                     </Grid>
-                    <Fab color='primary' position='center' onClick={() => setAddFriend(true)}><AddCircleIcon /></Fab>
+                    <Fab color='primary' position='center' onClick={() => setViewValue('AddFriend')}><AddCircleIcon /></Fab>
                 </Grid>
             )
         }

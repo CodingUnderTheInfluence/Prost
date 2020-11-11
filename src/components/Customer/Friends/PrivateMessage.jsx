@@ -4,7 +4,7 @@ import { flexbox } from '@material-ui/system';
 import Axios from 'axios';
 import SinglePrivateMessage from './SinglePrivateMessage.jsx';
 
-const PrivateMessage = ({ f, setViewMessages, userData, socket }) => {
+const PrivateMessage = ({ f, setViewValue, userData, socket }) => {
     //onComponent load:
         //join socket room
         //retrieve all old messages from the database
@@ -74,7 +74,7 @@ const PrivateMessage = ({ f, setViewMessages, userData, socket }) => {
     return (
         <Grid>
             <Grid>
-                <Button onClick={() => setViewMessages(false)}>Back to Friends</Button>
+                <Button onClick={() => setViewValue('FriendsList')}>Back to Friends</Button>
             </Grid>
             <Grid>
                 This is the beginning if your chat history

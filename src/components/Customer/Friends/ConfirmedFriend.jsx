@@ -5,7 +5,7 @@ import ChatIcon from '@material-ui/icons/Chat';
 import Axios from 'axios';
 import PrivateMessage from './PrivateMessage.jsx';
 
-function ConfirmedFriend({f, userData, socket}) {
+function ConfirmedFriend({f, userData, socket, setViewObject, setViewValue}) {
     
     const [friendData, setFriendData] = useState();
     const [viewMessages, setViewMessages] = useState(false);
@@ -39,7 +39,10 @@ function ConfirmedFriend({f, userData, socket}) {
                         <Button variant="contained" color="primary" href={`tel:+1${friendData.phone_number}`} >
                             <CallIcon/>
                         </Button>
-                        <Button variant="contained" color="primary" onClick={() => setViewMessages(true)}>
+                        <Button variant="contained" color="primary" onClick={() => {
+                            setViewObject(f)
+                            setViewValue('Messages')
+                            }}>
                             <ChatIcon />
                         </Button> 
     
