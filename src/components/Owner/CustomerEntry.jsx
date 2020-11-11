@@ -21,11 +21,9 @@ const CustomerEntry = ({ customer }) => {
         getCustomerData();
     }, [])
 
-
-
     if (customerData) {
         return (
-            <Grid container direction="column" justify="center" alignItems="center" style={{ border: "solid black 1px", borderRadius: "5px" }}>
+            <Grid container direction="column" justify="center" alignItems="center" style={{ border: "solid black 1px", borderRadius: "5px", marginTop: "5px", marginBottom: "5px" }}>
                 <Grid item container direction="row" justify="center" alignItems="center">
                     <Typography variant="subtitle1">
                         {`${customerData.first_name} ${customerData.last_name}`}

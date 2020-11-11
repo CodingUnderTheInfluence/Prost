@@ -19,7 +19,6 @@ const customerRouter = Router();
 const { OAuth2Client } = require('google-auth-library');
 const { FormatColorResetRounded } = require('@material-ui/icons');
 const { ownerWindow } = require('@material-ui/core');
-require('dotenv').config();
 
 const client = new OAuth2Client('');
 

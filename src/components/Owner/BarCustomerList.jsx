@@ -3,15 +3,23 @@ import { Grid, Typography } from '@material-ui/core';
 import axios from 'axios';
 import CustomerEntry from './CustomerEntry.jsx'
 
-const BarList = ({ barId }) => {
+const BarList = ({ barId, setCount }) => {
     const [customerList, setCustomerList] = useState([]);
 
-    useEffect(() => {
+    //TODO: Check out setInterval to grabbing the list of customers
+    const fetchCustomers = () => {
         axios.get(`/db/cb/list?barId=${barId}`)
             .then(({ data }) => {
-                console.log(data)
                 setCustomerList(data);
+                setCount(data.length);
             })
+    }
+
+    useEffect(() => {
+        fetchCustomers();
+        setTimeout(() => {
+            fetchCustomers();
+        }, 2000)
     }, [])
 
     if (customerList.length === 0) {
