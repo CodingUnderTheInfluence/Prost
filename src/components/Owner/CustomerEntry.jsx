@@ -5,7 +5,7 @@ import PhoneIcon from '@material-ui/icons/Phone';
 import axios from 'axios';
 
 
-const CustomerEntry = ({ customer, customerList }) => {
+const CustomerEntry = ({ customer, barId }) => {
 
     const [customerData, setCustomerData] = useState();
     const getCustomerData = () => {
@@ -34,7 +34,7 @@ const CustomerEntry = ({ customer, customerList }) => {
                         <a href={`tel:+1${customerData.phone_number}`}><PhoneIcon /></a>
                     </Grid>
                     <Grid item container direction="column" xs={4} justify="center" alignItems="center">
-                        <AddDrink id={customerData.id} />
+                        <AddDrink id={customerData.id} barId={barId} />
                     </Grid>
                 </Grid>
             </Grid>

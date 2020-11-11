@@ -11,6 +11,13 @@ module.exports = (sequelize, DataTypes) => {
         },
         drink_Count: {
             type: DataTypes.INTEGER,
+        },
+        id_bar: {
+            type: DataTypes.INTEGER,
+            references: {
+                model: "bar",
+                key: "id"
+            }
         }
     }, {
         freezeTableName: true,

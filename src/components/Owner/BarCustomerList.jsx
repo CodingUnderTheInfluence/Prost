@@ -5,7 +5,7 @@ import CustomerEntry from './CustomerEntry.jsx';
 import PhoneIcon from '@material-ui/icons/Phone';
 import PlusOneIcon from '@material-ui/icons/PlusOne';
 
-const BarList = ({ customerList }) => {
+const BarList = ({ customerList, barId }) => {
     if (customerList.length === 0) {
         return (
             <Grid container direction="column" justify="center" alignItems="center">
@@ -38,7 +38,7 @@ const BarList = ({ customerList }) => {
                     </Grid>
                 </Grid>
                 <Grid item container direction="row" justify="center" alignItems="center">
-                    {customerList.map(customer => { return <CustomerEntry customer={customer} customerList={customerList} /> })}
+                    {customerList.map(customer => { return <CustomerEntry customer={customer} customerList={customerList} barId={barId} /> })}
                 </Grid>
             </Grid>
         )

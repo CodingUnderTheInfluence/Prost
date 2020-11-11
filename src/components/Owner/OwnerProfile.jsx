@@ -13,7 +13,6 @@ import {
 import axios from 'axios';
 import Logout from '../Logout.jsx';
 
-
 const OwnerProfile = ({
     setViewValue,
     count,
@@ -61,7 +60,6 @@ const OwnerProfile = ({
     let covidCap = (capacity * .25)
     let covidCapLow = covidCap * .25;
     let covidCapHigh = covidCap * .75
-    // console.log(covidCap, 'COVID CAP')
     const occupencyStatus = () => {
         if (count < covidCapLow) {
             console.log(count, (covidCap * .25), 'COUNT')
@@ -70,14 +68,13 @@ const OwnerProfile = ({
                     green
                 </div>
             )
-        } else if (covidCapLow <= count < covidCapHigh) {
+        } else if (covidCapLow <= count && count < covidCapHigh) {
             return (
                 <div>
                     yellow
                 </div>
             )
-        }
-        else if (covidCapHigh <= count < covidCap) {
+        } else if (covidCapHigh <= count && count < covidCap) {
             return (
                 <div>
                     red
