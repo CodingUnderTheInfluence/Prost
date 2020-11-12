@@ -53,7 +53,7 @@ export default function Translate({ setView, customerId }) {
     }
     axios.get('/api/translate', {
       params: {
-        text: `I would like to order ${orderStr} please`,
+        text: orderStr,
         target: lang,
       },
     })
@@ -96,87 +96,36 @@ export default function Translate({ setView, customerId }) {
     <Grid>
       <Grid>
         <ArrowBackIosIcon color="primary" onClick={() => setView('Home')} />
+      </Grid>
+      <Grid>
+        <Typography>
+          Target Language
+        </Typography>
+        <Language setPref={setPref} />
+      </Grid>
+      <Grid>
+        Menu
+        <TextField
+          id="outlined-basic"
+          label="Outlined"
+          variant="outlined"
+          placeholder="type here"
+          onChange={(e) => {
+            setManualOrder(e.target.value);
+          }}
+        />
+      </Grid>
+      <Grid>
         <ButtonGroup size="small" aria-label="small outlined button group">
-          <Button onClick={() => {
-            setStart(true);
-            setManual(false);
-            clearOrder();
-          }}
-          >
-            Search Available Menus
-          </Button>
-          <Button onClick={() => {
-            setStart(true);
-            setManual(true);
-            clearOrder();
-          }}
-          >
-            Manual Entry
-          </Button>
+          <Button onClick={clearOrder} variant="outlined" color="secondary">Clear Order</Button>
+          <Button onClick={translateOrder} variant="contained" color="primary">Translate Order</Button>
         </ButtonGroup>
       </Grid>
-      {start && (
-      <span>
-        {manual ? (
-          <span>
-            <Grid>
-              <Typography>
-                Target Language
-              </Typography>
-              <Language setPref={setPref} />
-            </Grid>
-            <Grid>
-              Menu
-              <TextField
-                id="outlined-basic"
-                label="Outlined"
-                variant="outlined"
-                placeholder="type here"
-                onChange={(e) => {
-                  setManualOrder(e.target.value);
-                }}
-              />
-            </Grid>
-          </span>
-        )
-          : (
-            <span>
-              <Grid>
-                <Typography>
-                  Preferred Language
-                </Typography>
-                <Language setPref={setPref} />
-              </Grid>
-              <FormControl className={classes.formControl}>
-                <InputLabel id="demo-simple-select-label">Bars</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value="bar"
-                  onChange={handleChange}
-                >
-                  {list.map((barObj, key) => <MenuItem key={key} value={barObj.id}>{barObj.bar_name}</MenuItem>)}
-                </Select>
-              </FormControl>
-              <Grid>
-                Menu
-                {menus && menus.map((menuStr, key) => <Menu order={order} menuStr={menuStr} key={key} pref={pref} />)}
-              </Grid>
-            </span>
-          )}
-        <Grid>
-          <ButtonGroup size="small" aria-label="small outlined button group">
-            <Button onClick={clearOrder} variant="outlined" color="secondary">Clear Order</Button>
-            <Button onClick={translateOrder} variant="contained" color="primary">Translate Order</Button>
-          </ButtonGroup>
-        </Grid>
-        Order
-        {displayOrder && (
+      Order:
+      {displayOrder && (
         <Grid>
           <p>{displayOrder}</p>
         </Grid>
-        )}
-      </span>
       )}
     </Grid>
   );
