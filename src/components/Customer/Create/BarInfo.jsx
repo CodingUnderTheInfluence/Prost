@@ -32,7 +32,7 @@ const searchStyle = {
   padding: '50px',
 };
 
-const BarInfo = ({ placeInfo, searchMarker }) => {
+const BarInfo = ({ placeInfo, customerId, searchMarker }) => {
   const [show, setShow] = useState(true);
   const [atBar, setAtBar] = useState(false);
   const [party, setParty] = useState(false);
@@ -40,6 +40,8 @@ const BarInfo = ({ placeInfo, searchMarker }) => {
   const { photos, title, time } = placeInfo;
   const photo = photos[0].getUrl();
   const classes = useStyles();
+
+  console.log('customerId in barinfo', customerId);
 
   return (
     <div>

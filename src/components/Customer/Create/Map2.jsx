@@ -171,6 +171,7 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
         <BarInfo
           placeInfo={placeInfo}
           searchMarker={searchMarker}
+          customerId={gId}
         />
       )}
       <GoogleMap
