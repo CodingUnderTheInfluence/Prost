@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 const { Router } = require('express');
 const { Op } = require('sequelize');
 const {
