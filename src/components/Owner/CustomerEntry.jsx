@@ -37,7 +37,14 @@ const CustomerEntry = ({ customer }) => {
         return (
             <Grid container direction="column" justify="center" alignItems="center" style={{ border: "solid black 1px", borderRadius: "5px", marginTop: "5px", marginBottom: "5px" }}>
                 <Grid item container direction="row" justify="center" alignItems="center">
-                    <Grid item container direction="column" xs={5} justify="center" alignItems="center">
+                    <Grid
+                        item
+                        container
+                        direction="column"
+                        xs={5}
+                        justify="center"
+                        alignItems="center"
+                    >
                         <Typography variant="subtitle1">
                             {`${customerData.first_name} ${customerData.last_name}`}
                         </Typography>
