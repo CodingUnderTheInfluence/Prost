@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import { GoogleMap, Marker, MarkerClusterer, useLoadScript } from '@react-google-maps/api';
 import beer from '../../../../images/beer.png';
-import { TextField } from '@material-ui/icons';
 import Search from './Search.jsx';
 import BarInfo from './BarInfo.jsx';
 import PrivateSwitch from './PrivateSwitch.jsx';
@@ -54,11 +53,6 @@ const searchBoxStyle = {
   marginLeft: '-120px',
 };
 
-
-const start = '1217 Magazine St, New Orleans, LA 70130, USA';
-const end = '500 Chartres St, New Orleans, LA 70130, USA';
-
-
 const MapContainer = ({ setMapLatLng, username, gId }) => {
   const [currentPosition, setCurrentPosition] = useState({
     lat: 29.951065,
@@ -74,9 +68,6 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
   const [searchMarker, setSearchMarker] = useState({});
   const [click, setClick] = useState(false);
   const [placeInfo, setplaceInfo] = useState(null);
-  // const [origin, setOrigin] = useState('');
-  // const [destination, setDestination] = useState('');
-  // const [getDirections, setGetDirections] = useState(false);
 
   const defaultCenter = {
     lat: 29.951065,
@@ -174,26 +165,6 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
     return 'Loading maps';
   }
 
-  const directionInput = (value, type) => {
-    // if (type === 'origin') {
-    //   setOrigin(start);
-    //   console.log(value);
-    // } else if (type === 'destination') {
-    //   setDestination(end);
-    //   console.log(destination);
-    // }
-  };
-
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      e.target.id === 'origin' ? setOrigin(e.target.value)
-        : setDestination(e.target.value);
-      setGetDirections(true);
-      console.log('directions', origin, destination);
-
-    }
-  };
-
   return (
     <div>
       {click && (
@@ -202,20 +173,6 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
           searchMarker={searchMarker}
         />
       )}
-      {/* TODO: */}
-      {/* <input
-        value={origin}
-        onChange={(e) => {
-          e.preventDefault();
-          setOrigin(e.target.value);
-        }}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') {
-            setGetDirections(true);
-          }
-        }}
-      /> */}
-
       <GoogleMap
         mapContainerStyle={mapStyles}
         zoom={12}
@@ -247,24 +204,8 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
         <DangerMarkers dangerMarkers={dangerMarkers} />
         <BarMarkers parties={parties} />
         <FriendsMarkers friendLocations={friendLocations} />
-        <Directions
-        // origin={origin}
-        // destination={destination}
-        // getDirections={getDirections}
-        />
+        <Directions />
       </GoogleMap>
-      {/* <div onKeyDown={handleKeyPress}>
-        <input
-          id='origin'
-          type='text'
-          onChange={(e) => directionInput(e.target.value, e.target.id)}
-        ></input>
-        <input
-          id='destination'
-          type='text'
-          onChange={(e) => directionInput(e.target.value, e.target.id)}
-        ></input>
-      </div> */}
       <PrivateSwitch gId={gId} getSwitch={getSwitch} />
       <QuickCreate
         style={{
