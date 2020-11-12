@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import { GoogleMap, Marker, MarkerClusterer, useLoadScript } from '@react-google-maps/api';
 import beer from '../../../../images/beer.png';
-import { SentimentSatisfied, TextField } from '@material-ui/icons';
+import { TextField } from '@material-ui/icons';
 import Search from './Search.jsx';
 import BarInfo from './BarInfo.jsx';
 import PrivateSwitch from './PrivateSwitch.jsx';
@@ -20,6 +20,7 @@ import DangerMarkers from '../Map/DangerMarkers.jsx';
 // import PeopleSearch from './PeopleSearch.jsx';
 import QuickCreate from './QuickCreate.jsx';
 import mapStyle from '../../../helpers/mapStyle';
+import { getDetails } from 'use-places-autocomplete';
 // import mapParties from '../../../helpers/mapStyle';
 // used for the load script to get google places
 const libraries = ['places'];
@@ -30,7 +31,7 @@ const mapStyles = {
 };
 
 const options = {
-  zoomControl: true,
+  zoomControl: false,
   scaleControl: false,
   mapTypeControl: false,
   fullscreenControl: false,
@@ -73,9 +74,9 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
   const [searchMarker, setSearchMarker] = useState({});
   const [click, setClick] = useState(false);
   const [placeInfo, setplaceInfo] = useState(null);
-  const [origin, setOrigin] = useState('');
-  const [destination, setDestination] = useState('');
-  const [getDirections, setGetDirections] = useState(false);
+  // const [origin, setOrigin] = useState('');
+  // const [destination, setDestination] = useState('');
+  // const [getDirections, setGetDirections] = useState(false);
 
   const defaultCenter = {
     lat: 29.951065,
@@ -174,18 +175,22 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
   }
 
   const directionInput = (value, type) => {
-    if (type === 'origin') {
-      setOrigin(value);
-      console.log(value);
-    } else if (type === 'destination') {
-      setDestination(value);
-      console.log(destination);
-    }
+    // if (type === 'origin') {
+    //   setOrigin(start);
+    //   console.log(value);
+    // } else if (type === 'destination') {
+    //   setDestination(end);
+    //   console.log(destination);
+    // }
   };
 
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
-      setDestination(true);
+      e.target.id === 'origin' ? setOrigin(e.target.value)
+        : setDestination(e.target.value);
+      setGetDirections(true);
+      console.log('directions', origin, destination);
+
     }
   };
 
@@ -243,38 +248,23 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
         <BarMarkers parties={parties} />
         <FriendsMarkers friendLocations={friendLocations} />
         <Directions
-          origin={origin}
-          destination={destination}
+        // origin={origin}
+        // destination={destination}
+        // getDirections={getDirections}
         />
-        {/* Text fields for directions */}
-        {/* <TextField
+      </GoogleMap>
+      {/* <div onKeyDown={handleKeyPress}>
+        <input
           id='origin'
           type='text'
-          label='Start'
-          variant='outlined'
-          onClick={(e) => console.log(e.target.value)}
-        >
-        </TextField>
-        <TextField
+          onChange={(e) => directionInput(e.target.value, e.target.id)}
+        ></input>
+        <input
           id='destination'
           type='text'
-          label='End'
-          variant='outlined'
-        >
-        </TextField> */}
-      </GoogleMap>
-      <input
-        id='origin'
-        type='text'
-        onKeyDown={handleKeyPress}
-        onChange={(e) => directionInput(e.target.value, e.target.id)}
-      ></input>
-      <input
-        id='destination'
-        type='text'
-        onChange={(e) => directionInput(e.target.value, e.target.id)}
-        onKeyDown={handleKeyPress}
-      ></input>
+          onChange={(e) => directionInput(e.target.value, e.target.id)}
+        ></input>
+      </div> */}
       <PrivateSwitch gId={gId} getSwitch={getSwitch} />
       <QuickCreate
         style={{
