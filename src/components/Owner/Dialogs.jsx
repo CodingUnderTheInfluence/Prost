@@ -17,9 +17,6 @@ const Dialogs = ({
     barNumber,
     barName,
     capacity,
-    handleClickOpen,
-    handleClickOpenInfo,
-    handleClickOpenOcc,
     handleCloseInfo,
     handleCloseOcc,
     handleClose,
@@ -94,7 +91,6 @@ const Dialogs = ({
                         </Button>
                 </DialogActions>
             </Dialog>
-
 
             {/* THIS IS A NORMAL DIALOG */}
             <Dialog

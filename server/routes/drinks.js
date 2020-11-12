@@ -23,6 +23,9 @@ drinksRouter.post('/drinksList', (req, res) => {
         drink_Count: 1,
         id_bar: barId
     })
+        .catch((err) => {
+            console.warn(err)
+        })
 })
 
 drinksRouter.put('/updateCount', (req, res) => {
@@ -63,6 +66,9 @@ drinksRouter.get('/alerts', (req, res) => {
     })
         .then((customer) => {
             res.send(JSON.stringify(customer[0].drink_Count));
+        })
+        .catch((err) => {
+            console.warn(err)
         })
 })
 
