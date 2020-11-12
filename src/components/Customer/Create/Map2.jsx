@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import { GoogleMap, Marker, MarkerClusterer, useLoadScript } from '@react-google-maps/api';
 import beer from '../../../../images/beer.png';
-import { Details } from '@material-ui/icons';
+import { SentimentSatisfied, TextField } from '@material-ui/icons';
 import Search from './Search.jsx';
 import BarInfo from './BarInfo.jsx';
 import PrivateSwitch from './PrivateSwitch.jsx';
@@ -54,6 +54,10 @@ const searchBoxStyle = {
 };
 
 
+const start = '1217 Magazine St, New Orleans, LA 70130, USA';
+const end = '500 Chartres St, New Orleans, LA 70130, USA';
+
+
 const MapContainer = ({ setMapLatLng, username, gId }) => {
   const [currentPosition, setCurrentPosition] = useState({
     lat: 29.951065,
@@ -72,7 +76,6 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
   const [origin, setOrigin] = useState('');
   const [destination, setDestination] = useState('');
   const [getDirections, setGetDirections] = useState(false);
-
 
   const defaultCenter = {
     lat: 29.951065,
@@ -162,12 +165,29 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
     setplaceInfo(results);
   }, []);
 
+  // error handling for loading maps
   if (loadError) {
     return 'Error loading maps';
   }
   if (!isLoaded) {
     return 'Loading maps';
   }
+
+  const directionInput = (value, type) => {
+    if (type === 'origin') {
+      setOrigin(value);
+      console.log(value);
+    } else if (type === 'destination') {
+      setDestination(value);
+      console.log(destination);
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      setDestination(true);
+    }
+  };
 
   return (
     <div>
@@ -207,12 +227,6 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
           searchBoxStyle={searchBoxStyle}
           getPlaceInfo={getPlaceInfo}
         />
-        {/* TODO: This is for directions */}
-        {/* <Directions
-          origin={origin}
-          destination={destination}
-          getDirections={getDirections}
-        /> */}
         <Marker
           onClick={handleMarkerClick}
           key={searchMarker.lat}
@@ -228,8 +242,39 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
         <DangerMarkers dangerMarkers={dangerMarkers} />
         <BarMarkers parties={parties} />
         <FriendsMarkers friendLocations={friendLocations} />
-
+        <Directions
+          origin={origin}
+          destination={destination}
+        />
+        {/* Text fields for directions */}
+        {/* <TextField
+          id='origin'
+          type='text'
+          label='Start'
+          variant='outlined'
+          onClick={(e) => console.log(e.target.value)}
+        >
+        </TextField>
+        <TextField
+          id='destination'
+          type='text'
+          label='End'
+          variant='outlined'
+        >
+        </TextField> */}
       </GoogleMap>
+      <input
+        id='origin'
+        type='text'
+        onKeyDown={handleKeyPress}
+        onChange={(e) => directionInput(e.target.value, e.target.id)}
+      ></input>
+      <input
+        id='destination'
+        type='text'
+        onChange={(e) => directionInput(e.target.value, e.target.id)}
+        onKeyDown={handleKeyPress}
+      ></input>
       <PrivateSwitch gId={gId} getSwitch={getSwitch} />
       <QuickCreate
         style={{
@@ -240,7 +285,7 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
         getMyLocation={getMyLocation}
         panTo={panTo}
       />
-    </div>
+    </div >
   );
 };
 
