@@ -28,14 +28,15 @@ drinksRouter.put('/updateCount', (req, res) => {
     // const { count, id, barId } = req.body;
     const { count, id, barId } = req.body
     // console.log(count, id, barId)
-    Drinks.increment({
-        drink_Count: 1
-    },
+    Drinks.increment({ drink_Count: 1 },
         {
             where: {
                 id_customer: id,
                 id_bar: barId
             }
+        })
+        .then((drinktotal) => {
+            res.send(JSON.stringify(drinktotal[0][0][0].drink_Count));
         })
 })
 

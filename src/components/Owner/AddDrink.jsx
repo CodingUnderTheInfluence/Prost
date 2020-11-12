@@ -8,14 +8,13 @@ const AddDrink = ({ id, barId, setDrinkCount }) => {
     const [count, setCount] = useState(0);;
 
     const addDrink = () => {
-        //
         axios.get(`/db/drinks/drinksList?id=${id}`)
             .then(({ data }) => {
                 if (data === 0) {
                     axios.post('/db/drinks/drinksList', { id, barId })
                 } else if (data === 'Drinks') {
                     axios.put('/db/drinks/updateCount', { count, id, barId })
-                        .then(() => setCount(count++))
+                        .then(({ data }) => setDrinkCount(data))
                         .catch(err => console.log(err))
                 }
             })
