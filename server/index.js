@@ -1,31 +1,24 @@
 const dotenv = require('dotenv').config();
 const express = require('express');
-const path = require('path'); // NEW
+const path = require('path');
 const bodyParser = require('body-parser');
-// const googleAuth = require('./googleAuth');
+
 
 const app = express();
 const http = require('http').createServer(app);
 
 const port = process.env.PORT || 3000;
-const DIST_DIR = path.join(__dirname, '../dist'); // NEW
-const HTML_FILE = path.join(DIST_DIR, 'index.html'); // NEW
+const DIST_DIR = path.join(__dirname, '../dist');
+const HTML_FILE = path.join(DIST_DIR, 'index.html');
 const cors = require('cors');
 
 const io = require('socket.io')(http);
 const models = require('./db/models/dbindex');
-// app.use(
-//   cookieSession({
-//     name: 'prost',
-//     keys: [process.env.COOKIE_SESSION_KEY],
-//   }),
-// );
-// app.use(passport.initialize());
-// app.use(passport.session());
+
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(express.static(DIST_DIR)); // NEW
+app.use(express.static(DIST_DIR));
 
 /* DB Routes */
 const { customerRouter } = require('./routes/customer');
@@ -62,7 +55,7 @@ app.use('/db/maps', mapRouter);
 app.use('/db/eContact', eContactRouter);
 
 app.get('/', (req, res) => {
-  res.sendFile(HTML_FILE); // EDIT
+  res.sendFile(HTML_FILE);
 });
 
 app.get('/token', (req, res) => {
@@ -82,7 +75,6 @@ const connection = async () => {
 const syncModels = async () => {
   try {
     await models.sequelize.sync();
-    // await models.sequelize.sync({ force: true });
     console.info('Models have been synced successfully.');
   } catch (error) {
     console.warn('Unable to sync models:', error);
@@ -92,7 +84,7 @@ const syncModels = async () => {
 connection();
 syncModels();
 
-// SOCKETS WAHOO
+// SOCKETS
 const connectedUsers = {};
 
 io.on('connect', (socket) => {
@@ -109,7 +101,6 @@ io.on('connect', (socket) => {
   })
 
   socket.on('sendMessage', (data) => {
-    // socket.broadcast.emit('newMessage', data)
     io.emit('newMessage', data);
   });
 });

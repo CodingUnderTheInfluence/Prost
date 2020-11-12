@@ -31,7 +31,6 @@ menuRouter.get('/allbars', (req, res) => {
   Menu.findAll()
     .then((menus) => {
       const ids = menus.map((bar) => ({ id: bar.id_bar }));
-      // res.send(ids);
       return Bar.findAll({
         where: {
           [Op.or]: ids,
@@ -61,7 +60,6 @@ menuRouter.get('/bar/:barId', (req, res) => {
 
 menuRouter.post('/bar', (req, res) => {
   const { barId, info } = req.body;
-  // res.send({ barId, info })
   Menu.findOrCreate({
     where: {
       // eslint-disable-next-line quote-props

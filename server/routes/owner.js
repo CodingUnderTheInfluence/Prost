@@ -17,13 +17,9 @@ const { Op } = require('sequelize');
 
 const ownerRouter = Router();
 const bcrypt = require('bcrypt');
-// const jwtGenerator = require('../utils/jwtGenerator.js');
 const jwt = require('jsonwebtoken');
 const validInfo = require('../middleware/validInfo.js');
 const authorization = require('../middleware/authorization.js');
-
-const denied = '/Users/larryschwalliv/prost/fork/Prost/server/images/giphy.gif';
-const welcomed = '/Users/larryschwalliv/prost/fork/Prost/server/images/welcomeback.gif';
 
 // this creates token for user upon creation
 function jwtGenerator(email) {
@@ -61,16 +57,6 @@ const createOwner = async (res, firstName, lastName, number, username, email, pa
   Handles all registering for owner
 */
 ownerRouter.post('/register', validInfo, async (req, res) => {
-  // postman use
-  // const {
-  //   firstName,
-  //   lastName,
-  //   number,
-  //   password,
-  //   email,
-  //   username,
-  // } = req.body;
-  // client side of app
   const {
     firstName,
     lastName,
@@ -87,7 +73,6 @@ ownerRouter.post('/register', validInfo, async (req, res) => {
     .then((owner) => {
       if (owner.length !== 0) {
         res.status(200).send(owner);
-        console.info('OWNER ALREADY EXISTS IN OWNER');
       } else {
         createOwner(res, firstName, lastName, number, username, email, password);
       }
@@ -113,12 +98,6 @@ const validatePassword = async (loginPass, oPassword, res, oEmail) => {
   }
 };
 ownerRouter.post('/login', validInfo, async (req, res) => {
-  // TODO: postman
-  // const {
-  //   email,
-  //   password
-  // } = req.body;
-
   // TODO: client side
   const {
     email,
@@ -133,7 +112,6 @@ ownerRouter.post('/login', validInfo, async (req, res) => {
         const oEmail = owner[0].email;
         validatePassword(loginPass, oPassword, res, oEmail);
       } else {
-        // res.status(401).sendFile(denied)
         res.status(401).send('Email or password incorrect');
       }
     });

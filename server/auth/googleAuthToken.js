@@ -9,7 +9,7 @@ const googleAuth = async (token, next) => {
     audience: process.env.GOOGLE_CLIENT_ID,
   });
   const payload = ticket.getPayload();
-
+  //TODO - Remove Console
   console.info(`User ${payload.name} verified`);
 
   const {

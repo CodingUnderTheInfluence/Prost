@@ -12,7 +12,7 @@ const {
   Parties_Customers,
   Customers_Bars,
 } = require('../db/models/dbindex.js');
-const { Router } = require('express');
+const { Router, response } = require('express');
 const { Op } = require('sequelize');
 const friendshipRouter = Router();
 
@@ -70,15 +70,18 @@ friendshipRouter.get('/myFriends', (req, res) => {
 friendshipRouter.delete('/removeRequest', (req, res) => {
   let f = req.body;
   Friendship.destroy({where: {id: f.id}})
-    .then(res => console.info(`Relationsip with Id ${f.id} destroyed`))
+    .then(res => {
+      console.info(`Relationsip with Id ${f.id} destroyed`)
+      res.sendStatus(200);
+    })
     .catch(err => console.warn(err))
 });
 
 friendshipRouter.put('/acceptRequest', (req, res) => {
   let {data} = req.body;
   Friendship.update({status: true}, {where: {id: data.id}})
+    .then(() => res.sendStatus(200))
     .catch(err => console.warn(err));
-  res.send('Put Request Received');
 });
   // 
 module.exports = {
