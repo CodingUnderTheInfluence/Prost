@@ -8,7 +8,7 @@ const barCapacity = (barId) => {
         return total;
       }, 0);
     })
-    .catch((err) => console.warn('error in axios party'));
+    .catch(() => console.warn('error in axios party'));
 };
 
 module.exports = barCapacity;

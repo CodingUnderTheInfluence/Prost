@@ -54,7 +54,7 @@ const Create = ({ placeInfo }) => {
             variant="outlined"
             onClick={() => {
               handleParty();
-              setSearch('');
+              // setSearch('');
               setSize('');
             }}
           >

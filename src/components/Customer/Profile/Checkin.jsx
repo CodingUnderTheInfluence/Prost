@@ -90,17 +90,17 @@ export default function Checkin({ setView, customerId }) {
       lng: coordinates[1],
     };
     axios.post('/db/cb/checkin/create', barInfo)
-      .then(({ data }) => { 
-        if(data === 'Empty'){
+      .then(({ data }) => {
+        if (data === 'Empty') {
           setOpen(true);
         }
-        console.info(data); 
+        console.info(data);
       })
       .catch((err) => console.warn(err));
   };
   // populates places drop down
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: 'AIzaSyANp7sI4cfvx8WLl6OgcsePepOM5oSuXZY',
+    googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY,
     libraries,
   });
 
@@ -129,11 +129,11 @@ export default function Checkin({ setView, customerId }) {
         <CheckinList customerId={customerId} />
       </div>
       <div className={classes.root}>
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="error">
-          Bar not found
+        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity="error">
+            Bar not found
         </Alert>
-      </Snackbar>
+        </Snackbar>
       </div>
     </div>
   );

@@ -30,7 +30,7 @@ cbRouter.post('/checkin/create', (req, res) => {
     },
   })
     .then((bar) => {
-      if(bar.length === 0){
+      if (bar.length === 0) {
         res.send('Empty');
       } else {
         const barId = bar[0].dataValues.id;
@@ -50,7 +50,7 @@ cbRouter.post('/checkin/create', (req, res) => {
       res.status(500).send(err);
     });
 
-  });
+});
 
 cbRouter.get('/history/:customerId', (req, res) => {
   const { customerId } = req.params;
