@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
-  InputLabel, MenuItem, FormControl, FormHelperText, Grid, Typography, Button, Divider
+  InputLabel, MenuItem, FormControl, FormHelperText, Grid, Typography, Button, TextField, ButtonGroup,
 } from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 
 import Select from '@material-ui/core/Select';
 import axios from 'axios';
+import { SettingsSystemDaydreamTwoTone } from '@material-ui/icons';
 import Menu from './Menu.jsx';
-import Language from './Language.jsx'
+import Language from './Language.jsx';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -28,49 +29,60 @@ export default function Translate({ setView, customerId }) {
   const [displayOrder, setDisplayOrder] = useState('');
   const [pref, setPref] = useState('en');
   const [menuLang, setMenuLang] = useState('');
+  const [start, setStart] = useState(false);
+  const [manual, setManual] = useState(false);
+  const [manualOrder, setManualOrder] = useState('');
 
-  const translateOrder = () =>{
+  const translateOrder = () => {
     const newOrder = [];
-    for(let key in order){
-      if(order[key]){
+    let orderStr = '';
+    let lang = '';
+    for (const key in order) {
+      if (order[key]) {
         newOrder.push(key);
       }
     }
-    const orderStr = newOrder.length > 0 ? `I would like to order ${newOrder.join(',')} please` : '';
-    axios.get(`/api/translate`, {
+
+    if (newOrder.length > 0) {
+      orderStr = newOrder.join(',');
+      lang = menuLang;
+    } else {
+      orderStr = manualOrder;
+      lang = pref;
+    }
+    axios.get('/api/translate', {
       params: {
         text: orderStr,
-        target: menuLang
-      }
+        target: lang,
+      },
     })
-    .then(({data}) => {
-      setDisplayOrder(data[0])
-    })
-    .catch((err) => console.warn(err));
-  }
-  const clearOrder = () =>{
+      .then(({ data }) => {
+        setDisplayOrder(data[0]);
+      })
+      .catch((err) => console.warn(err));
+  };
+  const clearOrder = () => {
     setOrder({});
     setDisplayOrder('');
     setMenus(null);
-  }
+    setManualOrder('');
+  };
 
   const getMenu = (id) => {
     axios.get(`/db/menu/bar/${id}`)
       .then(({ data }) => {
-        if(data.length > 0){
-          setMenus(data[0].info.split('&'))
-          setMenuLang(data[0].lang)
+        if (data.length > 0) {
+          setMenus(data[0].info.split('&'));
+          setMenuLang(data[0].lang);
         } else {
-          setMenus(null)
-          setMenuLang('')
+          setMenus(null);
+          setMenuLang('');
         }
       })
       .catch((err) => console.warn(err));
   };
 
   const handleChange = (event) => {
-    console.info('event.target', event.target);
-    console.info('list', list);
     getMenu(event.target.value);
   };
   useEffect(() => {
@@ -86,33 +98,34 @@ export default function Translate({ setView, customerId }) {
       </Grid>
       <Grid>
         <Typography>
-          Preferred Language
+          Target Language
         </Typography>
-        <Language setPref={setPref}/>
+        <Language setPref={setPref} />
       </Grid>
-      <FormControl className={classes.formControl}>
-        <InputLabel id="demo-simple-select-label">Bars</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value="bar"
-          onChange={handleChange}
-        >
-          {list.map((barObj, key) => <MenuItem key={key} value={barObj.id}>{barObj.bar_name}</MenuItem>)}
-        </Select>
-      </FormControl>
       <Grid>
         Menu
-        {menus && menus.map((menuStr, key) => <Menu order={order} menuStr={menuStr} key={key} pref={pref}/>)}
+        <TextField
+          id="outlined-basic"
+          label="Outlined"
+          variant="outlined"
+          placeholder="type here"
+          onChange={(e) => {
+            setManualOrder(e.target.value);
+          }}
+        />
       </Grid>
       <Grid>
-        <Button onClick={clearOrder} variant="outlined" color="secondary">Clear Order</Button>
-        <Button onClick={translateOrder} variant="contained" color="primary">Translate Order</Button>
+        <ButtonGroup size="small" aria-label="small outlined button group">
+          <Button onClick={clearOrder} variant="outlined" color="secondary">Clear Order</Button>
+          <Button onClick={translateOrder} variant="contained" color="primary">Translate Order</Button>
+        </ButtonGroup>
       </Grid>
-        Order
-      {displayOrder && <Grid>
-        <p>{displayOrder}</p>
-      </Grid>}
+      Order:
+      {displayOrder && (
+        <Grid>
+          <p>{displayOrder}</p>
+        </Grid>
+      )}
     </Grid>
   );
 }

@@ -23,32 +23,29 @@ export default function Menu({ menuStr, order, pref }) {
   const [translate, setTranslate] = useState([]);
 
   const handlechange = (e, item) => {
-    if(order.hasOwnProperty(item)){
-      order[item] ? order[item] = false : order[item] = true
+    if (order.hasOwnProperty(item)) {
+      order[item] ? order[item] = false : order[item] = true;
     } else {
       order[item] = true;
     }
-    // console.info(order);
-  }
+  };
 
   const translateMenu = (array) => {
     const orderStr = array.join(',');
-    axios.get(`/api/translate`, {
+    axios.get('/api/translate', {
       params: {
         text: orderStr,
-        target: pref
-      }
+        target: pref,
+      },
     })
-    .then(({data}) => setTranslate(data[0].split(',')))
-    .catch((err) => console.warn(err));
-  }
+      .then(({ data }) => setTranslate(data[0].split(',')))
+      .catch((err) => console.warn(err));
+  };
 
   useEffect(() => {
-    // console.info('FROM MENU JSX menuStr', menuStr);
     const arr = menuStr.split('\n');
     setHeading(arr[0]);
     arr.shift();
-    // console.info('FROM MENU JSX arr', arr);
     translateMenu(arr);
     setBody(arr);
   }, [menuStr, pref]);
@@ -71,18 +68,18 @@ export default function Menu({ menuStr, order, pref }) {
             <FormControlLabel
               aria-label="menu"
               onClick={(event) => {
-                event.stopPropagation()
+                event.stopPropagation();
               }}
               onFocus={(event) => {
-                event.stopPropagation()
+                event.stopPropagation();
               }}
-              control={<Checkbox onChange={(e)=> handlechange(e, translate[index])}/>}
+              control={<Checkbox onChange={(e) => handlechange(e, translate[index])} />}
               label={item}
             />
             <Grid>
-            <Typography color="textSecondary">
-              {translate[index]}
-            </Typography>
+              <Typography color="textSecondary">
+                {translate[index]}
+              </Typography>
             </Grid>
           </AccordionDetails>
         ))}
