@@ -22,7 +22,17 @@ const FriendsListRenderFriends = ({
         {incomingRequests.map(r => <IncomingFriend key={r.id} userData={userData} r={r} />)}
       </Grid>
       <Grid className='confirmed'>
-        {confirmedFriends.map(f => <ConfirmedFriend key={f.id} userData={userData} f={f} socket={socket} setViewValue={setViewValue} setViewObject={setViewObject} />)}
+        {confirmedFriends.map(f => {
+          return (
+            <ConfirmedFriend
+              key={f.id}
+              userData={userData}
+              f={f} socket={socket}
+              setViewValue={setViewValue}
+              setViewObject={setViewObject}
+            />
+          )
+        })}
       </Grid>
       <Fab color='primary' position='center' onClick={() => setViewValue('AddFriend')}><AddCircleIcon /></Fab>
     </Grid>
