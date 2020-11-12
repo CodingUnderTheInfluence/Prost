@@ -16,25 +16,6 @@ const Directions = () => {
     }
   };
 
-  const directionInput = (value, type) => {
-    if (type === 'origin') {
-      setOrigin(start);
-      console.log(value);
-    } else if (type === 'destination') {
-      setDestination(end);
-      console.log(destination);
-    }
-  };
-
-  // const handleKeyPress = (e) => {
-  //   if (e.key === 'Enter') {
-  //     e.target.id === 'origin' ? setOrigin(e.target.value)
-  //       : setDestination(e.target.value);
-  //     // setGetDirections(true);
-  //     console.log('directions', origin, destination);
-  //   }
-  // };
-
   return (
     <div className='directions'>
       <div style={{ position: 'absolute', bottom: '20px' }}>
