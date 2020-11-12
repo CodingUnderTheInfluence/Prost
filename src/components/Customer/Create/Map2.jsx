@@ -6,7 +6,7 @@ import React, {
 } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
+import { GoogleMap, Marker, MarkerClusterer, useLoadScript } from '@react-google-maps/api';
 import beer from '../../../../images/beer.png';
 import { Details } from '@material-ui/icons';
 import Search from './Search.jsx';
@@ -168,6 +168,7 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
   if (!isLoaded) {
     return 'Loading maps';
   }
+
   return (
     <div>
       {click && (
