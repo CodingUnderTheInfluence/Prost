@@ -11,6 +11,7 @@ const AddDrink = ({ id, barId, setDrinkCount }) => {
         axios.get(`/db/drinks/drinksList?id=${id}`)
             .then(({ data }) => {
                 if (data === 0) {
+                    setCount(1)
                     axios.post('/db/drinks/drinksList', { id, barId })
                 } else if (data === 'Drinks') {
                     axios.put('/db/drinks/updateCount', { count, id, barId })
