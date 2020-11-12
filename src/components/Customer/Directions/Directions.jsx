@@ -2,14 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { DirectionsService, DirectionsRenderer } from '@react-google-maps/api';
 import directions from '../../../data/directions.json';
 
-
-const Directions = () => {
+const Directions = ({ origin, destination, getDirections }) => {
   const [response, setResponse] = useState(null);
-  const [origin, setOrigin] = useState('1217 Magazine St, New Orleans, LA 70130, USA');
-  const [destination, setDestination] = useState('500 Chartres St, New Orleans, LA 70130, USA');
 
   const directionsCallback = (response) => {
-
+    console.log('hello', response)
     if (response !== null) {
       response.status === 'OK' ? setResponse(() => response)
         : console.info('direction response: ', response);
@@ -18,15 +15,19 @@ const Directions = () => {
 
   return (
     <div>
-      <DirectionsService
-        options={{
-          origin: origin,
-          destination: destination,
-          travelMode: 'DRIVING'
-        }}
-        callback={directionsCallback}
-      />
-      {response && <DirectionsRenderer
+      { (origin && destination && getDirections)
+        && (
+          <DirectionsService
+            options={{
+              origin: origin,
+              destination: destination,
+              travelMode: 'DRIVING'
+            }}
+            callback={directionsCallback}
+          />
+        )
+      }
+      {response !== null && <DirectionsRenderer
         options={{ directions: response }}
         onLoad={(dirs) => console.info('directions: ', dirs)}
       />}
