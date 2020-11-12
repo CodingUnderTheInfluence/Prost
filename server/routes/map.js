@@ -75,7 +75,7 @@ mapRouter.delete('/report/destroy/all', (req, res) => {
     },
   })
     .then((data) => res.send(JSON.stringify(data)))
-    .catch((err) => res.sendStatus(500));
+    .catch((err) => res.send(err).status(500));
 });
 
 module.exports = { mapRouter };
