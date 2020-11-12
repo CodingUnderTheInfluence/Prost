@@ -13,7 +13,7 @@ export default function Language({ setPref }) {
   });
   return (
     <FormControl component="fieldset">
-      <FormLabel component="legend">Select Preferred Language</FormLabel>
+      <FormLabel component="legend">Languages:</FormLabel>
       <RadioGroup row aria-label="position" name="position" defaultValue="English">
         <FormControlLabel
           value="French"
