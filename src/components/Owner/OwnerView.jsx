@@ -16,12 +16,7 @@ import WarningIcon from '@material-ui/icons/Warning';
 import axios from 'axios';
 import BarList from './BarCustomerList.jsx';
 import OwnerProfile from './OwnerProfile.jsx';
-<<<<<<< HEAD
 import Alerts from './Alerts.jsx';
-=======
-import WarningIcon from '@material-ui/icons/Warning';
-import QrScanner from './QrCodeScanner.jsx'
->>>>>>> 905667e... (update) owners now have personal info, occupency is generated
 
 const useStyles = makeStyles({
   root: {
