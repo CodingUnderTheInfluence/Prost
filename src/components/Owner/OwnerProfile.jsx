@@ -10,70 +10,75 @@ import {
     DialogTitle,
     Paper
 } from '@material-ui/core';
-import axios from 'axios';
 import Logout from '../Logout.jsx';
+import Dialogs from './Dialogs.jsx'
 
-
-const OwnerProfile = ({ setViewValue, barId, count }) => {
+const OwnerProfile = ({
+    setViewValue,
+    count,
+    image,
+    barName,
+    barAddress,
+    barNumber,
+    capacity
+}) => {
 
     /*
-    This opens info Dialog
+        This opens info Dialog
     */
     const [openInfo, setOpenInfo] = useState(false);
     const handleClickOpenInfo = () => {
         setOpenInfo(true);
     };
-
     const handleCloseInfo = () => {
         setOpenInfo(false);
     };
     /*
-    This opens Occupency Dialog
+        This opens Occupency Dialog
     */
     const [openOcc, setOpenOcc] = useState(false);
     const handleClickOpenOcc = () => {
         setOpenOcc(true);
     };
-
     const handleCloseOcc = () => {
         setOpenOcc(false);
     };
     /*
-    This opens normal Dialog
+        This opens normal Dialog
     */
     const [open, setOpen] = useState(false);
+    const handleClose = () => {
+        setOpen(false);
+    };
     const handleClickOpen = () => {
         setOpen(true);
     };
 
-    const handleClose = () => {
-        setOpen(false);
-    };
 
-    const occLevel = () => {
-        count
+    let covidCap = (capacity * .25)
+    let covidCapLow = covidCap * .25;
+    let covidCapHigh = covidCap * .75
+    const occupencyStatus = () => {
+        if (count < covidCapLow) {
+            return (
+                <div>
+                    green
+                </div>
+            )
+        } else if (covidCapLow <= count && count < covidCapHigh) {
+            return (
+                <div>
+                    yellow
+                </div>
+            )
+        } else if (covidCapHigh <= count && count < covidCap) {
+            return (
+                <div>
+                    red
+                </div>
+            )
+        }
     }
-
-    const [barAddress, setBarAddress] = useState('');
-    const [barNumber, setBarNumber] = useState('');
-    const [barName, setBarName] = useState('')
-    const [image, setImage] = useState('');
-    const [occ, setOcc] = useState('');
-
-    const barInfo = () => {
-        axios.get(`/db/bar/info?id=${barId}`)
-            .then(({ data }) => {
-                setImage(data[0].profile_image);
-                setBarName(data[0].bar_name);
-                setBarAddress(data[0].address)
-                setBarNumber(data[0].phone_number)
-                setOcc(data[0].capacity);
-            })
-    }
-
-    useEffect(() => {
-        barInfo();
-    }, [])
 
     return (
         <Grid container direction="column" justify="center" alignItems="center">
@@ -95,93 +100,24 @@ const OwnerProfile = ({ setViewValue, barId, count }) => {
                 Call emergency Contact
                 </Button>
             <Logout setViewValue={setViewValue} />
-
-
-            {/* THIS IS THE INFO DIALOG */}
-            <Dialog
-                open={openInfo}
-                onClose={handleCloseInfo}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-            >
-                <DialogTitle id="alert-dialog-title">{"Bar Information"}</DialogTitle>
-                <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
-                        <Grid container direction="column" justify="center" alignItems="center">
-                            <Paper>
-                                <Grid item container direction="row" justify="center" alignItems="center">
-                                    <Typography variant="subtitle1">
-                                        Bar: {barName}
-                                    </Typography>
-                                </Grid>
-                                <Grid item container direction="row" justify="center" alignItems="center">
-                                    <Typography variant="subtitle2">
-                                        Address: {barAddress}
-                                    </Typography>
-                                </Grid>
-                                <Grid item container direction="row" justify="center" alignItems="center">
-                                    <Typography variant="subtitle2">
-                                        PhoneNumber: {barNumber}
-                                    </Typography>
-                                </Grid>
-                                <Grid item container direction="row" justify="center" alignItems="center">
-                                    <Typography variant="subtitle2">
-                                        Bar Capacity: {occ}
-                                    </Typography>
-                                </Grid>
-                            </Paper>
-                        </Grid>
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleCloseInfo} color="primary" autoFocus>
-                        Close
-                        </Button>
-                </DialogActions>
-            </Dialog>
-
-            {/* THIS IS THE OCCUPENCY DIALOG */}
-            <Dialog
-                open={openOcc}
-                onClose={handleCloseOcc}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-            >
-                <DialogTitle id="alert-dialog-title">{"Occupency Information"}</DialogTitle>
-                <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
-                        {count}
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleCloseOcc} color="primary" autoFocus>
-                        Close
-                        </Button>
-                </DialogActions>
-            </Dialog>
-
-
-            {/* THIS IS A NORMAL DIALOG */}
-            <Dialog
+            <Dialogs
+                occupencyStatus={occupencyStatus}
+                barAddress={barAddress}
+                barNumber={barNumber}
+                barName={barName}
+                capacity={capacity}
+                handleClickOpen={handleClickOpen}
+                handleClickOpenInfo={handleClickOpenInfo}
+                handleClickOpenOcc={handleClickOpenOcc}
+                handleCloseInfo={handleCloseInfo}
+                handleCloseOcc={handleCloseOcc}
+                handleClose={handleClose}
+                openInfo={openInfo}
+                openOcc={openOcc}
                 open={open}
-                onClose={handleClose}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-            >
-                <DialogTitle id="alert-dialog-title">{"This will have information"}</DialogTitle>
-                <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
-                        This Dialog will include information regarding this button's title
-                        </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose} color="primary" autoFocus>
-                        Close
-                        </Button>
-                </DialogActions>
-            </Dialog>
+                count={count}
+            />
         </Grid>
-
     )
 }
 

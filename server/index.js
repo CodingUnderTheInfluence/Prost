@@ -36,6 +36,7 @@ const { eContactRouter } = require('./routes/eContact');
 const { connected } = require('process');
 const { mapRouter } = require('./routes/map');
 const { gTranslateRouter } = require('./routes/gTranslate');
+const { drinksRouter } = require('./routes/drinks')
 
 app.use('/api/translate', gTranslateRouter);
 app.use('/db/eContact', eContactRouter);
@@ -53,6 +54,7 @@ app.use('/db/menu', menuRouter);
 app.use('/db/eContact', eContactRouter);
 app.use('/db/maps', mapRouter);
 app.use('/db/eContact', eContactRouter);
+app.use('/db/drinks', drinksRouter);
 
 app.get('/', (req, res) => {
   res.sendFile(HTML_FILE);

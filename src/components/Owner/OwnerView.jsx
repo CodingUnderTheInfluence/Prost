@@ -1,5 +1,13 @@
-import React, { useState } from 'react';
-import { makeStyles, Paper, Tabs, Tab, Grid, Button, Typography } from '@material-ui/core';
+import React, { useState, useEffect } from 'react';
+import {
+    makeStyles,
+    Paper,
+    Tabs,
+    Tab,
+    Grid,
+    Button,
+    Typography
+} from '@material-ui/core';
 import PhoneIcon from '@material-ui/icons/Phone';
 import CameraAltOutlinedIcon from '@material-ui/icons/CameraAltOutlined';
 import TocOutlinedIcon from '@material-ui/icons/TocOutlined';
@@ -7,7 +15,8 @@ import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined'
 import BarList from './BarCustomerList.jsx';
 import OwnerProfile from './OwnerProfile.jsx';
 import WarningIcon from '@material-ui/icons/Warning';
-import QrScanner from './QrCodeScanner.jsx'
+import Alerts from './Alerts.jsx'
+import axios from 'axios';
 
 const useStyles = makeStyles({
     root: {
@@ -29,20 +38,75 @@ const OwnerView = ({ setViewValue, barId }) => {
     const classes = useStyles();
     const [value, setValue] = useState();
     const [count, setCount] = useState(0);
+    const [barAddress, setBarAddress] = useState('');
+    const [barNumber, setBarNumber] = useState('');
+    const [barName, setBarName] = useState('')
+    const [image, setImage] = useState('');
+    const [capacity, setCapacity] = useState('');
+    const [customerList, setCustomerList] = useState([]);
+    const [customerIds, setIDs] = useState([]);
+
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
 
+    const idArr = [];
+
+    const barInfo = () => {
+        axios.get(`/db/bar/info?id=${barId}`)
+            .then(({ data }) => {
+                setImage(data[0].profile_image);
+                setBarName(data[0].bar_name);
+                setBarAddress(data[0].address)
+                setBarNumber(data[0].phone_number)
+                setCapacity(data[0].bar_capacity);
+            })
+            .catch((err) => {
+                console.warn(err)
+            })
+    }
+
+    const fetchCustomers = () => {
+        axios.get(`/db/cb/list?barId=${barId}`)
+            .then(({ data }) => {
+                setCustomerList(data);
+                setCount(data.length);
+            })
+            .catch((err) => {
+                console.warn(err)
+            })
+    }
+
+    useEffect(() => {
+        barInfo();
+        fetchCustomers();
+        setTimeout(() => {
+            fetchCustomers();
+        }, 2000)
+    }, [])
+
     const renderView = () => {
         if (value === 0) {
-            return <BarList barId={barId} setCount={setCount} />
+            return <BarList
+                barId={barId}
+                setCount={setCount}
+                customerList={customerList}
+            />
         }
         if (value === 1) {
-            return <QrScanner />
+            return <Alerts barId={barId} customerList={customerList} count={count} />
         }
         if (value === 2) {
-            return <OwnerProfile setViewValue={setViewValue} barId={barId} count={count} />
+            return <OwnerProfile
+                setViewValue={setViewValue}
+                count={count}
+                barName={barName}
+                barNumber={barNumber}
+                barAddress={barAddress}
+                image={image}
+                capacity={capacity}
+            />
         }
         return (
             <Grid container direction="column" justify="center" alignItems="center">

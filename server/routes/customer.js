@@ -168,7 +168,6 @@ customerRouter.get('/getFriendById', (req, res) => {
     .catch(err => console.warn(err));
 });
 
-
 module.exports = {
   customerRouter,
   googleAuth,
