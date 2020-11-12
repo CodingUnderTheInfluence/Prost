@@ -5,31 +5,31 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 
-export default function Language({setPref}) {
+export default function Language({ setPref }) {
   const [langs, setLangs] = React.useState({
     English: 'en',
     Spanish: 'es',
-    French: 'fr'
-  })
+    French: 'fr',
+  });
   return (
     <FormControl component="fieldset">
       <FormLabel component="legend">Select Preferred Language</FormLabel>
       <RadioGroup row aria-label="position" name="position" defaultValue="English">
         <FormControlLabel
           value="French"
-          control={<Radio color="primary" onChange={()=> setPref(langs["French"])}/>}
+          control={<Radio color="primary" onChange={() => setPref(langs.French)} />}
           label="French"
           labelPlacement="top"
         />
         <FormControlLabel
           value="English"
-          control={<Radio color="primary" onChange={()=> setPref(langs["English"])}/>}
+          control={<Radio color="primary" onChange={() => setPref(langs.English)} />}
           label="English"
           labelPlacement="top"
         />
         <FormControlLabel
           value="Spanish"
-          control={<Radio color="primary" onChange={()=> setPref(langs["Spanish"])}/>}
+          control={<Radio color="primary" onChange={() => setPref(langs.Spanish)} />}
           label="Spanish"
           labelPlacement="top"
         />
