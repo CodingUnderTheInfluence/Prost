@@ -15,9 +15,8 @@ function OwnerCredentials({ setViewValue, setBarId }) {
     axios.post('/db/owner/login', { params })
       .then(({ data }) => {
         if (data === 'Email or Password Incorrect') {
-          console.info('TRY AGAIN');
+          return;
         } else {
-          console.log(data)
           localStorage.setItem('ownerToken', data); // stores token in localstorage
           axios(
             {

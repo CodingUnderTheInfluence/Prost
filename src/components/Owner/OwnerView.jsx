@@ -15,7 +15,7 @@ import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined'
 import BarList from './BarCustomerList.jsx';
 import OwnerProfile from './OwnerProfile.jsx';
 import WarningIcon from '@material-ui/icons/Warning';
-import QrScanner from './QrCodeScanner.jsx'
+import Alerts from './Alerts.jsx'
 import axios from 'axios';
 
 const useStyles = makeStyles({
@@ -62,6 +62,9 @@ const OwnerView = ({ setViewValue, barId }) => {
                 setBarNumber(data[0].phone_number)
                 setCapacity(data[0].bar_capacity);
             })
+            .catch((err) => {
+                console.warn(err)
+            })
     }
 
     const fetchCustomers = () => {
@@ -69,6 +72,9 @@ const OwnerView = ({ setViewValue, barId }) => {
             .then(({ data }) => {
                 setCustomerList(data);
                 setCount(data.length);
+            })
+            .catch((err) => {
+                console.warn(err)
             })
     }
 
@@ -89,7 +95,7 @@ const OwnerView = ({ setViewValue, barId }) => {
             />
         }
         if (value === 1) {
-            return <QrScanner />
+            return <Alerts barId={barId} customerList={customerList} count={count} />
         }
         if (value === 2) {
             return <OwnerProfile

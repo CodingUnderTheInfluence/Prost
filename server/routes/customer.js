@@ -187,7 +187,6 @@ customerRouter.get('/findMe', (req, res) => {
 
 customerRouter.get('/getFriendById', (req, res) => {
   const { customerId } = req.query;
-  // console.info('Grabbing information for customerID: ', customerId)
   Customer.findOne({ where: { id: customerId } })
     .then((customer) => res.send(customer))
     .catch(err => console.warn(err));

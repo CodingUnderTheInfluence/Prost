@@ -15,7 +15,7 @@ const AddDrink = ({ id, barId, setDrinkCount }) => {
                 } else if (data === 'Drinks') {
                     axios.put('/db/drinks/updateCount', { count, id, barId })
                         .then(({ data }) => setDrinkCount(data))
-                        .catch(err => console.log(err))
+                        .catch(err => console.warn(err))
                 }
             })
             .catch((err) => console.warn(err))
@@ -26,6 +26,9 @@ const AddDrink = ({ id, barId, setDrinkCount }) => {
             .then(({ data }) => {
                 setDrinkCount(data);
             })
+            .catch((err) => {
+                console.warn(err)
+            })
     }
 
     useEffect(() => {
@@ -35,12 +38,10 @@ const AddDrink = ({ id, barId, setDrinkCount }) => {
 
     const updateCount = () => {
         setCount(count + 1);
-        console.log(count)
     }
 
     return (
         <div>
-            {}
             <PlusOneIcon
                 onClick={() => {
                     updateCount();

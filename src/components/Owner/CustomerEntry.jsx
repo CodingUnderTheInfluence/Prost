@@ -12,7 +12,6 @@ const CustomerEntry = ({ customer, barId }) => {
     const getCustomerData = () => {
         axios.get(`/db/customer/getFriendById?customerId=${customer}`)
             .then(({ data }) => {
-                console.log(data, 'DATA')
                 setCustomerData(data)
             })
             .catch(err => console.warn(err))

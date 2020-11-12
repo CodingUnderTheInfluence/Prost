@@ -1,5 +1,6 @@
 const { Drinks } = require('../../server/db/models/dbindex.js');
 const { Router } = require('express');
+const { Op } = require("sequelize");
 const drinksRouter = Router();
 
 drinksRouter.get('/drinksList', (req, res) => {
@@ -25,9 +26,7 @@ drinksRouter.post('/drinksList', (req, res) => {
 })
 
 drinksRouter.put('/updateCount', (req, res) => {
-    // const { count, id, barId } = req.body;
     const { count, id, barId } = req.body
-    // console.log(count, id, barId)
     Drinks.increment({ drink_Count: 1 },
         {
             where: {
@@ -38,6 +37,9 @@ drinksRouter.put('/updateCount', (req, res) => {
         .then((drinktotal) => {
             res.send(JSON.stringify(drinktotal[0][0][0].drink_Count));
         })
+        .catch((err) => {
+            console.warn(err)
+        })
 })
 
 drinksRouter.get('/count', (req, res) => {
@@ -45,6 +47,22 @@ drinksRouter.get('/count', (req, res) => {
     Drinks.findOne({ where: { id_customer: customerId, id_bar: barId } })
         .then((customerDrinks) => {
             res.send(JSON.stringify(customerDrinks.drink_Count));
+        })
+        .catch((err) => {
+            console.warn(err)
+        })
+})
+
+/*
+ Looks for customers that have a drink total above 8, then returns those customers to front end
+*/
+drinksRouter.get('/alerts', (req, res) => {
+    const { customer, barId, count } = req.query;
+    Drinks.findAll({
+        where: { id_customer: customer, id_bar: barId }
+    })
+        .then((customer) => {
+            res.send(JSON.stringify(customer[0].drink_Count));
         })
 })
 

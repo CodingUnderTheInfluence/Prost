@@ -62,7 +62,6 @@ const OwnerProfile = ({
     let covidCapHigh = covidCap * .75
     const occupencyStatus = () => {
         if (count < covidCapLow) {
-            console.log(count, (covidCap * .25), 'COUNT')
             return (
                 <div>
                     green
