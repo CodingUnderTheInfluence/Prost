@@ -55,15 +55,11 @@ mapRouter.put('/:gId', (req, res) => {
 
 mapRouter.post('/report', (req, res) => {
   const {
-    // userName,
-    // gId,
     latitude,
     longitude,
     report,
   } = req.body;
   Maps.create({
-    // user_name: userName,
-    // id_google: gId,
     latitude,
     longitude,
     report,
