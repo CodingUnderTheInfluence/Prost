@@ -12,22 +12,6 @@ mapRouter.get('/', (req, res) => {
     });
 });
 
-// TODO:
-// mapRouter.post('/', (req, res) => {
-//   const {
-//     userName,
-//     gId,
-//     latitude,
-//     longitude,
-//     private
-//   } = req.body;
-//   Maps.findOrCreate({
-//     where: { id_google: gId }
-//   })
-//     .spread(data => console.info(data))
-
-// });
-
 mapRouter.post('/', (req, res) => {
   const {
     userName,

@@ -41,7 +41,7 @@ eContactRouter.get('/customer/:customerId', (req, res) => {
       res.status(500).send(err);
     });
 });
-
+//TODO: Refactor
 eContactRouter.post('/add', (req, res) => {
   const {
     first,
@@ -101,7 +101,6 @@ eContactRouter.put('/edit', (req, res) => {
 
 eContactRouter.get('/customer/:customerId', (req, res) => {
   const { customerId } = req.params;
-  // res.send(`id ${customerId}`)
   EContact.findAll({
     where: {
       id_customer: customerId,

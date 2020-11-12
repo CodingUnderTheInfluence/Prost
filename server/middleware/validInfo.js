@@ -1,8 +1,5 @@
 module.exports = (req, res, next) => {
-  // TODO: Client
   const { email, username, password } = req.body.params;
-  // TODO: POSTMAN
-  // const { email, username, password } = req.body;
 
   function validEmail(userEmail) {
     return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(userEmail);

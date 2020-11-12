@@ -46,15 +46,3 @@ module.exports = (sequelize, DataTypes) => {
   });
   return Customer;
 };
-
-// Customer.create({
-//   first_name: first,
-//   last_name: last,
-//   user_name: username,
-//   id_google: gId,
-//   email,
-//   phone_number: number,
-//   gender_type: gender,
-//   profile_image: image,
-// })
-

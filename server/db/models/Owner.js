@@ -24,12 +24,3 @@ module.exports = (sequelize, DataTypes) => {
 
   return Owners;
 };
-
-// // CREATE TABLE "owner" (
-// //   "id" SERIAL PRIMARY KEY,
-// //   "owner_id" uuid uuid_generate_v4();
-// //   "first_name" varchar(255) NOT NULL,
-// //   "last_name" varchar(255) NOT NULL,
-// //   "password" varchar(255) NOT NULL,
-// //   "email" varchar(255) NOT NULL,
-// //  );

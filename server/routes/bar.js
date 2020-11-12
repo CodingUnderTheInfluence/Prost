@@ -65,7 +65,6 @@ barRouter.get('/parties', (req, res) => {
     });
 });
 
-// TODO:
 barRouter.post('/create', (req, res) => {
   const {
     ownerId,
@@ -80,14 +79,11 @@ barRouter.post('/create', (req, res) => {
     image,
     capacity
   } = req.body.bparams;
-  console.log(req.body.bparams, 'BAR PARAMS')
   Bar.findAll({ where: { id_owner: ownerId } })
     .then((bar) => {
       if (bar.length > 0) {
-        console.info('BAR ALREADY EXISTS')
         res.status(500).send('BAR ALREADY EXISTS')
       } else {
-        console.log('BAR CREATED')
         res.status(200).send('BAR CREATED')
         Bar.create({
           id_owner: ownerId,

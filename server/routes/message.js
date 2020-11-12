@@ -41,7 +41,6 @@ messageRouter.get('/privateMessages', (req, res) => {
 });
 
 messageRouter.post('/privateMessages', (req, res) => {
-  console.log(req.body,'Messages post body');
   const {id_sender, id_recipient, body} = req.body;
   Message.create({
     id_sender: id_sender,

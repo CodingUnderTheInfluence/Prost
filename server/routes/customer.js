@@ -1,24 +1,11 @@
 const {
   Customer,
-  Owner,
-  EContact,
-  Bar,
-  Message,
-  Image,
-  Menu,
-  Party,
-  Relationship,
-  Thread,
-  Parties_Customers,
-  Customers_Bars,
 } = require('../db/models/dbindex.js');
 const { Router } = require('express');
 const { Op } = require('sequelize');
 
 const customerRouter = Router();
 const { OAuth2Client } = require('google-auth-library');
-const { FormatColorResetRounded } = require('@material-ui/icons');
-const { ownerWindow } = require('@material-ui/core');
 
 const client = new OAuth2Client('');
 
@@ -27,10 +14,7 @@ const googleAuth = async (authToken) => {
     idToken: authToken,
     audience: process.env.GOOGlE_CLIENT_ID,
   });
-  console.info('ticket', ticket);
   const payload = ticket.getPayload();
-  console.info('payload', payload)
-  console.info(`USER ${payload.name} VERIFIED`)
 
   const {
     sub, email, name, picture,
@@ -78,14 +62,11 @@ customerRouter.get('/all', (req, res) => {
 customerRouter.post('/check', async (req, res) => {
   const { authToken } = req.body.googleToken;
   const auth = await googleAuth(authToken);
-  console.info(auth);
-  Customer.findAll({ where: { id_google: auth.userId } }) // findAll sends back an array
+  Customer.findAll({ where: { id_google: auth.userId } })
     .then((customers) => {
       if (customers.length > 0) {
-        console.info('USER FOUND IN CUSTOMER TABLE');
         res.send('customer');
       } else {
-        console.info('USER NOT FOUND IN CUSTOMER TABLE');
         res.send('form');
       }
     })
@@ -97,14 +78,11 @@ customerRouter.post('/check', async (req, res) => {
 customerRouter.post('/register', async (req, res) => {
   const { authToken } = req.body.googleToken;
   const auth = await googleAuth(authToken);
-  // console.info(auth);
-  Customer.findAll({ where: { id_google: auth.userId } }) // findAll sends back an array
+  Customer.findAll({ where: { id_google: auth.userId } })
     .then((customers) => {
       if (customers.length > 0) {
-        console.info('USER FOUND IN CUSTOMER TABLE');
         res.send('customer');
       } else {
-        console.info('USER NOT FOUND IN CUSTOMER TABLE');
         res.send('form');
       }
     })
@@ -124,9 +102,8 @@ customerRouter.post('/create', (req, res) => {
     image,
     username,
   } = req.body.personalParams;
-  // // const {
-  // //   first, last, email, number, gender, googleId, image, username,
-  // // } = req.body;
+
+  //TODO: REFACTOR these nested statements
   Customer.findAll({ where: { id_google: googleId } })
     .then((customer) => {
       if (customer.length > 0) {
@@ -172,7 +149,6 @@ customerRouter.get('/search', (req, res) => {
     },
   })
     .then((customers) => {
-      // console.info(customers,'customers')s
       res.send(customers);
     })
     .catch((err) => console.warn(err));
@@ -187,7 +163,6 @@ customerRouter.get('/findMe', (req, res) => {
 
 customerRouter.get('/getFriendById', (req, res) => {
   const { customerId } = req.query;
-  console.info('Grabbing information for customerID: ', customerId)
   Customer.findOne({ where: { id: customerId } })
     .then((customer) => res.send(customer))
     .catch(err => console.warn(err));
