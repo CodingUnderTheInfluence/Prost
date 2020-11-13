@@ -48,6 +48,7 @@ function primeDB() {
         latitude: 29.937570,
         longitude: -89.950240,
         id_owner: 1,
+        bar_capacity: '100',
       },
     }))
     .then((numberEffected) => {

@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 const { Router } = require('express');
 const { Op } = require('sequelize');
 const {
@@ -30,7 +29,7 @@ cbRouter.post('/checkin/create', (req, res) => {
     },
   })
     .then((bar) => {
-      if(bar.length === 0){
+      if (bar.length === 0) {
         res.send('Empty');
       } else {
         const barId = bar[0].dataValues.id;
@@ -40,17 +39,16 @@ cbRouter.post('/checkin/create', (req, res) => {
             id_bar: barId,
             checkin: true,
           },
-        })
+        });
       }
     })
-    .then((response) => {
+    .then(() => {
       res.status(201).send('Success');
     })
     .catch((err) => {
       res.status(500).send(err);
     });
-
-  });
+});
 
 cbRouter.get('/history/:customerId', (req, res) => {
   const { customerId } = req.params;
@@ -185,16 +183,19 @@ cbRouter.delete('/checkout', (req, res) => {
 });
 
 cbRouter.get('/list', (req, res) => {
-  const { barId } = req.query
+  const { barId } = req.query;
   Customers_Bars.findAll({ where: { id_bar: barId, checkin: true } })
     .then((list) => {
-      const arr = []
-      list.forEach(entry => {
-        arr.push(entry.id_customer)
-      })
-      res.send(arr)
+      const arr = [];
+      list.forEach((entry) => {
+        arr.push(entry.id_customer);
+      });
+      res.send(arr);
     })
-})
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+});
 
 module.exports = {
   cbRouter,

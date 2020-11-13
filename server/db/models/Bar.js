@@ -19,10 +19,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
     },
     latitude: {
-      type: DataTypes.DECIMAL
+      type: DataTypes.DECIMAL,
     },
     longitude: {
-      type: DataTypes.DECIMAL
+      type: DataTypes.DECIMAL,
     },
     profile_image: {
       type: DataTypes.STRING(1000),
@@ -33,9 +33,9 @@ module.exports = (sequelize, DataTypes) => {
     id_owner: {
       type: DataTypes.INTEGER,
       reference: {
-        model: "owner",
-        key: "id"
-      }
+        model: 'owner',
+        key: 'id',
+      },
     },
   }, {
     freezeTableName: true,

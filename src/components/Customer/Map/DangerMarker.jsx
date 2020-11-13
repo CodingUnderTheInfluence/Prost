@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Marker, InfoWindow } from '@react-google-maps/api';
 import axios from 'axios';
 import warning from '../../../../images/warning.png';
@@ -18,7 +19,7 @@ const DangerMarker = ({ danger: { lat, lng } }) => {
       longitude: lng,
       report: selected,
     })
-      .then(({ data }) => {
+      .then(() => {
         setSuccess(true);
       })
       .catch((err) => console.warn(err));
@@ -52,4 +53,12 @@ const DangerMarker = ({ danger: { lat, lng } }) => {
     </Marker>
   );
 };
+
+DangerMarker.propTypes = {
+  danger: PropTypes.shape({
+    lat: PropTypes.string,
+    lng: PropTypes.string,
+  }),
+};
+
 export default DangerMarker;

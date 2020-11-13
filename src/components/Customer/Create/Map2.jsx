@@ -171,6 +171,7 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
         <BarInfo
           placeInfo={placeInfo}
           searchMarker={searchMarker}
+          customerId={gId}
         />
       )}
       <GoogleMap
@@ -178,8 +179,7 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
         zoom={12}
         center={currentPosition || defaultCenter}
         options={options}
-        draggable={true}
-        // TODO: 
+        draggable
         onClick={onMapClick}
         onLoad={onMapLoad}
       >
@@ -220,7 +220,7 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
   );
 };
 
-MapContainer.propTypes = {
+MapContainer.PropTypes = {
   setMapLatLng: PropTypes.func.isRequired,
   username: PropTypes.string.isRequired,
   gId: PropTypes.string.isRequired,

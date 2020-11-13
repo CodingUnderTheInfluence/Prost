@@ -46,11 +46,24 @@ barRouter.get('/', (req, res) => {
     });
 });
 
+barRouter.get('/currentOcc/:bar', (req, res) => {
+  const { bar } = req.params;
+  Customers_Bars.findAll({
+    where: { id_bar: bar },
+  })
+    .then((data) => {
+      res.status(200).send(data);
+    })
+    .catch((err) => {
+      res.status(500).send('error in current bar customers GET');
+    })
+});
+
 barRouter.get('/parties', (req, res) => {
-  const { id_bar } = req.query;
+  const { id } = req.query;
   Bar.findAll({
     where: {
-      id: id_bar,
+      id,
     },
   })
     .then((bar) => {
@@ -100,7 +113,7 @@ barRouter.post('/create', (req, res) => {
         })
           .then((bar) => {
             res.sendStatus(200, 'BAR CREATED')
-          })
+          });
       }
     })
     .catch(() => {

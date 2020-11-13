@@ -32,7 +32,7 @@ const searchStyle = {
   padding: '50px',
 };
 
-const BarInfo = ({ placeInfo, searchMarker }) => {
+const BarInfo = ({ placeInfo, customerId, searchMarker }) => {
   const [show, setShow] = useState(true);
   const [atBar, setAtBar] = useState(false);
   const [party, setParty] = useState(false);
@@ -50,7 +50,7 @@ const BarInfo = ({ placeInfo, searchMarker }) => {
               <img src={photo} style={{ width: 300, height: 200, alignItems: 'center' }} />
             </CardMedia>
             <CardContent>
-              <Typography className={classes.title} variant="h4" con={console.info(placeInfo)}>
+              <Typography className={classes.title} variant="h4">
                 {placeInfo.name}
               </Typography>
               <Typography
