@@ -19,10 +19,6 @@ const DangerMarker = ({ danger: { lat, lng } }) => {
       report: selected,
     })
       .then(({ data }) => {
-<<<<<<< HEAD
-=======
-        console.log(data);
->>>>>>> (refactor) connect front-end report to back end
         setSuccess(true);
       })
       .catch((err) => console.warn(err));
@@ -31,12 +27,6 @@ const DangerMarker = ({ danger: { lat, lng } }) => {
   const handleClick = () => {
     setShow(!show);
   };
-<<<<<<< HEAD
-=======
-  useEffect(() => {
-    console.log(lat, lng);
-  });
->>>>>>> (refactor) connect front-end report to back end
   return (
     <Marker
       position={{ lat, lng }}
