@@ -19,7 +19,6 @@ const DangerMarker = ({ danger: { lat, lng } }) => {
       report: selected,
     })
       .then(({ data }) => {
-        console.log(data);
         setSuccess(true);
       })
       .catch((err) => console.warn(err));
@@ -28,9 +27,6 @@ const DangerMarker = ({ danger: { lat, lng } }) => {
   const handleClick = () => {
     setShow(!show);
   };
-  useEffect(() => {
-    console.log(lat, lng);
-  });
   return (
     <Marker
       position={{ lat, lng }}
