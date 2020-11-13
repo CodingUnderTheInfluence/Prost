@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import { GoogleMap, Marker, MarkerClusterer, useLoadScript } from '@react-google-maps/api';
 import beer from '../../../../images/beer.png';
-import { Details } from '@material-ui/icons';
 import Search from './Search.jsx';
 import BarInfo from './BarInfo.jsx';
 import PrivateSwitch from './PrivateSwitch.jsx';
@@ -20,6 +19,7 @@ import DangerMarkers from '../Map/DangerMarkers.jsx';
 // import PeopleSearch from './PeopleSearch.jsx';
 import QuickCreate from './QuickCreate.jsx';
 import mapStyle from '../../../helpers/mapStyle';
+import { getDetails } from 'use-places-autocomplete';
 // import mapParties from '../../../helpers/mapStyle';
 // used for the load script to get google places
 const libraries = ['places'];
@@ -30,7 +30,7 @@ const mapStyles = {
 };
 
 const options = {
-  zoomControl: true,
+  zoomControl: false,
   scaleControl: false,
   mapTypeControl: false,
   fullscreenControl: false,
@@ -53,7 +53,6 @@ const searchBoxStyle = {
   marginLeft: '-120px',
 };
 
-
 const MapContainer = ({ setMapLatLng, username, gId }) => {
   const [currentPosition, setCurrentPosition] = useState({
     lat: 29.951065,
@@ -69,10 +68,6 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
   const [searchMarker, setSearchMarker] = useState({});
   const [click, setClick] = useState(false);
   const [placeInfo, setplaceInfo] = useState(null);
-  const [origin, setOrigin] = useState('');
-  const [destination, setDestination] = useState('');
-  const [getDirections, setGetDirections] = useState(false);
-
 
   const defaultCenter = {
     lat: 29.951065,
@@ -162,6 +157,7 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
     setplaceInfo(results);
   }, []);
 
+  // error handling for loading maps
   if (loadError) {
     return 'Error loading maps';
   }
@@ -177,20 +173,6 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
           searchMarker={searchMarker}
         />
       )}
-      {/* TODO: */}
-      {/* <input
-        value={origin}
-        onChange={(e) => {
-          e.preventDefault();
-          setOrigin(e.target.value);
-        }}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') {
-            setGetDirections(true);
-          }
-        }}
-      /> */}
-
       <GoogleMap
         mapContainerStyle={mapStyles}
         zoom={12}
@@ -207,12 +189,6 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
           searchBoxStyle={searchBoxStyle}
           getPlaceInfo={getPlaceInfo}
         />
-        {/* TODO: This is for directions */}
-        {/* <Directions
-          origin={origin}
-          destination={destination}
-          getDirections={getDirections}
-        /> */}
         <Marker
           onClick={handleMarkerClick}
           key={searchMarker.lat}
@@ -228,7 +204,7 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
         <DangerMarkers dangerMarkers={dangerMarkers} />
         <BarMarkers parties={parties} />
         <FriendsMarkers friendLocations={friendLocations} />
-
+        <Directions />
       </GoogleMap>
       <PrivateSwitch gId={gId} getSwitch={getSwitch} />
       <QuickCreate
@@ -240,7 +216,7 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
         getMyLocation={getMyLocation}
         panTo={panTo}
       />
-    </div>
+    </div >
   );
 };
 

@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { DirectionsService, DirectionsRenderer } from '@react-google-maps/api';
-import directions from '../../../data/directions.json';
-
+import { TextField, Button } from '@material-ui/core';
 
 const Directions = () => {
   const [response, setResponse] = useState(null);
-  const [origin, setOrigin] = useState('1217 Magazine St, New Orleans, LA 70130, USA');
-  const [destination, setDestination] = useState('500 Chartres St, New Orleans, LA 70130, USA');
+  const [origin, setOrigin] = useState('');
+  const [destination, setDestination] = useState('');
+  const [getDirections, setGetDirections] = useState(false);
+
 
   const directionsCallback = (response) => {
-
     if (response !== null) {
       response.status === 'OK' ? setResponse(() => response)
         : console.info('direction response: ', response);
@@ -17,20 +17,51 @@ const Directions = () => {
   };
 
   return (
-    <div>
-      <DirectionsService
-        options={{
-          origin: origin,
-          destination: destination,
-          travelMode: 'DRIVING'
-        }}
-        callback={directionsCallback}
-      />
-      {response && <DirectionsRenderer
-        options={{ directions: response }}
-        onLoad={(dirs) => console.info('directions: ', dirs)}
-      />}
-    </div>
+    <div className='directions'>
+      <div style={{ position: 'absolute', bottom: '20px' }}>
+        <TextField
+          id='origin'
+          type='text'
+          onChange={(e) => setOrigin(e.target.value)}
+        ></TextField>
+        <TextField
+          id='destination'
+          type='text'
+          onChange={(e) => setDestination(e.target.value)}
+        ></TextField>
+        <Button
+          variant="contained"
+          onClick={() => setGetDirections(true)}
+        >
+          Directions
+        </Button>
+        <Button
+          variant="contained"
+          onClick={() => setResponse(null)}
+        >
+          Remove Directions
+        </Button>
+      </div>
+      {
+        (origin && destination && getDirections)
+        && (
+          <DirectionsService
+            options={{
+              origin: origin,
+              destination: destination,
+              travelMode: 'DRIVING'
+            }}
+            callback={directionsCallback}
+          />
+        )
+      }
+      {
+        response !== null && <DirectionsRenderer
+          options={{ directions: response }}
+          onLoad={() => setGetDirections(false)}
+        />
+      }
+    </div >
   );
 };
 
