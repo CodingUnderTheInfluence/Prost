@@ -47,10 +47,11 @@ barRouter.get('/', (req, res) => {
 });
 
 barRouter.get('/parties', (req, res) => {
-  const { id_bar } = req.query;
+  console.log(req.query)
+  const { id } = req.query;
   Bar.findAll({
     where: {
-      id: id_bar,
+      id,
     },
   })
     .then((bar) => {

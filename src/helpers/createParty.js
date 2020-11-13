@@ -1,7 +1,6 @@
 const axios = require('axios');
 
 /**
- * 
  * @param {Object} barInfo : info about the bar
  * @param {String} customerId : google id of the current logged in customer
  * @param {Number} size : of party
@@ -49,7 +48,6 @@ const axios = require('axios');
 //   }
 
 // };
-
 
 const createParty = async (barInfo, size = 1) => {
   const {
