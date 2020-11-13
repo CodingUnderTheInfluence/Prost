@@ -49,7 +49,7 @@ barRouter.get('/', (req, res) => {
 barRouter.get('/currentOcc/:bar', (req, res) => {
   const { bar } = req.params;
   Customers_Bars.findAll({
-    where: { id_bar: bar }
+    where: { id_bar: bar },
   })
     .then((data) => {
       res.status(200).send(data);
@@ -57,7 +57,6 @@ barRouter.get('/currentOcc/:bar', (req, res) => {
 });
 
 barRouter.get('/parties', (req, res) => {
-  console.log(req.query)
   const { id } = req.query;
   Bar.findAll({
     where: {

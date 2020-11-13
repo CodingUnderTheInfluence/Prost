@@ -1,15 +1,39 @@
 const axios = require('axios');
 
-const barCapacity = (barId) => axios.get(`/db/bar/parties?id=${barId}`)
-  .then(({ data }) => data.reduce((total, bar) => {
-    if (bar.bar_capacity === null) {
-      return null;
-    }
-    total += parseInt(bar.bar_capacity);
-    return total;
-  }, 0))
-  .catch(() => console.warn('error in axios party'));
+/**
+ * 
+ * @param {Number} barId : current bar that is clicked
+ * gets the current bar and the customers in the bar,
+ * returns an object with total, covid total and spots left
+ * or null if bar is not registered with app
+ */
+const barCapacity = async (barId) => {
+  try {
+    const bar = await axios.get(`/db/bar/parties?id=${barId}`);
+    const currentCustomers = await axios.get(`/db/bar/currentOcc/${barId}`);
+    const { id_owner, bar_capacity } = bar.data[0];
 
+    const occupency = {
+      total: parseInt(bar_capacity),
+      covidTotal: parseInt(bar_capacity) / 4,
+      current: currentCustomers.data.length,
+    };
+
+    return id_owner ? occupency : null;
+  } catch (err) {
+    console.warn('error in axios party:', err);
+  }
+};
+
+const barPercentCapacity = (covidTotal, currentCapacity) => {
+  return currentCapacity / covidTotal;
+};
+
+// TODO:
+/**
+ * @param {Number} barId : current bar that is clicked
+ * gets the bar size and reduces the count
+ */
 // const barCapacity = (barId) => axios.get(`/db/party/${barId}`)
 //   .then(({ data }) => data.reduce((total, partySize) => {
 //     total += partySize.size;
@@ -17,4 +41,7 @@ const barCapacity = (barId) => axios.get(`/db/bar/parties?id=${barId}`)
 //   }, 0))
 //   .catch(() => console.warn('error in axios party'));
 
-module.exports = barCapacity;
+module.exports = {
+  barCapacity,
+  barPercentCapacity,
+};
