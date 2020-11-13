@@ -247,7 +247,7 @@ function primeDB() {
         id_google: '114252099336753341135',
         latitude: 29.924110,
         longitude: -90.107380,
-      }
+      },
     }))
     .then((numberEffected) => {
       if (numberEffected) {
@@ -261,7 +261,7 @@ function primeDB() {
         id_google: '1352532099336753341135',
         latitude: 29.923389,
         longitude: -90.087357,
-      }
+      },
     }))
     .then((numberEffected) => {
       if (numberEffected) {
@@ -384,14 +384,14 @@ function primeDB() {
         image: 'https://cdn.localdatacdn.com/la/chalmette/4270737/original/E00mtC9Jui.jpg',
         id_bar: 1,
         info: 'Appetizers\nWings\nChips&Drinks\nVodka Cranberry Cocktail\nAmaretto Sour',
-        lang: "en"
+        lang: 'en',
       },
     }))
     .then(() => Menu.findOrCreate({
       where: {
         id_bar: 2,
         lang: 'es',
-        info: 'Food\nPreserved Beans Con Panza De Cerdo Frita&Drinks\nHerradura Antiguo Tequila Reposado \nJose Cuervo Reserva De La Familia Platino'
+        info: 'Food\nPreserved Beans Con Panza De Cerdo Frita&Drinks\nHerradura Antiguo Tequila Reposado \nJose Cuervo Reserva De La Familia Platino',
       },
     }))
     .then((numberEffected) => {

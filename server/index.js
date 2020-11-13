@@ -3,7 +3,6 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 
-
 const app = express();
 const http = require('http').createServer(app);
 
@@ -36,7 +35,7 @@ const { eContactRouter } = require('./routes/eContact');
 const { connected } = require('process');
 const { mapRouter } = require('./routes/map');
 const { gTranslateRouter } = require('./routes/gTranslate');
-const { drinksRouter } = require('./routes/drinks')
+const { drinksRouter } = require('./routes/drinks');
 
 app.use('/api/translate', gTranslateRouter);
 app.use('/db/eContact', eContactRouter);
@@ -94,13 +93,12 @@ io.on('connect', (socket) => {
   socket.emit('connection', null);
 
   socket.on('join', (room) => {
-    socket.join(room)
-  })
+    socket.join(room);
+  });
 
   socket.on('privateMessage', (message) => {
     io.to(message.room).emit('incomingPrivateMessage', message);
-
-  })
+  });
 
   socket.on('sendMessage', (data) => {
     io.emit('newMessage', data);
