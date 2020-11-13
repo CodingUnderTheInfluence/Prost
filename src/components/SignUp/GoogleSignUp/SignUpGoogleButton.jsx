@@ -31,7 +31,6 @@ const SignUpGoogleButton = ({
 
     Axios.post('/db/customer/register', { googleProfile, googleToken })
       .then(({ data }) => {
-        console.log(data)
         if (data === 'customer') {
           console.info('THIS CUSTOMER HAS BEEN FOUND');
         } else if (data === 'form') {
@@ -39,14 +38,14 @@ const SignUpGoogleButton = ({
           setFormCounter(2);
         }
       })
-      .catch(err => console.warn(err))
+      .catch((err) => console.warn(err));
 
     Axios.post('/db/maps', {
       userName: profile.name,
-      gId: profile.googleId
+      gId: profile.googleId,
     })
-      .then(data => console.info('in the database', data))
-      .catch(err => console.error('error in post to maps', err));
+      .then((data) => console.info('in the database', data))
+      .catch((err) => console.error('error in post to maps', err));
   };
 
   const onFailure = (res) => {

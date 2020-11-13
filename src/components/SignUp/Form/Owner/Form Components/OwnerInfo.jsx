@@ -74,7 +74,6 @@ const OwnerInfo = ({
   };
 
   const createBar = (data) => {
-    console.log(data, 'OWNER ID in OWNER INFO ln76');
     const bparams = {
       ownerId: data,
       barName,
@@ -90,7 +89,6 @@ const OwnerInfo = ({
     };
     return axios.post('/db/bar/create', { bparams })
       .then(({ data }) => {
-        console.log(data, 'BAR DATA');
         setBarId(data.id);
       })
       .catch((err) => { console.warn(err); });

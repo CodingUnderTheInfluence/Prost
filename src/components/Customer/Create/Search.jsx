@@ -13,7 +13,7 @@ import {
   ComboboxList,
   ComboboxOption,
   ComboboxOptionText,
-} from "@reach/combobox";
+} from '@reach/combobox';
 import { ContactPhoneSharp } from '@material-ui/icons';
 // import "@reach/combobox/styles.css";
 
@@ -24,7 +24,9 @@ const searchStyle = {
   padding: '10px',
 };
 
-const Search = ({ panTo, currentPosition, searchBoxStyle, getPlaceInfo }) => {
+const Search = ({
+  panTo, currentPosition, searchBoxStyle, getPlaceInfo,
+}) => {
   // const [ placeInfo, setPlaceInfo ] = useState(null);
   const {
     ready,
@@ -43,8 +45,6 @@ const Search = ({ panTo, currentPosition, searchBoxStyle, getPlaceInfo }) => {
     },
   });
 
-  // console.log('data', data);
-
   return (
     <div style={searchStyle}>
       <Combobox
@@ -59,8 +59,7 @@ const Search = ({ panTo, currentPosition, searchBoxStyle, getPlaceInfo }) => {
             const { lat, lng } = await getLatLng(results[0]);
             panTo({ lat, lng });
             setValue('');
-          }
-          catch (err) {
+          } catch (err) {
             console.warn(err);
           }
         }}
@@ -78,11 +77,9 @@ const Search = ({ panTo, currentPosition, searchBoxStyle, getPlaceInfo }) => {
         <ComboboxPopover>
           <ComboboxList>
             {status === 'OK'
-              && data.map((results) => {
-                return (
-                  <ComboboxOption key={results.place_id} value={results.description} />
-                )
-              })}
+              && data.map((results) => (
+                <ComboboxOption key={results.place_id} value={results.description} />
+              ))}
           </ComboboxList>
         </ComboboxPopover>
       </Combobox>
@@ -93,7 +90,7 @@ const Search = ({ panTo, currentPosition, searchBoxStyle, getPlaceInfo }) => {
 };
 
 // TODO:
-////////////////////        search function currently being worked on          ////////////////////
+/// /////////////////        search function currently being worked on          ////////////////////
 
 // const Search = ({panTo, currentPosition, getPlaceInfo}) => {
 //   const [ value, setValue ] = useState('');

@@ -97,7 +97,6 @@ barRouter.post('/create', (req, res) => {
       if (bar.length > 0) {
         res.status(500).send('BAR ALREADY EXISTS');
       } else {
-        console.log('BAR CREATED');
         Bar.create({
           id_owner: ownerId,
           bar_name: barName,

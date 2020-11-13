@@ -8,6 +8,7 @@ import ForumIcon from '@material-ui/icons/Forum';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import regeneratorRuntime from 'regenerator-runtime';
 import useSocket from 'use-socket.io-client';
+import Axios from 'axios';
 import MapContainer from './Create/Map2.jsx';
 import Create from './Create/Create.jsx';
 import Messages from './Social/Messages.jsx';
@@ -15,7 +16,6 @@ import Logout from '../Logout.jsx';
 import CustomerProfile from './Profile/CustomerProfile.jsx';
 import FriendsList from './Friends/FriendsList.jsx';
 import FriendsView from './Friends/FriendsView.jsx';
-import Axios from 'axios';
 
 const useStyles = makeStyles({
   root: {
@@ -60,22 +60,19 @@ const CustomerView = ({
     setValue(newValue);
   };
 
-  const findMe = (id) => {
-    return Axios.get(`/db/customer/findMe?gId=${id}`)
-      .then(({ data }) => {
-        console.log(data);
-        setUserData(data)
-      })
-      .catch(err => console.warn(err));
-  }
+  const findMe = (id) => Axios.get(`/db/customer/findMe?gId=${id}`)
+    .then(({ data }) => {
+      setUserData(data);
+    })
+    .catch((err) => console.warn(err));
 
   useEffect(() => {
     findMe(gId);
-  }, [])
+  }, []);
 
   const renderView = () => {
     if (value === 0) {
-      return <FriendsView userData={userData} socket={socket}/>;
+      return <FriendsView userData={userData} socket={socket} />;
     }
     if (value === 1) {
       return <MapContainer setMapLatLng={setMapLatLng} gId={gId} />;

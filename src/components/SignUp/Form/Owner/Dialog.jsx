@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import {
   Grid, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
 } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
 
-function SafetyDialog({ setViewValue, setCounter }) {
+const SafetyDialog = ({ setCounter }) => {
+  const history = useHistory();
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -16,7 +18,7 @@ function SafetyDialog({ setViewValue, setCounter }) {
 
   const deleteLocal = () => {
     delete localStorage.token;
-    setViewValue('Landing');
+    history.push('/');
   };
 
   return (
@@ -55,6 +57,6 @@ function SafetyDialog({ setViewValue, setCounter }) {
       </DialogActions>
     </Dialog>
   );
-}
+};
 
 export default SafetyDialog;

@@ -18,9 +18,8 @@ async function translateText(text, target) {
   // multiple texts.
   let [translations] = await translate.translate(text, target);
   translations = Array.isArray(translations) ? translations : [translations];
-  console.log('Translations:');
   translations.forEach((translation, i) => {
-    console.log(`${text[i]} => (${target}) ${translation}`);
+    console.info(`${text[i]} => (${target}) ${translation}`);
   });
 }
 
