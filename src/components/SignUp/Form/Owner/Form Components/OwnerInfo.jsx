@@ -3,7 +3,7 @@ import { Grid, Button, Typography, TextField, FormControl, FormControlLabel, For
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import axios from 'axios';
 import clsx from 'clsx';
-import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -35,6 +35,7 @@ const OwnerInfo = ({
     capacity,
     setBarId
 }) => {
+    const history = useHistory();
     const classes = useStyles();
     const [username, setUsername] = useState('');
     const [firstName, setFirst] = useState('');
@@ -98,6 +99,7 @@ const OwnerInfo = ({
     const handleAll = async () => {
         const barRegistration = await registerBar();
         await createBar(barRegistration);
+        await history.push('/owner')
     }
 
     return (
@@ -143,9 +145,7 @@ const OwnerInfo = ({
                 onClick={() => {
                     handleAll();
                 }}>
-                <Link to="/owner">
-                    Submit
-            </Link>
+                Submit
             </Button>
         </Grid>
     )

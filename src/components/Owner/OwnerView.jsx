@@ -34,8 +34,9 @@ const useStyles = makeStyles({
     }
 });
 
-const OwnerView = ({ setViewValue, barId }) => {
+const OwnerView = ({ barId }) => {
     const classes = useStyles();
+    const [bar, setBar] = useState();
     const [value, setValue] = useState();
     const [count, setCount] = useState(0);
     const [barAddress, setBarAddress] = useState('');
@@ -49,8 +50,8 @@ const OwnerView = ({ setViewValue, barId }) => {
         setValue(newValue);
     };
 
-    const barInfo = (id) => {
-        axios.get(`/db/bar/info?id=${id}`)
+    const barInfo = () => {
+        axios.get(`/db/bar/info?id=${barId}`)
             .then(({ data }) => {
                 setImage(data[0].profile_image);
                 setBarName(data[0].bar_name);
@@ -63,8 +64,8 @@ const OwnerView = ({ setViewValue, barId }) => {
             })
     }
 
-    const fetchCustomers = (id) => {
-        axios.get(`/db/cb/list?barId=${id}`)
+    const fetchCustomers = () => {
+        axios.get(`/db/cb/list?barId=${barId}`)
             .then(({ data }) => {
                 setCustomerList(data);
                 setCount(data.length);
@@ -74,19 +75,18 @@ const OwnerView = ({ setViewValue, barId }) => {
             })
     }
 
-    const handleInfoGrab = (barId) => {
-        barInfo(barId);
-        fetchCustomers(barId);
+    const getInfo = () => {
+        fetchCustomers();
+        barInfo();
     }
 
     useEffect(() => {
-        if (barId) {
-            handleInfoGrab(barId);
-        } else {
-            setTimeout(() => {
-                handleInfoGrab(barID)
-            }, 2000)
-        }
+        /*
+       Doesnt hit on first call
+
+       hits on second
+   */
+        getInfo();
     }, [])
 
     const renderView = () => {
@@ -102,7 +102,6 @@ const OwnerView = ({ setViewValue, barId }) => {
         }
         if (value === 2) {
             return <OwnerProfile
-                setViewValue={setViewValue}
                 count={count}
                 barName={barName}
                 barNumber={barNumber}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Context } from 'react';
 import {
     Route,
     Switch,
@@ -9,9 +9,9 @@ import LandingPage from './components/LandingPage.jsx';
 import CustomerView from './components/Customer/CustomerView.jsx';
 import OwnerView from './components/Owner/OwnerView.jsx';
 
+
 const App = () => {
     const history = useHistory();
-    const [value, setViewValue] = useState('');
     const [gId, setId] = useState('');
     const [profileImage, setProfileImage] = useState('');
     const [username, setUsername] = useState('');
