@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { render } from 'react-dom';
-import LandingView from './components/LandingView.jsx';
+import LandingPage from './components/LandingPage.jsx';
 import CustomerView from './components/Customer/CustomerView.jsx';
 import OwnerView from './components/Owner/OwnerView.jsx';
 import Form from './components/Form/Form.jsx';
@@ -30,7 +30,7 @@ function App() {
 
   if (value === 'Landing') {
     return (
-      <LandingView
+      <LandingPage
         setViewValue={setViewValue}
         setId={setId}
         setProfileImage={setProfileImage}
@@ -68,6 +68,6 @@ function App() {
       />
     );
   }
-  return <LandingView setViewValue={setViewValue} />;
+  return <LandingPage setViewValue={setViewValue} />;
 }
 export default App;

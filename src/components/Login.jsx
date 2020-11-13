@@ -6,11 +6,7 @@ import { Button } from '@material-ui/core';
 const clientId = process.env.GOOGLE_CLIENT_ID;
 
 const Login = ({
-  setViewValue,
-  setId,
-  setProfileImage,
-  setUsername,
-  setDbId,
+  setViewValue, setId, setProfileImage, setUsername, setDbId
 }) => {
   const onSuccess = (res) => {
     const token = res.tokenId;
@@ -48,13 +44,8 @@ const Login = ({
       <GoogleLogin
         clientId={clientId}
         render={(renderProps) => (
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={renderProps.onClick}
-            disabled={renderProps.disabled}
-          >
-            Continue with Google
+          <Button variant="outlined" color="primary" onClick={renderProps.onClick} disabled={renderProps.disabled}>
+            Login Here
           </Button>
         )}
         buttonText="Login"

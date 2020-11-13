@@ -1,16 +1,27 @@
 import React, { useState } from 'react';
+import { Button } from '@material-ui/core';
 import OwnerCredentials from './OwnerCredentials.jsx';
 
-const OwnerLogin = ({
-  setViewValue,
-  setBarId,
-}) => (
-  <div>
-    <OwnerCredentials
-      setViewValue={setViewValue}
-      setBarId={setBarId}
-    />
-  </div>
-);
+function OwnerLogin({ setViewValue, setBarId }) {
+  const [counter, setCounter] = useState(0);
+  const renderOwner = () => {
+    if (counter === 1) {
+      return <OwnerCredentials setViewValue={setViewValue} setBarId={setBarId} />;
+    }
+    return (<div />);
+  };
+  return (
+    <div>
+      <Button
+        variant="outlined"
+        color="primary"
+        onClick={() => setCounter(1)}
+      >
+        Owner Login
+      </Button>
+      { renderOwner()}
+    </div>
+  );
+}
 
 export default OwnerLogin;
