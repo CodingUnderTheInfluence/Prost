@@ -30,6 +30,7 @@
     "react-google-login": "^5.1.22",
     "react-icons": "^3.11.0",
     "react-markdown": "^5.0.2",
+    "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "sequelize": "^6.3.5",
     "socket.io": "^2.3.0",

@@ -5,7 +5,6 @@ import CustomerSignUpForm from './Form/customer/CustomerSignUpForm.jsx';
 import SignUpGoogleButton from './GoogleSignUp/SignUpGoogleButton.jsx';
 
 const SignUp = ({
-  setViewValue,
   setId,
   setProfileImage,
   setUsername,
@@ -27,14 +26,12 @@ const SignUp = ({
   const setFormView = () => {
     if (formCounter === 1) {
       return <OwnerForm
-        setViewValue={setViewValue}
         mapLatLng={mapLatLng}
         setBarId={setBarId}
       />;
     } if (formCounter === 2) {
       return (
         <CustomerSignUpForm
-          setViewValue={setViewValue}
           setId={setId}
           gId={gId}
           setProfileImage={setProfileImage}
@@ -54,7 +51,6 @@ const SignUp = ({
         <div>
           <Grid item container direction="row" justify="center" alignItems="center">
             <SignUpGoogleButton
-              setViewValue={setViewValue}
               setId={setId}
               setProfileImage={setProfileImage}
               setUsername={setUsername}

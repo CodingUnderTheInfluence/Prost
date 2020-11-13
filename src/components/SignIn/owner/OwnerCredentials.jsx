@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Grid, Button, TextField } from '@material-ui/core';
 import axios from 'axios';
 import { LocalConvenienceStoreOutlined } from '@material-ui/icons';
+import { useHistory } from 'react-router-dom'
 
-function OwnerCredentials({ setViewValue, setBarId }) {
+const OwnerCredentials = ({ setBarId }) => {
+  const history = useHistory();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
@@ -29,7 +31,7 @@ function OwnerCredentials({ setViewValue, setBarId }) {
           )
             .then(({ data }) => {
               if (data) {
-                setViewValue('OwnerView');
+                history.push('/owner')
               }
               // need to send to owner on validation
             });

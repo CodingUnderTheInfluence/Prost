@@ -2,12 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { GoogleLogin } from 'react-google-login';
 import Axios from 'axios';
 import { Button } from '@material-ui/core';
+import { Redirect, useHistory } from 'react-router-dom';
 
 const clientId = process.env.GOOGLE_CLIENT_ID;
 
 const Login = ({
-  setViewValue, setId, setProfileImage, setUsername, setDbId
+  setId,
+  setProfileImage,
+  setUsername,
+  setDbId
 }) => {
+  const history = useHistory();
   const onSuccess = (res) => {
     const token = res.tokenId;
     const profile = res.profileObj;
@@ -25,13 +30,14 @@ const Login = ({
     Axios.post('/db/customer/check', { googleProfile, googleToken })
       .then(({ data }) => {
         if (data === 'customer') {
-          setViewValue('CustomerView');
           localStorage.setItem('customerToken', res.tokenId);
+          history.push('/customer')
         } else if (data === 'Owner') {
-          setViewValue('OwnerView');
           localStorage.setItem('ownerToken', res.tokenId);
+          history.push('/owner')
         } else if (data === 'form') {
           console.info('PLEASE REGISTER WITH OUR APP');
+          <Redirect to="/" />
         }
       });
   };

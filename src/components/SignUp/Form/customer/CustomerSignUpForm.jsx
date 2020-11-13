@@ -3,11 +3,14 @@ import {
   Grid, Button, Typography, TextField, Radio, RadioGroup, FormControl, FormControlLabel, FormLabel,
 } from '@material-ui/core';
 import axios from 'axios';
+import { Redirect } from 'react-router-dom'
 import SafetyDialog from './SignUpDialog.jsx';
+import { useHistory } from 'react-router-dom'
 
 const CustomerSignUpForm = ({
-  setViewValue, gId, profileImage, username, gEmail,
+  gId, profileImage, username, gEmail,
 }) => {
+  const history = useHistory();
   const [counter, setCounter] = useState(0);
   // PERSONAL INFORMATION FIELDS
   const [personalFirst, setPersonalFirst] = useState('');
@@ -174,7 +177,7 @@ const CustomerSignUpForm = ({
             variant="outlined"
             onClick={() => {
               eContactInformationSubmit();
-              setViewValue('CustomerView');
+              history.push('/customer')
             }}
           >
             Submit
@@ -183,7 +186,7 @@ const CustomerSignUpForm = ({
       );
     }
     return (
-      <SafetyDialog setViewValue={setViewValue} setCounter={setCounter} />
+      <SafetyDialog setCounter={setCounter} />
     );
   };
 

@@ -117,8 +117,8 @@ barRouter.post('/create', (req, res) => {
           .catch((err) => console.warn('CANNOT SEND DETAILS AFTER CREATION'));
       }
     })
-    .catch(() => {
-      res.status(500).send('error in bar create');
+    .catch((err) => {
+      res.status(500).send(err);
     });
 });
 

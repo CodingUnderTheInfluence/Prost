@@ -3,6 +3,7 @@ import { Grid, Button, Typography, TextField, FormControl, FormControlLabel, For
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import axios from 'axios';
 import clsx from 'clsx';
+import { Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -22,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 const OwnerInfo = ({
     setCounter,
-    setViewValue,
     barName,
     address,
     city,
@@ -57,44 +57,48 @@ const OwnerInfo = ({
         event.preventDefault();
     };
 
-    let ownerId;
-
-     const registerBar = () => {
+    const registerBar = () => {
         const params = {
-          username,
-          firstName,
-          lastName,
-          email,
-          password: values.password,
+            username,
+            firstName,
+            lastName,
+            email,
+            password: values.password,
         }
-        return axios.post('/db/owner/register', {params})
-            .then(({data}) => {
-                ownerId = data.owner.id;
+        return axios.post('/db/owner/register', { params })
+            .then(({ data }) => {
+                return data.owner.id;
             })
-      }
-      
-      const createBar = (data) => {
+            .catch(err => { console.warn(err) })
+    }
+
+    const createBar = (data) => {
+        console.log(data, "OWNER ID in OWNER INFO ln76")
         const bparams = {
-          ownerId,
-          barName,
-          address,
-          city,
-          state,
-          zip,
-          number,
-          lat,
-          lng,
-          image,
-          capacity
+            ownerId: data,
+            barName,
+            address,
+            city,
+            state,
+            zip,
+            number,
+            lat,
+            lng,
+            image,
+            capacity
         };
         return axios.post('/db/bar/create', { bparams })
-      }
-      
-      const handleAll = async () => {
+            .then(({ data }) => {
+                console.log(data, 'BAR DATA')
+                setBarId(data.id)
+            })
+            .catch(err => { console.warn(err) })
+    }
+
+    const handleAll = async () => {
         const barRegistration = await registerBar();
-        const barCreation = await createBar(barRegistration);
-        await setBarId(barCreation.data.id);
-      }
+        await createBar(barRegistration);
+    }
 
     return (
         <Grid container direction="column" justify="center" column="center">
@@ -138,9 +142,10 @@ const OwnerInfo = ({
             <Button variant="outlined"
                 onClick={() => {
                     handleAll();
-                    setViewValue('OwnerView');
                 }}>
-                Submit
+                <Link to="/owner">
+                    Submit
+            </Link>
             </Button>
         </Grid>
     )
