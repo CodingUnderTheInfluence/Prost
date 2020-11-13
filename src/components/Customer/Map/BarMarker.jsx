@@ -11,7 +11,7 @@ const BarMarker = ({ party: { id, bar_name, latitude, longitude } }) => {
 
   const handleClick = (id) => {
     barCapacity(id)
-      .then(size => {
+      .then((size) => {
         setShow(!show);
         if (size > 20) {
           setColor('red');
@@ -34,19 +34,20 @@ const BarMarker = ({ party: { id, bar_name, latitude, longitude } }) => {
       }}
       icon={{
         url: beer,
-        scaledSize: new window.google.maps.Size(30, 30)
+        scaledSize: new window.google.maps.Size(30, 30),
       }}
       onClick={() => handleClick(id)}
     >
-      {show &&
+      {show && (
         <InfoWindow>
           <div>
             <div>{bar_name}</div>
             <div style={{ color: color }}>Capacity:{getBarCapacity}</div>
           </div>
-        </InfoWindow>}
-    </Marker >
-  )
-}
+        </InfoWindow>
+      )}
+    </Marker>
+  );
+};
 
 export default BarMarker;
