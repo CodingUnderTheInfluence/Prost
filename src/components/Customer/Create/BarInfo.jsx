@@ -41,8 +41,6 @@ const BarInfo = ({ placeInfo, customerId, searchMarker }) => {
   const photo = photos[0].getUrl();
   const classes = useStyles();
 
-  console.log('customerId in barinfo', customerId);
-
   return (
     <div>
       {show && (
@@ -52,7 +50,7 @@ const BarInfo = ({ placeInfo, customerId, searchMarker }) => {
               <img src={photo} style={{ width: 300, height: 200, alignItems: 'center' }} />
             </CardMedia>
             <CardContent>
-              <Typography className={classes.title} variant="h4" con={console.info(placeInfo)}>
+              <Typography className={classes.title} variant="h4">
                 {placeInfo.name}
               </Typography>
               <Typography

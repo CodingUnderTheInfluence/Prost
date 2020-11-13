@@ -191,6 +191,9 @@ cbRouter.get('/list', (req, res) => {
         arr.push(entry.id_customer);
       });
       res.send(arr);
+    })
+    .catch((err) => {
+      res.status(500).send(err);
     });
 });
 

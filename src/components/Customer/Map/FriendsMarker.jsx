@@ -7,13 +7,6 @@ const FriendsMarker = ({ friendsLocation: { user_name, latitude, longitude, repo
   const [show, setShow] = useState(false);
   const iconSelect = report ? warning : 'http://maps.google.com/mapfiles/ms/icons/blue.png';
 
-  // const iconSelect = () => {
-  //   if (report) {
-  //     return ReportProblem;
-  //   }
-  //   return 'http://maps.google.com/mapfiles/ms/icons/blue.png';
-  // };
-
   const handleClick = () => {
     setShow(!show);
   };
