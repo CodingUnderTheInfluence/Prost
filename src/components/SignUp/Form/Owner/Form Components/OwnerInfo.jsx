@@ -32,7 +32,8 @@ const OwnerInfo = ({
     lat,
     lng,
     image,
-    capacity
+    capacity,
+    setBarId
 }) => {
     const classes = useStyles();
     const [username, setUsername] = useState('');
@@ -80,7 +81,13 @@ const OwnerInfo = ({
                     capacity
                 };
                 axios.post('/db/bar/create', { bparams })
+                    .then(({ data }) => {
+                        console.log(data, 'BAR MADE')
+                        setBarId(data.id)
+                    })
+                    .catch((err) => { console.warn(err) })
             })
+            .catch((err) => { console.warn(err) })
 
     }
 

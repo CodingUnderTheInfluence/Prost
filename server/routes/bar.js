@@ -31,7 +31,7 @@ barRouter.get('/', (req, res) => {
   const { bar_name } = req.query;
   Bar.findAll({
     where: {
-      bar_name: bar_name,
+      bar_name,
     },
   })
     .then((bar) => {
@@ -56,7 +56,7 @@ barRouter.get('/currentOcc/:bar', (req, res) => {
     })
     .catch((err) => {
       res.status(500).send('error in current bar customers GET');
-    })
+    });
 });
 
 barRouter.get('/parties', (req, res) => {
@@ -90,14 +90,14 @@ barRouter.post('/create', (req, res) => {
     lat,
     lng,
     image,
-    capacity
+    capacity,
   } = req.body.bparams;
   Bar.findAll({ where: { id_owner: ownerId } })
     .then((bar) => {
       if (bar.length > 0) {
-        res.status(500).send('BAR ALREADY EXISTS')
+        res.status(500).send('BAR ALREADY EXISTS');
       } else {
-        res.status(200).send('BAR CREATED')
+        console.log('BAR CREATED');
         Bar.create({
           id_owner: ownerId,
           bar_name: barName,
@@ -111,9 +111,10 @@ barRouter.post('/create', (req, res) => {
           profile_image: image,
           bar_capacity: capacity,
         })
-          .then((bar) => {
-            res.sendStatus(200, 'BAR CREATED')
-          });
+          .then((barDetails) => {
+            res.status(200).send(barDetails);
+          })
+          .catch((err) => console.warn('CANNOT SEND DETAILS AFTER CREATION'));
       }
     })
     .catch(() => {
@@ -130,10 +131,10 @@ barRouter.post('/create/party', (req, res) => {
   } = req.body;
   Bar.findOrCreate({
     where: {
-      bar_name: bar_name,
-      address: address,
-      latitude: latitude,
-      longitude: longitude,
+      bar_name,
+      address,
+      latitude,
+      longitude,
     },
   })
     .then((bar) => {
@@ -146,15 +147,15 @@ barRouter.post('/create/party', (req, res) => {
 
 barRouter.post('/id', (req, res) => {
   const { email, password } = req.body.params;
-  Owner.findAll({ where: { email: email } })
+  Owner.findAll({ where: { email } })
     .then((owner) => {
       if (owner.length > 0) {
         Bar.findAll({ where: { id_owner: owner[0].id } })
           .then((bar) => {
-            res.send(bar)
-          })
+            res.send(bar);
+          });
       }
-    })
+    });
 });
 
 barRouter.get('/info', (req, res) => {
@@ -162,12 +163,12 @@ barRouter.get('/info', (req, res) => {
   Bar.findAll({ where: { id } })
     .then((bar) => {
       if (bar.length > 0) {
-        res.send(bar)
+        res.send(bar);
       } else {
-        res.send('NO BAR FOUND')
+        res.send('NO BAR FOUND');
       }
-    })
-})
+    });
+});
 
 module.exports = {
   barRouter,

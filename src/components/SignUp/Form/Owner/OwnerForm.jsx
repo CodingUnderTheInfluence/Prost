@@ -15,7 +15,7 @@ import SafetyDialog from './Dialog.jsx';
 import BarInfo from './Form Components/BarInfo.jsx';
 import OwnerInfo from './Form Components/OwnerInfo.jsx';
 
-function OwnerForm({ setViewValue, mapLatLng }) {
+function OwnerForm({ setViewValue, mapLatLng, setBarId }) {
   const [counter, setCounter] = useState(0);
   const [barName, setBarName] = useState('');
   const [address, setAddress] = useState('');
@@ -61,6 +61,7 @@ function OwnerForm({ setViewValue, mapLatLng }) {
         lng={lng}
         image={image}
         capacity={occupency}
+        setBarId={setBarId}
       />;
     }
     return (

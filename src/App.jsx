@@ -3,9 +3,8 @@ import { render } from 'react-dom';
 import LandingPage from './components/LandingPage.jsx';
 import CustomerView from './components/Customer/CustomerView.jsx';
 import OwnerView from './components/Owner/OwnerView.jsx';
-import Form from './components/Form/Form.jsx';
 
-function App() {
+const App = () => {
   const [value, setViewValue] = useState('');
   const [gId, setId] = useState('');
   const [profileImage, setProfileImage] = useState('');
@@ -58,15 +57,6 @@ function App() {
     );
   } if (value === 'OwnerView') {
     return <OwnerView setViewValue={setViewValue} barId={barId} />;
-  } if (value === 'form') {
-    return (
-      <Form
-        setViewValue={setViewValue}
-        gId={gId}
-        profileImage={profileImage}
-        username={username}
-      />
-    );
   }
   return <LandingPage setViewValue={setViewValue} />;
 }

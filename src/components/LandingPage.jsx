@@ -51,6 +51,7 @@ const LandingPage = ({
           setGEmail={setGEmail}
           gEmail={gEmail}
           mapLatLng={mapLatLng}
+          setBarId={setBarId}
         />
       </Grid>
     </Grid>
