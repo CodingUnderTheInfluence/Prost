@@ -5,7 +5,7 @@ import warning from '../../../../images/warning.png';
 
 const DangerMarker = ({ danger: { lat, lng } }) => {
   const [show, setShow] = useState(false);
-  const [selected, setSelected] = useState('');
+  const [selected, setSelected] = useState('Assult');
   const [success, setSuccess] = useState(false);
 
   const handleChange = (event) => {
