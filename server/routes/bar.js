@@ -108,7 +108,7 @@ barRouter.post('/create', (req, res) => {
           profile_image: image,
           bar_capacity: capacity,
         })
-          .then((bar) => {
+          .then(() => {
             res.sendStatus(200, 'BAR CREATED');
           });
       }

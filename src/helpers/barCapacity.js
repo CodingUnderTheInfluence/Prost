@@ -1,7 +1,6 @@
 const axios = require('axios');
 
 /**
- * 
  * @param {Number} barId : current bar that is clicked
  * gets the current bar and the customers in the bar,
  * returns an object with total, covid total and spots left
@@ -25,9 +24,7 @@ const barCapacity = async (barId) => {
   }
 };
 
-const barPercentCapacity = (covidTotal, currentCapacity) => {
-  return currentCapacity / covidTotal;
-};
+const barPercentCapacity = (covidTotal, currentCapacity) => currentCapacity / covidTotal;
 
 // TODO:
 /**
