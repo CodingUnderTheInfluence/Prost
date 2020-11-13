@@ -42,30 +42,25 @@ const LandingView = ({
           setBarId={setBarId}
         />
       );
-    } if (landingView === 'googleLogin') {
-
-    } if (landingView === '') {
-
-    } else {
-      return (
-        <Options
-          setDbId={setDbId}
-          setViewValue={setViewValue}
-          setId={setId}
-          setProfileImage={setProfileImage}
-          setUsername={setUsername}
-          gId={gId}
-          profileImage={profileImage}
-          username={username}
-          setGEmail={setGEmail}
-          gEmail={gEmail}
-          mapLatLng={mapLatLng}
-          setBarId={setBarId}
-          barId={barId}
-          setLandingView={setLandingView}
-        />
-      );
     }
+    return (
+      <Options
+        setDbId={setDbId}
+        setViewValue={setViewValue}
+        setId={setId}
+        setProfileImage={setProfileImage}
+        setUsername={setUsername}
+        gId={gId}
+        profileImage={profileImage}
+        username={username}
+        setGEmail={setGEmail}
+        gEmail={gEmail}
+        mapLatLng={mapLatLng}
+        setBarId={setBarId}
+        barId={barId}
+        setLandingView={setLandingView}
+      />
+    );
   };
 
   return (
