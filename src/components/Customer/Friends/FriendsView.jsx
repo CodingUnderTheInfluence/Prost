@@ -7,26 +7,24 @@ import FriendForm from './FriendForm.jsx';
 import PrivateMessage from './PrivateMessage.jsx';
 
 const useStyles = makeStyles({
-    //TODO 
-        //STYLE EACH ELEMENT
-        //Test each element thoroughly for functionality
+  // TODO
+  // STYLE EACH ELEMENT
+  // Test each element thoroughly for functionality
 });
 
-const FriendsView = ({socket, userData}) => {
- 
-    const [viewValue, setViewValue] = useState('FriendsList');
-    const [viewObject, setViewObject] = useState({});
+const FriendsView = ({ socket, userData }) => {
+  const [viewValue, setViewValue] = useState('FriendsList');
+  const [viewObject, setViewObject] = useState({});
 
   const renderView = () => {
     if (viewValue === 'Messages') {
-      return <PrivateMessage f={viewObject} setViewValue={setViewValue} userData={userData} socket={socket}/>;
-    } else if (viewValue === 'FriendsList') {
-        return <FriendsList userData={userData} socket={socket} setViewValue={setViewValue} setViewObject={setViewObject} />
-    } else if (viewValue === 'AddFriend') {
-        return <FriendForm userData={userData} setViewValue={setViewValue} />
+      return <PrivateMessage f={viewObject} setViewValue={setViewValue} userData={userData} socket={socket} />;
+    } if (viewValue === 'FriendsList') {
+      return <FriendsList userData={userData} socket={socket} setViewValue={setViewValue} setViewObject={setViewObject} />;
+    } if (viewValue === 'AddFriend') {
+      return <FriendForm userData={userData} setViewValue={setViewValue} />;
     }
   };
-
 
   return (
     <Grid container direction="column" justify="center" alignItems="center">
