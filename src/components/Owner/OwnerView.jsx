@@ -51,10 +51,9 @@ const OwnerView = ({ setViewValue, barId }) => {
         setValue(newValue);
     };
 
-    const idArr = [];
-
-    const barInfo = () => {
-        axios.get(`/db/bar/info?id=${barId}`)
+    console.log(barId,' BAR ID IN OWNER VIEW')
+    const barInfo = (identification) => {
+        axios.get(`/db/bar/info?id=${identification}`)
             .then(({ data }) => {
                 setImage(data[0].profile_image);
                 setBarName(data[0].bar_name);
@@ -67,8 +66,8 @@ const OwnerView = ({ setViewValue, barId }) => {
             })
     }
 
-    const fetchCustomers = () => {
-        axios.get(`/db/cb/list?barId=${barId}`)
+    const fetchCustomers = (identy) => {
+        axios.get(`/db/cb/list?barId=${identy}`)
             .then(({ data }) => {
                 setCustomerList(data);
                 setCount(data.length);
@@ -79,10 +78,10 @@ const OwnerView = ({ setViewValue, barId }) => {
     }
 
     useEffect(() => {
-        barInfo();
-        fetchCustomers();
+        barInfo(barId);
+        fetchCustomers(barId);
         setTimeout(() => {
-            fetchCustomers();
+            fetchCustomers(barId);
         }, 2000)
     }, [])
 

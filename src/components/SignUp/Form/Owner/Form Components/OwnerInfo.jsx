@@ -57,39 +57,44 @@ const OwnerInfo = ({
         event.preventDefault();
     };
 
-    const submitOwnerInfo = () => {
-        const params = {
-            username,
-            firstName,
-            lastName,
-            email,
-            password: values.password,
-        }
-        axios.post('/db/owner/register', { params })
-            .then(({ data }) => {
-                const bparams = {
-                    ownerId: data.owner.id,
-                    barName,
-                    address,
-                    city,
-                    state,
-                    zip,
-                    number,
-                    lat,
-                    lng,
-                    image,
-                    capacity
-                };
-                axios.post('/db/bar/create', { bparams })
-                    .then(({ data }) => {
-                        console.log(data, 'BAR MADE')
-                        setBarId(data.id)
-                    })
-                    .catch((err) => { console.warn(err) })
-            })
-            .catch((err) => { console.warn(err) })
+    let ownerId;
 
-    }
+     const registerBar = () => {
+        const params = {
+          username,
+          firstName,
+          lastName,
+          email,
+          password: values.password,
+        }
+        return axios.post('/db/owner/register', {params})
+            .then(({data}) => {
+                ownerId = data.owner.id;
+            })
+      }
+      
+      const createBar = (data) => {
+        const bparams = {
+          ownerId,
+          barName,
+          address,
+          city,
+          state,
+          zip,
+          number,
+          lat,
+          lng,
+          image,
+          capacity
+        };
+        return axios.post('/db/bar/create', { bparams })
+      }
+      
+      const handleAll = async () => {
+        const barRegistration = await registerBar();
+        const barCreation = await createBar(barRegistration);
+        await setBarId(barCreation.data.id);
+      }
 
     return (
         <Grid container direction="column" justify="center" column="center">
@@ -132,8 +137,8 @@ const OwnerInfo = ({
             </Grid>
             <Button variant="outlined"
                 onClick={() => {
-                    submitOwnerInfo();
-                    setViewValue('OwnerView')
+                    handleAll();
+                    setViewValue('OwnerView');
                 }}>
                 Submit
             </Button>

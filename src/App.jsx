@@ -12,7 +12,7 @@ const App = () => {
   const [gEmail, setGEmail] = useState('');
   const [mapLatLng, setMapLatLng] = useState('');
   const [userId, setUserId] = useState('');
-  const [barId, setBarId] = useState('');
+  const [barId, setBarId] = useState();
   const handleChange = (event, newValue) => {
     setViewValue(newValue);
   };
