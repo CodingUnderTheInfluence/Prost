@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import propTypes from 'prop-types';
 import {
   Grid,
   Button,
@@ -26,7 +27,6 @@ const Create = ({ placeInfo }) => {
   const [size, setSize] = useState(1);
   const [party, setParty] = useState(false);
   const handleParty = () => {
-    console.info(placeInfo)
     createParty(placeInfo, size)
       .then(() => {
         setParty(true);
@@ -37,7 +37,7 @@ const Create = ({ placeInfo }) => {
 
   return (
     <div>
-      {!party ?
+      {!party ? (
         <FormControl>
           <TextField
             id="standard-number"
@@ -61,14 +61,15 @@ const Create = ({ placeInfo }) => {
             Submit
           </Button>
         </FormControl>
-        : <div>Party Created!</div>
-      }
+      )
+        : <div>Party Created!</div>}
     </div>
   );
 };
 
-// TODO:
-/// ///////////////////////////////////        get bar info        ////////////////////////////////////////
+Create.propTypes = propTypes.any;
+
+// TODO: get bar info
 // const storeBar = () => {
 //   axios.get(`/db/bar/create?bar_name=${search}`)
 //     .then(({data}) => {

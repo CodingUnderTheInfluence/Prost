@@ -39,16 +39,15 @@ cbRouter.post('/checkin/create', (req, res) => {
             id_bar: barId,
             checkin: true,
           },
-        })
+        });
       }
     })
-    .then((response) => {
+    .then(() => {
       res.status(201).send('Success');
     })
     .catch((err) => {
       res.status(500).send(err);
     });
-
 });
 
 cbRouter.get('/history/:customerId', (req, res) => {
@@ -184,16 +183,16 @@ cbRouter.delete('/checkout', (req, res) => {
 });
 
 cbRouter.get('/list', (req, res) => {
-  const { barId } = req.query
+  const { barId } = req.query;
   Customers_Bars.findAll({ where: { id_bar: barId, checkin: true } })
     .then((list) => {
-      const arr = []
-      list.forEach(entry => {
-        arr.push(entry.id_customer)
-      })
-      res.send(arr)
-    })
-})
+      const arr = [];
+      list.forEach((entry) => {
+        arr.push(entry.id_customer);
+      });
+      res.send(arr);
+    });
+});
 
 module.exports = {
   cbRouter,
