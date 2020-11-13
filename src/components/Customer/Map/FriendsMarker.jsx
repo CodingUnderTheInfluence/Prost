@@ -16,10 +16,11 @@ const FriendsMarker = ({ friendsLocation: { user_name, latitude, longitude } }) 
       onClick={() => handleClick()}
       icon={{ url: 'http://maps.google.com/mapfiles/ms/icons/blue.png' }}
     >
-      {show &&
+      {show && (
         <InfoWindow>
-          <div>{user_name}</div>
-        </InfoWindow>}
+          <h3>{user_name}</h3>
+        </InfoWindow>
+      )}
     </Marker>
   );
 };
