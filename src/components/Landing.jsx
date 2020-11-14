@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { Grid } from '@material-ui/core';
 import Options from './Options.jsx';
 import SignInOptions from './SignIn/SignInOptions.jsx';
-import OwnerLogin from './SignIn/owner/OwnerLogin.jsx';
 import OwnerCredentials from './SignIn/owner/OwnerCredentials.jsx';
-import Login from './Login.jsx';
+import SignUpOptions from './SignUp/SignUpOptions.jsx';
+import OwnerForm from './SignUp/Form/Owner/OwnerForm.jsx';
+import CustomerSignUpForm from './SignUp/Form/customer/CustomerSignUpForm.jsx';
 
 const Landing = ({
   setDbId,
@@ -36,10 +37,49 @@ const Landing = ({
           setLandingView={setLandingView}
         />
       );
-    } if (landingView === 'ownerCredentials') {
+    }
+    if (landingView === 'ownerCredentials') {
       return (
         <OwnerCredentials
           setBarId={setBarId}
+        />
+      );
+    }
+    if (landingView === 'signUp') {
+      return (
+        <SignUpOptions
+          setId={setId}
+          setProfileImage={setProfileImage}
+          setUsername={setUsername}
+          gId={gId}
+          profileImage={profileImage}
+          username={username}
+          gEmail={gEmail}
+          setGEmail={setGEmail}
+          mapLatLng={mapLatLng}
+          setBarId={setBarId}
+          setLandingView={setLandingView}
+        />
+      );
+    }
+    if (landingView === 'ownerSignUp') {
+      return (
+        <OwnerForm
+          mapLatLng={mapLatLng}
+          setBarId={setBarId}
+        />
+      );
+    }
+    if (landingView === 'customerSignUp') {
+      return (
+        <CustomerSignUpForm
+          setId={setId}
+          gId={gId}
+          setProfileImage={setProfileImage}
+          setUsername={setUsername}
+          username={username}
+          profileImage={profileImage}
+          gEmail={gEmail}
         />
       );
     }

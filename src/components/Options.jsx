@@ -51,6 +51,7 @@ const Options = ({
         setGEmail={setGEmail}
         gEmail={gEmail}
         mapLatLng={mapLatLng}
+        setLandingView={setLandingView}
       />
     </Grid>
   </Grid>

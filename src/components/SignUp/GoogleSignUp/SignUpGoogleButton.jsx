@@ -10,10 +10,8 @@ const SignUpGoogleButton = ({
   setId,
   setProfileImage,
   setUsername,
-  setFormCounter,
-  profileImage,
-  username,
   setGEmail,
+  setLandingView,
 }) => {
   const onSuccess = async (res) => {
     const token = res.tokenId;
@@ -35,7 +33,6 @@ const SignUpGoogleButton = ({
           console.info('THIS CUSTOMER HAS BEEN FOUND');
         } else if (data === 'form') {
           localStorage.setItem('customerToken', res.tokenId);
-          setFormCounter(2);
         }
       })
       .catch((err) => console.warn(err));
@@ -46,6 +43,7 @@ const SignUpGoogleButton = ({
     })
       .then((data) => console.info('in the database', data))
       .catch((err) => console.error('error in post to maps', err));
+    setLandingView('customerSignUp');
   };
 
   const onFailure = (res) => {
