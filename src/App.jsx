@@ -5,7 +5,7 @@ import {
   BrowserRouter,
   useHistory,
 } from 'react-router-dom';
-import LandingPage from './components/LandingPage.jsx';
+import Landing from './components/Landing.jsx';
 import CustomerView from './components/Customer/CustomerView.jsx';
 import OwnerView from './components/Owner/OwnerView.jsx';
 
@@ -20,11 +20,11 @@ const App = () => {
   const [barId, setBarId] = useState();
 
   // useEffect(() => {
-  //     if (localStorage.customerToken) {
-  //         history.push('/customer')
-  //     } else if (localStorage.ownerToken) {
-  //         history.push('/owner')
-  //     }
+  //   if (localStorage.customerToken) {
+  //     history.push('/customer');
+  //   } else if (localStorage.ownerToken) {
+  //     history.push('/owner');
+  //   }
   // }, []);
 
   return (
@@ -34,9 +34,9 @@ const App = () => {
           <Route
             exact
             path="/"
-            component={LandingPage}
+            component={Landing}
           >
-            <LandingPage
+            <Landing
               setId={setId}
               setProfileImage={setProfileImage}
               setUsername={setUsername}
