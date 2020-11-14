@@ -132,5 +132,8 @@ npm run build
 ## Tech Stack
 ![TechStack](images/prosttechstack.PNG)
 
+## Database Schema
+![DatabaseSchema](images/prostdb.png)
+
 ## Contributing
 See [_CONTRIBUTING.md_](CONTRIBUTING.md) document
