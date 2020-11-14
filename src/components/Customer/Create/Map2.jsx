@@ -99,7 +99,6 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
         });
     }
     return () => { isMounted = false; };
-    // --removed priviteSwitch in second arg to reload state when marker was clicked 
   }, [privateSwitch]);
 
   useEffect(() => {
