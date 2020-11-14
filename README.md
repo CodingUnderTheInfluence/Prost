@@ -6,6 +6,9 @@
 4. [Database](#database)
 5. [Installation](#installation)
 6. [Tech Stack](#tech-stack)
+7. [Database Schema](#database-schema)
+8. [Contributing](#contributing)
+
  
 ## About
 **Prost:** Creating social environments for the consumption of alcohol while promoting both safety and local businesses.
@@ -25,7 +28,7 @@ Prost wants to help you find your next favorite watering hole while keeping you 
 <br>
 **Developer**: Brianna Skinner
 ## System Requirements:
-Use `node -v` to check your current version of Node. Upgrade to 12, if not currently on version 12.
+Use `node --version` `npm --version`to check your current version of [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm). Upgrade to 12, if not currently on version 12.
  
  - Node version >= 8
  - npm >= 6
@@ -135,5 +138,8 @@ npm run build
 ## Database Schema
 ![DatabaseSchema](images/prostdb.png)
 
+## Wire Frame
+![Wireframe](images/prostdb.png)
+
 ## Contributing
-See [_CONTRIBUTING.md_](CONTRIBUTING.md) document
+See [_CONTRIBUTING.md_](CONTRIBUTING.md).
