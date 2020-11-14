@@ -27,21 +27,7 @@ const BarMarker = ({
         setColor('red');
       }
     }
-    setShow(true);
-    // barCapacity(id)
-    //   .then((size) => {
-    //     setShow(!show);
-    //     if (size > 20) {
-    //       setColor('red');
-    //       setBarCapacity(size);
-    //     } else if (size > 10 && size < 19) {
-    //       setColor('#f59314');
-    //       setBarCapacity(size);
-    //     } else {
-    //       setColor('green');
-    //       setBarCapacity(size);
-    //     }
-    //   });
+    setShow(!show);
   };
 
   return (

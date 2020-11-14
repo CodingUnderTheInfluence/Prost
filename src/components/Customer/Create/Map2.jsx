@@ -4,9 +4,14 @@ import React, {
   useRef,
   useCallback,
 } from 'react';
-import PropTypes from 'prop-types';
+import {
+  GoogleMap,
+  Marker,
+  MarkerClusterer,
+  useLoadScript
+} from '@react-google-maps/api';
 import axios from 'axios';
-import { GoogleMap, Marker, MarkerClusterer, useLoadScript } from '@react-google-maps/api';
+import PropTypes from 'prop-types';
 import beer from '../../../../images/beer.png';
 import Search from './Search.jsx';
 import BarInfo from './BarInfo.jsx';
@@ -14,14 +19,9 @@ import PrivateSwitch from './PrivateSwitch.jsx';
 import FriendsMarkers from '../Map/FriendsMarkers.jsx';
 import BarMarkers from '../Map/BarMarkers.jsx';
 import Directions from '../Directions/Directions.jsx';
-import Create from './Create.jsx';
 import DangerMarkers from '../Map/DangerMarkers.jsx';
-// import PeopleSearch from './PeopleSearch.jsx';
 import QuickCreate from './QuickCreate.jsx';
 import mapStyle from '../../../helpers/mapStyle';
-import { getDetails } from 'use-places-autocomplete';
-// import mapParties from '../../../helpers/mapStyle';
-// used for the load script to get google places
 const libraries = ['places'];
 
 const mapStyles = {
@@ -151,7 +151,6 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
 
   // get places info from search bar
   const getPlaceInfo = useCallback((results) => {
-    console.info(results, 'SEARCH RESULTS');
     const { lat, lng } = results;
     setSearchMarker({ lat, lng });
     setplaceInfo(results);
@@ -216,7 +215,7 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
         getMyLocation={getMyLocation}
         panTo={panTo}
       />
-    </div >
+    </div>
   );
 };
 
