@@ -16,9 +16,9 @@ const PrivateSwitch = ({ gId, getSwitch }) => {
   return (
     <FormGroup>
       <FormControlLabel
-        color='primary'
+        color="primary"
         control={<Switch checked={isPrivate} onChange={handleChange} />}
-        label='Private'
+        label="Private"
       />
     </FormGroup>
   );
@@ -26,7 +26,7 @@ const PrivateSwitch = ({ gId, getSwitch }) => {
 
 PrivateSwitch.propTypes = {
   getSwitch: PropTypes.func.isRequired,
-  gId: PropTypes.string.isRequired,
+  gId: PropTypes.string,
 };
 
 export default PrivateSwitch;

@@ -11,7 +11,7 @@ import {
   useLoadScript
 } from '@react-google-maps/api';
 import axios from 'axios';
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
 import beer from '../../../../images/beer.png';
 import beerGold from '../../../../images/beerGold.png';
 import user from '../../../../images/user.png';
@@ -238,10 +238,10 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
   );
 };
 
-MapContainer.PropTypes = {
-  setMapLatLng: PropTypes.func.isRequired,
-  username: PropTypes.string.isRequired,
-  gId: PropTypes.string.isRequired,
+MapContainer.propTypes = {
+  setMapLatLng: propTypes.func,
+  username: propTypes.string,
+  gId: propTypes.string,
 };
 
 export default MapContainer;

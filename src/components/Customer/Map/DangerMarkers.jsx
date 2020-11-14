@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
 import { MarkerClusterer } from '@react-google-maps/api';
 import DangerMarker from './DangerMarker.jsx';
 
@@ -20,8 +20,8 @@ const DangerMarkers = ({ dangerMarkers }) => (
   </MarkerClusterer>
 );
 
-DangerMarkers.PropTypes = {
-  dangerMarkers: PropTypes.arrayOf(PropTypes.any),
+DangerMarkers.propTypes = {
+  dangerMarkers: propTypes.arrayOf(propTypes.any),
 };
 
 export default DangerMarkers;
