@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { GoogleLogin } from 'react-google-login';
 import Axios from 'axios';
-import { Button } from '@material-ui/core';
+import { Button, makeStyles } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 
 const clientId = process.env.GOOGLE_CLIENT_ID;
@@ -10,10 +10,8 @@ const SignUpGoogleButton = ({
   setId,
   setProfileImage,
   setUsername,
-  setFormCounter,
-  profileImage,
-  username,
   setGEmail,
+  setLandingView,
 }) => {
   const onSuccess = async (res) => {
     const token = res.tokenId;
@@ -35,7 +33,6 @@ const SignUpGoogleButton = ({
           console.info('THIS CUSTOMER HAS BEEN FOUND');
         } else if (data === 'form') {
           localStorage.setItem('customerToken', res.tokenId);
-          setFormCounter(2);
         }
       })
       .catch((err) => console.warn(err));
@@ -46,6 +43,7 @@ const SignUpGoogleButton = ({
     })
       .then((data) => console.info('in the database', data))
       .catch((err) => console.error('error in post to maps', err));
+    setLandingView('customerSignUp');
   };
 
   const onFailure = (res) => {
@@ -56,15 +54,19 @@ const SignUpGoogleButton = ({
       <GoogleLogin
         clientId={clientId}
         render={(renderProps) => (
-          <Button variant="outlined" color="primary" onClick={renderProps.onClick} disabled={renderProps.disabled}>
-            SignIn with Google
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={renderProps.onClick}
+            disabled={renderProps.disabled}
+          >
+            Register with Google
           </Button>
         )}
         buttonText="Login"
         onSuccess={onSuccess}
         onFailure={onFailure}
         cookiePolicy="single_host_origin"
-        style={{ marginTop: '100px' }}
         isSignedIn
       />
     </div>

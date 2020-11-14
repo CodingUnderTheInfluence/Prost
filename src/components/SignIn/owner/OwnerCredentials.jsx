@@ -1,10 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Button, TextField } from '@material-ui/core';
+import {
+  Grid, Button, TextField, makeStyles,
+} from '@material-ui/core';
 import axios from 'axios';
 import { LocalConvenienceStoreOutlined } from '@material-ui/icons';
-import { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
 
-const OwnerCredentials = ({ setBarId }) => {
+const useStyles = makeStyles(() => ({
+  button: {
+    margin: '10px 0 10px 0',
+  },
+  backBtn: {
+    opacity: '60%',
+    margin: '0 0 0 0',
+  },
+}));
+
+const OwnerCredentials = ({ setBarId, setLandingView }) => {
+  const classes = useStyles();
   const history = useHistory();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -17,7 +30,7 @@ const OwnerCredentials = ({ setBarId }) => {
     axios.post('/db/owner/login', { params })
       .then(({ data }) => {
         if (data === 'Email or Password Incorrect') {
-          return;
+
         } else {
           localStorage.setItem('ownerToken', data); // stores token in localstorage
           axios(
@@ -31,28 +44,77 @@ const OwnerCredentials = ({ setBarId }) => {
           )
             .then(({ data }) => {
               if (data) {
-                history.push('/owner')
+                history.push('/owner');
               }
               // need to send to owner on validation
             });
         }
       });
-    //TODO: data is the entire bar object
+    // TODO: data is the entire bar object
     axios.post('/db/bar/id', { params })
       .then(({ data }) => {
-        setBarId(data[0].id)
-      })
+        setBarId(data[0].id);
+      });
   };
-
   return (
-    <Grid>
-      <TextField label="Email" onChange={(e) => { setEmail(e.target.value); }} />
-      <TextField label="Password" onChange={(e) => { setPassword(e.target.value); }} />
-      <Button variant="outlined" onClick={() => { credentialsSubmit(); }}>
-        Submit
-      </Button>
+    <Grid
+      container
+      direction="column"
+      justify="center"
+      alignItems="center"
+    >
+      <Grid
+        item
+        container
+        direction="row"
+        justify="center"
+        alignItems="center"
+      >
+        <TextField label="Email" onChange={(e) => { setEmail(e.target.value); }} />
+      </Grid>
+      <Grid
+        item
+        container
+        direction="row"
+        justify="center"
+        alignItems="center"
+      >
+        <TextField label="Password" onChange={(e) => { setPassword(e.target.value); }} />
+      </Grid>
+      <Grid
+        item
+        container
+        direction="row"
+        justify="center"
+        alignItems="center"
+      >
+        <Button
+          variant="outlined"
+          color="primary"
+          className={classes.button}
+          onClick={() => { credentialsSubmit(); }}
+        >
+          Submit
+        </Button>
+      </Grid>
+      <Grid
+        item
+        container
+        direction="row"
+        justify="center"
+        alignItems="center"
+        className={classes.backBtn}
+
+      >
+        <Button
+          color="primary"
+          onClick={() => setLandingView('signin')}
+        >
+          Back
+        </Button>
+      </Grid>
     </Grid>
   );
-}
+};
 
 export default OwnerCredentials;
