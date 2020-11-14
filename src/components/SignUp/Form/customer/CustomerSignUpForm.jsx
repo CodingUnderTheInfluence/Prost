@@ -1,22 +1,54 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
-  Grid, Button, Typography, TextField, Radio, RadioGroup, FormControl, FormControlLabel, FormLabel,
+  Grid,
+  Button,
+  Typography,
+  TextField,
+  makeStyles,
+  MobileStepper,
 } from '@material-ui/core';
 import axios from 'axios';
-import { Redirect } from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
+import Personal from './Personal.jsx';
+import Location from './Location.jsx';
+import Emergency from './Emergency.jsx';
 import SafetyDialog from './SignUpDialog.jsx';
-import { useHistory } from 'react-router-dom'
+
+const useStyles = makeStyles({
+  root: {
+    maxWidth: 400,
+    flexGrow: 1,
+    justify: 'center',
+    background: 'transparent',
+  },
+  backBtn: {
+    opacity: '60%',
+  },
+});
 
 const CustomerSignUpForm = ({
-  gId, profileImage, username, gEmail,
+  gId,
+  profileImage,
+  username,
+  gEmail,
 }) => {
+  const classes = useStyles();
   const history = useHistory();
   const [counter, setCounter] = useState(0);
+  const [activeStep, setActiveStep] = useState(0);
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
   // PERSONAL INFORMATION FIELDS
-  const [personalFirst, setPersonalFirst] = useState('');
-  const [personalLast, setPersonalLast] = useState('');
+  const [personalFirst, setPersonalFirst] = useState();
+  const [personalLast, setPersonalLast] = useState();
   const [personalNumber, setPersonalNumber] = useState();
-  const [personalGender, setPersonalGender] = useState('');
+  const [personalGender, setPersonalGender] = useState();
 
   // PERSONAL INFORMATION DATABASE SUBMIT
   const personalInformationSubmit = () => {
@@ -34,9 +66,9 @@ const CustomerSignUpForm = ({
   };
 
   // LOCATION INFORMATION FIELDS
-  const [address, setAddress] = useState('');
-  const [city, setCity] = useState('');
-  const [state, setState] = useState('');
+  const [address, setAddress] = useState();
+  const [city, setCity] = useState();
+  const [state, setState] = useState();
   const [zip, setZip] = useState();
   // LOCATION INFORMATION SUBMIT
   const locationInformationSubmit = () => {
@@ -51,9 +83,9 @@ const CustomerSignUpForm = ({
   };
 
   // EMERGENCY CONTACT INFORMATION FIELDS
-  const [emFirst, setEmFirst] = useState('');
-  const [emLast, setEmLast] = useState('');
-  const [emEmail, setEmEmail] = useState('');
+  const [emFirst, setEmFirst] = useState();
+  const [emLast, setEmLast] = useState();
+  const [emEmail, setEmEmail] = useState();
   const [emNumber, setEmNumber] = useState();
 
   // EMERGENCY CONTACT INFORMATION SUBMIT
@@ -68,121 +100,43 @@ const CustomerSignUpForm = ({
     axios.post('/db/eContact/add', emergencyParams);
   };
 
-  const handleChange = (e) => {
-    setValue(e.target.value);
-    setPersonalGender(value);
-  };
-
   const renderCustomerFormView = () => {
     if (counter === 1) {
-      /// //////////////////////////////
-      // Personal CONTACT INFORMATION//
-      /// //////////////////////////////
-
       return (
-        <div>
-          <Grid item container direction="row" justify="center" alignItems="center">
-            <Typography variant="subtitle1">
-              Personal Information
-            </Typography>
-          </Grid>
-          <Grid item container direction="row" style={{ border: 'solid black 1px', padding: '10px', margin: '5px 0 5px 0' }}>
-            <TextField id="standard-basic" label="First Name" onChange={(e) => { setPersonalFirst(e.target.value); }} />
-            <TextField id="standard-basic" label="Last Name" onChange={(e) => { setPersonalLast(e.target.value); }} />
-          </Grid>
-
-          <Grid item container direction="row" style={{ border: 'solid black 1px', padding: '10px', margin: '5px 0 5px 0' }}>
-            <TextField id="standard-basic" label="Phone Number" onChange={(e) => { setPersonalNumber(Number(e.target.value)); }} />
-          </Grid>
-          <Button
-            variant="outlined"
-            onClick={() => {
-              setCounter(2);
-              personalInformationSubmit();
-            }}
-          >
-            Next
-          </Button>
-        </div>
+        <Personal
+          setPersonalFirst={setPersonalFirst}
+          setPersonalLast={setPersonalLast}
+          setPersonalNumber={setPersonalNumber}
+          handleNext={handleNext}
+          setCounter={setCounter}
+          personalInformationSubmit={personalInformationSubmit}
+        />
       );
     }
     if (counter === 2) {
-      /// //////////////////////////////
-      // Location CONTACT INFORMATION//
-      /// //////////////////////////////
-
       return (
-        <div>
-          <Grid item container direction="row" justify="center" alignItems="center">
-            <Typography variant="subtitle1">
-              Location Information
-            </Typography>
-          </Grid>
-          <Grid item container direction="row" style={{ border: 'solid black 1px', padding: '10px', margin: '5px 0 5px 0' }}>
-            <TextField id="standard-basic" label="Address" onChange={(e) => { setAddress(e.target.value); }} />
-          </Grid>
-          <Grid item container direction="row" justify="center" alignItems="center" style={{ border: 'solid black 1px', padding: '10px', margin: '5px 0 5px 0' }}>
-            <Grid item container direction="column">
-              <TextField id="standard-basic" label="City" onChange={(e) => { setCity(e.target.value); }} />
-            </Grid>
-            <Grid item container direction="column">
-              <TextField id="standard-basic" label="State" onChange={(e) => { setState(e.target.value); }} />
-            </Grid>
-            <Grid item container direction="column">
-              <TextField id="standard-basic" label="Zip Code" onChange={(e) => { setZip(Number(e.target.value)); }} />
-            </Grid>
-          </Grid>
-          <Button
-            variant="outlined"
-            onClick={() => {
-              setCounter(3);
-              locationInformationSubmit();
-            }}
-          >
-            Next
-          </Button>
-        </div>
+        <Location
+          setAddress={setAddress}
+          setCity={setCity}
+          setCounter={setCounter}
+          setState={setState}
+          setZip={setZip}
+          locationInformationSubmit={locationInformationSubmit}
+          handleBack={handleBack}
+          handleNext={handleNext}
+        />
       );
     }
     if (counter === 3) {
-      /// //////////////////////////////
-      // EMERGENCY CONTACT INFORMATION//
-      /// //////////////////////////////
-
       return (
-        <div>
-          <Grid item container direction="row" justify="center" alignItems="center">
-            <Typography variant="subtitle1">
-              Emergency Contact Information
-            </Typography>
-          </Grid>
-          <Grid item container direction="row" style={{ border: 'solid black 1px', padding: '10px', margin: '5px 0 5px 0' }}>
-            <TextField id="standard-basic" label="First Name"
-              onChange={(e) => {
-                setPersonalEFirst(e.target.value);
-              }} />
-            <TextField id="standard-basic" label="Last Name" onChange={(e) => {
-              setEmLast(e.target.value);
-            }} />
-          </Grid>
-          <Grid item container direction="row" style={{ border: 'solid black 1px', padding: '10px', margin: '5px 0 5px 0' }}>
-            <TextField id="standard-basic" label="Email" onChange={(e) => { setEmEmail(e.target.value); }} />
-          </Grid>
-          <Grid item container direction="row" style={{ border: 'solid black 1px', padding: '10px', margin: '5px 0 5px 0' }}>
-            <TextField id="standard-basic" label="Phone Number" onChange={(e) => {
-              setEmNumber(Number(e.target.value));
-            }} />
-          </Grid>
-          <Button
-            variant="outlined"
-            onClick={() => {
-              eContactInformationSubmit();
-              history.push('/customer')
-            }}
-          >
-            Submit
-          </Button>
-        </div>
+        <Emergency
+          setEmFirst={setEmFirst}
+          setEmLast={setEmLast}
+          setEmNumber={setEmNumber}
+          setEmEmail={setEmEmail}
+          eContactInformationSubmit={eContactInformationSubmit}
+          handleBack={handleBack}
+        />
       );
     }
     return (
@@ -192,6 +146,20 @@ const CustomerSignUpForm = ({
 
   return (
     <Grid container direction="column" justify="center" alignItems="center">
+      <Grid item container direction="row" justify="center" alignItems="center">
+        <div>
+          <MobileStepper
+            variant="dots"
+            steps={3}
+            position="static"
+            activeStep={activeStep}
+            className={classes.root}
+            nextButton
+            backButton
+            alignItems="center"
+          />
+        </div>
+      </Grid>
       <Grid item container direction="row" justify="center" alignItems="center">
         {renderCustomerFormView()}
       </Grid>

@@ -1,6 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Grid, Button, Typography, TextField, FormControl, FormControlLabel, FormLabel, IconButton, Input, InputLabel, InputAdornment,
+  Grid,
+  Button,
+  Typography,
+  TextField,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  IconButton,
+  OutlinedInput,
+  InputLabel,
+  InputAdornment,
 } from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import axios from 'axios';
@@ -20,7 +30,10 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(3),
   },
   textField: {
-    width: '25ch',
+    margin: '5px 0 5px 0',
+  },
+  backBtn: {
+    opacity: '60%',
   },
 }));
 const OwnerInfo = ({
@@ -36,6 +49,9 @@ const OwnerInfo = ({
   image,
   capacity,
   setBarId,
+  handleNext,
+  handleBack,
+  activeStep,
 }) => {
   const history = useHistory();
   const classes = useStyles();
@@ -102,26 +118,52 @@ const OwnerInfo = ({
 
   return (
     <Grid container direction="column" justify="center" column="center">
-      <Grid item container direction="row" justify="center" column="center">
-        <Typography variant="subtitle1">
-          Owner Information
-        </Typography>
+      <Grid item container direction="row" justify="center" column="center" className={classes.textField}>
+        <TextField
+          id="outlined-basic"
+          variant="outlined"
+          required
+          label="User Name"
+          onChange={(e) => { setUsername(e.target.value); }}
+        />
       </Grid>
-      <Grid item container direction="row" justify="center" column="center">
-        <TextField id="standard-basic" label="User Name" onChange={(e) => { setUsername(e.target.value); }} />
+      <Grid item container direction="row" justify="center" column="center" className={classes.textField}>
+        <TextField
+          id="outlined-basic"
+          variant="outlined"
+          required
+          label="First Name"
+          onChange={(e) => { setFirst(e.target.value); }}
+        />
       </Grid>
-      <Grid item container direction="row" justify="center" column="center">
-        <TextField id="standard-basic" label="First Name" onChange={(e) => { setFirst(e.target.value); }} />
-        <TextField id="standard-basic" label="Last Name" onChange={(e) => { setLast(e.target.value); }} />
+      <Grid item container direction="row" justify="center" column="center" className={classes.textField}>
+        <TextField
+          id="outlined-basic"
+          variant="outlined"
+          required
+          label="Last Name"
+          onChange={(e) => { setLast(e.target.value); }}
+        />
       </Grid>
-      <Grid item container direction="row" justify="center" column="center">
-        <TextField id="standard-basic" label="Email" onChange={(e) => { setEmail(e.target.value); }} />
+      <Grid item container direction="row" justify="center" column="center" className={classes.textField}>
+        <TextField
+          id="outlined-basic"
+          variant="outlined"
+          required
+          label="Email"
+          onChange={(e) => { setEmail(e.target.value); }}
+        />
       </Grid>
-      <Grid item container direction="row" justify="center" alignItems="center">
-        <FormControl className={clsx(classes.margin, classes.textField)}>
-          <InputLabel htmlFor="standard-adornment-password"> Choose Password</InputLabel>
-          <Input
-            id="standard-adornment-password"
+      <Grid item container direction="row" justify="center" alignItems="center" column="center">
+        <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
+          <InputLabel
+            required
+            htmlFor="outlined-adornment-password"
+          >
+            Password
+          </InputLabel>
+          <OutlinedInput
+            id="outlined-adornment-password"
             type={values.showPassword ? 'text' : 'password'}
             value={values.password}
             onChange={handleChange('password')}
@@ -131,21 +173,37 @@ const OwnerInfo = ({
                   aria-label="toggle password visibility"
                   onClick={handleClickShowPassword}
                   onMouseDown={handleMouseDownPassword}
+                  edge="end"
                 >
                   {values.showPassword ? <Visibility /> : <VisibilityOff />}
                 </IconButton>
               </InputAdornment>
-                          )}
+            )}
+            labelWidth={70}
           />
         </FormControl>
       </Grid>
       <Button
-        variant="outlined"
+        variant="contained"
+        size="medium"
+        color="primary"
         onClick={() => {
           handleAll();
+          handleNext();
         }}
       >
         Submit
+      </Button>
+      <Button
+        size="small"
+        color="primary"
+        className={classes.backBtn}
+        onClick={() => {
+          handleBack();
+          setCounter(1);
+        }}
+      >
+        Back
       </Button>
     </Grid>
   );

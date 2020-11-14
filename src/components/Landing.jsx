@@ -80,6 +80,7 @@ const Landing = ({
         <OwnerForm
           mapLatLng={mapLatLng}
           setBarId={setBarId}
+          setLandingView={setLandingView}
         />
       );
     }

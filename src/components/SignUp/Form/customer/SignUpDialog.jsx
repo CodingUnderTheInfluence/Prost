@@ -2,9 +2,8 @@ import React, { useEffect, useState } from 'react';
 import {
   Grid, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
 } from '@material-ui/core';
-import { Redirect } from 'react-router-dom'
 
-const SignUpDialog = ({ setCounter }) => {
+const SignUpDialog = ({ setViewValue, setCounter }) => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -17,7 +16,6 @@ const SignUpDialog = ({ setCounter }) => {
 
   const deleteLocal = () => {
     delete localStorage.token;
-    <Redirect to="/" />
   };
 
   return (

@@ -4,9 +4,16 @@ import {
   Button,
   TextField,
   Typography,
+  makeStyles,
 } from '@material-ui/core';
 import axios from 'axios';
-import BarSearch from './SearchPlace.jsx';
+import BarSearch from './BarSearch.jsx';
+
+const useStyles = makeStyles((theme) => ({
+  search: {
+    margin: '10px 0 10px 0',
+  },
+}));
 
 const BarInfo = (
   {
@@ -25,33 +32,50 @@ const BarInfo = (
     barName,
     address,
     number,
+    setLandingView,
+    handleNext,
+    handleBack,
+    activeStep,
   },
-) => (
-  <Grid container direction="column" justify="center" column="center">
-    <Grid item container direction="row" justify="center" column="center">
-      <Typography variant="subtitle1">
-        Find Your Bar!
-      </Typography>
+) => {
+  const classes = useStyles();
+  return (
+    <Grid
+      container
+      direction="column"
+      justify="center"
+      column="center"
+    >
+      <Grid
+        item
+        container
+        direction="row"
+        justify="center"
+        column="center"
+      >
+        <BarSearch
+          setCounter={setCounter}
+          setBarName={setBarName}
+          setAddress={setAddress}
+          setCity={setCity}
+          setState={setState}
+          setZip={setZip}
+          setNumber={setNumber}
+          setLat={setLat}
+          setLng={setLng}
+          setImage={setImage}
+          barName={barName}
+          address={address}
+          number={number}
+          setOccupency={setOccupency}
+          setLandingView={setLandingView}
+          handleNext={handleNext}
+          handleBack={handleBack}
+          activeStep={activeStep}
+        />
+      </Grid>
     </Grid>
-    <Grid item container direction="row" justify="center" column="center">
-      <BarSearch
-        setCounter={setCounter}
-        setBarName={setBarName}
-        setAddress={setAddress}
-        setCity={setCity}
-        setState={setState}
-        setZip={setZip}
-        setNumber={setNumber}
-        setLat={setLat}
-        setLng={setLng}
-        setImage={setImage}
-        barName={barName}
-        address={address}
-        number={number}
-        setOccupency={setOccupency}
-      />
-    </Grid>
-  </Grid>
-);
+  );
+};
 
 export default BarInfo;

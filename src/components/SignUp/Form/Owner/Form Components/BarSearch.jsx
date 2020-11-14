@@ -6,21 +6,37 @@ import axios from 'axios';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { useLoadScript } from '@react-google-maps/api';
 import {
-  Grid, Typography, Button, TextField,
+  Grid, Typography, Button, TextField, makeStyles,
 } from '@material-ui/core';
 import SearchBox from './SearchBox.jsx';
 
 const libraries = ['places'];
 
+const useStyles = makeStyles((theme) => ({
+  box: {
+    margin: '30px 0 30px 0',
+  },
+  field: {
+    margin: '10px 0 0 0',
+  },
+  selection: {
+    margin: '10px 0 20px 0',
+  },
+  button: {
+
+  },
+  backBtn: {
+    opacity: '60%',
+  },
+}));
+
 const searchBox = {
   boxSizing: 'border-box',
   border: '1px solid transparent',
-  width: '240px',
-  height: '32px',
-  padding: '0 12px',
+  width: '80%',
+  height: '40px',
+  padding: '10px',
   borderRadius: '3px',
-  boxShadow: '0 2px 6px rgba(0, 0, 0, 0.3)',
-  fontSize: '14px',
   outline: 'none',
   textOverflow: 'ellipses',
   position: 'absolute',
@@ -41,7 +57,12 @@ const BarSearch = ({
   barName,
   address,
   number,
+  setLandingView,
+  handleNext,
+  handleBack,
+  activeStep,
 }) => {
+  const classes = useStyles();
   const [currentPosition, setCurrentPosition] = useState({
     lat: 29.951065,
     lng: -90.071533,
@@ -71,7 +92,6 @@ const BarSearch = ({
     setLng(lng);
     setImage(photos[0].getUrl());
     setSelected(true);
-    console.info('results', results);
   }, []);
     // Check in
   const addBar = () => {
@@ -91,7 +111,7 @@ const BarSearch = ({
   const showSelection = () => {
     if (selected) {
       return (
-        <Grid item container direction="row" justify="center" alignItems="center">
+        <Grid item container direction="row" justify="center" alignItems="center" className={classes.selection}>
           <Typography variant="subtitle1">
             You have selected:
           </Typography>
@@ -126,9 +146,22 @@ const BarSearch = ({
   return (
     <Grid container direction="column" justify="center" alignItems="center">
       <Grid item container direction="row" justify="center" column="center">
-        <TextField label="Full Bar Capacity?" onChange={(e) => { setOccupency(e.target.value); }} />
+        <TextField
+          className={classes.field}
+          variant="outlined"
+          color="primary"
+          label="Full Bar Capacity?"
+          onChange={(e) => { setOccupency(e.target.value); }}
+        />
       </Grid>
-      <Grid item container direction="row" justify="center" alignItems="center">
+      <Grid
+        item
+        container
+        direction="row"
+        justify="center"
+        alignItems="center"
+        className={classes.box}
+      >
         <SearchBox
           currentPosition={currentPosition}
           searchBox={searchBox}
@@ -140,13 +173,38 @@ const BarSearch = ({
       </Grid>
       <Grid item container direction="row" justify="center" alignItems="center">
         <Button
+          className={classes.button}
           variant="outlined"
+          size="medium"
+          color="primary"
           onClick={() => {
             addBar();
             setCounter(2);
+            handleNext();
           }}
+          disabled={activeStep === 2}
         >
           Next
+        </Button>
+      </Grid>
+      <Grid
+        item
+        container
+        direction="row"
+        justify="center"
+        alignItems="center"
+        className={classes.buttons}
+      >
+        <Button
+          size="small"
+          color="primary"
+          className={classes.backBtn}
+          onClick={() => {
+            setLandingView('signUp');
+            handleNext();
+          }}
+        >
+          Back
         </Button>
       </Grid>
     </Grid>
