@@ -58,10 +58,8 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
     lat: 29.951065,
     lng: -90.071533,
   });
-  const [publicLocations, setPublicLocations] = useState([]);
   const [friendLocations, setFriendLocations] = useState([]);
   const [privateSwitch, setPrivateSwitch] = useState(false);
-  const [selectedItem, setSelectedItem] = useState({});
   const [myLocation, setMyLocation] = useState({});
   const [dangerMarkers, setDangerMarkers] = useState([]);
   const [parties, setParties] = useState([]);
@@ -70,8 +68,8 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
   const [placeInfo, setplaceInfo] = useState(null);
 
   const defaultCenter = {
-    lat: 29.951065,
-    lng: -90.071533,
+    lat: 29.95115,
+    lng: 90.0715,
   };
 
   const { isLoaded, loadError } = useLoadScript({
@@ -81,6 +79,16 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
 
   // get the toggle for the switch to update state
   const getSwitch = (pSwitch) => setPrivateSwitch(pSwitch);
+
+  useEffect(() => {
+    const success = (pos) => {
+      const { latitude, longitude } = pos.coords;
+      getMyLocation({ latitude, longitude });
+      panTo({ lat: latitude, lng: longitude });
+    };
+    const fail = () => null;
+    navigator.geolocation.getCurrentPosition(success, fail);
+  }, []);
 
   useEffect(() => {
     let isMounted = true;
@@ -107,10 +115,9 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
     return () => { isMounted = false; };
   }, []);
 
-
   // sets the makers to the user click
   const onMapClick = useCallback((e) => {
-    setDangerMarkers(current => [
+    setDangerMarkers((current) => [
       ...current,
       {
         lat: e.latLng.lat(),
@@ -197,7 +204,7 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
           }}
           icon={{
             url: beer,
-            scaledSize: new window.google.maps.Size(30, 30)
+            scaledSize: new window.google.maps.Size(30, 30),
           }}
         />
         <DangerMarkers dangerMarkers={dangerMarkers} />

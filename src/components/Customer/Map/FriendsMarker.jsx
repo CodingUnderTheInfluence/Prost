@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Marker, InfoWindow } from '@react-google-maps/api';
-// import { ReportProblem } from '@material-ui/icons';
+import PropTypes from 'prop-types';
 import warning from '../../../../images/warning.png';
 
 const FriendsMarker = ({ friendsLocation: { user_name, latitude, longitude, report } }) => {
@@ -31,6 +31,15 @@ const FriendsMarker = ({ friendsLocation: { user_name, latitude, longitude, repo
       )}
     </Marker>
   );
+};
+
+FriendsMarker.PropTypes = {
+  friendsLocation: PropTypes.shape({
+    user_name: PropTypes.string,
+    latitude: PropTypes.string,
+    longitude: PropTypes.string,
+    report: PropTypes.string,
+  }),
 };
 
 export default FriendsMarker;
