@@ -84,7 +84,6 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
     const success = (pos) => {
       const { latitude, longitude } = pos.coords;
       getMyLocation({ latitude, longitude });
-      panTo({ lat: latitude, lng: longitude });
     };
     const fail = () => null;
     navigator.geolocation.getCurrentPosition(success, fail);
