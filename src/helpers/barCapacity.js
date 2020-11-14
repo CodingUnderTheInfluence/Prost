@@ -11,11 +11,11 @@ const barCapacity = async (barId) => {
     const bar = await axios.get(`/db/bar/parties?id=${barId}`);
     const currentCustomers = await axios.get(`/db/bar/currentOcc/${barId}`);
     const { id_owner, bar_capacity } = bar.data[0];
-
+    const customersInBar = currentCustomers.data.filter((customer) => customer.checkin === true);
     const occupency = {
       total: parseInt(bar_capacity),
       covidTotal: parseInt(bar_capacity) / 4,
-      current: currentCustomers.data.length,
+      current: customersInBar.length,
     };
 
     return id_owner ? occupency : null;
