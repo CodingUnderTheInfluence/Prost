@@ -16,18 +16,18 @@ const QuickCreate = ({ getMyLocation, panTo }) => {
   };
 
   return (
-    <div style={{
-      justifyContent: 'center',
-      alignItems: 'center',
-    }}
+    // <div style={{
+    //   justifyContent: 'center',
+    //   alignItems: 'center',
+    // }}
+    // >
+    <Fab
+      color="primary"
+      onClick={handleClick}
     >
-      <Fab
-        color="primary"
-        onClick={handleClick}
-      >
-        <MyLocationIcon />
-      </Fab>
-    </div>
+      <MyLocationIcon />
+    </Fab>
+    // </div>
   );
 };
 
