@@ -1,11 +1,22 @@
 import React, { useState } from 'react';
-import { Grid } from '@material-ui/core';
+import { Grid, makeStyles } from '@material-ui/core';
 import Options from './Options.jsx';
 import SignInOptions from './SignIn/SignInOptions.jsx';
 import OwnerCredentials from './SignIn/owner/OwnerCredentials.jsx';
 import SignUpOptions from './SignUp/SignUpOptions.jsx';
 import OwnerForm from './SignUp/Form/Owner/OwnerForm.jsx';
 import CustomerSignUpForm from './SignUp/Form/customer/CustomerSignUpForm.jsx';
+
+const useStyles = makeStyles(() => ({
+  image: {
+    maxWidth: '300px',
+    maxHeight: '200px',
+  },
+  containers: {
+    position: 'inherit',
+    marginTop: '20vh',
+  },
+}));
 
 const Landing = ({
   setDbId,
@@ -23,6 +34,7 @@ const Landing = ({
   barId,
 }) => {
   const [landingView, setLandingView] = useState();
+  const classes = useStyles();
 
   const renderView = () => {
     if (landingView === 'signin') {
@@ -42,6 +54,7 @@ const Landing = ({
       return (
         <OwnerCredentials
           setBarId={setBarId}
+          setLandingView={setLandingView}
         />
       );
     }
@@ -104,9 +117,32 @@ const Landing = ({
   };
 
   return (
-    <Grid container direction="column">
-      {renderView()}
-    </Grid>
+    <div className={classes.containers}>
+      <Grid container direction="column">
+        <Grid
+          item
+          container
+          direction="row"
+          justify="center"
+          alignItems="center"
+        >
+          <img
+            src="https://i.imgur.com/xqxjCwz.png"
+            alt="Logo"
+            className={classes.image}
+          />
+        </Grid>
+        <Grid
+          item
+          container
+          direction="row"
+          justify="center"
+          alignItems="center"
+        >
+          {renderView()}
+        </Grid>
+      </Grid>
+    </div>
   );
 };
 

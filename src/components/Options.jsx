@@ -20,13 +20,6 @@ const Options = ({
   barId,
 }) => (
   <Grid container direction="column">
-    <Grid item container direction="row" justify="center" alignItems="center">
-      <img
-        src="https://i.imgur.com/xqxjCwz.png"
-        alt="Logo"
-        style={{ maxWidth: '300px', maxHeight: '200px' }}
-      />
-    </Grid>
     <Grid item container direction="row" justify="center" alignItems="center" style={{ margin: '10px 0 10px 0' }}>
       <SignIn
         setDbId={setDbId}

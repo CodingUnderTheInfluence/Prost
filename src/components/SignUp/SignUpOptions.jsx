@@ -1,8 +1,18 @@
 import React, { useState } from 'react';
-import { Grid, Button } from '@material-ui/core';
+import { Grid, Button, makeStyles } from '@material-ui/core';
 import OwnerForm from './Form/Owner/OwnerForm.jsx';
 import CustomerSignUpForm from './Form/customer/CustomerSignUpForm.jsx';
 import SignUpGoogleButton from './GoogleSignUp/SignUpGoogleButton.jsx';
+
+const useStyles = makeStyles(() => ({
+  button: {
+    margin: '10px 0 10px 0',
+  },
+  backBtn: {
+    opacity: '60%',
+    margin: '0 0 0 0',
+  },
+}));
 
 const SignUpOptions = ({
   setId,
@@ -10,32 +20,61 @@ const SignUpOptions = ({
   setUsername,
   setGEmail,
   setLandingView,
-}) => (
-  <div>
-    <Grid item container direction="row" justify="center" alignItems="center">
-      <h1>Register</h1>
-    </Grid>
-    <Grid item container direction="row" justify="center" alignItems="center">
-      <SignUpGoogleButton
-        setId={setId}
-        setProfileImage={setProfileImage}
-        setUsername={setUsername}
-        setGEmail={setGEmail}
-        setLandingView={setLandingView}
-      />
-    </Grid>
-    <Grid item container direction="row" justify="center" alignItems="center">
-      <Button
-        variant="outlined"
-        color="primary"
-        onClick={() => {
-          setLandingView('ownerSignUp');
-        }}
+}) => {
+  const classes = useStyles();
+  return (
+    <Grid container direction="column">
+      <Grid
+        item
+        container
+        direction="row"
+        justify="center"
+        alignItems="center"
+        className={classes.button}
       >
-        Owner
-      </Button>
+        <SignUpGoogleButton
+          setId={setId}
+          setProfileImage={setProfileImage}
+          setUsername={setUsername}
+          setGEmail={setGEmail}
+          setLandingView={setLandingView}
+        />
+      </Grid>
+      <Grid
+        item
+        container
+        direction="row"
+        justify="center"
+        alignItems="center"
+      >
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => {
+            setLandingView('ownerSignUp');
+          }}
+        >
+          Register as Business
+        </Button>
+      </Grid>
+      <Grid
+        item
+        container
+        direction="row"
+        justify="center"
+        alignItems="center"
+      >
+        <Button
+          size="small"
+          color="primary"
+          className={classes.backBtn}
+          onClick={() => setLandingView('')}
+        >
+          Back
+        </Button>
+      </Grid>
     </Grid>
-  </div>
-);
+  );
+};
 
 export default SignUpOptions;

@@ -31,37 +31,41 @@ const OwnerForm = ({ mapLatLng, setBarId }) => {
 
   const renderOwnerForm = () => {
     if (counter === 1) {
-      return <BarInfo
-        setCounter={setCounter}
-        setBarName={setBarName}
-        setAddress={setAddress}
-        setCity={setCity}
-        setState={setState}
-        setZip={setZip}
-        setNumber={setNumber}
-        setLat={setLat}
-        setLng={setLng}
-        barName={barName}
-        address={address}
-        number={number}
-        setImage={setImage}
-        setOccupency={setOccupency}
-      />;
+      return (
+        <BarInfo
+          setCounter={setCounter}
+          setBarName={setBarName}
+          setAddress={setAddress}
+          setCity={setCity}
+          setState={setState}
+          setZip={setZip}
+          setNumber={setNumber}
+          setLat={setLat}
+          setLng={setLng}
+          barName={barName}
+          address={address}
+          number={number}
+          setImage={setImage}
+          setOccupency={setOccupency}
+        />
+      );
     } if (counter === 2) {
-      return <OwnerInfo
-        setCounter={setCounter}
-        barName={barName}
-        address={address}
-        city={city}
-        state={state}
-        zip={zip}
-        number={number}
-        lat={lat}
-        lng={lng}
-        image={image}
-        capacity={occupency}
-        setBarId={setBarId}
-      />;
+      return (
+        <OwnerInfo
+          setCounter={setCounter}
+          barName={barName}
+          address={address}
+          city={city}
+          state={state}
+          zip={zip}
+          number={number}
+          lat={lat}
+          lng={lng}
+          image={image}
+          capacity={occupency}
+          setBarId={setBarId}
+        />
+      );
     }
     return (
       <SafetyDialog setCounter={setCounter} />
@@ -79,11 +83,12 @@ const OwnerForm = ({ mapLatLng, setBarId }) => {
         container
         direction="row"
         justify="center"
-        alignItems="center">
+        alignItems="center"
+      >
         {renderOwnerForm()}
       </Grid>
     </Grid>
   );
-}
+};
 
 export default OwnerForm;

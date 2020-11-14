@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { GoogleLogin } from 'react-google-login';
 import Axios from 'axios';
-import { Button } from '@material-ui/core';
+import { Button, makeStyles } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 
 const clientId = process.env.GOOGLE_CLIENT_ID;
@@ -13,6 +13,7 @@ const SignUpGoogleButton = ({
   setGEmail,
   setLandingView,
 }) => {
+  const classes = useStyles();
   const onSuccess = async (res) => {
     const token = res.tokenId;
     const profile = res.profileObj;
@@ -54,15 +55,19 @@ const SignUpGoogleButton = ({
       <GoogleLogin
         clientId={clientId}
         render={(renderProps) => (
-          <Button variant="outlined" color="primary" onClick={renderProps.onClick} disabled={renderProps.disabled}>
-            SignIn with Google
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={renderProps.onClick}
+            disabled={renderProps.disabled}
+          >
+            Register with Google
           </Button>
         )}
         buttonText="Login"
         onSuccess={onSuccess}
         onFailure={onFailure}
         cookiePolicy="single_host_origin"
-        style={{ marginTop: '100px' }}
         isSignedIn
       />
     </div>

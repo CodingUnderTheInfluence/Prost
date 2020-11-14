@@ -10,7 +10,7 @@ const Login = ({
   setId,
   setProfileImage,
   setUsername,
-  setDbId
+  setDbId,
 }) => {
   const history = useHistory();
   const onSuccess = (res) => {
@@ -31,13 +31,13 @@ const Login = ({
       .then(({ data }) => {
         if (data === 'customer') {
           localStorage.setItem('customerToken', res.tokenId);
-          history.push('/customer')
+          history.push('/customer');
         } else if (data === 'Owner') {
           localStorage.setItem('ownerToken', res.tokenId);
-          history.push('/owner')
+          history.push('/owner');
         } else if (data === 'form') {
           console.info('PLEASE REGISTER WITH OUR APP');
-          <Redirect to="/" />
+            <Redirect to="/" />;
         }
       });
   };
@@ -50,8 +50,14 @@ const Login = ({
       <GoogleLogin
         clientId={clientId}
         render={(renderProps) => (
-          <Button variant="outlined" color="primary" onClick={renderProps.onClick} disabled={renderProps.disabled}>
-            Login Here
+          <Button
+            variant="contained"
+            color="primary"
+            size="large"
+            onClick={renderProps.onClick}
+            disabled={renderProps.disabled}
+          >
+            Continue with Google
           </Button>
         )}
         buttonText="Login"
