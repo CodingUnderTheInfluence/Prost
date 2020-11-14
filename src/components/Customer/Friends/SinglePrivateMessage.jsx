@@ -9,9 +9,9 @@ const useStyles = makeStyles({
         borderRadius: '5px',
         padding: '10px',
         margin: '10px, 0',
-        justifyContent: 'flex-end'
+        justifyContent: 'flex-end',
     },
-        received: {
+    received: {
         border: '2px solid #dedede',
         backgroundColor: '#8e8e93',
         borderRadius: '5px',
@@ -19,9 +19,9 @@ const useStyles = makeStyles({
         margin: '10px, 0',
         justifyContent: 'flex-start'
     },
-  });
+});
 
-const SinglePrivateMessage = ({m, friendId}) => {
+const SinglePrivateMessage = ({ m, friendId }) => {
     const classes = useStyles();
     let messageClass;
     if (m.id_sender === friendId) {
@@ -32,7 +32,7 @@ const SinglePrivateMessage = ({m, friendId}) => {
 
     return (
         <Box className={messageClass}>{m.body}</Box>
-    )    
+    )
 
 }
 

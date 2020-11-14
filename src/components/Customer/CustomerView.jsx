@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-  makeStyles, Paper, Tabs, Tab, Grid, Button, Typography, BottomNavigation, BottomNavigationAction,
+  makeStyles, Grid, Button, Typography, BottomNavigation, BottomNavigationAction,
 } from '@material-ui/core';
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
@@ -10,26 +10,25 @@ import regeneratorRuntime from 'regenerator-runtime';
 import useSocket from 'use-socket.io-client';
 import Axios from 'axios';
 import MapContainer from './Create/Map2.jsx';
-import Create from './Create/Create.jsx';
 import Messages from './Social/Messages.jsx';
-import Logout from '../Logout.jsx';
 import CustomerProfile from './Profile/CustomerProfile.jsx';
-import FriendsList from './Friends/FriendsList.jsx';
 import FriendsView from './Friends/FriendsView.jsx';
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 500,
-    borderRadius: '10px',
+    maxWidth: "auto",
   },
   stickToBottom: {
-    width: '100vw',
-    position: 'fixed',
+    position: 'sticky',
     bottom: '0',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    borderRadius: '10px',
+    margin: "auto",
     border: 'solid #0365b0 1px',
+    height: '10vh',
+    width: '100%'
+  },
+  main: {
+    height: '90vh',
+    width: '100%'
   },
 });
 
@@ -87,25 +86,23 @@ const CustomerView = ({
   };
   return (
     <Grid container direction="column" justify="center" alignItems="center">
-      <Grid item container direction="row" justify="center" alignItems="center">
+      <Grid item container direction="row" className={classes.main}>
         {renderView()}
       </Grid>
-      <Grid item container direction="row" justify="center" alignItems="center">
-        <Paper className={classes.stickToBottom}>
-          <BottomNavigation
-            value={value}
-            onChange={handleChange}
-            indicatorColor="primary"
-            textColor="primary"
-            centered
-            className={classes.stickToBottom}
-          >
-            <BottomNavigationAction icon={<PeopleAltIcon />} label="Friends" />
-            <BottomNavigationAction icon={<AddCircleOutlineIcon />} label="Create" />
-            <BottomNavigationAction icon={<ForumIcon />} label="Messages" />
-            <BottomNavigationAction icon={<AccountCircleOutlinedIcon />} label="Profile" />
-          </BottomNavigation>
-        </Paper>
+      <Grid item container direction="row" className={classes.stickToBottom}>
+        <BottomNavigation
+          value={value}
+          onChange={handleChange}
+          indicatorColor="primary"
+          textColor="primary"
+          centered
+          className={classes.stickToBottom}
+        >
+          <BottomNavigationAction icon={<PeopleAltIcon />} label="Friends" />
+          <BottomNavigationAction icon={<AddCircleOutlineIcon />} label="Create" />
+          <BottomNavigationAction icon={<ForumIcon />} label="Messages" />
+          <BottomNavigationAction icon={<AccountCircleOutlinedIcon />} label="Profile" />
+        </BottomNavigation>
       </Grid>
     </Grid>
   );
