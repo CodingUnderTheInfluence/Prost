@@ -39,7 +39,7 @@ const SafetyDialog = ({ setCounter, setLandingView }) => {
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
           <Typography variant="subtitle1">
-            Information Collected will only be shared emergency services are required during Covid-19 Pandemic.
+            Information Collected will only be shared with emergency services as required during Covid-19 Pandemic.
           </Typography>
         </DialogContentText>
       </DialogContent>

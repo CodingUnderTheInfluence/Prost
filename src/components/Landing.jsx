@@ -94,6 +94,7 @@ const Landing = ({
           username={username}
           profileImage={profileImage}
           gEmail={gEmail}
+          setLandingView={setLandingView}
         />
       );
     }

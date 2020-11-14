@@ -31,6 +31,7 @@ const CustomerSignUpForm = ({
   profileImage,
   username,
   gEmail,
+  setLandingView,
 }) => {
   const classes = useStyles();
   const history = useHistory();
@@ -140,7 +141,7 @@ const CustomerSignUpForm = ({
       );
     }
     return (
-      <SafetyDialog setCounter={setCounter} />
+      <SafetyDialog setCounter={setCounter} setLandingView={setLandingView} />
     );
   };
 
