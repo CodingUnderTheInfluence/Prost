@@ -139,7 +139,26 @@ npm run build
 ![DatabaseSchema](images/prostdb.png)
 
 ## Wire Frame
-![Wireframe](images/prostdb.png)
+### **Customer's View**
+<hr>
+
+![Wireframe](images/login.PNG)
+![Wireframe](images/map.PNG)
+![Wireframe](images/friend.PNG)
+<br>
+![Wireframe](images/forum.PNG)
+<br>
+![Wireframe](images/profile1.PNG)
+![Wireframe](images/profile2.PNG)
+### **Owner's View**
+<hr>
+
+![Wireframe](images/ownerprofile.PNG)
+<br>
+![Wireframe](images/alert.PNG)
+<br>
+![Wireframe](images/customer.PNG)
+
 
 ## Contributing
 See [_CONTRIBUTING.md_](CONTRIBUTING.md).
