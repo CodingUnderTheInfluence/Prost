@@ -32,50 +32,10 @@ const createParty = async (barInfo, size = 1) => {
       id_bar: barId,
       size,
     });
-    console.info('success in creating party')
+    console.info('success in creating party');
   } catch (err) {
     console.warn('error in create party');
   }
 };
-
-// TODO:
-// const createParty = async (barInfo, customerId, size = 1) => {
-//   const {
-//     name,
-//     formatted_address,
-//     formatted_phone_number,
-//     geometry: { location },
-//   } = barInfo;
-
-//   const [address, city, stateZip] = formatted_address.split(', ');
-//   const [state, zip] = stateZip.split(' ');
-//   const lat = location.lat();
-//   const lng = location.lng();
-
-//   try {
-//     const custParty = await axios.post('/db/cb/checkin/create', {
-//       barName: name,
-//       address: address,
-//       city: city,
-//       state: state,
-//       zip: zip,
-//       number: formatted_phone_number,
-//       customerId,
-//       lat: lat,
-//       lng: lng,
-//     });
-//     const barId = custParty.data[0].id_bar;
-//     console.log('bar id??', barId);
-//     // const party = await axios.post('db/party/create', {
-//     //   id_bar: barId,
-//     //   size,
-//     // });
-//     console.info('at Bar!', custParty);
-//     // console.info('party created!', party)
-//   } catch (err) {
-//     console.warn('error in party create', err);
-//   }
-
-// };
 
 module.exports = createParty;

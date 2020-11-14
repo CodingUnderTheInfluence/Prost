@@ -4,7 +4,6 @@ import Login from '../Login.jsx';
 import OwnerLogin from './owner/OwnerLogin.jsx';
 
 const SignIn = ({
-  setViewValue,
   setId,
   setProfileImage,
   setUsername,
@@ -25,7 +24,6 @@ const SignIn = ({
             <Grid item container direction="row" justify="center" alignItems="center">
               <Login
                 setDbId={setDbId}
-                setViewValue={setViewValue}
                 setId={setId}
                 setProfileImage={setProfileImage}
                 setUsername={setUsername}
@@ -33,7 +31,6 @@ const SignIn = ({
             </Grid>
             <Grid item container direction="row" justify="center" alignItems="center">
               <OwnerLogin
-                setViewValue={setViewValue}
                 setBarId={setBarId}
               />
             </Grid>

@@ -15,7 +15,7 @@ import SafetyDialog from './Dialog.jsx';
 import BarInfo from './Form Components/BarInfo.jsx';
 import OwnerInfo from './Form Components/OwnerInfo.jsx';
 
-function OwnerForm({ setViewValue, mapLatLng }) {
+const OwnerForm = ({ mapLatLng, setBarId }) => {
   const [counter, setCounter] = useState(0);
   const [barName, setBarName] = useState('');
   const [address, setAddress] = useState('');
@@ -50,7 +50,6 @@ function OwnerForm({ setViewValue, mapLatLng }) {
     } if (counter === 2) {
       return <OwnerInfo
         setCounter={setCounter}
-        setViewValue={setViewValue}
         barName={barName}
         address={address}
         city={city}
@@ -61,6 +60,7 @@ function OwnerForm({ setViewValue, mapLatLng }) {
         lng={lng}
         image={image}
         capacity={occupency}
+        setBarId={setBarId}
       />;
     }
     return (

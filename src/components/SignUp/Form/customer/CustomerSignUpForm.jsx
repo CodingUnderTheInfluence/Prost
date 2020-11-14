@@ -3,25 +3,27 @@ import {
   Grid, Button, Typography, TextField, Radio, RadioGroup, FormControl, FormControlLabel, FormLabel,
 } from '@material-ui/core';
 import axios from 'axios';
-import SafetyDialog from './Dialog.jsx';
+import { Redirect } from 'react-router-dom'
+import SafetyDialog from './SignUpDialog.jsx';
+import { useHistory } from 'react-router-dom'
 
-const CustomerForm = ({
-  setViewValue, gId, profileImage, username,
+const CustomerSignUpForm = ({
+  gId, profileImage, username, gEmail,
 }) => {
+  const history = useHistory();
   const [counter, setCounter] = useState(0);
-
   // PERSONAL INFORMATION FIELDS
   const [personalFirst, setPersonalFirst] = useState('');
   const [personalLast, setPersonalLast] = useState('');
-  const [personalEmail, setPersonalEmail] = useState('');
   const [personalNumber, setPersonalNumber] = useState();
   const [personalGender, setPersonalGender] = useState('');
+
   // PERSONAL INFORMATION DATABASE SUBMIT
   const personalInformationSubmit = () => {
     const personalParams = {
       first: personalFirst,
       last: personalLast,
-      email: personalEmail,
+      email: gEmail,
       number: personalNumber,
       gender: personalGender,
       image: profileImage,
@@ -53,6 +55,7 @@ const CustomerForm = ({
   const [emLast, setEmLast] = useState('');
   const [emEmail, setEmEmail] = useState('');
   const [emNumber, setEmNumber] = useState();
+
   // EMERGENCY CONTACT INFORMATION SUBMIT
   const eContactInformationSubmit = () => {
     const emergencyParams = {
@@ -87,9 +90,7 @@ const CustomerForm = ({
             <TextField id="standard-basic" label="First Name" onChange={(e) => { setPersonalFirst(e.target.value); }} />
             <TextField id="standard-basic" label="Last Name" onChange={(e) => { setPersonalLast(e.target.value); }} />
           </Grid>
-          <Grid item container direction="row" style={{ border: 'solid black 1px', padding: '10px', margin: '5px 0 5px 0' }}>
-            <TextField id="standard-basic" label="Email" onChange={(e) => { setPersonalEmail(e.target.value); }} />
-          </Grid>
+
           <Grid item container direction="row" style={{ border: 'solid black 1px', padding: '10px', margin: '5px 0 5px 0' }}>
             <TextField id="standard-basic" label="Phone Number" onChange={(e) => { setPersonalNumber(Number(e.target.value)); }} />
           </Grid>
@@ -156,20 +157,27 @@ const CustomerForm = ({
             </Typography>
           </Grid>
           <Grid item container direction="row" style={{ border: 'solid black 1px', padding: '10px', margin: '5px 0 5px 0' }}>
-            <TextField id="standard-basic" label="First Name" onChange={(e) => { setEmFirst(e.target.value); }} />
-            <TextField id="standard-basic" label="Last Name" onChange={(e) => { setEmLast(e.target.value); }} />
+            <TextField id="standard-basic" label="First Name"
+              onChange={(e) => {
+                setPersonalEFirst(e.target.value);
+              }} />
+            <TextField id="standard-basic" label="Last Name" onChange={(e) => {
+              setEmLast(e.target.value);
+            }} />
           </Grid>
           <Grid item container direction="row" style={{ border: 'solid black 1px', padding: '10px', margin: '5px 0 5px 0' }}>
             <TextField id="standard-basic" label="Email" onChange={(e) => { setEmEmail(e.target.value); }} />
           </Grid>
           <Grid item container direction="row" style={{ border: 'solid black 1px', padding: '10px', margin: '5px 0 5px 0' }}>
-            <TextField id="standard-basic" label="Phone Number" onChange={(e) => { setEmNumber(Number(e.target.value)); }} />
+            <TextField id="standard-basic" label="Phone Number" onChange={(e) => {
+              setEmNumber(Number(e.target.value));
+            }} />
           </Grid>
           <Button
             variant="outlined"
             onClick={() => {
               eContactInformationSubmit();
-              setViewValue('CustomerView');
+              history.push('/customer')
             }}
           >
             Submit
@@ -178,7 +186,7 @@ const CustomerForm = ({
       );
     }
     return (
-      <SafetyDialog setViewValue={setViewValue} setCounter={setCounter} />
+      <SafetyDialog setCounter={setCounter} />
     );
   };
 
@@ -191,4 +199,4 @@ const CustomerForm = ({
   );
 };
 
-export default CustomerForm;
+export default CustomerSignUpForm;

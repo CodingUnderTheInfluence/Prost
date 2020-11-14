@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import {
   Grid, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
 } from '@material-ui/core';
+import { Redirect } from 'react-router-dom'
 
-function SafetyDialog({ setViewValue, setCounter }) {
+const SignUpDialog = ({ setCounter }) => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -16,7 +17,7 @@ function SafetyDialog({ setViewValue, setCounter }) {
 
   const deleteLocal = () => {
     delete localStorage.token;
-    setViewValue('Landing');
+    <Redirect to="/" />
   };
 
   return (
@@ -55,6 +56,6 @@ function SafetyDialog({ setViewValue, setCounter }) {
       </DialogActions>
     </Dialog>
   );
-}
+};
 
-export default SafetyDialog;
+export default SignUpDialog;

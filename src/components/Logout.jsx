@@ -1,14 +1,16 @@
 import React from 'react';
 import { GoogleLogout } from 'react-google-login';
+import { useHistory } from 'react-router-dom';
 
 const clientId = process.env.GOOGLE_CLIENT_ID;
-const Logout = ({ setViewValue }) => {
+const Logout = () => {
+  const history = useHistory();
   const onSuccess = () => {
     localStorage.removeItem('customerToken');
     localStorage.removeItem('ownerToken');
     localStorage.removeItem('gId');
     localStorage.removeItem('username');
-    setViewValue('Landing');
+    history.push('/');
   };
 
   return (

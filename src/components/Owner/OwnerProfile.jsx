@@ -14,7 +14,6 @@ import Logout from '../Logout.jsx';
 import Dialogs from './Dialogs.jsx'
 
 const OwnerProfile = ({
-    setViewValue,
     count,
     image,
     barName,
@@ -99,7 +98,7 @@ const OwnerProfile = ({
             <Button variant="outlined" color="primary" onClick={handleClickOpen}>
                 Call emergency Contact
                 </Button>
-            <Logout setViewValue={setViewValue} />
+            <Logout />
             <Dialogs
                 occupencyStatus={occupencyStatus}
                 barAddress={barAddress}

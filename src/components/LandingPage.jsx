@@ -5,7 +5,6 @@ import SignUp from './SignUp/SignUp.jsx';
 
 const LandingPage = ({
   setDbId,
-  setViewValue,
   setId,
   setProfileImage,
   setUsername,
@@ -29,7 +28,6 @@ const LandingPage = ({
       <Grid item container direction="row" justify="center" alignItems="center" style={{ margin: '10px 0 10px 0' }}>
         <SignIn
           setDbId={setDbId}
-          setViewValue={setViewValue}
           setId={setId}
           setProfileImage={setProfileImage}
           setUsername={setUsername}
@@ -41,7 +39,6 @@ const LandingPage = ({
       </Grid>
       <Grid item container direction="row" justify="center" alignItems="center" style={{ margin: '10px 0 10px 0' }}>
         <SignUp
-          setViewValue={setViewValue}
           setId={setId}
           setProfileImage={setProfileImage}
           setUsername={setUsername}
@@ -51,6 +48,7 @@ const LandingPage = ({
           setGEmail={setGEmail}
           gEmail={gEmail}
           mapLatLng={mapLatLng}
+          setBarId={setBarId}
         />
       </Grid>
     </Grid>
