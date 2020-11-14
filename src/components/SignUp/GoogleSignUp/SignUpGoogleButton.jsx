@@ -13,7 +13,6 @@ const SignUpGoogleButton = ({
   setGEmail,
   setLandingView,
 }) => {
-  const classes = useStyles();
   const onSuccess = async (res) => {
     const token = res.tokenId;
     const profile = res.profileObj;
