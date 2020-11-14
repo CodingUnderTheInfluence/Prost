@@ -83,7 +83,7 @@ sudo -i -u postgres
 From the CodingUnderTheInfluence/Prost repository, fork your copy of the project. Next, clone your repository to your local machine by running the following code in your command prompt.
  
 ```
-$ git clone {your project link}
+$ git clone {your GitHub project link}
  
 $ cd Prost/
  
@@ -121,13 +121,16 @@ PROJECT_ID=// The project ID associated with your Google Service JSON Key
 npm start
 ```
 ### Compiling the Build
-Development
+Development Build
 ```
 npm run dev
 ```
-Production
+Production Build
 ```
 npm run build
 ```
-## Tech-Stack
- 
+## Tech Stack
+![TechStack](images/prosttechstack.PNG)
+
+## Database Schema
+![Schema]()
