@@ -4,7 +4,7 @@ import { Marker, InfoWindow, Data } from '@react-google-maps/api';
 import axios from 'axios';
 import warning from '../../../../images/warning.png';
 
-const DangerMarker = ({ danger, getDblClickDangerMarker, allDanger }) => {
+const DangerMarker = ({ danger, getDblClickDangerMarker }) => {
   const { lat, lng } = danger;
   const [show, setShow] = useState(false);
   const [selected, setSelected] = useState('Assult');
@@ -15,10 +15,7 @@ const DangerMarker = ({ danger, getDblClickDangerMarker, allDanger }) => {
     setSelected(event.target.value);
   };
 
-  const handleDblClick = (e) => {
-    // console.log('filted danger', allDanger.filter((target) => target.lat !== danger.lat));
-    getDblClickDangerMarker(danger);
-  };
+  const handleDblClick = () => getDblClickDangerMarker(danger);
 
   const postReport = () => {
     axios.post('/db/maps/report', {
