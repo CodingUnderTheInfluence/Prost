@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { Marker, InfoWindow } from '@react-google-maps/api';
 import PropTypes from 'prop-types';
+// import { ReportProblem } from '@material-ui/icons';
 import warning from '../../../../images/warning.png';
+import user from '../../../../images/user.png';
 
 const FriendsMarker = ({ friendsLocation: { user_name, latitude, longitude, report } }) => {
   const [show, setShow] = useState(false);
-  const iconSelect = report ? warning : 'http://maps.google.com/mapfiles/ms/icons/blue.png';
+  const iconSelect = report ? warning : user;
 
+  console.log('icon select', iconSelect);
   const handleClick = () => {
     setShow(!show);
   };

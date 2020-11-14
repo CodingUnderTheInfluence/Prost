@@ -57,7 +57,7 @@ const Search = ({
             const details = await getDetails({ placeId: place_id });
             getPlaceInfo(details);
             const { lat, lng } = await getLatLng(results[0]);
-            panTo({ lat, lng });
+            panTo({ lat, lng, key: 'bar' });
             setValue('');
           } catch (err) {
             console.warn(err);

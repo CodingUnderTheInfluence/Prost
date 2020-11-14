@@ -13,6 +13,9 @@ import {
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import beer from '../../../../images/beer.png';
+import beerGold from '../../../../images/beerGold.png';
+import user from '../../../../images/user.png';
+// import { GiBeerStein } from "react-icons/gi";
 import Search from './Search.jsx';
 import BarInfo from './BarInfo.jsx';
 import PrivateSwitch from './PrivateSwitch.jsx';
@@ -54,10 +57,7 @@ const searchBoxStyle = {
 };
 
 const MapContainer = ({ setMapLatLng, username, gId }) => {
-  const [currentPosition, setCurrentPosition] = useState({
-    lat: 29.951065,
-    lng: -90.071533,
-  });
+  const [currentPosition, setCurrentPosition] = useState(null);
   const [friendLocations, setFriendLocations] = useState([]);
   const [privateSwitch, setPrivateSwitch] = useState(false);
   const [myLocation, setMyLocation] = useState({});
@@ -69,7 +69,7 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
 
   const defaultCenter = {
     lat: 29.95115,
-    lng: 90.0715,
+    lng: -90.0715,
   };
 
   const { isLoaded, loadError } = useLoadScript({
@@ -80,14 +80,15 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
   // get the toggle for the switch to update state
   const getSwitch = (pSwitch) => setPrivateSwitch(pSwitch);
 
-  useEffect(() => {
-    const success = (pos) => {
-      const { latitude, longitude } = pos.coords;
-      getMyLocation({ latitude, longitude });
-    };
-    const fail = () => null;
-    navigator.geolocation.getCurrentPosition(success, fail);
-  }, []);
+  // TODO:
+  // useEffect(() => {
+  //   const success = (pos) => {
+  //     const { latitude, longitude } = pos.coords;
+  //     setCurrentPosition({ lat: latitude, lng: longitude });
+  //   };
+  //   const fail = () => null;
+  //   navigator.geolocation.getCurrentPosition(success, fail);
+  // }, []);
 
   useEffect(() => {
     let isMounted = true;
@@ -101,8 +102,6 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
     // --removed priviteSwitch in second arg to reload state when marker was clicked 
   }, [privateSwitch]);
 
-  // TODO:
-  /// //////////       get info for bars to display        /////////////////////////////
   useEffect(() => {
     let isMounted = true;
     if (isMounted) {
@@ -134,11 +133,13 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
   }, []);
 
   // move map to the where the user has searched
-  const panTo = useCallback(({ lat, lng }) => {
+  const panTo = useCallback(({ lat, lng, key }) => {
     mapRef.current.panTo({ lat, lng });
     mapRef.current.setZoom(15);
-    setCurrentPosition({ lat, lng });
-    setSearchMarker({ lat, lng });
+    if (key === 'user') {
+      setCurrentPosition({ lat, lng });
+    }
+    setSearchMarker({ lat, lng, key });
   }, []);
 
   const handleMarkerClick = () => {
@@ -194,18 +195,31 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
           searchBoxStyle={searchBoxStyle}
           getPlaceInfo={getPlaceInfo}
         />
-        <Marker
-          onClick={handleMarkerClick}
-          key={searchMarker.lat}
-          position={{
-            lat: +searchMarker.lat,
-            lng: +searchMarker.lng,
-          }}
-          icon={{
-            url: beer,
-            scaledSize: new window.google.maps.Size(30, 30),
-          }}
-        />
+        {searchMarker.key === 'bar' ? (
+          <Marker
+            key="bar"
+            onClick={handleMarkerClick}
+            position={{
+              lat: +searchMarker.lat,
+              lng: +searchMarker.lng,
+            }}
+            icon={{
+              url: beerGold,
+              // scaledSize: new window.google.maps.Size(30, 30),
+            }}
+          />
+        ) : (
+            <Marker
+              key="user"
+              position={{
+                lat: +searchMarker.lat,
+                lng: +searchMarker.lng,
+              }}
+              icon={{
+                url: user,
+              }}
+            />
+          )}
         <DangerMarkers dangerMarkers={dangerMarkers} />
         <BarMarkers parties={parties} />
         <FriendsMarkers friendLocations={friendLocations} />

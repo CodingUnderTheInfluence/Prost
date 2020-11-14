@@ -32,7 +32,9 @@ const DangerMarker = ({ danger: { lat, lng } }) => {
     <Marker
       position={{ lat, lng }}
       onClick={handleClick}
-      icon={{ url: warning }}
+      icon={{
+        url: warning,
+      }}
 
     >
       {show
@@ -56,8 +58,8 @@ const DangerMarker = ({ danger: { lat, lng } }) => {
 
 DangerMarker.propTypes = {
   danger: PropTypes.shape({
-    lat: PropTypes.string,
-    lng: PropTypes.string,
+    lat: PropTypes.number,
+    lng: PropTypes.number,
   }),
 };
 
