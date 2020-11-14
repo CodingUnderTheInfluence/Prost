@@ -74,14 +74,7 @@ function ConfirmedFriend({ f, userData, socket, setViewObject, setViewValue }) {
       )
     }
 
-        </Grid >
-
-      </Grid >
-    );
   }
-  return (
-    <Grid>Loading data for friend.</Grid>
-  );
 }
 
 export default ConfirmedFriend;

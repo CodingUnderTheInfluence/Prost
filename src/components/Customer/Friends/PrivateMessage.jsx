@@ -58,19 +58,7 @@ const PrivateMessage = ({ f, setViewValue, userData, socket }) => {
         Axios.post('/db/message/privateMessages', testMessage)
             .catch(err => console.warn(err));
     }
-    const handleEnterKeySend = (event) => {
-        if (event.charCode === 13) {
-            sendMessageToServer();
-            emitNewMessage();
-            setMessageBody('');
-        }
-    }
 
-    const sendMessageToServer = () => {
-        Axios.post('/db/message/privateMessages', testMessage)
-            .then((res) => console.info(res))
-            .catch((err) => console.warn(err));
-    };
     const handleEnterKeySend = (event) => {
         if (event.charCode === 13) {
             sendMessageToServer();
@@ -86,6 +74,10 @@ const PrivateMessage = ({ f, setViewValue, userData, socket }) => {
     const emitNewMessage = () => {
         socket.emit('privateMessage', socketMessage);
     };
+
+    socket.once('incomingPrivateMessage', message => {
+        setAllMessages([...allMessages, message])
+    })
 
     useEffect(() => {
         getAllMessages();
