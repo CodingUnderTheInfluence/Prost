@@ -124,6 +124,11 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
     ]);
   });
 
+  const getDblClickDangerMarker = (object) => {
+    const removeMarker = dangerMarkers.filter((target) => target.lat !== object.lat);
+    setDangerMarkers(removeMarker);
+  };
+
   // save reference to map to use it later and not reload state
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
@@ -219,7 +224,10 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
               }}
             />
           )}
-        <DangerMarkers dangerMarkers={dangerMarkers} />
+        <DangerMarkers
+          dangerMarkers={dangerMarkers}
+          getDblClickDangerMarker={getDblClickDangerMarker}
+        />
         <BarMarkers parties={parties} />
         <FriendsMarkers friendLocations={friendLocations} />
         <Directions />

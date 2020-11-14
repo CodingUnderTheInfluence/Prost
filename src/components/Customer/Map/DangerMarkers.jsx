@@ -8,13 +8,15 @@ const options = {
     'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
 };
 
-const DangerMarkers = ({ dangerMarkers }) => (
+const DangerMarkers = ({ dangerMarkers, getDblClickDangerMarker }) => (
   <MarkerClusterer options={options}>
-    {(clusterer) => (
+    {() => (
       dangerMarkers.map((danger) => (
         <DangerMarker
           key={danger.time.toISOString()}
           danger={danger}
+          allDanger={dangerMarkers}
+          getDblClickDangerMarker={getDblClickDangerMarker}
         />
       )))}
   </MarkerClusterer>
@@ -22,6 +24,7 @@ const DangerMarkers = ({ dangerMarkers }) => (
 
 DangerMarkers.propTypes = {
   dangerMarkers: propTypes.arrayOf(propTypes.any),
+  getDblClickDangerMarker: propTypes.func,
 };
 
 export default DangerMarkers;
