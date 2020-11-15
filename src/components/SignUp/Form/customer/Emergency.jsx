@@ -119,7 +119,7 @@ const Emergency = ({
           variant="outlined"
           label="Phone Number"
           onChange={(e) => {
-            setEmNumber(Number(e.target.value));
+            setEmNumber(e.target.value);
           }}
         />
       </Grid>
