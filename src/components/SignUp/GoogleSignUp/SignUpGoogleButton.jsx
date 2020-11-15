@@ -13,6 +13,7 @@ const SignUpGoogleButton = ({
   setGEmail,
   setLandingView,
 }) => {
+  const history = useHistory();
   const onSuccess = async (res) => {
     const token = res.tokenId;
     const profile = res.profileObj;
@@ -30,9 +31,15 @@ const SignUpGoogleButton = ({
     Axios.post('/db/customer/register', { googleProfile, googleToken })
       .then(({ data }) => {
         if (data === 'customer') {
-          console.info('THIS CUSTOMER HAS BEEN FOUND');
-        } else if (data === 'form') {
+          localStorage.removeItem('customerToken');
+          localStorage.removeItem('ownerToken');
+          localStorage.removeItem('gId');
+          localStorage.removeItem('username');
+          history.push('/');
+        }
+        if (data === 'form') {
           localStorage.setItem('customerToken', res.tokenId);
+          setLandingView('customerSignUp');
         }
       })
       .catch((err) => console.warn(err));
@@ -43,7 +50,6 @@ const SignUpGoogleButton = ({
     })
       .then((data) => console.info('in the database', data))
       .catch((err) => console.error('error in post to maps', err));
-    setLandingView('customerSignUp');
   };
 
   const onFailure = (res) => {
@@ -68,7 +74,6 @@ const SignUpGoogleButton = ({
         onSuccess={onSuccess}
         onFailure={onFailure}
         cookiePolicy="single_host_origin"
-        isSignedIn
       />
     </div>
   );
