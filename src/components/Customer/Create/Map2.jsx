@@ -99,7 +99,8 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
     if (isMounted) {
       axios.get('/db/maps')
         .then(({ data }) => {
-          setFriendLocations(data);
+          const publicPpl = data.filter((friend) => !friend.isPrivate);
+          setFriendLocations(publicPpl);
         });
     }
     return () => { isMounted = false; };
@@ -235,6 +236,11 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
         <BarMarkers parties={parties} />
         <FriendsMarkers friendLocations={friendLocations} />
         <Directions />
+        <PrivateSwitch
+          className="privateSwitch"
+          gId={gId}
+          getSwitch={getSwitch}
+        />
       </GoogleMap>
       <QuickCreate
         // className="myLocationDiv"
@@ -242,7 +248,6 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
         panTo={panTo}
       />
       {/* TODO: */}
-      {/* <PrivateSwitch gId={gId} getSwitch={getSwitch} /> */}
     </div>
   );
 };

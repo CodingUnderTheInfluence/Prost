@@ -6,10 +6,10 @@ import { FormGroup, FormControlLabel, Switch } from '@material-ui/core';
 const PrivateSwitch = ({ gId, getSwitch }) => {
   const [isPrivate, setPrivate] = useState(false);
 
-  const handleChange = (e) => {
-    setPrivate(e.target.checked);
-    getSwitch(isPrivate);
-    axios.put(`/db/maps/${gId}`, { isPrivate: e.target.checked })
+  const handleChange = () => {
+    setPrivate(!isPrivate);
+    axios.put(`/db/maps/${gId}`, { isPrivate })
+      .then(() => getSwitch(isPrivate))
       .catch(() => console.warn('error in private switch'));
   };
 
