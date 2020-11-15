@@ -1,0 +1,12 @@
+.myLocation {
+  margin: auto;
+  top: auto;
+  right: 20px;
+  bottom: 100px;
+  left: 85%;
+  position: fixed;
+}
+
+.myLocationDiv {
+  z-index: 10;
+}

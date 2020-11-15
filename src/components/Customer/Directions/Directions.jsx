@@ -18,10 +18,6 @@ const Directions = () => {
   };
 
   return (
-    // <Fab
-    //   onClick={() => setShow(true)}
-    // >
-
     <div className="directions">
       <div style={{ position: 'absolute', bottom: '20px' }}>
         <TextField
@@ -39,7 +35,7 @@ const Directions = () => {
           onClick={() => setGetDirections(true)}
         >
           Directions
-            </Button>
+        </Button>
         <Button
           variant="contained"
           onClick={() => {
@@ -48,7 +44,7 @@ const Directions = () => {
           }}
         >
           Remove Directions
-            </Button>
+        </Button>
       </div>
       {
         (origin && destination && getDirections)
@@ -72,8 +68,6 @@ const Directions = () => {
         )
       }
     </div>
-
-    // </Fab>
   );
 };
 

@@ -1,6 +1,8 @@
 import React from 'react';
+import '../../../styles/location.css';
 import Fab from '@material-ui/core/Fab';
 import MyLocationIcon from '@material-ui/icons/MyLocation';
+import { positions } from '@material-ui/system';
 const QuickCreate = ({ getMyLocation, panTo }) => {
   const success = (pos) => {
     const { latitude, longitude } = pos.coords;
@@ -15,12 +17,9 @@ const QuickCreate = ({ getMyLocation, panTo }) => {
   };
 
   return (
-    // <div style={{
-    //   justifyContent: 'center',
-    //   alignItems: 'center',
-    // }}
-    // >
     <Fab
+      className="myLocation"
+      size="small"
       color="primary"
       onClick={handleClick}
     >

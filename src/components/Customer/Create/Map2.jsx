@@ -4,6 +4,7 @@ import React, {
   useRef,
   useCallback,
 } from 'react';
+import '../../../styles/location.css';
 import {
   GoogleMap,
   Marker,
@@ -57,7 +58,10 @@ const searchBoxStyle = {
 };
 
 const MapContainer = ({ setMapLatLng, username, gId }) => {
-  const [currentPosition, setCurrentPosition] = useState(null);
+  const [currentPosition, setCurrentPosition] = useState({
+    lat: 29.95115,
+    lng: -90.0715,
+  });
   const [friendLocations, setFriendLocations] = useState([]);
   const [privateSwitch, setPrivateSwitch] = useState(false);
   const [myLocation, setMyLocation] = useState({});
@@ -209,7 +213,6 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
             }}
             icon={{
               url: beerGold,
-              // scaledSize: new window.google.maps.Size(30, 30),
             }}
           />
         )
@@ -231,17 +234,13 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
         />
         <BarMarkers parties={parties} />
         <FriendsMarkers friendLocations={friendLocations} />
-        <QuickCreate
-          style={{
-            position: 'absolute',
-            zIndex: 10,
-            bottom: 80,
-          }}
-          getMyLocation={getMyLocation}
-          panTo={panTo}
-        />
         <Directions />
       </GoogleMap>
+      <QuickCreate
+        // className="myLocationDiv"
+        getMyLocation={getMyLocation}
+        panTo={panTo}
+      />
       {/* TODO: */}
       {/* <PrivateSwitch gId={gId} getSwitch={getSwitch} /> */}
     </div>
