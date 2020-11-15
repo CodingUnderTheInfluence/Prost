@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import {
-  Grid, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
+  Grid,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Typography,
 } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 
-const SafetyDialog = ({ setCounter }) => {
+const SafetyDialog = ({ setCounter, setLandingView }) => {
   const history = useHistory();
   const [open, setOpen] = useState(false);
 
@@ -31,7 +38,9 @@ const SafetyDialog = ({ setCounter }) => {
       <DialogTitle id="alert-dialog-title">Disclaimer</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
-          THIS WILL SHOW WHY WE COLLECT THE INFORMATION
+          <Typography variant="subtitle1">
+            Information Collected will only be shared with emergency services as required during Covid-19 Pandemic.
+          </Typography>
         </DialogContentText>
       </DialogContent>
       <DialogActions>
@@ -39,6 +48,7 @@ const SafetyDialog = ({ setCounter }) => {
           onClick={() => {
             deleteLocal();
             handleClose;
+            setLandingView('');
           }}
           color="primary"
         >

@@ -80,6 +80,7 @@ const Landing = ({
         <OwnerForm
           mapLatLng={mapLatLng}
           setBarId={setBarId}
+          setLandingView={setLandingView}
         />
       );
     }
@@ -93,6 +94,7 @@ const Landing = ({
           username={username}
           profileImage={profileImage}
           gEmail={gEmail}
+          setLandingView={setLandingView}
         />
       );
     }

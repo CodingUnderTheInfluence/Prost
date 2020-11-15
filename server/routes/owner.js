@@ -112,7 +112,7 @@ ownerRouter.post('/login', validInfo, async (req, res) => {
         const oEmail = owner[0].email;
         validatePassword(loginPass, oPassword, res, oEmail);
       } else {
-        res.status(401).send('Email or password incorrect');
+        res.status(401).send('incorrect');
       }
     });
 });
@@ -132,14 +132,13 @@ ownerRouter.post('/id', (req, res) => {
   Owner.findAll({ where: { email } })
     .then((owner) => {
       if (owner.length > 0) {
-        res.send(JSON.stringify(owner[0].id))
+        res.send(JSON.stringify(owner[0].id));
       } else {
-        res.sendStatus(500)
-        console.info('OWNER NOT FOUND')
+        res.status(500).send('Owner Not Found');
       }
     })
-    .catch((err) => { console.warn(err) })
-})
+    .catch((err) => { console.warn(err); });
+});
 module.exports = {
   ownerRouter,
 };

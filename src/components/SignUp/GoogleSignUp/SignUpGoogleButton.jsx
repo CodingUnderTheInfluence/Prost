@@ -59,6 +59,7 @@ const SignUpGoogleButton = ({
             color="primary"
             onClick={renderProps.onClick}
             disabled={renderProps.disabled}
+            size="large"
           >
             Register with Google
           </Button>

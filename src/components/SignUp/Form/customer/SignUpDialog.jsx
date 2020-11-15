@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import {
-  Grid, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
+  Grid,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Typography,
 } from '@material-ui/core';
-import { Redirect } from 'react-router-dom'
 
-const SignUpDialog = ({ setCounter }) => {
+const SafetyDialog = ({ setLandingView, setCounter }) => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -17,7 +23,6 @@ const SignUpDialog = ({ setCounter }) => {
 
   const deleteLocal = () => {
     delete localStorage.token;
-    <Redirect to="/" />
   };
 
   return (
@@ -30,14 +35,17 @@ const SignUpDialog = ({ setCounter }) => {
       <DialogTitle id="alert-dialog-title">Disclaimer</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
-          THIS WILL SHOW WHY WE COLLECT THE INFORMATION
+          <Typography variant="subtitle1">
+            Information Collected will only be shared with emergency services as required during Covid-19 Pandemic.
+          </Typography>
         </DialogContentText>
       </DialogContent>
       <DialogActions>
         <Button
           onClick={() => {
             deleteLocal();
-            handleClose;
+            handleClose();
+            setLandingView('');
           }}
           color="primary"
         >
@@ -58,4 +66,4 @@ const SignUpDialog = ({ setCounter }) => {
   );
 };
 
-export default SignUpDialog;
+export default SafetyDialog;

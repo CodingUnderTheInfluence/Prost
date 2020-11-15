@@ -6,7 +6,7 @@ import SignUpGoogleButton from './GoogleSignUp/SignUpGoogleButton.jsx';
 
 const useStyles = makeStyles(() => ({
   button: {
-    margin: '10px 0 10px 0',
+    margin: '5px 0 10px 0',
   },
   backBtn: {
     opacity: '60%',
@@ -30,7 +30,6 @@ const SignUpOptions = ({
         direction="row"
         justify="center"
         alignItems="center"
-        className={classes.button}
       >
         <SignUpGoogleButton
           setId={setId}
@@ -46,10 +45,13 @@ const SignUpOptions = ({
         direction="row"
         justify="center"
         alignItems="center"
+        className={classes.button}
       >
         <Button
           variant="contained"
           color="primary"
+          size="large"
+
           onClick={() => {
             setLandingView('ownerSignUp');
           }}
