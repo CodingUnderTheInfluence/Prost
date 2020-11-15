@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const EContact = sequelize.define('eContact', {
+  const EContact = sequelize.define('econtact', {
     first_name: {
       type: DataTypes.STRING,
     },

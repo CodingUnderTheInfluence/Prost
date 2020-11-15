@@ -26,7 +26,7 @@ CREATE TABLE "owner" (
   "email" varchar(255),
  );
 
-CREATE TABLE "eContact" (
+CREATE TABLE "econtact" (
   "id" SERIAL PRIMARY KEY,
   "id_customer" int,
   "first_name" varchar,
@@ -104,7 +104,7 @@ CREATE TABLE "parties_customers" (
   "id_party" int,
 );
 
-ALTER TABLE "eContact" ADD FOREIGN KEY ("id_customer") REFERENCES "customer" ("id");
+ALTER TABLE "econtact" ADD FOREIGN KEY ("id_customer") REFERENCES "customer" ("id");
 
 ALTER TABLE "menu" ADD FOREIGN KEY ("id_bar") REFERENCES "bar" ("id");
 
