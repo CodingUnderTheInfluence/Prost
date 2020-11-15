@@ -10,6 +10,7 @@ import StarBorderIcon from '@material-ui/icons/StarBorder';
 import AirportShuttleIcon from '@material-ui/icons/AirportShuttle';
 import HistoryIcon from '@material-ui/icons/History';
 import ContactsIcon from '@material-ui/icons/Contacts';
+import SettingsIcon from '@material-ui/icons/Settings';
 import Logout from '../../Logout.jsx';
 
 const useStyles = makeStyles(() => ({
@@ -17,6 +18,7 @@ const useStyles = makeStyles(() => ({
     height: '100px',
     width: '100px',
     borderRadius: '50px',
+    opacity: '85%',
   },
   spacer: {
     margin: '10px 0 10px 0',
@@ -26,10 +28,16 @@ const useStyles = makeStyles(() => ({
   },
   buttonGroup: {
     width: '100px',
+    opacity: '98%',
+  },
+  buttonGroup2: {
+    width: '67px',
+    opacity: '98%',
   },
   button: {
     width: '200px',
     margin: '5px 0 0 0',
+    opacity: '98%',
   },
 }));
 
@@ -81,7 +89,6 @@ const Home = ({
           </Typography>
         </Grid>
       </Grid>
-
       <Grid
         item
         container
@@ -182,7 +189,7 @@ const Home = ({
               variant="contained"
               color="primary"
               onClick={() => setView('History')}
-              className={classes.buttonGroup}
+              className={classes.buttonGroup2}
             >
               <HistoryIcon />
             </Button>
@@ -190,9 +197,17 @@ const Home = ({
               variant="contained"
               color="primary"
               onClick={() => setView('Favorite')}
-              className={classes.buttonGroup}
+              className={classes.buttonGroup2}
             >
               <StarBorderIcon />
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => setView('Settings')}
+              className={classes.buttonGroup2}
+            >
+              <SettingsIcon />
             </Button>
           </ButtonGroup>
         </Grid>

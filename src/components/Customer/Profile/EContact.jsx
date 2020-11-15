@@ -7,7 +7,7 @@ import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
 import FormControl from '@material-ui/core/FormControl';
 
-export default function EContact({ setView, customerId, setFriendNumber }) {
+const EContact = ({ setView, customerId, setFriendNumber }) => {
   const [contact, setContact] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [first_name, setFirstName] = useState(null);
@@ -18,12 +18,11 @@ export default function EContact({ setView, customerId, setFriendNumber }) {
   const [cView, setCView] = useState('add');
 
   const renderQrCodeView = () => {
-    setFriendNumber(phone_number)
+    setFriendNumber(phone_number);
     return (
       <img src={`https://api.qrserver.com/v1/create-qr-code/?data=tel:${contact.phone_number}&amp;size=100x100`} alt="" title="" />
-    )
-  }
-
+    );
+  };
 
   const getData = () => {
     fetch(`/db/eContact/customer/${customerId}`, {
@@ -109,7 +108,6 @@ export default function EContact({ setView, customerId, setFriendNumber }) {
         <ArrowBackIosIcon color="primary" onClick={() => setView('Home')} />
       </div>
       <br />
-      Hello from EContact
       { contact ? (
         <div>
           <p>
@@ -156,4 +154,6 @@ export default function EContact({ setView, customerId, setFriendNumber }) {
         )}
     </div>
   );
-}
+};
+
+export default EContact;
