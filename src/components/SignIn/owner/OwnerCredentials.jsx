@@ -77,8 +77,7 @@ const OwnerCredentials = ({ setBarId, setLandingView }) => {
         })
           .then(({ data }) => {
             if (data) history.push('/owner');
-          })
-          .catch((err) => console.warn(err));
+          });
       })
       .catch((err) => console.warn(err));
     axios.post('/db/bar/id', { params })
@@ -115,7 +114,10 @@ const OwnerCredentials = ({ setBarId, setLandingView }) => {
         justify="center"
         alignItems="center"
       >
-        <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
+        <FormControl
+          className={clsx(classes.margin, classes.textField)}
+          variant="outlined"
+        >
           <InputLabel
             required
             htmlFor="outlined-adornment-password"

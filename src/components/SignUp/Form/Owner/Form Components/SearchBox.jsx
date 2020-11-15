@@ -45,7 +45,6 @@ const SearchBox = ({
   searchBoxStyle,
   getPlaceInfo,
 }) => {
-  // const [ placeInfo, setPlaceInfo ] = useState(null);
   const classes = useStyles();
   const {
     ready,
@@ -75,19 +74,15 @@ const SearchBox = ({
             const { place_id } = results[0];
             const details = await getDetails({ placeId: place_id });
             getPlaceInfo(details);
-            // console.info('this is results', results);
             const { lat, lng } = await getLatLng(results[0]);
             panTo({ lat, lng });
             setValue('');
-
-            // setPlaceInfo(details);
           } catch (err) {
             console.warn(err);
           }
         }}
       >
         <ComboboxInput
-        //   style={searchBoxStyle}
           className={classes.box}
           value={value}
           onChange={(e) => {
@@ -106,8 +101,6 @@ const SearchBox = ({
           </ComboboxList>
         </ComboboxPopover>
       </Combobox>
-
-      {/* <BarInfo placeInfo={placeInfo} /> */}
     </div>
   );
 };

@@ -117,8 +117,20 @@ const OwnerInfo = ({
   };
 
   return (
-    <Grid container direction="column" justify="center" column="center">
-      <Grid item container direction="row" justify="center" column="center" className={classes.textField}>
+    <Grid
+      container
+      direction="column"
+      justify="center"
+      column="center"
+    >
+      <Grid
+        item
+        container
+        direction="row"
+        justify="center"
+        column="center"
+        className={classes.textField}
+      >
         <TextField
           id="outlined-basic"
           variant="outlined"
@@ -127,7 +139,14 @@ const OwnerInfo = ({
           onChange={(e) => { setUsername(e.target.value); }}
         />
       </Grid>
-      <Grid item container direction="row" justify="center" column="center" className={classes.textField}>
+      <Grid
+        item
+        container
+        direction="row"
+        justify="center"
+        column="center"
+        className={classes.textField}
+      >
         <TextField
           id="outlined-basic"
           variant="outlined"
@@ -136,7 +155,14 @@ const OwnerInfo = ({
           onChange={(e) => { setFirst(e.target.value); }}
         />
       </Grid>
-      <Grid item container direction="row" justify="center" column="center" className={classes.textField}>
+      <Grid
+        item
+        container
+        direction="row"
+        justify="center"
+        column="center"
+        className={classes.textField}
+      >
         <TextField
           id="outlined-basic"
           variant="outlined"
@@ -145,7 +171,14 @@ const OwnerInfo = ({
           onChange={(e) => { setLast(e.target.value); }}
         />
       </Grid>
-      <Grid item container direction="row" justify="center" column="center" className={classes.textField}>
+      <Grid
+        item
+        container
+        direction="row"
+        justify="center"
+        column="center"
+        className={classes.textField}
+      >
         <TextField
           id="outlined-basic"
           variant="outlined"
@@ -154,8 +187,18 @@ const OwnerInfo = ({
           onChange={(e) => { setEmail(e.target.value); }}
         />
       </Grid>
-      <Grid item container direction="row" justify="center" alignItems="center" column="center">
-        <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
+      <Grid
+        item
+        container
+        direction="row"
+        justify="center"
+        alignItems="center"
+        column="center"
+      >
+        <FormControl
+          className={clsx(classes.margin, classes.textField)}
+          variant="outlined"
+        >
           <InputLabel
             required
             htmlFor="outlined-adornment-password"

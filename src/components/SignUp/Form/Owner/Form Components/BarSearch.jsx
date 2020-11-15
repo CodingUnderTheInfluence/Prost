@@ -111,17 +111,42 @@ const BarSearch = ({
   const showSelection = () => {
     if (selected) {
       return (
-        <Grid item container direction="row" justify="center" alignItems="center" className={classes.selection}>
+        <Grid
+          item
+          container
+          direction="row"
+          justify="center"
+          alignItems="center"
+          className={classes.selection}
+        >
           <Typography variant="subtitle1">
             You have selected:
           </Typography>
-          <Grid item container direction="row" justify="center" alignItems="center">
+          <Grid
+            item
+            container
+            direction="row"
+            justify="center"
+            alignItems="center"
+          >
             {barName}
           </Grid>
-          <Grid item container direction="row" justify="center" alignItems="center">
+          <Grid
+            item
+            container
+            direction="row"
+            justify="center"
+            alignItems="center"
+          >
             {address}
           </Grid>
-          <Grid item container direction="row" justify="center" alignItems="center">
+          <Grid
+            item
+            container
+            direction="row"
+            justify="center"
+            alignItems="center"
+          >
             {number}
           </Grid>
         </Grid>
@@ -144,8 +169,19 @@ const BarSearch = ({
   }
 
   return (
-    <Grid container direction="column" justify="center" alignItems="center">
-      <Grid item container direction="row" justify="center" column="center">
+    <Grid
+      container
+      direction="column"
+      justify="center"
+      alignItems="center"
+    >
+      <Grid
+        item
+        container
+        direction="row"
+        justify="center"
+        column="center"
+      >
         <TextField
           className={classes.field}
           variant="outlined"
@@ -168,10 +204,22 @@ const BarSearch = ({
           getPlaceInfo={getPlaceInfo}
         />
       </Grid>
-      <Grid item container direction="row" justify="center" alignItems="center">
+      <Grid
+        item
+        container
+        direction="row"
+        justify="center"
+        alignItems="center"
+      >
         {showSelection()}
       </Grid>
-      <Grid item container direction="row" justify="center" alignItems="center">
+      <Grid
+        item
+        container
+        direction="row"
+        justify="center"
+        alignItems="center"
+      >
         <Button
           className={classes.button}
           variant="outlined"

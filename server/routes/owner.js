@@ -134,8 +134,7 @@ ownerRouter.post('/id', (req, res) => {
       if (owner.length > 0) {
         res.send(JSON.stringify(owner[0].id));
       } else {
-        res.sendStatus(500);
-        console.info('OWNER NOT FOUND');
+        res.status(500).send('Owner Not Found');
       }
     })
     .catch((err) => { console.warn(err); });
