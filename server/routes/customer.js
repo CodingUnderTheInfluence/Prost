@@ -34,30 +34,30 @@ customerRouter.get('/gId/:gId', (req, res) => {
   const { gId } = req.params;
   Customer.findOne({
     where: {
-      "id_google": `${gId}`
-    }
+      id_google: `${gId}`,
+    },
   })
     .then((customers) => {
       res.send(customers);
     })
     .catch((err) => {
-      console.warn('ERROR IN CHECK FOR CUSTOMER BY GoogleID')
-    })
-})
+      console.warn('ERROR IN CHECK FOR CUSTOMER BY GoogleID');
+    });
+});
 
 customerRouter.get('/all', (req, res) => {
   Customer.findAll()
     .then((customers) => {
       if (customers.length > 0) {
-        res.send(customers)
+        res.send(customers);
       } else {
-        res.send('empty')
+        res.send('empty');
       }
     })
     .catch((err) => {
-      console.warn('ERROR IN CHECK FOR ALL CUSTOMERS')
-    })
-})
+      console.warn('ERROR IN CHECK FOR ALL CUSTOMERS');
+    });
+});
 
 customerRouter.post('/check', async (req, res) => {
   const { authToken } = req.body.googleToken;
@@ -71,7 +71,7 @@ customerRouter.post('/check', async (req, res) => {
       }
     })
     .catch((err) => {
-      console.warn('ERROR IN CHECK FOR CUSTOMER OR OWNER');
+      res.status(500).send('ERROR IN CHECK FOR CUSTOMER OR OWNER');
     });
 });
 
@@ -82,12 +82,13 @@ customerRouter.post('/register', async (req, res) => {
     .then((customers) => {
       if (customers.length > 0) {
         res.send('customer');
+        console.info('CUSTOMER FOUND', customers[0]);
       } else {
-        res.send('form');
+        res.status(200).send('form');
       }
     })
     .catch((err) => {
-      console.warn('ERROR IN CHECK FOR CUSTOMER OR OWNER');
+      res.status(500).send('ERROR IN CREATION FOR CUSTOMER OR OWNER');
     });
 });
 
@@ -102,8 +103,7 @@ customerRouter.post('/create', (req, res) => {
     image,
     username,
   } = req.body.personalParams;
-
-  //TODO: REFACTOR these nested statements
+  // TODO: REFACTOR these nested statements
   Customer.findAll({ where: { id_google: googleId } })
     .then((customer) => {
       if (customer.length > 0) {
@@ -123,7 +123,6 @@ customerRouter.post('/create', (req, res) => {
           })
           .catch((err) => {
             res.status(401).send('UNABLE TO ADD');
-            console.warn(err);
           });
       }
     });
@@ -158,14 +157,14 @@ customerRouter.get('/findMe', (req, res) => {
   const { gId } = req.query;
   Customer.findOne({ where: { id_google: gId } })
     .then((customer) => res.send(customer))
-    .catch(err => console.warn(err));
+    .catch((err) => console.warn(err));
 });
 
 customerRouter.get('/getFriendById', (req, res) => {
   const { customerId } = req.query;
   Customer.findOne({ where: { id: customerId } })
     .then((customer) => res.send(customer))
-    .catch(err => console.warn(err));
+    .catch((err) => console.warn(err));
 });
 
 module.exports = {
