@@ -3,6 +3,7 @@ import { Marker, InfoWindow } from '@react-google-maps/api';
 import PropTypes from 'prop-types';
 import { barCapacity, barPercentCapacity } from '../../../helpers/barCapacity';
 import beer from '../../../../images/beer.png';
+import beerGold from '../../../../images/beerGold.png';
 
 const BarMarker = ({
   party: {
@@ -37,8 +38,7 @@ const BarMarker = ({
         lng: +longitude,
       }}
       icon={{
-        url: beer,
-        scaledSize: new window.google.maps.Size(30, 30),
+        url: beerGold,
       }}
       onClick={() => handleClick(id)}
     >
@@ -58,8 +58,8 @@ BarMarker.propTypes = {
   party: PropTypes.shape({
     id: PropTypes.number,
     bar_name: PropTypes.string,
-    latitude: PropTypes.number,
-    longitude: PropTypes.number,
+    latitude: PropTypes.string,
+    longitude: PropTypes.string,
   }),
 };
 

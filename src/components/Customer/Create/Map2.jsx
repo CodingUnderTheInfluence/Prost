@@ -11,8 +11,11 @@ import {
   useLoadScript
 } from '@react-google-maps/api';
 import axios from 'axios';
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
 import beer from '../../../../images/beer.png';
+import beerGold from '../../../../images/beerGold.png';
+import user from '../../../../images/user.png';
+// import { GiBeerStein } from "react-icons/gi";
 import Search from './Search.jsx';
 import BarInfo from './BarInfo.jsx';
 import PrivateSwitch from './PrivateSwitch.jsx';
@@ -54,14 +57,9 @@ const searchBoxStyle = {
 };
 
 const MapContainer = ({ setMapLatLng, username, gId }) => {
-  const [currentPosition, setCurrentPosition] = useState({
-    lat: 29.951065,
-    lng: -90.071533,
-  });
-  const [publicLocations, setPublicLocations] = useState([]);
+  const [currentPosition, setCurrentPosition] = useState(null);
   const [friendLocations, setFriendLocations] = useState([]);
   const [privateSwitch, setPrivateSwitch] = useState(false);
-  const [selectedItem, setSelectedItem] = useState({});
   const [myLocation, setMyLocation] = useState({});
   const [dangerMarkers, setDangerMarkers] = useState([]);
   const [parties, setParties] = useState([]);
@@ -70,8 +68,8 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
   const [placeInfo, setplaceInfo] = useState(null);
 
   const defaultCenter = {
-    lat: 29.951065,
-    lng: -90.071533,
+    lat: 29.95115,
+    lng: -90.0715,
   };
 
   const { isLoaded, loadError } = useLoadScript({
@@ -82,6 +80,16 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
   // get the toggle for the switch to update state
   const getSwitch = (pSwitch) => setPrivateSwitch(pSwitch);
 
+  // TODO:
+  // useEffect(() => {
+  //   const success = (pos) => {
+  //     const { latitude, longitude } = pos.coords;
+  //     setCurrentPosition({ lat: latitude, lng: longitude });
+  //   };
+  //   const fail = () => null;
+  //   navigator.geolocation.getCurrentPosition(success, fail);
+  // }, []);
+
   useEffect(() => {
     let isMounted = true;
     if (isMounted) {
@@ -91,11 +99,8 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
         });
     }
     return () => { isMounted = false; };
-    // --removed priviteSwitch in second arg to reload state when marker was clicked 
   }, [privateSwitch]);
 
-  // TODO:
-  /// //////////       get info for bars to display        /////////////////////////////
   useEffect(() => {
     let isMounted = true;
     if (isMounted) {
@@ -107,10 +112,9 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
     return () => { isMounted = false; };
   }, []);
 
-
   // sets the makers to the user click
   const onMapClick = useCallback((e) => {
-    setDangerMarkers(current => [
+    setDangerMarkers((current) => [
       ...current,
       {
         lat: e.latLng.lat(),
@@ -120,6 +124,11 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
     ]);
   });
 
+  const getDblClickDangerMarker = (object) => {
+    const removeMarker = dangerMarkers.filter((target) => target.lat !== object.lat);
+    setDangerMarkers(removeMarker);
+  };
+
   // save reference to map to use it later and not reload state
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
@@ -128,11 +137,13 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
   }, []);
 
   // move map to the where the user has searched
-  const panTo = useCallback(({ lat, lng }) => {
+  const panTo = useCallback(({ lat, lng, key }) => {
     mapRef.current.panTo({ lat, lng });
     mapRef.current.setZoom(15);
-    setCurrentPosition({ lat, lng });
-    setSearchMarker({ lat, lng });
+    if (key === 'user') {
+      setCurrentPosition({ lat, lng });
+    }
+    setSearchMarker({ lat, lng, key });
   }, []);
 
   const handleMarkerClick = () => {
@@ -188,19 +199,35 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
           searchBoxStyle={searchBoxStyle}
           getPlaceInfo={getPlaceInfo}
         />
-        <Marker
-          onClick={handleMarkerClick}
-          key={searchMarker.lat}
-          position={{
-            lat: +searchMarker.lat,
-            lng: +searchMarker.lng,
-          }}
-          icon={{
-            url: beer,
-            scaledSize: new window.google.maps.Size(30, 30)
-          }}
+        {searchMarker.key === 'bar' ? (
+          <Marker
+            key="bar"
+            onClick={handleMarkerClick}
+            position={{
+              lat: +searchMarker.lat,
+              lng: +searchMarker.lng,
+            }}
+            icon={{
+              url: beerGold,
+              // scaledSize: new window.google.maps.Size(30, 30),
+            }}
+          />
+        ) : (
+            <Marker
+              key="user"
+              position={{
+                lat: +searchMarker.lat,
+                lng: +searchMarker.lng,
+              }}
+              icon={{
+                url: user,
+              }}
+            />
+          )}
+        <DangerMarkers
+          dangerMarkers={dangerMarkers}
+          getDblClickDangerMarker={getDblClickDangerMarker}
         />
-        <DangerMarkers dangerMarkers={dangerMarkers} />
         <BarMarkers parties={parties} />
         <FriendsMarkers friendLocations={friendLocations} />
         <Directions />
@@ -219,10 +246,10 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
   );
 };
 
-MapContainer.PropTypes = {
-  setMapLatLng: PropTypes.func.isRequired,
-  username: PropTypes.string.isRequired,
-  gId: PropTypes.string.isRequired,
+MapContainer.propTypes = {
+  setMapLatLng: propTypes.func,
+  username: propTypes.string,
+  gId: propTypes.string,
 };
 
 export default MapContainer;

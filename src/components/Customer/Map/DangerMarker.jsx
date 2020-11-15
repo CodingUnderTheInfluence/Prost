@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { Marker, InfoWindow } from '@react-google-maps/api';
+import propTypes from 'prop-types';
+import { Marker, InfoWindow, Data } from '@react-google-maps/api';
 import axios from 'axios';
 import warning from '../../../../images/warning.png';
 
-const DangerMarker = ({ danger: { lat, lng } }) => {
+const DangerMarker = ({ danger, getDblClickDangerMarker }) => {
+  const { lat, lng } = danger;
   const [show, setShow] = useState(false);
   const [selected, setSelected] = useState('Assult');
   const [success, setSuccess] = useState(false);
@@ -13,6 +14,9 @@ const DangerMarker = ({ danger: { lat, lng } }) => {
     event.preventDefault();
     setSelected(event.target.value);
   };
+
+  const handleDblClick = () => getDblClickDangerMarker(danger);
+
   const postReport = () => {
     axios.post('/db/maps/report', {
       latitude: lat,
@@ -32,7 +36,10 @@ const DangerMarker = ({ danger: { lat, lng } }) => {
     <Marker
       position={{ lat, lng }}
       onClick={handleClick}
-      icon={{ url: warning }}
+      onDblClick={handleDblClick}
+      icon={{
+        url: warning,
+      }}
 
     >
       {show
@@ -55,9 +62,10 @@ const DangerMarker = ({ danger: { lat, lng } }) => {
 };
 
 DangerMarker.propTypes = {
-  danger: PropTypes.shape({
-    lat: PropTypes.string,
-    lng: PropTypes.string,
+  allDanger: propTypes.any,
+  danger: propTypes.shape({
+    lat: propTypes.number,
+    lng: propTypes.number,
   }),
 };
 

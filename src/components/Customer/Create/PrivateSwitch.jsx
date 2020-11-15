@@ -10,15 +10,15 @@ const PrivateSwitch = ({ gId, getSwitch }) => {
     setPrivate(e.target.checked);
     getSwitch(isPrivate);
     axios.put(`/db/maps/${gId}`, { isPrivate: e.target.checked })
-      .then(data => console.info('axios.put', data));
+      .catch(() => console.warn('error in private switch'));
   };
 
   return (
     <FormGroup>
       <FormControlLabel
-        color='primary'
+        color="primary"
         control={<Switch checked={isPrivate} onChange={handleChange} />}
-        label='Private'
+        label="Private"
       />
     </FormGroup>
   );
@@ -26,7 +26,7 @@ const PrivateSwitch = ({ gId, getSwitch }) => {
 
 PrivateSwitch.propTypes = {
   getSwitch: PropTypes.func.isRequired,
-  gId: PropTypes.string.isRequired,
+  gId: PropTypes.string,
 };
 
 export default PrivateSwitch;
