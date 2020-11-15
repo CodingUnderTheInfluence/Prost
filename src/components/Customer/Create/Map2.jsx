@@ -28,8 +28,8 @@ import mapStyle from '../../../helpers/mapStyle';
 const libraries = ['places'];
 
 const mapStyles = {
-  width: '98vw',
-  height: '75vh',
+  width: '100vw',
+  height: '90vh',
 };
 
 const options = {
@@ -212,7 +212,8 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
               // scaledSize: new window.google.maps.Size(30, 30),
             }}
           />
-        ) : (
+        )
+          : (
             <Marker
               key="user"
               position={{
@@ -230,18 +231,19 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
         />
         <BarMarkers parties={parties} />
         <FriendsMarkers friendLocations={friendLocations} />
+        <QuickCreate
+          style={{
+            position: 'absolute',
+            zIndex: 10,
+            bottom: 80,
+          }}
+          getMyLocation={getMyLocation}
+          panTo={panTo}
+        />
         <Directions />
       </GoogleMap>
-      <PrivateSwitch gId={gId} getSwitch={getSwitch} />
-      <QuickCreate
-        style={{
-          position: 'absolute',
-          zIndex: 10,
-          bottom: 100,
-        }}
-        getMyLocation={getMyLocation}
-        panTo={panTo}
-      />
+      {/* TODO: */}
+      {/* <PrivateSwitch gId={gId} getSwitch={getSwitch} /> */}
     </div>
   );
 };
