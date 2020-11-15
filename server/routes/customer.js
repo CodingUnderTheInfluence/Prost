@@ -120,11 +120,11 @@ customerRouter.post('/create', (req, res) => {
         })
           .then((customer) => {
             res.send(`Customer has been created under: ${email}`);
-          })
-          .catch((err) => {
-            res.status(401).send('UNABLE TO ADD');
           });
       }
+    })
+    .catch((err) => {
+      res.status(401).send('UNABLE TO ADD');
     });
 });
 
@@ -165,6 +165,27 @@ customerRouter.get('/getFriendById', (req, res) => {
   Customer.findOne({ where: { id: customerId } })
     .then((customer) => res.send(customer))
     .catch((err) => console.warn(err));
+});
+
+/*
+THIS GRABS CUSTOMER'S USERNAME
+*/
+customerRouter.get('/username', (req, res) => {
+  const { user } = req.query;
+  Customer.findOne({ where: { id: user } })
+    .then((customer) => res.send(customer))
+    .catch((err) => res.status(500).send('ERROR IN FINDING CUSTOMER', err));
+});
+
+/*
+THIS FUNCTION UPDATES USER NAME FOR SPECIFIC CUSTOMER
+*/
+customerRouter.post('/updateUserName', (req, res) => {
+  const { user, newName } = req.query;
+  Customer.update({
+    user_name: newName,
+  }, { where: { id: user } })
+    .then((customer) => { res.send(customer.user_name); });
 });
 
 module.exports = {
