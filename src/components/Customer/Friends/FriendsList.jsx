@@ -43,6 +43,9 @@ function FriendsList({ userData, socket, setViewValue, setViewObject }) {
 
     return (
         friends ? <FriendsListRenderFriends
+            setPendingFriends={setPendingFriends}
+            setIncomingRequests={setIncomingRequests}
+            setConfirmedFriends={setConfirmedFriends}
             pendingFriends={pendingFriends}
             incomingRequests={incomingRequests}
             confirmedFriends={confirmedFriends}

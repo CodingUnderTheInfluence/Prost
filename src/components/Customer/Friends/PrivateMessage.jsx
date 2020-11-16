@@ -60,7 +60,7 @@ const PrivateMessage = ({ f, setViewValue, userData, socket }) => {
     }
 
     const handleEnterKeySend = (event) => {
-        if (event.charCode === 13) {
+        if (event.charCode === 13 && messageBody.length) {
             sendMessageToServer();
             emitNewMessage();
             setMessageBody('');

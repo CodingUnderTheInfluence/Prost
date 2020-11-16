@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { ListItem, Button, makeStyles, Grid } from '@material-ui/core';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import CheckIcon from '@material-ui/icons/Check';
 import Axios from 'axios';
 
 const useStyles = makeStyles({
@@ -28,7 +29,7 @@ function FoundUser({ userData, u }) {
     return (
         <ListItem>
             <Grid container item justify="center" direction='row' className={classes.singleFoundUser}>
-                {`${u.first_name} ${u.last_name}`}{friendStatus ? 'Friend Request Sent' : (<Button variant='primary' onClick={() => {
+                {`${u.first_name} ${u.last_name}`}{friendStatus ? <CheckIcon /> : (<Button variant='primary' onClick={() => {
                     setFriendStatus(true)
                     handleFriendRequest(userData.id, u.id)
                 }}><PersonAddIcon /></Button>)}
