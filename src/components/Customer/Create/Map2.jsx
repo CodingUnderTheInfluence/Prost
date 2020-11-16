@@ -9,10 +9,11 @@ import {
   GoogleMap,
   Marker,
   MarkerClusterer,
-  useLoadScript
+  useLoadScript,
 } from '@react-google-maps/api';
 import axios from 'axios';
 import propTypes from 'prop-types';
+import { Grid } from '@material-ui/core';
 import beer from '../../../../images/beer.png';
 import beerGold from '../../../../images/beerGold.png';
 import user from '../../../../images/user.png';
@@ -22,10 +23,12 @@ import BarInfo from './BarInfo.jsx';
 import PrivateSwitch from './PrivateSwitch.jsx';
 import FriendsMarkers from '../Map/FriendsMarkers.jsx';
 import BarMarkers from '../Map/BarMarkers.jsx';
-import Directions from '../Directions/Directions.jsx';
+// import Directions from '../Directions/Directions.jsx';
+// import DirectionsBtn from '../Directions/DirectionsBtn.jsx';
 import DangerMarkers from '../Map/DangerMarkers.jsx';
 import QuickCreate from './QuickCreate.jsx';
 import mapStyle from '../../../helpers/mapStyle';
+
 const libraries = ['places'];
 
 const mapStyles = {
@@ -138,7 +141,7 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
     mapRef.current = map;
-    // --removed priviteSwitch in second arg to reload state when marker was clicked 
+    // --removed priviteSwitch in second arg to reload state when marker was clicked
   }, []);
 
   // move map to the where the user has searched
@@ -235,13 +238,13 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
         />
         <BarMarkers parties={parties} />
         <FriendsMarkers friendLocations={friendLocations} />
-        <Directions />
         <PrivateSwitch
           className="privateSwitch"
           gId={gId}
           getSwitch={getSwitch}
         />
       </GoogleMap>
+      {/* <DirectionsBtn /> */}
       <QuickCreate
         // className="myLocationDiv"
         getMyLocation={getMyLocation}
