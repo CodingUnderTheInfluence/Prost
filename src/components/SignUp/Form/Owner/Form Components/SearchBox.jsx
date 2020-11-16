@@ -27,7 +27,8 @@ const useStyles = makeStyles((theme) => ({
   box: {
     height: '30px',
     maxWidth: 'auto',
-    fontSize: '14pt',
+    fontSize: '12pt',
+    fontWeight: '200',
     position: 'flex',
   },
   list: {
@@ -35,7 +36,12 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: 'Helvetica, Verdana, sans-serif',
   },
   popover: {
-
+    fontWeight: '300',
+    fontFamily: 'Helvetica, Verdana, sans-serif',
+  },
+  option: {
+    fontWeight: '300',
+    fontFamily: 'Helvetica, Verdana, sans-serif',
   },
 }));
 
@@ -96,7 +102,7 @@ const SearchBox = ({
           <ComboboxList className={classes.list}>
             {status === 'OK'
                             && data.map(({ place_id, description }) => (
-                              <ComboboxOption key={place_id} value={description} />
+                              <ComboboxOption key={place_id} value={description} className={classes.option} />
                             ))}
           </ComboboxList>
         </ComboboxPopover>
