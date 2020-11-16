@@ -1,9 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Grid, Button, TextField } from '@material-ui/core';
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import {
+  Grid, Button, TextField, makeStyles,
+} from '@material-ui/core';
+
+const useStyles = makeStyles(() => ({
+  field: {
+    margin: '5px 0 0 0',
+  },
+  backBtn: {
+    opacity: '60%',
+  },
+}));
 
 const EditContact = ({ setView, customerId }) => {
+  const classes = useStyles();
   const [first_name, setFirstName] = useState(null);
   const [last_name, setLastName] = useState(null);
   const [phone_number, setPhoneNumber] = useState(null);
@@ -37,35 +48,94 @@ const EditContact = ({ setView, customerId }) => {
   }, []);
 
   return (
-    <Grid>
-      <ArrowBackIosIcon color="primary" onClick={() => setView('Home')} />
-      <TextField
-        id="filled-basic"
-        label="First Name"
-        variant="filled"
-        onChange={(e) => setFirstName(e.target.value)}
-      />
-      <TextField
-        id="filled-basic"
-        label="Last Name"
-        variant="filled"
-        onChange={(e) => setLastName(e.target.value)}
-      />
-      <TextField
-        id="filled-basic"
-        label="Phone Number"
-        variant="filled"
-        onChange={(e) => setPhoneNumber(e.target.value)}
-      />
-      <TextField
-        id="filled-basic"
-        label="Email"
-        variant="filled"
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <Grid>
-        <Button variant="outlined" type="submit" color="primary" onClick={editEContact}>Submit</Button>
+    <Grid
+      container
+      direction="column"
+      justify="center"
+      alignItems="center"
+      className={classes.field}
+    >
+      <Grid
+        item
+        container
+        direction="row"
+        justify="center"
+        alignItems="center"
+        className={classes.field}
+      >
+        <TextField
+          id="outlined-basic"
+          label="First Name"
+          variant="outlined"
+          onChange={(e) => setFirstName(e.target.value)}
+        />
       </Grid>
+      <Grid
+        item
+        container
+        direction="row"
+        justify="center"
+        alignItems="center"
+        className={classes.field}
+      >
+        <TextField
+          id="outlined-basic"
+          variant="outlined"
+          label="Last Name"
+          onChange={(e) => setLastName(e.target.value)}
+        />
+      </Grid>
+      <Grid
+        item
+        container
+        direction="row"
+        justify="center"
+        alignItems="center"
+        className={classes.field}
+      >
+        <TextField
+          id="outlined-basic"
+          variant="outlined"
+          label="Phone Number"
+          onChange={(e) => setPhoneNumber(e.target.value)}
+        />
+      </Grid>
+      <Grid
+        item
+        container
+        direction="row"
+        justify="center"
+        alignItems="center"
+        className={classes.field}
+      >
+        <TextField
+          id="outlined-basic"
+          variant="outlined"
+          label="Email"
+          onChange={(e) => setEmail(e.target.value)}
+        />
+      </Grid>
+      <Grid>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => {
+            editEContact();
+            setView('Home');
+          }}
+          className={classes.field}
+        >
+          Submit
+        </Button>
+      </Grid>
+      <Button
+        size="small"
+        color="primary"
+        className={classes.backBtn}
+        onClick={() => setView('Home')}
+      >
+        Back
+      </Button>
     </Grid>
   );
 };
