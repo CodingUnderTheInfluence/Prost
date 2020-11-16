@@ -104,6 +104,12 @@ CREATE TABLE "parties_customers" (
   "id_party" int,
 );
 
+CREATE TABLE "publicchat" (
+  "id" SERIAL PRIMARY KEY,
+  "body" varchar,
+  "username" varchar
+)
+
 ALTER TABLE "econtact" ADD FOREIGN KEY ("id_customer") REFERENCES "customer" ("id");
 
 ALTER TABLE "menu" ADD FOREIGN KEY ("id_bar") REFERENCES "bar" ("id");
