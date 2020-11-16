@@ -107,7 +107,7 @@ export default function Checkin({ setView, customerId }) {
         if (data === 'Empty') {
           setOpen(true);
         }
-        console.info(data);
+        setOpenSuccess(true);
       })
       .catch((err) => console.warn(err));
   };
@@ -140,10 +140,8 @@ export default function Checkin({ setView, customerId }) {
           color="primary"
           onClick={() => {
             addCheckIn();
-            setView('home');
           }}
         >
-
           Check in
         </Button>
       </div>
@@ -159,7 +157,7 @@ export default function Checkin({ setView, customerId }) {
       </div>
       <div className={classes.root}>
         <Snackbar open={openSuccess} autoHideDuration={6000} onClose={handleCloseSuccess}>
-          <Alert onClose={handleCloseSucsess} severity="success">
+          <Alert onClose={handleCloseSuccess} severity="success">
             Checked In!
           </Alert>
         </Snackbar>
