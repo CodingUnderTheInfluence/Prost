@@ -1,8 +1,37 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react';
-import { Grid, Typography, Button } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
+import {
+  Grid, Typography, Button, Snackbar, makeStyles,
+} from '@material-ui/core';
+import StarBorderIcon from '@material-ui/icons/StarBorder';
+import MuiAlert from '@material-ui/lab/Alert';
 
-export default function HistoryList({ list, customerId }) {
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: '100%',
+    '& > * + *': {
+      marginTop: theme.spacing(2),
+    },
+  },
+}));
+
+const HistoryList = ({ list, customerId }) => {
+  const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
   const addFavorite = async () => {
     try {
       const obj = {
@@ -16,21 +45,85 @@ export default function HistoryList({ list, customerId }) {
         },
         body: JSON.stringify(obj),
       });
-      alert('added');
+      handleClick();
     } catch (err) {
       console.warn(err);
     }
   };
 
   return (
-    <div>
-      <p>{list.bar_name}</p>
-      <p>{list.address}</p>
-      <p>{list.phone_number}</p>
-      <div>
-        add to favorite spots
-        <AddIcon onClick={addFavorite} />
+    <Grid
+      container
+      direction="column"
+      justify="center"
+      alignItems="center"
+    >
+      <Grid
+        item
+        container
+        direction="column"
+        justify="center"
+        alignItems="center"
+      >
+        <Grid
+          item
+          container
+          direction="row"
+          justify="center"
+          alignItems="center"
+        >
+          <Typography variant="subtitle1">
+            {list.bar_name}
+          </Typography>
+        </Grid>
+        <Grid
+          item
+          container
+          direction="row"
+          justify="center"
+          alignItems="center"
+        >
+          <Typography variant="subtitle1">
+            {list.address}
+          </Typography>
+        </Grid>
+        <Grid
+          item
+          container
+          direction="row"
+          justify="center"
+          alignItems="center"
+        >
+          <Typography variant="subtitle1">
+            {list.phone_number}
+          </Typography>
+        </Grid>
+      </Grid>
+      <Grid
+        item
+        container
+        direction="column"
+        justify="center"
+        alignItems="center"
+      >
+        <Button
+          variant="contained"
+          size="small"
+          color="primary"
+          onClick={addFavorite}
+        >
+          <StarBorderIcon />
+        </Button>
+      </Grid>
+      <div className={classes.root}>
+        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity="success">
+            Favorite Added!
+          </Alert>
+        </Snackbar>
       </div>
-    </div>
+    </Grid>
   );
-}
+};
+
+export default HistoryList;

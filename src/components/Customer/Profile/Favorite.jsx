@@ -15,6 +15,7 @@ const useStyles = makeStyles({
     borderRadius: '5px',
     margin: '5px 0 0 0 ',
     padding: '5px',
+    width: '200px',
   },
   button: {
     variant: 'contained',

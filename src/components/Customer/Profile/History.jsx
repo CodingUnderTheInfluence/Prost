@@ -16,6 +16,11 @@ const useStyles = makeStyles(() => ({
   backBtn: {
     opacity: '60%',
   },
+  entry: {
+    width: '200px',
+    borderTop: 'solid 1px #4e71cc',
+    borderBottom: 'solid 1px #4e71cc',
+  },
 }));
 
 const History = ({ setView, customerId }) => {
@@ -39,18 +44,56 @@ const History = ({ setView, customerId }) => {
   }, []);
 
   return (
-    <Grid container direction="column" justify="center" alignItems="center">
-      <Grid item container direction="row" justify="center" alignItems="center">
+    <Grid
+      container
+      direction="column"
+      justify="center"
+      alignItems="center"
+    >
+      <Grid
+        item
+        container
+        direction="row"
+        justify="center"
+        alignItems="center"
+        column="center"
+      >
         <Typography variant="h4">
           Bar History
         </Typography>
       </Grid>
-      <Grid item container direction="row" justify="center" alignItems="center">
+      <Grid
+        item
+        container
+        direction="row"
+        justify="center"
+        alignItems="center"
+      >
         {list && (list.map((bar, key) => (
-          <Grid item container direction="row" justify="center" alignItems="center">
-            <HistoryList key={key} list={bar} customerId={customerId} s />
-            <hr key={`0${key}`} />
-          </Grid>
+          <div>
+            <Grid
+              item
+              container
+              direction="row"
+              justify="center"
+              alignItems="center"
+            >
+              <Grid
+                item
+                container
+                direction="row"
+                justify="center"
+                alignItems="center"
+                className={classes.entry}
+              />
+              <HistoryList
+                key={key}
+                list={bar}
+                customerId={customerId}
+              />
+              <hr key={`0${key}`} />
+            </Grid>
+          </div>
         )))}
       </Grid>
       <Button
