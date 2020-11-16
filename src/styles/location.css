@@ -1,0 +1,21 @@
+.myLocation {
+  margin: auto;
+  top: auto;
+  right: 20px;
+  bottom: 100px;
+  left: 85%;
+  position: fixed;
+}
+
+.myLocationDiv {
+  z-index: 10;
+}
+
+.privateSwitch {
+  margin: auto;
+  top: auto;
+  right: 20px;
+  bottom: 100px;
+  z-index: 10;
+  position: fixed;
+}

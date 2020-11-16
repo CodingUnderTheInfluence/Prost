@@ -4,6 +4,7 @@ import React, {
   useRef,
   useCallback,
 } from 'react';
+import '../../../styles/location.css';
 import {
   GoogleMap,
   Marker,
@@ -28,8 +29,8 @@ import mapStyle from '../../../helpers/mapStyle';
 const libraries = ['places'];
 
 const mapStyles = {
-  width: '98vw',
-  height: '75vh',
+  width: '100vw',
+  height: '90vh',
 };
 
 const options = {
@@ -57,7 +58,10 @@ const searchBoxStyle = {
 };
 
 const MapContainer = ({ setMapLatLng, username, gId }) => {
-  const [currentPosition, setCurrentPosition] = useState(null);
+  const [currentPosition, setCurrentPosition] = useState({
+    lat: 29.95115,
+    lng: -90.0715,
+  });
   const [friendLocations, setFriendLocations] = useState([]);
   const [privateSwitch, setPrivateSwitch] = useState(false);
   const [myLocation, setMyLocation] = useState({});
@@ -95,7 +99,8 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
     if (isMounted) {
       axios.get('/db/maps')
         .then(({ data }) => {
-          setFriendLocations(data);
+          const publicPpl = data.filter((friend) => !friend.isPrivate);
+          setFriendLocations(publicPpl);
         });
     }
     return () => { isMounted = false; };
@@ -209,10 +214,10 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
             }}
             icon={{
               url: beerGold,
-              // scaledSize: new window.google.maps.Size(30, 30),
             }}
           />
-        ) : (
+        )
+          : (
             <Marker
               key="user"
               position={{
@@ -231,17 +236,18 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
         <BarMarkers parties={parties} />
         <FriendsMarkers friendLocations={friendLocations} />
         <Directions />
+        <PrivateSwitch
+          className="privateSwitch"
+          gId={gId}
+          getSwitch={getSwitch}
+        />
       </GoogleMap>
-      <PrivateSwitch gId={gId} getSwitch={getSwitch} />
       <QuickCreate
-        style={{
-          position: 'absolute',
-          zIndex: 10,
-          bottom: 100,
-        }}
+        // className="myLocationDiv"
         getMyLocation={getMyLocation}
         panTo={panTo}
       />
+      {/* TODO: */}
     </div>
   );
 };

@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { StandaloneSearchBox } from '@react-google-maps/api';
+import React from 'react';
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
@@ -27,7 +26,6 @@ const searchStyle = {
 const Search = ({
   panTo, currentPosition, searchBoxStyle, getPlaceInfo,
 }) => {
-  // const [ placeInfo, setPlaceInfo ] = useState(null);
   const {
     ready,
     value,
