@@ -1,9 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Typography } from '@material-ui/core';
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import {
+  Grid, Typography, makeStyles, Button,
+} from '@material-ui/core';
+
+const useStyles = makeStyles(() => ({
+  backBtn: {
+    opacity: '60%',
+  },
+}));
 
 const EContact = ({ setView, customerId, setFriendNumber }) => {
   const [contact, setContact] = useState(false);
+  const classes = useStyles();
 
   const renderQrCodeView = () => {
     setFriendNumber(contact.phone_number);
@@ -30,30 +38,37 @@ const EContact = ({ setView, customerId, setFriendNumber }) => {
   }, []);
 
   return (
-    <Grid>
-      <Grid>
-        <ArrowBackIosIcon color="primary" onClick={() => setView('Home')} />
-      </Grid>
-      <Grid>
-        <p>
+    <Grid container direction="column" justify="center" alignItems="center">
+      <Grid item container direction="row" justify="center" alignItems="center">
+        <Typography variant="subtitle1">
           Name:
+          {' '}
           {`${contact.first_name} ${contact.last_name}`}
-        </p>
-        <p>
-          Phone Number:
-          {contact.phone_number}
-        </p>
-        <Grid container direction="column" justify="center" alignItems="center">
-          <Grid item container direction="row" justify="center" alignItems="center">
-            <Typography variant="subtitle1">
-              Scan to Call
-            </Typography>
-          </Grid>
-          <Grid item container direction="row" justify="center" alignItems="center">
-            {renderQrCodeView()}
-          </Grid>
-        </Grid>
+        </Typography>
       </Grid>
+      <Grid item container direction="row" justify="center" alignItems="center">
+        <Typography variant="subtitle1">
+          Phone Number:
+          {' '}
+          {contact.phone_number}
+        </Typography>
+      </Grid>
+      <Grid item container direction="row" justify="center" alignItems="center">
+        <Typography variant="subtitle1">
+          Scan to Call
+        </Typography>
+      </Grid>
+      <Grid item container direction="row" justify="center" alignItems="center">
+        {renderQrCodeView()}
+      </Grid>
+      <Button
+        size="small"
+        color="primary"
+        className={classes.backBtn}
+        onClick={() => setView('Home')}
+      >
+        Back
+      </Button>
     </Grid>
   );
 };
