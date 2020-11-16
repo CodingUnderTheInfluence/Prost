@@ -19,12 +19,12 @@ const BarMarker = ({
     if (barCap !== null) {
       const { covidTotal, current } = barCap;
       const percent = barPercentCapacity(covidTotal, current);
-      setBarCapacity(`Capacity: ${percent * 100}%`);
-      if (percent > 0 && percent <= 0.25) {
+      setBarCapacity(`Capacity: ${percent}%`);
+      if (percent > 0 && percent <= 25) {
         setColor('Green');
-      } else if (percent > 0.25 && percent <= 0.75) {
+      } else if (percent > 25 && percent <= 75) {
         setColor('#f59314');
-      } else if (percent > 0.75) {
+      } else if (percent > 75) {
         setColor('red');
       }
     }

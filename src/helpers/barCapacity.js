@@ -24,7 +24,9 @@ const barCapacity = async (barId) => {
   }
 };
 
-const barPercentCapacity = (covidTotal, currentCapacity) => currentCapacity / covidTotal;
+const barPercentCapacity = (covidTotal, currentCapacity) => {
+  return Math.floor((currentCapacity / covidTotal) * 100);
+};
 
 // TODO:
 /**
