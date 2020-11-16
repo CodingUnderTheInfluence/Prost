@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import {
   makeStyles,
-  Paper,
-  Tabs,
-  Tab,
+  BottomNavigation,
+  BottomNavigationAction,
   Grid,
-  Button,
   Typography,
 } from '@material-ui/core';
 import PhoneIcon from '@material-ui/icons/Phone';
@@ -29,7 +27,6 @@ const useStyles = makeStyles({
     bottom: '0',
     marginLeft: 'auto',
     marginRight: 'auto',
-    borderRadius: '10px',
     border: 'solid #0365b0 1px',
   },
 });
@@ -135,19 +132,18 @@ const OwnerView = ({ barId }) => {
         {renderView()}
       </Grid>
       <Grid item container direction="row" justify="center" alignItems="center">
-        <Paper className={classes.stickToBottom}>
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            indicatorColor="primary"
-            textColor="primary"
-            centered
-          >
-            <Tab icon={<TocOutlinedIcon />} label="Customers" />
-            <Tab icon={<WarningIcon />} label="Alerts" />
-            <Tab icon={<AccountCircleOutlinedIcon />} label="Profile" />
-          </Tabs>
-        </Paper>
+        <BottomNavigation
+          value={value}
+          onChange={handleChange}
+          indicatorColor="primary"
+          textColor="primary"
+          centered
+          className={classes.stickToBottom}
+        >
+          <BottomNavigationAction icon={<TocOutlinedIcon />} label="Customers" />
+          <BottomNavigationAction icon={<WarningIcon />} label="Alerts" />
+          <BottomNavigationAction icon={<AccountCircleOutlinedIcon />} label="Profile" />
+        </BottomNavigation>
       </Grid>
     </Grid>
   );
