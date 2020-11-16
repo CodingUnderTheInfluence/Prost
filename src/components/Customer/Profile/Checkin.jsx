@@ -6,11 +6,11 @@ import axios from 'axios';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { useLoadScript } from '@react-google-maps/api';
 import { Grid, Typography, Button } from '@material-ui/core';
-import Search from '../Create/Search.jsx';
-import CheckinList from './CheckInList.jsx';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
+import CheckinList from './CheckInList.jsx';
+import Search from '../Create/Search.jsx';
 
 const libraries = ['places'];
 
@@ -39,6 +39,9 @@ const useStyles = makeStyles((theme) => ({
     '& > * + *': {
       marginTop: theme.spacing(2),
     },
+  },
+  backBtn: {
+    opacity: '60%',
   },
 }));
 
@@ -113,7 +116,6 @@ export default function Checkin({ setView, customerId }) {
 
   return (
     <div>
-      <ArrowBackIosIcon color="primary" onClick={() => setView('Home')} />
       <div>
         <Search
           currentPosition={currentPosition}
@@ -132,9 +134,17 @@ export default function Checkin({ setView, customerId }) {
         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
           <Alert onClose={handleClose} severity="error">
             Bar not found
-        </Alert>
+          </Alert>
         </Snackbar>
       </div>
+      <Button
+        size="small"
+        color="primary"
+        className={classes.backBtn}
+        onClick={() => setView('Home')}
+      >
+        Back
+      </Button>
     </div>
   );
 }
