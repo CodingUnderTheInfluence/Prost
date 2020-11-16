@@ -43,8 +43,6 @@ export default function Friend({ setView, customerId }) {
 
   return (
     <div>
-      <ArrowBackIosIcon color="primary" onClick={() => setView('Home')} />
-      Hello from Friend
       {list && (list.map((friend, key) => (
         <div key={key}>
           <p>{friend.user_name}</p>
