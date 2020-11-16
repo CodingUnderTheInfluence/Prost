@@ -85,8 +85,10 @@ const Dialogs = ({
       <DialogTitle id="alert-dialog-title">Occupency Information</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
-          {count}
-          {occupencyStatus()}
+          <Typography variant="subtitle1">
+            {`Current Amount of People: ${count}`}
+            {occupencyStatus()}
+          </Typography>
         </DialogContentText>
       </DialogContent>
       <DialogActions>
