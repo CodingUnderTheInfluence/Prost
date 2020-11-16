@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Home from './Home.jsx';
 import EContact from './EContact.jsx';
 import Favorite from './Favorite.jsx';
@@ -18,9 +19,7 @@ const CustomerProfile = ({ setViewValue, gId }) => {
     user_name: '',
   });
   const [friendNumber, setFriendNumber] = useState();
-
-  useEffect(() => {
-    // console.info("customer profile", gId)
+  const getUserName = () => {
     fetch(`/db/customer/gId/${gId}`, {
       method: 'GET',
     })
@@ -33,6 +32,10 @@ const CustomerProfile = ({ setViewValue, gId }) => {
       .catch((error) => {
         console.warn('Error:', error);
       });
+  };
+
+  useEffect(() => {
+    getUserName();
   });
 
   switch (view) {

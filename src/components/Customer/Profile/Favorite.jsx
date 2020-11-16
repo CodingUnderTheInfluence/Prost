@@ -1,10 +1,34 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react';
-import { Grid, Typography, Button } from '@material-ui/core';
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import {
+  Grid,
+  Typography,
+  Button,
+  makeStyles,
+  ButtonGroup,
+} from '@material-ui/core';
 import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
-import HistoryList from './HistoryList.jsx';
+import PhoneIcon from '@material-ui/icons/Phone';
+
+const useStyles = makeStyles({
+  container: {
+    border: 'solid 1px #4e71cc',
+    borderRadius: '5px',
+    margin: '5px 0 0 0 ',
+    padding: '5px',
+  },
+  button: {
+    variant: 'contained',
+    color: 'primary',
+    padding: '5px',
+    margin: '10px 0 10px 0',
+  },
+  backBtn: {
+    opacity: '60%',
+  },
+});
 
 const Favorite = ({ setView, customerId }) => {
+  const classes = useStyles();
   const [list, setList] = useState(null);
   const getData = () => {
     fetch(`/db/cb/favorite/${customerId}`, {
@@ -42,58 +66,71 @@ const Favorite = ({ setView, customerId }) => {
   }, []);
 
   return (
-
     <Grid container direction="column" justify="center" alignItems="center">
       <Grid item container direction="row" justify="center" alignItems="center">
-        Favorites List
+        <Typography variant="h3">
+          Favorites List
+        </Typography>
       </Grid>
-      <Button
-        color="primary"
-        onClick={() => setView('Home')}
-      >
-        {list && (list.map((bar, key) => (
-          <div key={key}>
+      {list && (list.map((bar, key) => (
+        <div key={key}>
+          <Grid
+            item
+            container
+            direction="row"
+            justify="center"
+            alignItems="center"
+            className={classes.container}
+          >
             <Grid
               item
               container
-              direction="row"
+              direction="column"
               justify="center"
               alignItems="center"
             >
-              <Grid
-                item
-                container
-                direction="column"
-                justify="center"
-                alignItems="center"
-              >
+              <Typography variant="subtitle1">
                 {bar.bar_name}
-              </Grid>
-              <Grid
-                item
-                container
-                direction="column"
-                justify="center"
-                alignItems="center"
-              >
-                {bar.address}
-              </Grid>
-              <Grid
-                item
-                container
-                direction="column"
-                justify="center"
-                alignItems="center"
-              >
-                {bar.phone_number}
-              </Grid>
-              <DeleteOutlinedIcon onClick={() => deleteFavorite(bar.id)} />
+              </Typography>
             </Grid>
-          </div>
-        )))}
+            <Grid
+              item
+              container
+              direction="column"
+              justify="center"
+              alignItems="center"
+            >
+              <ButtonGroup>
+                <Button
+                  size="small"
+                  variant="contained"
+                  color="primary"
+                  href={`tel:+1${bar.phone_number}`}
+                >
+                  <PhoneIcon />
+                </Button>
+                <Button
+                  size="small"
+                  variant="contained"
+                  color="primary"
+                  onClick={() => deleteFavorite(bar.id)}
+                >
+                  <DeleteOutlinedIcon />
+                </Button>
+              </ButtonGroup>
+            </Grid>
+          </Grid>
+        </div>
+      )))}
+      <Button
+        size="small"
+        color="primary"
+        className={classes.backBtn}
+        onClick={() => setView('Home')}
+      >
+        Back
       </Button>
     </Grid>
-
   );
 };
 
