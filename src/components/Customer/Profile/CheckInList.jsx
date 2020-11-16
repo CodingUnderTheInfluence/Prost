@@ -44,7 +44,7 @@ export default function CheckinList({ customerId }) {
 
   useEffect(() => {
     getList();
-  });
+  }, []);
 
   return (
     <Grid item xs={12} md={6}>
