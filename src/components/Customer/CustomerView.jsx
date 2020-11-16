@@ -16,24 +16,29 @@ import FriendsView from './Friends/FriendsView.jsx';
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: "auto",
+    maxWidth: 'auto',
   },
   stickToBottom: {
     position: 'sticky',
     bottom: '0',
-    margin: "auto",
-    border: 'solid #0365b0 1px',
+    margin: 'auto',
     height: '10vh',
-    width: '100%'
+    width: '100%',
+    borderTop: 'solid 1px #0365b0',
   },
   main: {
     height: '90vh',
-    width: '100%'
+    width: '100%',
   },
 });
 
 const CustomerView = ({
-  setViewValue, gId, username, setMapLatLng, setUsername, setId,
+  setViewValue,
+  gId,
+  username,
+  setMapLatLng,
+  setUsername,
+  setId,
 }) => {
   const classes = useStyles();
   const [value, setValue] = useState();
