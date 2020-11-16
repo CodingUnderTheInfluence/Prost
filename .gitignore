@@ -6,3 +6,4 @@ dist
 .vscode
 serviceacc.json
 template.jsx
+.DS_Store
