@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Grid,
   Typography,
@@ -15,7 +15,6 @@ const useStyles = makeStyles({
     borderRadius: '5px',
     margin: '5px 0 0 0 ',
     padding: '5px',
-    width: '200px',
   },
   button: {
     variant: 'contained',
@@ -49,7 +48,7 @@ const Favorite = ({ setView, customerId }) => {
         id_bar: num,
         id_customer: customerId,
       };
-      const result = await fetch('/db/cb/delete/favorite', {
+      await fetch('/db/cb/delete/favorite', {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -69,7 +68,7 @@ const Favorite = ({ setView, customerId }) => {
   return (
     <Grid container direction="column" justify="center" alignItems="center">
       <Grid item container direction="row" justify="center" alignItems="center">
-        <Typography variant="h5">
+        <Typography variant="h3">
           Favorites List
         </Typography>
       </Grid>

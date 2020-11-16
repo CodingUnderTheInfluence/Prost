@@ -35,7 +35,7 @@ const CustomerProfile = ({ setViewValue, gId }) => {
 
   useEffect(() => {
     getUserName();
-  }, []);
+  });
 
   switch (view) {
     case 'Home':
@@ -111,6 +111,17 @@ const CustomerProfile = ({ setViewValue, gId }) => {
       return <EditContact setView={setView} customerId={customerId} />;
     case 'EditUsername':
       return <EditUsername customerId={customerId} setView={setView} />;
+    default:
+      return (
+        <Home
+          setView={setView}
+          setUsername={setUsername}
+          name={username}
+          setViewValue={setViewValue}
+          img={data.profile_image}
+          gId={gId}
+        />
+      );
   }
 };
 
