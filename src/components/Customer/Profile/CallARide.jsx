@@ -15,41 +15,95 @@ const useStyles = makeStyles({
     color: 'primary',
     padding: '5px',
     margin: '10px 0 10px 0',
+    width: '200px',
   },
-  Grid: {
-    justify: 'center',
-    alignItems: 'center',
+  backBtn: {
+    opacity: '60%',
   },
 });
 
 const CallARide = ({ friendNumber, setView }) => {
   const classes = useStyles();
   return (
-    <Grid container direction="column" className={classes.Grid}>
-      <Grid item direction="row" justify="left">
-        <ArrowBackIosIcon color="primary" onClick={() => setView('Home')} />
-      </Grid>
-      <Grid item direction="row" className={classes.Grid}>
+    <Grid
+      container
+      direction="column"
+      justify="center"
+      alignItems="center"
+    >
+      <Grid
+        item
+        direction="row"
+        justify="center"
+        alignItems="center"
+        column="center"
+        className={classes.row}
+      >
         <Typography variant="subtitle1">
-          Don't be a fool! Call for a ride!
+          Get a Ride!
         </Typography>
       </Grid>
-      <Grid item direction="row" className={classes.Grid}>
-        <Button variant="contained" color="primary" className={classes.button} href="https://www.uber.com/us/en/ride/" target="_blank">
+      <Grid
+        item
+        direction="row"
+        justify="center"
+        alignItems="center"
+        column="center"
+        className={classes.row}
+      >
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          href="https://www.uber.com/us/en/ride/"
+          target="_blank"
+        >
           Uber
         </Button>
-
       </Grid>
-      <Grid item direction="row" className={classes.Grid}>
-        <Button variant="contained" color="primary" className={classes.button} href="https://ride.lyft.com/" target="_blank">
+      <Grid
+        item
+        direction="row"
+        justify="center"
+        alignItems="center"
+        column="center"
+        className={classes.row}
+      >
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          href="https://ride.lyft.com/"
+          target="_blank"
+        >
           Lyft
         </Button>
       </Grid>
-      <Grid item direction="row" className={classes.Grid}>
-        <Button variant="contained" color="primary" className={classes.button} href={`tel:+1${friendNumber}`}>
+      <Grid
+        item
+        direction="row"
+        justify="center"
+        alignItems="center"
+        column="center"
+        className={classes.row}
+      >
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          href={`tel:+1${friendNumber}`}
+        >
           Friend
         </Button>
       </Grid>
+      <Button
+        size="small"
+        color="primary"
+        className={classes.backBtn}
+        onClick={() => setView('Home')}
+      >
+        Back
+      </Button>
     </Grid>
   );
 };
