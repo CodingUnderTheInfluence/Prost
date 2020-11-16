@@ -21,7 +21,6 @@ const jwt = require('jsonwebtoken');
 const validInfo = require('../middleware/validInfo.js');
 const authorization = require('../middleware/authorization.js');
 
-// this creates token for user upon creation
 function jwtGenerator(email) {
   const payload = {
     user: email,
