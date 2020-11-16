@@ -1,5 +1,4 @@
-import { Grid, makeStyles, Box } from '@material-ui/core'
-import { flexbox } from '@material-ui/system';
+import { Grid, makeStyles } from '@material-ui/core'
 import React from 'react'
 
 const useStyles = makeStyles({
@@ -9,7 +8,10 @@ const useStyles = makeStyles({
         borderRadius: '5px',
         padding: '10px',
         margin: '10px, 0',
-        justifyContent: 'flex-end',
+        marginRight: '0px',
+        marginLeft: 'auto',
+        maxWidth: '200px',
+        wordWrap: 'normal',
     },
     received: {
         border: '2px solid #dedede',
@@ -17,7 +19,10 @@ const useStyles = makeStyles({
         borderRadius: '5px',
         padding: '10px',
         margin: '10px, 0',
-        justifyContent: 'flex-start'
+        maxWidth: '200px',
+        wordWrap: 'normal',
+        marginRight: 'auto',
+        marginLeft: '0px',
     },
 });
 
@@ -29,9 +34,10 @@ const SinglePrivateMessage = ({ m, friendId }) => {
     } else {
         messageClass = classes.sent;
     }
-
     return (
-        <Box className={messageClass}>{m.body}</Box>
+        <div>
+            <Grid container item direction='row' className={messageClass}>{m.body}</Grid>
+        </div>
     )
 
 }

@@ -1,39 +1,64 @@
-import React, {useState, useEffect} from 'react'
-import { Button } from '@material-ui/core';
+import React, { useState, useEffect } from 'react'
+import { Button, makeStyles, Grid } from '@material-ui/core';
+import CancelIcon from '@material-ui/icons/Cancel';
+import CheckIcon from '@material-ui/icons/Check';
 import Axios from 'axios'
 
-function PendingFriend({f}) {
+const useStyles = makeStyles({
+    pendingFriend: {
+        borderTop: 'black solid 1px',
+        borderBottom: 'black solid 1px'
+    },
+    userName: {
+        textAlign: 'center',
+        fontSize: '20px',
+        margin: "0 10px 0 0"
+    },
+})
+
+function PendingFriend({ f, setPendingFriends, pendingFriends, index }) {
 
     const [data, setData] = useState();
     const [cancelled, setCancelled] = useState(false);
-    
+    const classes = useStyles();
+
     useEffect(() => {
         getData();
     }, [])
 
     const getData = () => {
         Axios.get(`/db/customer/getFriendById?customerId=${f.id_friend}`)
-        .then(({data}) => {
-            setData(data)
-        })
-        .catch(err => console.warn(err));
+            .then(({ data }) => {
+                setData(data)
+            })
+            .catch(err => console.warn(err));
     };
-    
+
+    const removePendingRequest = () => {
+        let updatedArr = pendingFriends.slice()
+        updatedArr.splice(index, 1)
+        setPendingFriends(updatedArr)
+    }
+
     const cancelRequest = () => {
-        Axios.delete('/db/friendship/removeRequest', {data: f})
-            .catch(err => console.warn(err))
+        Axios.delete('/db/friendship/removeRequest', { data: f })
+            .catch(err => console.warn(err));
+        removePendingRequest();
     }
 
     if (data) {
         return (
-            <div>
-                {data.user_name} has not accepted your request yet.
-                {cancelled ? 'Friend Request Cancelled' : <Button onClick={ () => {
-                    cancelRequest()
-                    setCancelled(true)
-                    }}>Cancel Request</Button>}
-                
-            </div>
+            <Grid container item direction="row" justify='space-between' className={classes.pendingFriend}>
+                <Grid container item direction="column" xs={5} className={classes.userName}>
+                    {data.user_name}
+                </Grid>
+                <Grid container item direction="column" xs={3}>
+                    <Button onClick={() => cancelRequest()}>
+                        <CancelIcon />
+                    </Button>
+                </Grid>
+
+            </Grid>
         )
     } else {
         return (

@@ -1,6 +1,5 @@
 import React from 'react'
-import { Grid, Fab, makeStyles, Button } from '@material-ui/core';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
+import { Grid, makeStyles, Button } from '@material-ui/core';
 import PendingFriend from './PendingFriend.jsx';
 import IncomingFriend from './IncomingFriend.jsx';
 import ConfirmedFriend from './ConfirmedFriend.jsx';
@@ -30,6 +29,9 @@ const useStyles = makeStyles({
 })
 
 const FriendsListRenderFriends = ({
+  setPendingFriends,
+  setIncomingRequests,
+  setConfirmedFriends,
   pendingFriends,
   incomingRequests,
   confirmedFriends,
@@ -46,10 +48,10 @@ const FriendsListRenderFriends = ({
         <Button className={classes.addFriendButton} variant='contained' color='primary' position='center' onClick={() => setViewValue('AddFriend')}>Add a Friend</Button>
       </Grid>
       <Grid container direction="column" className={classes.pendingRequest}>
-        {pendingFriends.map(f => <PendingFriend key={f.id} userData={userData} f={f} />)}
+        {pendingFriends.map((f, i) => <PendingFriend key={f.id} userData={userData} f={f} setPendingFriends={setPendingFriends} pendingFriends={pendingFriends} index={i} />)}
       </Grid>
       <Grid container direction="column" className={classes.incomingRequest}>
-        {incomingRequests.map(r => <IncomingFriend key={r.id} userData={userData} r={r} />)}
+        {incomingRequests.map((r, i) => <IncomingFriend key={r.id} userData={userData} r={r} setIncomingRequests={setIncomingRequests} incomingRequests={incomingRequests} setConfirmedFriends={setConfirmedFriends} confirmedFriends={confirmedFriends} index={i} />)}
       </Grid>
       <Grid container direction="column" className={classes.confirmed}>
         {confirmedFriends.map(f => {
