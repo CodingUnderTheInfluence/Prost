@@ -55,7 +55,7 @@ export default function Checkin({ setView, customerId }) {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [coordinates, setCoordinates] = useState([]);
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -63,6 +63,16 @@ export default function Checkin({ setView, customerId }) {
     }
     setOpen(false);
   };
+
+  const [openSuccess, setOpenSuccess] = useState(false);
+
+  const handleCloseSuccess = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpenSuccess(false);
+  };
+
   const getPlaceInfo = useCallback((results) => {
     const {
       formatted_address,
@@ -125,7 +135,17 @@ export default function Checkin({ setView, customerId }) {
       </div>
       <div />
       <div style={{ padding: '70px' }}>
-        <Button variant="outlined" color="primary" onClick={addCheckIn}>Check in</Button>
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={() => {
+            addCheckIn();
+            setView('home');
+          }}
+        >
+
+          Check in
+        </Button>
       </div>
       <div>
         <CheckinList customerId={customerId} />
@@ -134,6 +154,13 @@ export default function Checkin({ setView, customerId }) {
         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
           <Alert onClose={handleClose} severity="error">
             Bar not found
+          </Alert>
+        </Snackbar>
+      </div>
+      <div className={classes.root}>
+        <Snackbar open={openSuccess} autoHideDuration={6000} onClose={handleCloseSuccess}>
+          <Alert onClose={handleCloseSucsess} severity="success">
+            Checked In!
           </Alert>
         </Snackbar>
       </div>
