@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Grid,
   Button,
@@ -46,8 +46,27 @@ const Home = ({
   name,
   setViewValue,
   img,
+  setUsername,
+  gId,
 }) => {
   const classes = useStyles();
+  const getUserName = () => {
+    fetch(`/db/customer/gId/${gId}`, {
+      method: 'GET',
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setUsername(data.user_name);
+      })
+      .catch((error) => {
+        console.warn('Error:', error);
+      });
+  };
+
+  useEffect(() => {
+    getUserName();
+  }, []);
+
   return (
     <Grid
       container
@@ -161,10 +180,10 @@ const Home = ({
             <Button
               variant="contained"
               color="primary"
-              onClick={() => setView('Friend')}
+              onClick={() => setView('Favorite')}
               className={classes.buttonGroup}
             >
-              <ContactsIcon />
+              <StarBorderIcon />
             </Button>
             <Button
               variant="contained"
@@ -189,23 +208,15 @@ const Home = ({
               variant="contained"
               color="primary"
               onClick={() => setView('History')}
-              className={classes.buttonGroup2}
+              className={classes.buttonGroup}
             >
               <HistoryIcon />
             </Button>
             <Button
               variant="contained"
               color="primary"
-              onClick={() => setView('Favorite')}
-              className={classes.buttonGroup2}
-            >
-              <StarBorderIcon />
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
               onClick={() => setView('Settings')}
-              className={classes.buttonGroup2}
+              className={classes.buttonGroup}
             >
               <SettingsIcon />
             </Button>

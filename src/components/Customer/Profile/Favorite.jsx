@@ -68,7 +68,7 @@ const Favorite = ({ setView, customerId }) => {
   return (
     <Grid container direction="column" justify="center" alignItems="center">
       <Grid item container direction="row" justify="center" alignItems="center">
-        <Typography variant="h3">
+        <Typography variant="h5">
           Favorites List
         </Typography>
       </Grid>
