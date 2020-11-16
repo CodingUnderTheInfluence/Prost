@@ -5,9 +5,10 @@
 3. [System Requirements](#details)
 4. [Database](#database)
 5. [Installation](#installation)
-6. [Tech Stack](#tech-stack)
-7. [Database Schema](#database-schema)
-8. [Contributing](#contributing)
+6. [Deployment](#deployment)
+7. [Tech Stack](#tech-stack)
+8. [Database Schema](#database-schema)
+9. [Contributing](#contributing)
 
  
 ## About
@@ -92,6 +93,136 @@ $ cd Prost/
  
 $ npm install
 ```
+## Deployment
+Depoyment steps based on Digital Ocean.
+
+### Set up
+Install Node and NPM:
+```
+curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+
+sudo apt install nodejs
+
+node --version
+```
+Clone Repo:
+```
+git clone {repo-name.git}
+```
+cd into Project and install dependencies:
+```
+npm install
+```
+Build project 
+```
+npm run build
+```
+Start project to test:
+```
+npm start
+```
+
+### set up PM2
+
+[PM2](https://pm2.keymetrics.io/docs/usage/pm2-doc-single-page/)
+
+Install PM2 globally 
+```
+sudo npm i pm2 -g
+```
+Start Project with PM2, make sure your project isn't running
+```
+^c {control c}
+```
+To actually start project on PM2
+```
+pm2 start server/index.js
+```
+Other important PM2 commands:
+```
+pm2 l -- shows list
+pm2 stop {name}
+pm2 start {name}
+pm2 restart {name}
+```
+
+
+### set up firewall
+
+```
+sudo ufw enable
+sudo ufw status
+sudo ufw allow ssh (Port 22)
+sudo ufw allow http (Port 80)
+sudo ufw allow https (Port 443)
+```
+
+
+### install NGNIX and configure
+
+[NGNIX](https://docs.nginx.com/?_ga=2.78474513.420659996.1605509840-1622538564.1605061935)
+```
+sudo apt install nginx
+
+sudo vim /etc/nginx/sites-available/default
+```
+Add into the location / in server block:
+If you've register a domain name add it to server_name
+```
+server_name yourdomain.com www.yourdomain.com;
+
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+```
+
+Check NGINX config to make sure it is OK 
+and restart NGINX
+```
+sudo nginx -t
+
+sudo service nginx restart
+```
+
+should be able to view site without going to port 3000. All other ports will be blocked.
+
+
+### Add domain name in Digital Ocean (if one is registered)
+
+Go to networking and add a domain. Add an @ for yourdomain.com
+
+
+### Register domain
+
+Wherever you regestred your domain add. Could take an hour or more to go through.
+```
+ns1.digitalocean.com
+ns2.digitalocean.com
+ns3.digitalocean.com
+```
+
+
+### Add SSL and LetsEncrypt
+
+[certbot](https://certbot.eff.org/lets-encrypt/ubuntuother-nginx.html)
+```
+sudo add-apt-repository ppa:certbot/certbot
+sudo apt-get update
+sudo apt-get install python-certbot-nginx
+sudo certbot --nginx -d yourdomain.com -d www.yourdomain.com
+
+# Only valid for 90 days, test the renewal process with
+certbot renew --dry-run
+```
+
+Should now be able to go to [prost](https://yourdomain.com) and see the app.
+
+
 ### Tools
 #### Google
 - Sign up with Google console and create, or go to an exisiting [project](https://cloud.google.com/resource-manager/docs/creating-managing-projects). 
