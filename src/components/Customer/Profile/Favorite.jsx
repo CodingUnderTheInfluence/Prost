@@ -4,7 +4,7 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
 import HistoryList from './HistoryList.jsx';
 
-export default function Favorite({ setView, customerId }) {
+const Favorite = ({ setView, customerId }) => {
   const [list, setList] = useState(null);
   const getData = () => {
     fetch(`/db/cb/favorite/${customerId}`, {
@@ -42,17 +42,59 @@ export default function Favorite({ setView, customerId }) {
   }, []);
 
   return (
-    <div>
-      <ArrowBackIosIcon color="primary" onClick={() => setView('Home')} />
-      Hello from Favorite
-      {list && (list.map((bar, key) => (
-        <div key={key}>
-          <p>{bar.bar_name}</p>
-          <p>{bar.address}</p>
-          <p>{bar.phone_number}</p>
-          <DeleteOutlinedIcon onClick={() => deleteFavorite(bar.id)} />
-        </div>
-      )))}
-    </div>
+
+    <Grid container direction="column" justify="center" alignItems="center">
+      <Grid item container direction="row" justify="center" alignItems="center">
+        Favorites List
+      </Grid>
+      <Button
+        color="primary"
+        onClick={() => setView('Home')}
+      >
+        {list && (list.map((bar, key) => (
+          <div key={key}>
+            <Grid
+              item
+              container
+              direction="row"
+              justify="center"
+              alignItems="center"
+            >
+              <Grid
+                item
+                container
+                direction="column"
+                justify="center"
+                alignItems="center"
+              >
+                {bar.bar_name}
+              </Grid>
+              <Grid
+                item
+                container
+                direction="column"
+                justify="center"
+                alignItems="center"
+              >
+                {bar.address}
+              </Grid>
+              <Grid
+                item
+                container
+                direction="column"
+                justify="center"
+                alignItems="center"
+              >
+                {bar.phone_number}
+              </Grid>
+              <DeleteOutlinedIcon onClick={() => deleteFavorite(bar.id)} />
+            </Grid>
+          </div>
+        )))}
+      </Button>
+    </Grid>
+
   );
-}
+};
+
+export default Favorite;
