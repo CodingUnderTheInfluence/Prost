@@ -1,23 +1,27 @@
 import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import {
-  InputLabel, MenuItem, FormControl, FormHelperText, Grid, Typography, Button, TextField, ButtonGroup,
+  Grid,
+  Typography,
+  Button,
+  TextField,
+  ButtonGroup,
+  makeStyles,
+  Select,
 } from '@material-ui/core';
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-
-import Select from '@material-ui/core/Select';
 import axios from 'axios';
-import { SettingsSystemDaydreamTwoTone } from '@material-ui/icons';
 import Menu from './Menu.jsx';
 import Language from './Language.jsx';
 
-const useStyles = makeStyles((theme) => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
+const useStyles = makeStyles(() => ({
+  parent: {
+    border: 'solid 1px #4e71cc',
+    borderRadius: '3px',
   },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
+  container: {
+    margin: '5px 0 0 0',
+  },
+  backBtn: {
+    opacity: '60%',
   },
 }));
 
@@ -85,6 +89,7 @@ export default function Translate({ setView, customerId }) {
   const handleChange = (event) => {
     getMenu(event.target.value);
   };
+
   useEffect(() => {
     axios.get('/db/menu/allbars')
       .then(({ data }) => setList(data))
@@ -92,40 +97,132 @@ export default function Translate({ setView, customerId }) {
   }, []);
 
   return (
-    <Grid>
-      <Grid>
-        <ArrowBackIosIcon color="primary" onClick={() => setView('Home')} />
-      </Grid>
-      <Grid>
-        <Typography>
-          Target Language
+    <Grid
+      container
+      direction="column"
+      justify="center"
+      alignItems="center"
+    >
+      <Grid
+        item
+        container
+        direction="row"
+        justify="center"
+        alignItems="center"
+      >
+        <Typography variant="h4">
+          Translator
         </Typography>
-        <Language setPref={setPref} />
       </Grid>
-      <Grid>
-        Menu
-        <TextField
-          id="outlined-basic"
-          label="Outlined"
-          variant="outlined"
-          placeholder="type here"
-          onChange={(e) => {
-            setManualOrder(e.target.value);
-          }}
-        />
-      </Grid>
-      <Grid>
-        <ButtonGroup size="small" aria-label="small outlined button group">
-          <Button onClick={clearOrder} variant="outlined" color="secondary">Clear Order</Button>
-          <Button onClick={translateOrder} variant="contained" color="primary">Translate Order</Button>
-        </ButtonGroup>
-      </Grid>
-      Order:
-      {displayOrder && (
-        <Grid>
-          <p>{displayOrder}</p>
+      <Grid
+        item
+        container
+        direction="column"
+        justify="center"
+        alignItems="center"
+        className={classes.parent}
+      >
+        <Grid
+          item
+          container
+          direction="row"
+          justify="center"
+          alignItems="center"
+        >
+          <Typography variant="subtitle1">
+            Target Language
+          </Typography>
         </Grid>
-      )}
+        <Grid
+          item
+          container
+          direction="row"
+          justify="center"
+          alignItems="center"
+        >
+          <Language setPref={setPref} />
+        </Grid>
+        <Grid
+          item
+          container
+          direction="row"
+          justify="center"
+          alignItems="center"
+          className={classes.container}
+        >
+          <Grid
+            item
+            container
+            direction="column"
+            justify="center"
+            alignItems="center"
+          >
+            <TextField
+              id="outlined-basic"
+              label="Item to translate"
+              variant="outlined"
+              size="small"
+              placeholder="type here"
+              onChange={(e) => {
+                setManualOrder(e.target.value);
+              }}
+            />
+          </Grid>
+        </Grid>
+        <Grid
+          item
+          container
+          direction="row"
+          justify="center"
+          alignItems="center"
+          className={classes.container}
+        >
+          <ButtonGroup size="small" aria-label="small outlined button group">
+            <Button onClick={clearOrder} variant="outlined" color="secondary">Clear Order</Button>
+            <Button onClick={translateOrder} variant="contained" color="primary">Translate Order</Button>
+          </ButtonGroup>
+        </Grid>
+        <Grid
+          item
+          container
+          direction="row"
+          justify="center"
+          alignItems="center"
+        >
+          <Typography variant="subtitle1">
+            Translated Order:
+          </Typography>
+          <Grid
+            item
+            container
+            direction="row"
+            justify="center"
+            alignItems="center"
+          >
+            {displayOrder && (
+            <Grid
+              item
+              container
+              direction="row"
+              justify="center"
+              alignItems="center"
+            >
+              <Typography variant="subtitle1">
+                {displayOrder}
+              </Typography>
+            </Grid>
+            )}
+          </Grid>
+        </Grid>
+      </Grid>
+      <Button
+        size="small"
+        color="primary"
+        className={classes.backBtn}
+        onClick={() => setView('Home')}
+      >
+        Back
+      </Button>
     </Grid>
   );
 }
