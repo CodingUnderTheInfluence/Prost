@@ -108,7 +108,7 @@ const CustomerProfile = ({ setViewValue, gId }) => {
         />
       );
     case 'EditContact':
-      return <EditContact />;
+      return <EditContact setView={setView} customerId={customerId} />;
     case 'EditUsername':
       return <EditUsername customerId={customerId} setView={setView} />;
   }
