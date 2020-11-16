@@ -11,12 +11,12 @@ const useStyles = makeStyles({
 })
 
 
-function SingleMessage({m}) {
+function SingleMessage({ m }) {
     const classes = useStyles();
-    
+
     return (
         <div className={classes.message}>
-            {m.name} says: {m.body}
+            {m.username} says: {m.body}
         </div>
     )
 }

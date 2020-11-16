@@ -29,6 +29,7 @@ const PartyModel = require('./Party');
 const FriendshipModel = require('./Friendship');
 const ThreadModel = require('./Thread');
 const MapsModel = require('./Map');
+const PublicChatModel = require('./PublicChat')
 
 const Bar = BarModel(sequelize, Sequelize);
 const Customer = CustomerModel(sequelize, Sequelize);
@@ -44,6 +45,7 @@ const Party = PartyModel(sequelize, Sequelize);
 const Friendship = FriendshipModel(sequelize, Sequelize);
 const Thread = ThreadModel(sequelize, Sequelize);
 const Maps = MapsModel(sequelize, Sequelize);
+const PublicChat = PublicChatModel(sequelize, Sequelize);
 
 const models = {
   Customer,
@@ -59,7 +61,8 @@ const models = {
   Parties_Customers,
   Customers_Bars,
   Maps,
-  Drinks
+  Drinks,
+  PublicChat
 }
 
 Object.keys(models).forEach((model) => {
