@@ -167,7 +167,9 @@ const OwnerProfile = ({
       >
         Current Occupency
       </Button>
-      <Logout className={classes.logout} />
+      <div className={classes.logout}>
+        <Logout />
+      </div>
       <Dialogs
         occupencyStatus={occupencyStatus}
         barAddress={barAddress}
