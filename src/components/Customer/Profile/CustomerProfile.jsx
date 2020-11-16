@@ -35,7 +35,7 @@ const CustomerProfile = ({ setViewValue, gId }) => {
 
   useEffect(() => {
     getUserName();
-  }, []);
+  });
 
   switch (view) {
     case 'Home':
