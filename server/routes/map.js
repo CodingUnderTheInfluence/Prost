@@ -1,6 +1,7 @@
+const { ContactsOutlined } = require('@material-ui/icons');
 const { Router } = require('express');
 const { Op } = require('sequelize');
-const { Maps } = require('../db/models/dbindex.js');
+const { Maps, Customer } = require('../db/models/dbindex.js');
 
 const mapRouter = Router();
 
@@ -13,6 +14,16 @@ mapRouter.get('/', (req, res) => {
       res.sendStatus(err);
     });
 });
+
+// mapRouter.get('/:gId', (req, res) => {
+//   const { gId } = req.params;
+//   Maps.findOne({ where: { id_google: gId } })
+//     .then((user) => user)
+//     .then((user) => {
+
+//     })
+//     .catch(() => res.send('user not found'));
+// });
 
 mapRouter.post('/', (req, res) => {
   const {
@@ -30,7 +41,7 @@ mapRouter.post('/', (req, res) => {
     isPrivate,
   })
     .then((data) => res.status(201).send(data))
-    .catch((err) => res.sendStatus(500));
+    .catch(() => res.sendStatus(500));
 });
 
 mapRouter.put('/:gId', (req, res) => {
@@ -65,7 +76,7 @@ mapRouter.post('/report', (req, res) => {
     report,
   })
     .then((data) => res.send(data))
-    .catch((err) => res.sendStatus(500));
+    .catch(() => res.sendStatus(500));
 });
 
 mapRouter.delete('/report/destroy/all', (req, res) => {

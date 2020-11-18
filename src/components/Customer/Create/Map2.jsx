@@ -158,13 +158,13 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
     setClick(!click);
   };
 
-  const getMyLocation = ({ latitude, longitude }) => {
-    axios.put(`/db/maps/${gId}`, { latitude, longitude })
+  const getMyLocation = ({ lat, lng }) => {
+    axios.put(`/db/customer/location/${gId}`, { lat, lng })
       .then(() => console.info('maps put success'))
       .catch(() => console.warn('maps put failed'));
     setMyLocation({
-      lat: latitude,
-      lng: longitude,
+      lat,
+      lng,
     });
   };
 

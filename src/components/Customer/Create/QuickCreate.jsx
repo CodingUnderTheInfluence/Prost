@@ -1,12 +1,13 @@
 import React from 'react';
 import '../../../styles/styles.css';
+
 import Fab from '@material-ui/core/Fab';
 import MyLocationIcon from '@material-ui/icons/MyLocation';
 
 const QuickCreate = ({ getMyLocation, panTo }) => {
   const success = (pos) => {
     const { latitude, longitude } = pos.coords;
-    getMyLocation({ latitude, longitude });
+    getMyLocation({ lat: latitude, lng: longitude });
     panTo({ lat: latitude, lng: longitude, key: 'user' });
   };
 
