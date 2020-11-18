@@ -60,7 +60,9 @@ const searchBoxStyle = {
   marginLeft: '-120px',
 };
 
-const MapContainer = ({ setMapLatLng, username, gId }) => {
+const MapContainer = ({ setMapLatLng, username }) => {
+  const { gId } = localStorage;
+
   const [currentPosition, setCurrentPosition] = useState({
     lat: 29.95115,
     lng: -90.0715,
@@ -78,6 +80,7 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
     lat: 29.95115,
     lng: -90.0715,
   };
+
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY,
