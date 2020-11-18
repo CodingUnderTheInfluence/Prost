@@ -4,7 +4,7 @@ import React, {
   useRef,
   useCallback,
 } from 'react';
-import '../../../styles/location.css';
+import '../../../styles/styles.css';
 import {
   GoogleMap,
   Marker,

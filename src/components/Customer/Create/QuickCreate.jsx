@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../../styles/location.css';
+import '../../../styles/styles.css';
 import Fab from '@material-ui/core/Fab';
 import MyLocationIcon from '@material-ui/icons/MyLocation';
 
