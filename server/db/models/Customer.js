@@ -41,6 +41,16 @@ module.exports = (sequelize, DataTypes) => {
     zip: {
       type: DataTypes.STRING
     },
+    lat: {
+      type: DataTypes.DECIMAL,
+    },
+    lng: {
+      type: DataTypes.DECIMAL,
+    },
+    isPrivate: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
   }, {
     freezeTableName: true,
   });

@@ -188,6 +188,27 @@ customerRouter.post('/updateUserName', (req, res) => {
     .then((customer) => { res.send(customer.user_name); });
 });
 
+customerRouter.put('/location/:gId', (req, res) => {
+  const { gId } = req.params;
+  console.log(req.body)
+  const { isPrivate, lat, lng } = req.body;
+  Customer.update(
+    {
+      lat,
+      lng,
+      isPrivate,
+    },
+    {
+      returning: true,
+      where: { id_google: gId },
+    },
+  )
+    .then(([udatedLine, [updatedPrivate]]) => {
+      res.status(201).send(updatedPrivate);
+    })
+    .catch((err) => res.send(err));
+});
+
 module.exports = {
   customerRouter,
   googleAuth,
