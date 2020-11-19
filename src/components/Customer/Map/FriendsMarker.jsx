@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { Marker, InfoWindow } from '@react-google-maps/api';
 import propTypes from 'prop-types';
-import warning from '../../../../images/warning.png';
 import user from '../../../../images/user.png';
 
-const FriendsMarker = ({ friendsLocation: { user_name, lat, lng, report } }) => {
+const FriendsMarker = ({ friendsLocation: { user_name, lat, lng } }) => {
   const [show, setShow] = useState(false);
-  const iconSelect = report ? warning : user;
+  // const iconSelect = report ? warning : user;
 
   const handleClick = () => {
     setShow(!show);
@@ -19,16 +18,11 @@ const FriendsMarker = ({ friendsLocation: { user_name, lat, lng, report } }) => 
         lng: +lng,
       }}
       onClick={() => handleClick()}
-      icon={{ url: iconSelect }}
+      icon={{ url: user }}
     >
       {show && (
         <InfoWindow>
-          {report ? (
-            <h3>{report}</h3>
-          )
-            : (
-              <h3>{user_name}</h3>
-            )}
+          <h3>{user_name}</h3>
         </InfoWindow>
       )}
     </Marker>
