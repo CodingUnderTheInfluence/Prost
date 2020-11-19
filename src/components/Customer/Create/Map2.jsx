@@ -26,6 +26,7 @@ import BarMarkers from '../Map/BarMarkers.jsx';
 // import Directions from '../Directions/Directions.jsx';
 // import DirectionsBtn from '../Directions/DirectionsBtn.jsx';
 import DangerMarkers from '../Map/DangerMarkers.jsx';
+import ReportMarkers from '../Map/ReportMarkers.jsx';
 import QuickCreate from './QuickCreate.jsx';
 import mapStyle from '../../../helpers/mapStyle';
 
@@ -68,9 +69,10 @@ const MapContainer = ({ setMapLatLng, username }) => {
     lng: -90.0715,
   });
   const [friendLocations, setFriendLocations] = useState([]);
+  const [dangerMarkers, setDangerMarkers] = useState([]);
+  const [reports, setReports] = useState([]);
   const [privateSwitch, setPrivateSwitch] = useState(false);
   const [myLocation, setMyLocation] = useState({});
-  const [dangerMarkers, setDangerMarkers] = useState([]);
   const [parties, setParties] = useState([]);
   const [searchMarker, setSearchMarker] = useState({});
   const [click, setClick] = useState(false);
@@ -104,12 +106,11 @@ const MapContainer = ({ setMapLatLng, username }) => {
   //   if (isMounted) {
   //     axios.get('/db/maps')
   //       .then(({ data }) => {
-  //         const publicPpl = data.filter((friend) => !friend.isPrivate);
-  //         setFriendLocations(publicPpl);
+  //         setReports(data);
   //       });
   //   }
   //   return () => { isMounted = false; };
-  // }, [privateSwitch]);
+  // }, []);
 
   useEffect(() => {
     let isMounted = true;
@@ -118,7 +119,13 @@ const MapContainer = ({ setMapLatLng, username }) => {
         .then(({ data }) => {
           const publicPpl = data.filter((friend) => !friend.isPrivate && friend.lat && friend.lng);
           setFriendLocations(publicPpl);
-        });
+        })
+        .catch(() => console.warn('error in customer get'));
+      axios.get('/db/maps')
+        .then(({ data }) => {
+          setReports(data);
+        })
+        .catch(() => console.warn('error in maps'));
     }
     return () => { isMounted = false; };
   }, [privateSwitch]);
@@ -252,6 +259,7 @@ const MapContainer = ({ setMapLatLng, username }) => {
         />
         <BarMarkers parties={parties} />
         <FriendsMarkers friendLocations={friendLocations} />
+        <ReportMarkers reports={reports} />
         <PrivateSwitch
           className="privateSwitch"
           gId={gId}
