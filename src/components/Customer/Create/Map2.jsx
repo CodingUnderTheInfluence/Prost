@@ -101,17 +101,6 @@ const MapContainer = ({ setMapLatLng, username }) => {
   //   navigator.geolocation.getCurrentPosition(success, fail);
   // }, []);
 
-  // useEffect(() => {
-  //   let isMounted = true;
-  //   if (isMounted) {
-  //     axios.get('/db/maps')
-  //       .then(({ data }) => {
-  //         setReports(data);
-  //       });
-  //   }
-  //   return () => { isMounted = false; };
-  // }, []);
-
   useEffect(() => {
     let isMounted = true;
     if (isMounted) {
