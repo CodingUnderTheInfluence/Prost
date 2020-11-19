@@ -4,7 +4,7 @@ import propTypes from 'prop-types';
 import warning from '../../../../images/warning.png';
 import user from '../../../../images/user.png';
 
-const FriendsMarker = ({ friendsLocation: { user_name, latitude, longitude, report } }) => {
+const FriendsMarker = ({ friendsLocation: { user_name, lat, lng, report } }) => {
   const [show, setShow] = useState(false);
   const iconSelect = report ? warning : user;
 
@@ -15,8 +15,8 @@ const FriendsMarker = ({ friendsLocation: { user_name, latitude, longitude, repo
     <Marker
       key={user_name}
       position={{
-        lat: +latitude,
-        lng: +longitude,
+        lat: +lat,
+        lng: +lng,
       }}
       onClick={() => handleClick()}
       icon={{ url: iconSelect }}

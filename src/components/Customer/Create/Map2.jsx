@@ -81,7 +81,6 @@ const MapContainer = ({ setMapLatLng, username }) => {
     lng: -90.0715,
   };
 
-
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY,
     libraries,
@@ -100,12 +99,24 @@ const MapContainer = ({ setMapLatLng, username }) => {
   //   navigator.geolocation.getCurrentPosition(success, fail);
   // }, []);
 
+  // useEffect(() => {
+  //   let isMounted = true;
+  //   if (isMounted) {
+  //     axios.get('/db/maps')
+  //       .then(({ data }) => {
+  //         const publicPpl = data.filter((friend) => !friend.isPrivate);
+  //         setFriendLocations(publicPpl);
+  //       });
+  //   }
+  //   return () => { isMounted = false; };
+  // }, [privateSwitch]);
+
   useEffect(() => {
     let isMounted = true;
     if (isMounted) {
-      axios.get('/db/maps')
+      axios.get('/db/customer/all')
         .then(({ data }) => {
-          const publicPpl = data.filter((friend) => !friend.isPrivate);
+          const publicPpl = data.filter((friend) => !friend.isPrivate && friend.lat && friend.lng);
           setFriendLocations(publicPpl);
         });
     }
