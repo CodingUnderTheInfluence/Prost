@@ -6,6 +6,7 @@ import warning from '../../../../images/warning.png';
 
 const DangerMarker = ({ danger, getDblClickDangerMarker }) => {
   const { lat, lng } = danger;
+  // console.log('reports in danger maerk', reports);
   const [show, setShow] = useState(false);
   const [selected, setSelected] = useState('Assault');
   const [success, setSuccess] = useState(false);
