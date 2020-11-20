@@ -71,7 +71,7 @@ mapRouter.post('/report', (req, res) => {
 mapRouter.delete('/report/destroy/all', (req, res) => {
   Maps.destroy({
     where: {
-      [Op.or]: [{ report: 'Theft' }, { report: 'Shooting' }, { report: 'Assult' }],
+      [Op.or]: [{ report: 'Theft' }, { report: 'Shooting' }, { report: 'Assault' }],
     },
   })
     .then((data) => res.send(JSON.stringify(data)))
