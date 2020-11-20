@@ -61,7 +61,7 @@ const searchBoxStyle = {
   marginLeft: '-120px',
 };
 
-const MapContainer = ({ setMapLatLng, username }) => {
+const MapContainer = ({ userData, setMapLatLng }) => {
   const { gId } = localStorage;
 
   const [currentPosition, setCurrentPosition] = useState({
@@ -69,6 +69,7 @@ const MapContainer = ({ setMapLatLng, username }) => {
     lng: -90.0715,
   });
   const [friendLocations, setFriendLocations] = useState([]);
+  const [curUser, setCurUser] = useState(null);
   const [dangerMarkers, setDangerMarkers] = useState([]);
   const [reports, setReports] = useState([]);
   const [privateSwitch, setPrivateSwitch] = useState(false);
@@ -102,6 +103,12 @@ const MapContainer = ({ setMapLatLng, username }) => {
   // }, []);
 
   useEffect(() => {
+    if (userData) {
+      setCurUser(userData);
+    }
+  });
+
+  useEffect(() => {
     let isMounted = true;
     if (isMounted) {
       axios.get('/db/customer/all')
@@ -115,9 +122,14 @@ const MapContainer = ({ setMapLatLng, username }) => {
           setReports(data);
         })
         .catch(() => console.warn('error in maps'));
+      if (curUser) {
+        axios.get(`/db/friendship/all/friends/${curUser.id}`)
+          .then(({ data }) => {
+          });
+      }
     }
     return () => { isMounted = false; };
-  }, [privateSwitch]);
+  }, [curUser, privateSwitch]);
 
   useEffect(() => {
     let isMounted = true;
