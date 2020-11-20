@@ -58,7 +58,7 @@ mapRouter.put('/:gId', (req, res) => {
       where: { id_google: gId },
     },
   )
-    .then(([udatedLine, [updatedPrivate]]) => {
+    .then(([updatedLine, [updatedPrivate]]) => {
       res.status(201).send(updatedPrivate);
     })
     .catch((err) => res.send(err));

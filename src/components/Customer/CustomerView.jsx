@@ -79,7 +79,7 @@ const CustomerView = ({
       return <FriendsView userData={userData} socket={socket} />;
     }
     if (value === 1) {
-      return <MapContainer setMapLatLng={setMapLatLng} gId={gId} />;
+      return <MapContainer setMapLatLng={setMapLatLng} gId={gId} userData={userData} />;
     }
     if (value === 2) {
       return <Messages username={username} />;
@@ -87,7 +87,7 @@ const CustomerView = ({
     if (value === 3) {
       return <CustomerProfile setViewValue={setViewValue} gId={gId} />;
     }
-    return <MapContainer />;
+    return <MapContainer setMapLatLng={setMapLatLng} gId={gId} userData={userData} />;
   };
   return (
     <Grid container direction="column" justify="center" alignItems="center">
