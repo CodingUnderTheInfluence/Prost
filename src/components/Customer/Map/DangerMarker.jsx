@@ -7,7 +7,7 @@ import warning from '../../../../images/warning.png';
 const DangerMarker = ({ danger, getDblClickDangerMarker }) => {
   const { lat, lng } = danger;
   const [show, setShow] = useState(false);
-  const [selected, setSelected] = useState('Assult');
+  const [selected, setSelected] = useState('Assault');
   const [success, setSuccess] = useState(false);
 
   const handleChange = (event) => {
@@ -49,7 +49,7 @@ const DangerMarker = ({ danger, getDblClickDangerMarker }) => {
               <span>
                 <select onChange={handleChange}>
                   <option value="Theft">Theft</option>
-                  <option selected value="Assult">Assult</option>
+                  <option selected value="Assault">Assault</option>
                   <option value="Shooting">Shooting</option>
                 </select>
                 <button type="button" onClick={postReport}>Submit Report</button>
