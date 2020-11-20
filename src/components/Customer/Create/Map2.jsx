@@ -123,8 +123,10 @@ const MapContainer = ({ userData, setMapLatLng }) => {
         })
         .catch(() => console.warn('error in maps'));
       if (curUser) {
-        axios.get(`/db/friendship/all/friends/${curUser.id}`)
+        axios.get(`/db/friendship/myFriends/map/${curUser.id}`)
           .then(({ data }) => {
+            console.log(data)
+            // setFriendLocations(data);
           });
       }
     }
