@@ -65,7 +65,27 @@ friendshipRouter.get('/myFriends', (req, res) => {
       res.send(friendships)
     })
     .catch(err => console.warn(err));
-})
+});
+
+friendshipRouter.get('/myFriends/map/:customerId', (req, res) => {
+  const { customerId } = req.params;
+  Friendship.findAll({ where: { [Op.or]: [{ id_customer: customerId }, { id_friend: customerId }] } })
+    .then((friendships) => {
+      const ids = friendships.map(friend => ({ id: friend.id }));
+      Customer.findAll({
+        where: {
+          [Op.or]: ids
+        }
+      })
+        .then((details) => {
+          details.length > 0 ? res.send(details) : res.send('Empty')
+        })
+        .catch((err) => {
+          res.status(500).send(err);
+        });
+    })
+    .catch(err => console.warn(err));
+});
 
 friendshipRouter.delete('/removeRequest', (req, res) => {
   let f = req.body;
