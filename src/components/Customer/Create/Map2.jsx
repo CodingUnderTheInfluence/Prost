@@ -69,6 +69,7 @@ const MapContainer = ({ userData, setMapLatLng }) => {
     lat: 29.95115,
     lng: -90.0715,
   });
+  const [users, setUsers] = useState([]);
   const [friendLocations, setFriendLocations] = useState([]);
   const [curUser, setCurUser] = useState(null);
   const [dangerMarkers, setDangerMarkers] = useState([]);
@@ -115,7 +116,8 @@ const MapContainer = ({ userData, setMapLatLng }) => {
       axios.get('/db/customer/all')
         .then(({ data }) => {
           const publicPpl = data.filter((friend) => !friend.isPrivate && friend.lat && friend.lng);
-          setFriendLocations(publicPpl);
+          setUsers(publicPpl);
+          // setFriendLocations(publicPpl);
         })
         .catch(() => console.warn('error in customer get'));
       axios.get('/db/maps')
@@ -126,8 +128,7 @@ const MapContainer = ({ userData, setMapLatLng }) => {
       if (curUser) {
         axios.get(`/db/friendship/myFriends/map/${curUser.id}`)
           .then(({ data }) => {
-            console.log(data)
-            // setFriendLocations(data);
+            setFriendLocations(data);
           });
       }
     }
