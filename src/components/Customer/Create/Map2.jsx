@@ -35,6 +35,7 @@ const libraries = ['places'];
 const mapStyles = {
   width: '100vw',
   height: '90vh',
+  position: 'absolute',
 };
 
 const options = {
@@ -208,15 +209,22 @@ const MapContainer = ({ userData, setMapLatLng }) => {
   }
 
   return (
-    <div>
+    <div id="map">
+      <PrivateSwitch
+        id="privateSwitch"
+        gId={gId}
+        getSwitch={getSwitch}
+      />
       {click && (
         <BarInfo
+          id="barInfo"
           placeInfo={placeInfo}
           searchMarker={searchMarker}
           customerId={gId}
         />
       )}
       <GoogleMap
+        id="mapContainer"
         mapContainerStyle={mapStyles}
         zoom={12}
         center={currentPosition || defaultCenter}
@@ -225,6 +233,7 @@ const MapContainer = ({ userData, setMapLatLng }) => {
         onClick={onMapClick}
         onLoad={onMapLoad}
       >
+        {/* <div style={{ height: 100, width: 100, background: 'red', zIndex: 10 }}> hi </div> */}
         <Search
           panTo={panTo}
           currentPosition={currentPosition}
@@ -239,9 +248,7 @@ const MapContainer = ({ userData, setMapLatLng }) => {
               lat: +searchMarker.lat,
               lng: +searchMarker.lng,
             }}
-            icon={{
-              url: beerGold,
-            }}
+            icon={{ url: beerGold }}
           />
         )
           : (
@@ -263,11 +270,6 @@ const MapContainer = ({ userData, setMapLatLng }) => {
         <BarMarkers parties={parties} />
         <FriendsMarkers friendLocations={friendLocations} />
         <ReportMarkers reports={reports} />
-        <PrivateSwitch
-          className="privateSwitch"
-          gId={gId}
-          getSwitch={getSwitch}
-        />
       </GoogleMap>
       {/* <DirectionsBtn /> */}
       <QuickCreate
