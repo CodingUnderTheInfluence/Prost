@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import { Marker, InfoWindow } from '@react-google-maps/api';
 import propTypes from 'prop-types';
 import user from '../../../../images/user.png';
+import me from '../../../../images/me.png';
 
-const FriendsMarker = ({ friendsLocation: { user_name, lat, lng } }) => {
+const FriendsMarker = ({ friendsLocation }) => {
   const [show, setShow] = useState(false);
-  // const iconSelect = report ? warning : user;
+  const { user_name, id_google, lat, lng } = friendsLocation;
+
+  const iconSelect = id_google === localStorage.gId ? me : user;
 
   const handleClick = () => {
     setShow(!show);
@@ -18,11 +21,13 @@ const FriendsMarker = ({ friendsLocation: { user_name, lat, lng } }) => {
         lng: +lng,
       }}
       onClick={() => handleClick()}
-      icon={{ url: user }}
+      icon={{ url: iconSelect }}
     >
       {show && (
         <InfoWindow>
-          <h3>{user_name}</h3>
+          <div>
+            <h3>{user_name}</h3>
+          </div>
         </InfoWindow>
       )}
     </Marker>
@@ -32,8 +37,9 @@ const FriendsMarker = ({ friendsLocation: { user_name, lat, lng } }) => {
 FriendsMarker.propTypes = {
   friendsLocation: propTypes.shape({
     user_name: propTypes.string,
-    latitude: propTypes.string,
-    longitude: propTypes.string,
+    id_google: propTypes.number,
+    lat: propTypes.string,
+    lng: propTypes.string,
     report: propTypes.string,
   }),
 };
