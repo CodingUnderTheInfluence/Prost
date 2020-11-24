@@ -1,3 +1,13 @@
+* {
+  padding: 0px;
+  margin: 0px;
+}
+
+#map {
+  position: absolute;
+  height: inherit;
+}
+
 .myLocation {
   margin: auto;
   top: auto;
@@ -11,16 +21,12 @@
   z-index: 10;
 }
 
-.privateSwitch {
-  margin: auto;
-  top: auto;
-  right: 20px;
-  bottom: 100px;
+/* #privateSwitch {
   z-index: 10;
-  position: fixed;
-}
-
-* {
-  padding: 0px;
-  margin: 0px;
-}
+  left: 100px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%)
+} */
