@@ -190,7 +190,6 @@ customerRouter.post('/updateUserName', (req, res) => {
 
 customerRouter.put('/location/:gId', (req, res) => {
   const { gId } = req.params;
-  console.log(req.body)
   const { isPrivate, lat, lng } = req.body;
   Customer.update(
     {
