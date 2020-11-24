@@ -19,7 +19,7 @@ const PrivateSwitch = ({ gId, getSwitch }) => {
 
   const handleChange = () => {
     setPrivate(!isPrivate);
-    axios.put(`/db/maps/${gId}`, { isPrivate })
+    axios.put(`/db/customer/location/${gId}`, { isPrivate })
       .then(() => getSwitch(isPrivate))
       .catch(() => console.warn('error in private switch'));
   };

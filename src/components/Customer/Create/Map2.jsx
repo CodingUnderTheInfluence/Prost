@@ -17,7 +17,6 @@ import { Grid } from '@material-ui/core';
 import beer from '../../../../images/beer.png';
 import beerGold from '../../../../images/beerGold.png';
 import user from '../../../../images/user.png';
-// import { GiBeerStein } from "react-icons/gi";
 import Search from './Search.jsx';
 import BarInfo from './BarInfo.jsx';
 import PrivateSwitch from './PrivateSwitch.jsx';
@@ -42,6 +41,7 @@ const options = {
   zoomControl: false,
   scaleControl: false,
   mapTypeControl: false,
+  streetViewControl: false,
   fullscreenControl: false,
   styles: mapStyle,
 };
@@ -273,7 +273,6 @@ const MapContainer = ({ userData, setMapLatLng }) => {
       </GoogleMap>
       {/* <DirectionsBtn /> */}
       <QuickCreate
-        // className="myLocationDiv"
         getMyLocation={getMyLocation}
         panTo={panTo}
       />
