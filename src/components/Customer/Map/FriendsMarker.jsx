@@ -44,7 +44,7 @@ const FriendsMarker = ({ friendsLocation }) => {
 FriendsMarker.propTypes = {
   friendsLocation: propTypes.shape({
     user_name: propTypes.string,
-    id_google: propTypes.number,
+    id_google: propTypes.string,
     lat: propTypes.string,
     lng: propTypes.string,
     report: propTypes.string,
