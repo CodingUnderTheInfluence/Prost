@@ -121,7 +121,7 @@ export default function TranslateLanding({ setView, customerId }) {
       <span>
         {manual
           ? <Translate classes={classes} setPref={setPref} setManualOrder={setManualOrder} clearOrder={clearOrder} displayOrder={displayOrder} translateOrder={translateOrder} />
-          : <SearchOrder menus={menus} setPref={setPref} handleChange={handleChange} list={list} classes={classes} />}
+          : <SearchOrder menus={menus} pref={pref} setPref={setPref} handleChange={handleChange} list={list} classes={classes} order={order} />}
         <Grid>
           <ButtonGroup size="small" aria-label="small outlined button group">
             <Button onClick={clearOrder} variant="outlined" color="secondary">Clear Order</Button>
