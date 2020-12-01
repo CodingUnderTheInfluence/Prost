@@ -55,7 +55,7 @@ app.use('/db/maps', mapRouter);
 app.use('/db/eContact', eContactRouter);
 app.use('/db/drinks', drinksRouter);
 
-app.get('/', (req, res) => {
+app.get('*', (req, res) => {
   res.sendFile(HTML_FILE);
 });
 
