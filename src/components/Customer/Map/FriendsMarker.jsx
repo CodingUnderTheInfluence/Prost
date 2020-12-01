@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PrivateMessage from '../Friends/PrivateMessage.jsx';
 import { Marker, InfoWindow } from '@react-google-maps/api';
 import propTypes from 'prop-types';
 import user from '../../../../images/user.png';
@@ -27,6 +28,12 @@ const FriendsMarker = ({ friendsLocation }) => {
         <InfoWindow>
           <div>
             <h3>{user_name}</h3>
+            {/* TODO */}
+            {/* <button
+              type="button"
+            >
+              send msg
+            </button> */}
           </div>
         </InfoWindow>
       )}
