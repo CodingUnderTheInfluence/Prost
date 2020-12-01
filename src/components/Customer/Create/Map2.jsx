@@ -211,6 +211,15 @@ const MapContainer = ({ userData, setMapLatLng }) => {
 
   return (
     <div id="map">
+      {/* TODO */}
+      {/* <button
+        type="button"
+        onClick={() => {
+          setFriendLocations(users);
+        }}
+      >
+        show friends
+      </button> */}
       <PrivateSwitch
         id="privateSwitch"
         gId={gId}
@@ -272,6 +281,7 @@ const MapContainer = ({ userData, setMapLatLng }) => {
         <FriendsMarkers friendLocations={friendLocations} />
         <ReportMarkers reports={reports} />
       </GoogleMap>
+      {/* TODO */}
       {/* <DirectionsBtn /> */}
       <QuickCreate
         getMyLocation={getMyLocation}
