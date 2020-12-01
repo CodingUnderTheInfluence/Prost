@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Grid,
   Typography,
@@ -48,7 +48,7 @@ const Favorite = ({ setView, customerId }) => {
         id_bar: num,
         id_customer: customerId,
       };
-      const result = await fetch('/db/cb/delete/favorite', {
+      await fetch('/db/cb/delete/favorite', {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
