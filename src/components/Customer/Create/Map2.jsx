@@ -17,6 +17,7 @@ import { Grid } from '@material-ui/core';
 import beer from '../../../../images/beer.png';
 import beerGold from '../../../../images/beerGold.png';
 import user from '../../../../images/user.png';
+// import { GiBeerStein } from "react-icons/gi";
 import Search from './Search.jsx';
 import BarInfo from './BarInfo.jsx';
 import PrivateSwitch from './PrivateSwitch.jsx';
@@ -34,14 +35,12 @@ const libraries = ['places'];
 const mapStyles = {
   width: '100vw',
   height: '90vh',
-  position: 'absolute',
 };
 
 const options = {
   zoomControl: false,
   scaleControl: false,
   mapTypeControl: false,
-  streetViewControl: false,
   fullscreenControl: false,
   styles: mapStyle,
 };
@@ -69,7 +68,6 @@ const MapContainer = ({ userData, setMapLatLng }) => {
     lat: 29.95115,
     lng: -90.0715,
   });
-  const [users, setUsers] = useState([]);
   const [friendLocations, setFriendLocations] = useState([]);
   const [curUser, setCurUser] = useState(null);
   const [dangerMarkers, setDangerMarkers] = useState([]);
@@ -116,8 +114,7 @@ const MapContainer = ({ userData, setMapLatLng }) => {
       axios.get('/db/customer/all')
         .then(({ data }) => {
           const publicPpl = data.filter((friend) => !friend.isPrivate && friend.lat && friend.lng);
-          setUsers(publicPpl);
-          // setFriendLocations(publicPpl);
+          setFriendLocations(publicPpl);
         })
         .catch(() => console.warn('error in customer get'));
       axios.get('/db/maps')
@@ -128,7 +125,7 @@ const MapContainer = ({ userData, setMapLatLng }) => {
       if (curUser) {
         axios.get(`/db/friendship/myFriends/map/${curUser.id}`)
           .then(({ data }) => {
-            setFriendLocations(data);
+            // setFriendLocations(data);
           });
       }
     }
@@ -210,31 +207,15 @@ const MapContainer = ({ userData, setMapLatLng }) => {
   }
 
   return (
-    <div id="map">
-      {/* TODO */}
-      {/* <button
-        type="button"
-        onClick={() => {
-          setFriendLocations(users);
-        }}
-      >
-        show friends
-      </button> */}
-      <PrivateSwitch
-        id="privateSwitch"
-        gId={gId}
-        getSwitch={getSwitch}
-      />
+    <div>
       {click && (
         <BarInfo
-          id="barInfo"
           placeInfo={placeInfo}
           searchMarker={searchMarker}
           customerId={gId}
         />
       )}
       <GoogleMap
-        id="mapContainer"
         mapContainerStyle={mapStyles}
         zoom={12}
         center={currentPosition || defaultCenter}
@@ -243,7 +224,6 @@ const MapContainer = ({ userData, setMapLatLng }) => {
         onClick={onMapClick}
         onLoad={onMapLoad}
       >
-        {/* <div style={{ height: 100, width: 100, background: 'red', zIndex: 10 }}> hi </div> */}
         <Search
           panTo={panTo}
           currentPosition={currentPosition}
@@ -258,7 +238,9 @@ const MapContainer = ({ userData, setMapLatLng }) => {
               lat: +searchMarker.lat,
               lng: +searchMarker.lng,
             }}
-            icon={{ url: beerGold }}
+            icon={{
+              url: beerGold,
+            }}
           />
         )
           : (
@@ -280,10 +262,15 @@ const MapContainer = ({ userData, setMapLatLng }) => {
         <BarMarkers parties={parties} />
         <FriendsMarkers friendLocations={friendLocations} />
         <ReportMarkers reports={reports} />
+        <PrivateSwitch
+          className="privateSwitch"
+          gId={gId}
+          getSwitch={getSwitch}
+        />
       </GoogleMap>
-      {/* TODO */}
       {/* <DirectionsBtn /> */}
       <QuickCreate
+        // className="myLocationDiv"
         getMyLocation={getMyLocation}
         panTo={panTo}
       />
