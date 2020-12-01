@@ -70,7 +70,7 @@ const History = ({ setView, customerId }) => {
         alignItems="center"
       >
         {list && (list.map((bar, key) => (
-          <div>
+          <div key={key}>
             <Grid
               item
               container

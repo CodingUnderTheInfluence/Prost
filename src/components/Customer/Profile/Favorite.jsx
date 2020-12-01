@@ -15,7 +15,6 @@ const useStyles = makeStyles({
     borderRadius: '5px',
     margin: '5px 0 0 0 ',
     padding: '5px',
-    width: '200px',
   },
   button: {
     variant: 'contained',
@@ -69,7 +68,7 @@ const Favorite = ({ setView, customerId }) => {
   return (
     <Grid container direction="column" justify="center" alignItems="center">
       <Grid item container direction="row" justify="center" alignItems="center">
-        <Typography variant="h5">
+        <Typography variant="h3">
           Favorites List
         </Typography>
       </Grid>
