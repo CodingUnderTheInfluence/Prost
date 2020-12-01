@@ -13,19 +13,43 @@ import {
   ComboboxOption,
   ComboboxOptionText,
 } from '@reach/combobox';
+import { makeStyles } from '@material-ui/core';
 import { ContactPhoneSharp } from '@material-ui/icons';
 // import "@reach/combobox/styles.css";
 
 const searchStyle = {
   position: 'absolute',
   zIndex: 2,
-  left: '50%',
-  padding: '10px',
+  left: '25%',
+  paddingTop: '30px',
 };
+
+const useStyles = makeStyles(() => ({
+  box: {
+    height: '30px',
+    maxWidth: 'auto',
+    fontSize: '12pt',
+    fontWeight: '200',
+    // position: 'absolute',
+  },
+  list: {
+    fontSize: '12pt',
+    fontFamily: 'Helvetica, Verdana, sans-serif',
+  },
+  popover: {
+    fontWeight: '300',
+    fontFamily: 'Helvetica, Verdana, sans-serif',
+  },
+  option: {
+    fontWeight: '300',
+    fontFamily: 'Helvetica, Verdana, sans-serif',
+  },
+}));
 
 const Search = ({
   panTo, currentPosition, searchBoxStyle, getPlaceInfo,
 }) => {
+  const classes = useStyles();
   const {
     ready,
     value,
@@ -63,7 +87,7 @@ const Search = ({
         }}
       >
         <ComboboxInput
-          style={searchBoxStyle}
+          className={classes.box}
           value={value}
           onChange={(e) => {
             setValue(e.target.value);
@@ -72,11 +96,11 @@ const Search = ({
           placeholder="Find bars"
         />
         {/* takes the suggestions from google places */}
-        <ComboboxPopover>
-          <ComboboxList>
+        <ComboboxPopover className={classes.popover}>
+          <ComboboxList className={classes.list}>
             {status === 'OK'
-              && data.map((results) => (
-                <ComboboxOption key={results.place_id} value={results.description} />
+              && data.map(({ place_id, description }) => (
+                <ComboboxOption key={place_id} value={description} />
               ))}
           </ComboboxList>
         </ComboboxPopover>

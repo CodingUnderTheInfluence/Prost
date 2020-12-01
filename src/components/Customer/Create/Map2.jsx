@@ -42,6 +42,7 @@ const options = {
   scaleControl: false,
   mapTypeControl: false,
   fullscreenControl: false,
+  streetViewControl: false,
   styles: mapStyle,
 };
 
