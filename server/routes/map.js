@@ -15,16 +15,6 @@ mapRouter.get('/', (req, res) => {
     });
 });
 
-// mapRouter.get('/:gId', (req, res) => {
-//   const { gId } = req.params;
-//   Maps.findOne({ where: { id_google: gId } })
-//     .then((user) => user)
-//     .then((user) => {
-
-//     })
-//     .catch(() => res.send('user not found'));
-// });
-
 mapRouter.post('/', (req, res) => {
   const {
     userName,
