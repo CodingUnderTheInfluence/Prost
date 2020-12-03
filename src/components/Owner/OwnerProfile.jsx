@@ -42,6 +42,7 @@ const OwnerProfile = ({
   image,
   barName,
   barAddress,
+  barId,
   barNumber,
   capacity,
 }) => {
@@ -193,6 +194,7 @@ const OwnerProfile = ({
         barAddress={barAddress}
         barNumber={barNumber}
         barName={barName}
+        barId={barId}
         capacity={capacity}
         handleClickOpen={handleClickOpen}
         handleClickOpenInfo={handleClickOpenInfo}
