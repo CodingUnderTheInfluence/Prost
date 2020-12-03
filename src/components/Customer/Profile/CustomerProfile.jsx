@@ -3,7 +3,7 @@ import axios from 'axios';
 import Home from './Home.jsx';
 import EContact from './EContact.jsx';
 import Favorite from './Favorite.jsx';
-import Translate from './Translate.jsx';
+import TranslateLanding from './TranslateLanding.jsx';
 import Checkin from './Checkin.jsx';
 import History from './History.jsx';
 import Friend from './Friend.jsx';
@@ -80,7 +80,7 @@ const CustomerProfile = ({ setViewValue, gId }) => {
       );
     case 'Translate':
       return (
-        <Translate
+        <TranslateLanding
           setView={setView}
           customerId={customerId}
         />
