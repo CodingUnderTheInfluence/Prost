@@ -19,9 +19,11 @@ const Dialogs = ({
   capacity,
   handleCloseInfo,
   handleCloseOcc,
+  handleCloseMenu,
   handleClose,
   openInfo,
   openOcc,
+  openMenu,
   open,
   count,
 }) => (
@@ -93,6 +95,29 @@ const Dialogs = ({
       </DialogContent>
       <DialogActions>
         <Button onClick={handleCloseOcc} color="primary" autoFocus>
+          Close
+        </Button>
+      </DialogActions>
+    </Dialog>
+
+    {/* THIS IS THE MENU DIALOG */}
+    <Dialog
+      open={openMenu}
+      onClose={handleCloseMenu}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+    >
+      <DialogTitle id="alert-dialog-title">Menu Information</DialogTitle>
+      <DialogContent>
+        <DialogContentText id="alert-dialog-description">
+          <Typography variant="subtitle1">
+            {`Current Amount of People: ${count}`}
+            {occupencyStatus()}
+          </Typography>
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleCloseMenu} color="primary" autoFocus>
           Close
         </Button>
       </DialogActions>
