@@ -23,9 +23,10 @@ import {
 } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import propTypes from 'prop-types';
 import { addItem } from '../../../helpers/menu';
 
-export default function InputItem() {
+export default function InputItem({ barId }) {
   const [inputItem, setInputItem] = useState('');
   const [selected, setSelected] = useState('');
 
@@ -57,7 +58,7 @@ export default function InputItem() {
         color="primary"
         autoFocus
         onClick={() => {
-          addItem(selected, inputItem);
+          addItem(selected, inputItem, barId);
           setInputItem('');
         }}
       >
@@ -66,3 +67,5 @@ export default function InputItem() {
     </FormControl>
   );
 }
+
+InputItem.propTypes = propTypes.any;
