@@ -62,7 +62,7 @@ menuRouter.post('/insert', (req, res) => {
   const { barId, info, lang } = req.body;
   Menu.create({
     where: {
-      'id_bar': barId,
+      id_bar: barId,
       info,
       lang,
     },
@@ -81,13 +81,17 @@ menuRouter.put('/update', (req, res) => {
   },
   {
     where: {
-      'id_bar': barId,
+      id_bar: barId,
     },
   })
     .then((menus) => res.send(menus))
     .catch((err) => {
       res.status(500).send(err);
     });
+});
+
+menuRouter.delete('/delete', (req, res) => {
+  res.send('delete');
 });
 
 module.exports = {
