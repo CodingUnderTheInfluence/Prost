@@ -1,5 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import { MarkerClusterer } from '@react-google-maps/api';
 import DangerMarker from './DangerMarker.jsx';
 
 const DangerMarkers = ({ dangerMarkers, getDblClickDangerMarker }) => (

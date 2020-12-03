@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Marker, InfoWindow } from '@react-google-maps/api';
 import warning from '../../../../images/warning.png';
 
-const ReportMarker = ({ report, latitude, longitude }) => {
+const ReportMarker = ({ report, latitude, longitude, clusterer }) => {
   const [show, setShow] = useState(false);
 
   return (
@@ -13,6 +13,7 @@ const ReportMarker = ({ report, latitude, longitude }) => {
         lng: +longitude,
       }}
       onClick={() => setShow(!show)}
+      clusterer={clusterer}
     >
       {show && (
         <InfoWindow>
