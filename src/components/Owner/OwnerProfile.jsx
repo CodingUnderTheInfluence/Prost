@@ -183,7 +183,7 @@ const OwnerProfile = ({
         onClick={handleClickOpenMenu}
         className={classes.button}
       >
-        Bar's Menu
+        Menu
       </Button>
       <div className={classes.logout}>
         <Logout />
@@ -197,7 +197,8 @@ const OwnerProfile = ({
         handleClickOpen={handleClickOpen}
         handleClickOpenInfo={handleClickOpenInfo}
         handleClickOpenOcc={handleClickOpenOcc}
-        handelClickOpenMenu={handelClickOpenMenu}
+        handleClickOpenMenu={handleClickOpenMenu}
+        handleCloseMenu={handleCloseMenu}
         handleCloseInfo={handleCloseInfo}
         handleCloseOcc={handleCloseOcc}
         handleClose={handleClose}
