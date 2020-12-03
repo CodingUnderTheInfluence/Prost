@@ -49,7 +49,6 @@ const DangerMarker = ({ danger, getDblClickDangerMarker }) => {
       icon={{
         url: warning,
       }}
-
     >
       {show && (
         <InfoWindow>
