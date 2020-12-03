@@ -23,15 +23,12 @@ import {
 } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { addItem } from '../../../helpers/menu';
 
 export default function InputItem() {
   const [inputItem, setInputItem] = useState('');
   const [selected, setSelected] = useState('');
-  const addItem = () => {
-    console.log(inputItem, selected);
-    setInputItem('');
-    setSelected('');
-  };
+
   const handleChange = (event) => {
     setSelected(event.target.value);
   };
@@ -56,7 +53,14 @@ export default function InputItem() {
         value={inputItem}
         onChange={(e) => setInputItem(e.target.value)}
       />
-      <Button color="primary" autoFocus onClick={addItem}>
+      <Button
+        color="primary"
+        autoFocus
+        onClick={() => {
+          addItem(selected, inputItem);
+          setInputItem('');
+        }}
+      >
         Add
       </Button>
     </FormControl>
