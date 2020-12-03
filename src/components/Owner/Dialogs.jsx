@@ -22,13 +22,14 @@ import {
   IconButton,
 } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import InputItem from './Menu/InputItem.jsx';
+import BarMenuList from './Menu/BarMenuList.jsx';
 
 const Dialogs = ({
   occupencyStatus,
   barAddress,
   barNumber,
+  barId,
   barName,
   capacity,
   handleCloseInfo,
@@ -140,31 +141,14 @@ const Dialogs = ({
         <Typography variant="h6">
           Add Menu Item
         </Typography>
-        <InputItem />
+        <InputItem barId={barId} />
         <Divider />
         <Grid container spacing={2}>
           <Grid item xs={12} md={6}>
             <Typography variant="h6">
               Current Menu
             </Typography>
-            <Accordion>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-label="Expand"
-                aria-controls="additional-actions1-content"
-                id="additional-actions1-header"
-              >
-                <Typography color="textPrimary">
-                  heading
-                </Typography>
-              </AccordionSummary>
-              <Grid item xs={12} md={6}>
-                <AccordionDetails>
-                  Item Name
-                  <Button color="secondary">Delete</Button>
-                </AccordionDetails>
-              </Grid>
-            </Accordion>
+            <BarMenuList barId={barId} />
           </Grid>
         </Grid>
       </DialogContent>
