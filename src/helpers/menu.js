@@ -42,10 +42,11 @@ const createString = (string) => {
  * check that a string is valid, get the barId, format the string, make the post request to the server for to add the menu,
  */
 
-module.exports.addItem = (inputItem, selected, barId) => {
+module.exports.addItem = (selected, inputItem, barId) => {
   console.log(inputItem, selected, barId);
   if (inputItem === '') {
-    return false;
+    return ;
   }
+
   return true;
 };
