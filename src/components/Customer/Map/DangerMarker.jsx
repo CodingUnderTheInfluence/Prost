@@ -1,8 +1,17 @@
 import React, { useState } from 'react';
 import propTypes from 'prop-types';
 import { Marker, InfoWindow, Data } from '@react-google-maps/api';
+import {
+  Grid,
+  MenuItem,
+  IconButton,
+  TextField
+} from '@material-ui/core';
+import SendIcon from '@material-ui/icons/Send';
 import axios from 'axios';
 import warning from '../../../../images/warning.png';
+
+const reports = ['Theft', 'Assault', 'Shooting'];
 
 const DangerMarker = ({ danger, getDblClickDangerMarker }) => {
   const { lat, lng } = danger;
@@ -42,21 +51,35 @@ const DangerMarker = ({ danger, getDblClickDangerMarker }) => {
       }}
 
     >
-      {show
-        && (
-          <InfoWindow>
-            {success ? (<p>{`${selected} Reported!`}</p>) : (
-              <span>
-                <select onChange={handleChange}>
-                  <option value="Theft">Theft</option>
-                  <option selected value="Assault">Assault</option>
-                  <option value="Shooting">Shooting</option>
-                </select>
-                <button type="button" onClick={postReport}>Submit Report</button>
-              </span>
-            )}
-          </InfoWindow>
-        )}
+      {show && (
+        <InfoWindow>
+          {success ? (<h3>{`${selected} Reported!`}</h3>) : (
+            <Grid>
+              <TextField
+                select
+                value={selected}
+                helperText="Report Crime"
+                onChange={handleChange}
+              >
+                {reports.map((report) => (
+                  <MenuItem
+                    key={report}
+                    value={report}
+                  >
+                    {report}
+                  </MenuItem>
+                ))}
+              </TextField>
+              <IconButton
+                aria-label="send"
+                onClick={postReport}
+              >
+                <SendIcon />
+              </IconButton>
+            </Grid>
+          )}
+        </InfoWindow>
+      )}
     </Marker>
   );
 };
