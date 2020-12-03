@@ -67,6 +67,16 @@ const OwnerProfile = ({
     setOpenOcc(false);
   };
     /*
+        This opens the bar's menu
+    */
+  const [openMenu, setOpenMenu] = useState(false);
+  const handleClickOpenMenu = () => {
+    setOpenMenu(true);
+  };
+  const handleCloseMenu = () => {
+    setOpenMenu(false);
+  };
+    /*
         This opens normal Dialog
     */
   const [open, setOpen] = useState(false);
@@ -167,6 +177,14 @@ const OwnerProfile = ({
       >
         Current Occupency
       </Button>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={handleClickOpenMenu}
+        className={classes.button}
+      >
+        Bar's Menu
+      </Button>
       <div className={classes.logout}>
         <Logout />
       </div>
@@ -179,11 +197,13 @@ const OwnerProfile = ({
         handleClickOpen={handleClickOpen}
         handleClickOpenInfo={handleClickOpenInfo}
         handleClickOpenOcc={handleClickOpenOcc}
+        handelClickOpenMenu={handelClickOpenMenu}
         handleCloseInfo={handleCloseInfo}
         handleCloseOcc={handleCloseOcc}
         handleClose={handleClose}
         openInfo={openInfo}
         openOcc={openOcc}
+        openMenu={openMenu}
         open={open}
         count={count}
       />
