@@ -23,6 +23,7 @@ import {
 } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import InputItem from './Menu/InputItem.jsx';
 
 const Dialogs = ({
   occupencyStatus,
@@ -139,24 +140,7 @@ const Dialogs = ({
         <Typography variant="h6">
           Add Menu Item
         </Typography>
-        <FormControl>
-          <Select
-            value="type"
-          >
-            <MenuItem>item 1</MenuItem>
-            <MenuItem>item 2</MenuItem>
-          </Select>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="item"
-            label="Item"
-            fullWidth
-          />
-          <Button color="primary" autoFocus>
-            Add
-          </Button>
-        </FormControl>
+        <InputItem />
         <Divider />
         <Grid container spacing={2}>
           <Grid item xs={12} md={6}>
