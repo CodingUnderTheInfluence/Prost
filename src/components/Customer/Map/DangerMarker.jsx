@@ -50,35 +50,33 @@ const DangerMarker = ({ danger, getDblClickDangerMarker }) => {
         url: warning,
       }}
     >
-      {show && (
-        <InfoWindow>
-          {success ? (<h3>{`${selected} Reported!`}</h3>) : (
-            <Grid>
-              <TextField
-                select
-                value={selected}
-                helperText="Report Crime"
-                onChange={handleChange}
-              >
-                {reports.map((report) => (
-                  <MenuItem
-                    key={report}
-                    value={report}
-                  >
-                    {report}
-                  </MenuItem>
-                ))}
-              </TextField>
-              <IconButton
-                aria-label="send"
-                onClick={postReport}
-              >
-                <SendIcon />
-              </IconButton>
-            </Grid>
-          )}
-        </InfoWindow>
-      )}
+      <InfoWindow>
+        {success ? (<h3>{`${selected} Reported!`}</h3>) : (
+          <Grid>
+            <TextField
+              select
+              value={selected}
+              helperText="Report Crime"
+              onChange={handleChange}
+            >
+              {reports.map((report) => (
+                <MenuItem
+                  key={report}
+                  value={report}
+                >
+                  {report}
+                </MenuItem>
+              ))}
+            </TextField>
+            <IconButton
+              aria-label="send"
+              onClick={postReport}
+            >
+              <SendIcon />
+            </IconButton>
+          </Grid>
+        )}
+      </InfoWindow>
     </Marker>
   );
 };
