@@ -14,10 +14,11 @@ const ReportMarkers = ({ reports }) => (
   >
     {(clusterer) => (
       reports.length && reports.filter((report) => report.report)
-        .map(({ id, latitude, longitude, report }) => (
+        .map(({ id, latitude, longitude, report, createdAt }) => (
           <ReportMarker
             key={id}
             report={report}
+            createdAt={createdAt}
             latitude={latitude}
             longitude={longitude}
             clusterer={clusterer}
