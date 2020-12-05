@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
+import propTypes from 'prop-types';
 import { Marker, InfoWindow } from '@react-google-maps/api';
 import warning from '../../../../images/warning.png';
 
+const formatDate = (dateString) => {
+  const options = {
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+  };
+  return new Date(dateString).toLocaleDateString(undefined, options);
+};
+
 const ReportMarker = ({ report, createdAt, latitude, longitude, clusterer }) => {
   const [show, setShow] = useState(false);
-
-  const formatDate = (dateString) => {
-    const options = {
-      year: 'numeric',
-      month: 'numeric',
-      day: 'numeric',
-      hour: 'numeric',
-      minute: 'numeric',
-    };
-    return new Date(dateString).toLocaleDateString(undefined, options)
-  };
 
   return (
     <Marker
@@ -36,6 +37,14 @@ const ReportMarker = ({ report, createdAt, latitude, longitude, clusterer }) => 
       )}
     </Marker>
   );
+};
+
+ReportMarker.propTypes = {
+  report: propTypes.string.isRequired,
+  createdAt: propTypes.string.isRequired,
+  latitude: propTypes.string.isRequired,
+  longitude: propTypes.string.isRequired,
+  clusterer: propTypes.string.isRequired,
 };
 
 export default ReportMarker;
