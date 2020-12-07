@@ -9,8 +9,6 @@ const FriendsMarker = ({ friendsLocation }) => {
   const [show, setShow] = useState(false);
   const { user_name, id_google, lat, lng } = friendsLocation;
 
-  const iconSelect = id_google === localStorage.gId ? me : user;
-
   const handleClick = () => {
     setShow(!show);
   };
@@ -22,7 +20,7 @@ const FriendsMarker = ({ friendsLocation }) => {
         lng: +lng,
       }}
       onClick={() => handleClick()}
-      icon={{ url: iconSelect }}
+      icon={{ url: user }}
     >
       {show && (
         <InfoWindow>
