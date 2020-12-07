@@ -27,6 +27,7 @@ const Login = ({
     setUsername(profile.name);
     localStorage.setItem('username', profile.name);
     localStorage.setItem('gId', profile.googleId);
+    localStorage.setItem('isPrivate', false);
     Axios.post('/db/customer/check', { googleProfile, googleToken })
       .then(({ data }) => {
         if (data === 'customer') {
@@ -37,7 +38,7 @@ const Login = ({
           history.push('/owner');
         } else if (data === 'form') {
           console.info('PLEASE REGISTER WITH OUR APP');
-            <Redirect to="/" />;
+          <Redirect to="/" />;
         }
       });
   };

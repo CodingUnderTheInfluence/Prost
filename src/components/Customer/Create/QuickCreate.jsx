@@ -38,7 +38,6 @@ const QuickCreate = ({ getMyLocation, panTo }) => {
     >
       <MyLocationIcon />
     </Fab>
-    // </div>
   );
 };
 

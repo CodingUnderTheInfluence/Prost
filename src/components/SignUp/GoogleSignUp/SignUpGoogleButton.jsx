@@ -29,6 +29,7 @@ const SignUpGoogleButton = ({
     setUsername(res.profileObj.name);
     localStorage.setItem('username', profile.name);
     localStorage.setItem('gId', profile.googleId);
+    localStorage.setItem('isPrivate', false);
 
     Axios.post('/db/customer/register', { googleProfile, googleToken })
       .then(({ data }) => {
@@ -37,6 +38,8 @@ const SignUpGoogleButton = ({
           localStorage.removeItem('ownerToken');
           localStorage.removeItem('gId');
           localStorage.removeItem('username');
+          localStorage.removeItem('gId', profile.googleId);
+          localStorage.removeItem('isPrivate', false);
           history.push('/');
         }
         if (data === 'form') {
