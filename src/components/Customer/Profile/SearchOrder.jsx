@@ -37,7 +37,7 @@ export default function SearchOrder({
       </FormControl>
       <Grid>
         Menu
-        {menus && menus.map((menuStr, key) => <Menu order={order} menuStr={menuStr} key={key} pref={pref} />)}
+        {menus && menus.map((obj, key) => <Menu order={order} obj={obj} key={key} pref={pref} />)}
       </Grid>
     </span>
   );
