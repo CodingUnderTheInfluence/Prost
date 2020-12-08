@@ -7,10 +7,12 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import Select from '@material-ui/core/Select';
 import axios from 'axios';
 import { SettingsSystemDaydreamTwoTone } from '@material-ui/icons';
+import { getMenu } from '../../../helpers/menu';
 import SearchOrder from './SearchOrder.jsx';
 import Translate from './Translate.jsx';
 import Menu from './Menu.jsx';
 import Language from './Language.jsx';
+
 const useStyles = makeStyles(() => ({
   parent: {
     border: 'solid 1px #4e71cc',
@@ -71,22 +73,21 @@ export default function TranslateLanding({ setView, customerId }) {
     setManualOrder('');
   };
 
-  const getMenu = (id) => {
-    axios.get(`/db/menu/bar/${id}`)
-      .then(({ data }) => {
-        if (data.length > 0) {
-          setMenus(data[0].info.split('&'));
-          setMenuLang(data[0].lang);
+  const handleChange = (event) => {
+    getMenu(event.target.value, process.env.REDIRECT)
+      .then(([results]) => {
+        const arr = JSON.parse(results.info);
+        if (arr) {
+          setMenus(arr);
+          setMenuLang(results.lang);
         } else {
           setMenus(null);
           setMenuLang('');
         }
       })
-      .catch((err) => console.warn(err));
-  };
-
-  const handleChange = (event) => {
-    getMenu(event.target.value);
+      .catch((err) => {
+        console.warn(err);
+      });
   };
   useEffect(() => {
     axios.get('/db/menu/allbars')
