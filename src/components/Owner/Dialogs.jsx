@@ -1,4 +1,4 @@
-import React, {  } from 'react';
+import React from 'react';
 import {
   Grid,
   Typography,
@@ -14,6 +14,7 @@ import {
   IconButton,
 } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
+import propTypes from 'prop-types';
 import InputItem from './Menu/InputItem.jsx';
 import BarMenuList from './Menu/BarMenuList.jsx';
 
@@ -166,3 +167,5 @@ const Dialogs = ({
 );
 
 export default Dialogs;
+
+Dialogs.propTypes = propTypes.any;
