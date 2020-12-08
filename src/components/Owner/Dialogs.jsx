@@ -131,9 +131,6 @@ const Dialogs = ({
           <Typography variant="h6">
             Menu
           </Typography>
-          <Button autoFocus color="inherit" onClick={handleCloseMenu}>
-            save
-          </Button>
         </Toolbar>
       </AppBar>
       <DialogTitle id="form-dialog-title">Menu Information</DialogTitle>
