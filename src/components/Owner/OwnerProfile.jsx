@@ -5,6 +5,7 @@ import {
   Button,
   makeStyles,
 } from '@material-ui/core';
+import { getMenu } from '../../helpers/menu';
 import Logout from '../Logout.jsx';
 import Dialogs from './Dialogs.jsx';
 
@@ -71,11 +72,25 @@ const OwnerProfile = ({
         This opens the bar's menu
     */
   const [openMenu, setOpenMenu] = useState(false);
+  const [loadedMenu, setLoadedMenu] = useState([]);
   const handleClickOpenMenu = () => {
     setOpenMenu(true);
   };
   const handleCloseMenu = () => {
     setOpenMenu(false);
+  };
+  const reload = (id, url) => {
+    getMenu(id, url)
+      .then(([results]) => {
+        if (results.info) {
+          const arr = JSON.parse(results.info);
+          console.log(arr);
+          setLoadedMenu(arr);
+        }
+      })
+      .catch((err) => {
+        console.warn(err);
+      });
   };
     /*
         This opens normal Dialog
@@ -209,6 +224,8 @@ const OwnerProfile = ({
         openMenu={openMenu}
         open={open}
         count={count}
+        loadedMenu={loadedMenu}
+        reload={reload}
       />
     </Grid>
   );
