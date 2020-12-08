@@ -164,7 +164,7 @@ const Home = ({
             className={classes.button}
             onClick={() => setView('Translate')}
           >
-            Translate
+            Translate Menu
           </Button>
         </Grid>
 
