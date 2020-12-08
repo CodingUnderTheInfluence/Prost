@@ -6,31 +6,16 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import propTypes from 'prop-types';
 import { getMenu, deleteItem } from '../../../helpers/menu';
 
-export default function BarMenuList({ barId }) {
-  const [list, setList] = useState([]);
-  const reload = (id, url) => {
-    getMenu(id, url)
-      .then(([results]) => {
-        const arr = JSON.parse(results.info);
-        setList(arr);
-      })
-      .catch((err) => {
-        console.warn(err);
-      });
-  };
-
+export default function BarMenuList({ barId, loadedMenu, reload }) {
   const handleDelete = (item, heading) => {
     deleteItem(process.env.REDIRECT, item, barId, heading)
       .then(() => reload(barId, process.env.REDIRECT))
       .catch((err) => console.warn(err));
   };
 
-  useEffect(() => {
-    reload(barId, process.env.REDIRECT);
-  });
   return (
     <>
-      {list && list.map((obj, index) => {
+      {loadedMenu && loadedMenu.map((obj, index) => {
         const heading = Object.keys(obj).toString();
         const items = obj[heading];
         return (

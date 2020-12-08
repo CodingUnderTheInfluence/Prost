@@ -9,7 +9,9 @@ import {
 import propTypes from 'prop-types';
 import { addItem } from '../../../helpers/menu';
 
-export default function InputItem({ barId }) {
+export default function InputItem({
+  barId, reload,
+}) {
   const [inputItem, setInputItem] = useState('');
   const [selected, setSelected] = useState('');
 
@@ -43,6 +45,7 @@ export default function InputItem({ barId }) {
         onClick={() => {
           addItem(selected, inputItem, barId, process.env.REDIRECT);
           setInputItem('');
+          reload(barId, process.env.REDIRECT);
         }}
       >
         Add

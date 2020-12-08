@@ -34,6 +34,9 @@ const Dialogs = ({
   openMenu,
   open,
   count,
+  loadedMenu,
+  setLoadedMenu,
+  reload,
 }) => (
   <div>
     {/* THIS IS THE INFO DIALOG */}
@@ -131,14 +134,21 @@ const Dialogs = ({
         <Typography variant="h6">
           Add Menu Item
         </Typography>
-        <InputItem barId={barId} />
+        <InputItem
+          barId={barId}
+          reload={reload}
+        />
         <Divider />
         <Grid container spacing={2}>
           <Grid item xs={12} md={6}>
             <Typography variant="h6">
               Current Menu
             </Typography>
-            <BarMenuList barId={barId} />
+            <BarMenuList
+              barId={barId}
+              loadedMenu={loadedMenu}
+              reload={reload}
+            />
           </Grid>
         </Grid>
       </DialogContent>
