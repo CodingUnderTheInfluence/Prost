@@ -98,7 +98,6 @@ export default function TranslateLanding({ setView, customerId }) {
   return (
     <Grid>
       <Grid>
-        <ArrowBackIosIcon color="primary" onClick={() => setView('Home')} />
         <ButtonGroup size="small" aria-label="small outlined button group">
           <Button onClick={() => {
             setStart(true);
@@ -163,6 +162,14 @@ export default function TranslateLanding({ setView, customerId }) {
         </Grid>
       </span>
       )}
+      <Button
+        size="small"
+        color="primary"
+        className={classes.backBtn}
+        onClick={() => setView('Home')}
+      >
+        Back
+      </Button>
     </Grid>
   );
 }
