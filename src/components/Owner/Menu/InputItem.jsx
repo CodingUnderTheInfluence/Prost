@@ -58,7 +58,7 @@ export default function InputItem({ barId }) {
         color="primary"
         autoFocus
         onClick={() => {
-          addItem(selected, inputItem, barId);
+          addItem(selected, inputItem, barId, process.env.REDIRECT);
           setInputItem('');
         }}
       >
