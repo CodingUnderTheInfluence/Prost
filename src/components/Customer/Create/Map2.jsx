@@ -4,7 +4,7 @@ import React, {
   useRef,
   useCallback,
 } from 'react';
-import '../../../styles/location.css';
+import '../../../styles/styles.css';
 import {
   GoogleMap,
   Marker,
@@ -26,6 +26,7 @@ import BarMarkers from '../Map/BarMarkers.jsx';
 // import Directions from '../Directions/Directions.jsx';
 // import DirectionsBtn from '../Directions/DirectionsBtn.jsx';
 import DangerMarkers from '../Map/DangerMarkers.jsx';
+import ReportMarkers from '../Map/ReportMarkers.jsx';
 import QuickCreate from './QuickCreate.jsx';
 import mapStyle from '../../../helpers/mapStyle';
 
@@ -41,6 +42,7 @@ const options = {
   scaleControl: false,
   mapTypeControl: false,
   fullscreenControl: false,
+  streetViewControl: false,
   styles: mapStyle,
 };
 
@@ -60,15 +62,19 @@ const searchBoxStyle = {
   marginLeft: '-120px',
 };
 
-const MapContainer = ({ setMapLatLng, username, gId }) => {
+const MapContainer = ({ userData, setMapLatLng }) => {
+  const { gId } = localStorage;
+
   const [currentPosition, setCurrentPosition] = useState({
     lat: 29.95115,
     lng: -90.0715,
   });
   const [friendLocations, setFriendLocations] = useState([]);
+  const [curUser, setCurUser] = useState(null);
+  const [dangerMarkers, setDangerMarkers] = useState([]);
+  const [reports, setReports] = useState([]);
   const [privateSwitch, setPrivateSwitch] = useState(false);
   const [myLocation, setMyLocation] = useState({});
-  const [dangerMarkers, setDangerMarkers] = useState([]);
   const [parties, setParties] = useState([]);
   const [searchMarker, setSearchMarker] = useState({});
   const [click, setClick] = useState(false);
@@ -98,16 +104,34 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
   // }, []);
 
   useEffect(() => {
+    if (userData) {
+      setCurUser(userData);
+    }
+  });
+
+  useEffect(() => {
     let isMounted = true;
     if (isMounted) {
+      axios.get('/db/customer/all')
+        .then(({ data }) => {
+          const publicPpl = data.filter((friend) => !friend.isPrivate && friend.lat && friend.lng);
+          setFriendLocations(publicPpl);
+        })
+        .catch(() => console.warn('error in customer get'));
       axios.get('/db/maps')
         .then(({ data }) => {
-          const publicPpl = data.filter((friend) => !friend.isPrivate);
-          setFriendLocations(publicPpl);
-        });
+          setReports(data);
+        })
+        .catch(() => console.warn('error in maps'));
+      if (curUser) {
+        axios.get(`/db/friendship/myFriends/map/${curUser.id}`)
+          .then(({ data }) => {
+            // setFriendLocations(data);
+          });
+      }
     }
     return () => { isMounted = false; };
-  }, [privateSwitch]);
+  }, [curUser, privateSwitch]);
 
   useEffect(() => {
     let isMounted = true;
@@ -158,13 +182,13 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
     setClick(!click);
   };
 
-  const getMyLocation = ({ latitude, longitude }) => {
-    axios.put(`/db/maps/${gId}`, { latitude, longitude })
+  const getMyLocation = ({ lat, lng }) => {
+    axios.put(`/db/customer/location/${gId}`, { lat, lng })
       .then(() => console.info('maps put success'))
       .catch(() => console.warn('maps put failed'));
     setMyLocation({
-      lat: latitude,
-      lng: longitude,
+      lat,
+      lng,
     });
   };
 
@@ -238,6 +262,7 @@ const MapContainer = ({ setMapLatLng, username, gId }) => {
         />
         <BarMarkers parties={parties} />
         <FriendsMarkers friendLocations={friendLocations} />
+        <ReportMarkers reports={reports} />
         <PrivateSwitch
           className="privateSwitch"
           gId={gId}

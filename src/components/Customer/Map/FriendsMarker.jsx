@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
+import PrivateMessage from '../Friends/PrivateMessage.jsx';
 import { Marker, InfoWindow } from '@react-google-maps/api';
 import propTypes from 'prop-types';
-import warning from '../../../../images/warning.png';
 import user from '../../../../images/user.png';
+import me from '../../../../images/me.png';
 
-const FriendsMarker = ({ friendsLocation: { user_name, latitude, longitude, report } }) => {
+const FriendsMarker = ({ friendsLocation }) => {
   const [show, setShow] = useState(false);
-  const iconSelect = report ? warning : user;
+  const { user_name, id_google, lat, lng } = friendsLocation;
+
+  const iconSelect = id_google === localStorage.gId ? me : user;
 
   const handleClick = () => {
     setShow(!show);
@@ -15,20 +18,23 @@ const FriendsMarker = ({ friendsLocation: { user_name, latitude, longitude, repo
     <Marker
       key={user_name}
       position={{
-        lat: +latitude,
-        lng: +longitude,
+        lat: +lat,
+        lng: +lng,
       }}
       onClick={() => handleClick()}
       icon={{ url: iconSelect }}
     >
       {show && (
         <InfoWindow>
-          {report ? (
-            <h3>{report}</h3>
-          )
-            : (
-              <h3>{user_name}</h3>
-            )}
+          <div>
+            <h3>{user_name}</h3>
+            {/* TODO */}
+            {/* <button
+              type="button"
+            >
+              send msg
+            </button> */}
+          </div>
         </InfoWindow>
       )}
     </Marker>
@@ -38,8 +44,9 @@ const FriendsMarker = ({ friendsLocation: { user_name, latitude, longitude, repo
 FriendsMarker.propTypes = {
   friendsLocation: propTypes.shape({
     user_name: propTypes.string,
-    latitude: propTypes.string,
-    longitude: propTypes.string,
+    id_google: propTypes.string,
+    lat: propTypes.string,
+    lng: propTypes.string,
     report: propTypes.string,
   }),
 };

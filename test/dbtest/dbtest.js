@@ -131,6 +131,8 @@ function primeDB() {
         first_name: 'Monkey D.',
         last_name: 'Luffy',
         user_name: 'PirateKing',
+        lat: 29.929609,
+        lng: -90.084186,
       },
     }))
     .then((numberEffected) => {
@@ -144,6 +146,8 @@ function primeDB() {
         first_name: 'Roronoa',
         last_name: 'Zoro',
         user_name: 'SwordMaster',
+        lat: 29.933046,
+        lng: -90.094161,
       },
     }))
     .then((numberEffected) => {

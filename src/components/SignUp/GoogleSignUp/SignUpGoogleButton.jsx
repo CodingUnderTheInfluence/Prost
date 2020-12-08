@@ -27,6 +27,8 @@ const SignUpGoogleButton = ({
     setId(res.profileObj.googleId);
     setProfileImage(res.profileObj.imageUrl);
     setUsername(res.profileObj.name);
+    localStorage.setItem('username', profile.name);
+    localStorage.setItem('gId', profile.googleId);
 
     Axios.post('/db/customer/register', { googleProfile, googleToken })
       .then(({ data }) => {
