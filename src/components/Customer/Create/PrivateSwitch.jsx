@@ -20,7 +20,6 @@ const PrivateSwitch = ({ gId, getSwitch }) => {
   const handleChange = () => {
     setPrivate(!isPrivate);
     localStorage.isPrivate = isPrivate;
-    console.log('is private switch', isPrivate)
     axios.put(`/db/customer/location/${gId}`, { isPrivate })
       .then(() => getSwitch(isPrivate))
       .catch(() => console.warn('error in private switch'));
