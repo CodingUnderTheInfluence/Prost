@@ -1,28 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
-  Grid,
-  Typography,
   Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  Paper,
   TextField,
-  Toolbar,
-  AppBar,
   Select,
   FormControl,
   MenuItem,
-  Accordion,
-  Divider,
-  AccordionSummary,
-  AccordionDetails,
-  IconButton,
 } from '@material-ui/core';
-import CloseIcon from '@material-ui/icons/Close';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import propTypes from 'prop-types';
 import { addItem } from '../../../helpers/menu';
 
