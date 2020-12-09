@@ -5,8 +5,8 @@ import {
   Button,
   makeStyles,
 } from '@material-ui/core';
-import Logout from '../Logout.jsx';
-import Dialogs from './Dialogs.jsx';
+import axios from 'axios';
+import OwnerOptions from './OwnerOptions.jsx';
 
 const useStyles = makeStyles(() => ({
   image: {
@@ -38,98 +38,50 @@ const useStyles = makeStyles(() => ({
 }));
 
 const OwnerProfile = ({
-  count,
-  image,
-  barName,
-  barAddress,
-  barNumber,
-  capacity,
+  barId,
 }) => {
   const classes = useStyles();
-  /*
-        This opens info Dialog
-    */
-  const [openInfo, setOpenInfo] = useState(false);
-  const handleClickOpenInfo = () => {
-    setOpenInfo(true);
-  };
-  const handleCloseInfo = () => {
-    setOpenInfo(false);
-  };
-    /*
-        This opens Occupency Dialog
-    */
-  const [openOcc, setOpenOcc] = useState(false);
-  const handleClickOpenOcc = () => {
-    setOpenOcc(true);
-  };
-  const handleCloseOcc = () => {
-    setOpenOcc(false);
-  };
-    /*
-        This opens normal Dialog
-    */
-  const [open, setOpen] = useState(false);
-  const handleClose = () => {
-    setOpen(false);
-  };
-  const handleClickOpen = () => {
-    setOpen(true);
+  const [count, setCount] = useState();
+  const [barAddress, setBarAddress] = useState('');
+  const [barNumber, setBarNumber] = useState('');
+  const [barName, setBarName] = useState('');
+  const [image, setImage] = useState('');
+  const [capacity, setCapacity] = useState('');
+
+  const barInfo = () => {
+    axios.get(`/db/bar/info?id=${barId}`)
+      .then(({ data }) => {
+        setImage(data[0].profile_image);
+        setBarName(data[0].bar_name);
+        setBarAddress(data[0].address);
+        setBarNumber(data[0].phone_number);
+        setCapacity(data[0].bar_capacity);
+      })
+      .catch((err) => {
+        console.warn(err);
+      });
   };
 
-  const covidCap = (capacity * 0.25);
-  const covidCapLow = covidCap * 0.25;
-  const covidCapHigh = covidCap * 0.75;
-  const occupencyStatus = () => {
-    if (count < covidCapLow) {
-      return (
-        <Grid
-          tem
-          container
-          direction="row"
-          justify="center"
-          alignItems="center"
-          className={classes.green}
-        >
-          Empty
-        </Grid>
-      );
-    } if (covidCapLow <= count && count < covidCapHigh) {
-      return (
-        <Grid
-          item
-          container
-          direction="row"
-          justify="center"
-          alignItems="center"
-          className={classes.yellow}
-        >
-          Medium
-        </Grid>
-      );
-    } if (covidCapHigh <= count && count < covidCap) {
-      return (
-        <Grid
-          item
-          container
-          direction="row"
-          justify="center"
-          alignItems="center"
-          className={classes.red}
-        >
-          Full
-        </Grid>
-      );
-    }
+  const getInfo = () => {
+    barInfo();
   };
+  const fetchCustomers = () => {
+    axios.get(`/db/cb/list?barId=${barId}`)
+      .then(({ data }) => {
+        setCount(data.length);
+      })
+      .catch((err) => {
+        console.warn(err);
+      });
+  };
+
+  useEffect(() => {
+    fetchCustomers();
+    getInfo();
+  }, []);
 
   return (
-    <Grid
-      container
-      direction="column"
-      justify="center"
-      alignItems="center"
-    >
+    <Grid container direction="column" justify="center" alignItems="center">
       <Grid
         item
         container
@@ -151,42 +103,16 @@ const OwnerProfile = ({
           {barName}
         </Typography>
       </Grid>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={handleClickOpenInfo}
-        className={classes.button}
-      >
-        My Information
-      </Button>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={handleClickOpenOcc}
-        className={classes.button}
-      >
-        Current Occupency
-      </Button>
-      <div className={classes.logout}>
-        <Logout />
-      </div>
-      <Dialogs
-        occupencyStatus={occupencyStatus}
-        barAddress={barAddress}
-        barNumber={barNumber}
-        barName={barName}
-        capacity={capacity}
-        handleClickOpen={handleClickOpen}
-        handleClickOpenInfo={handleClickOpenInfo}
-        handleClickOpenOcc={handleClickOpenOcc}
-        handleCloseInfo={handleCloseInfo}
-        handleCloseOcc={handleCloseOcc}
-        handleClose={handleClose}
-        openInfo={openInfo}
-        openOcc={openOcc}
-        open={open}
-        count={count}
-      />
+      <Grid item container direction="row" justify="center" alignItems="center">
+        <OwnerOptions
+          count={count}
+          image={image}
+          barName={barName}
+          barAddress={barAddress}
+          barNumber={barNumber}
+          capacity={capacity}
+        />
+      </Grid>
     </Grid>
   );
 };
