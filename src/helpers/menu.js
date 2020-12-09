@@ -61,22 +61,22 @@ const createString = async (id, url, type, newItem, currentMenu) => {
       menuObj[type] = [newItem];
       const menuString = JSON.stringify([menuObj]);
       return insert(id, menuString, url);
-    } else {
-      let newMenu = JSON.parse(currentMenu); // array of objects
-      for (let i = 0; i < newMenu.length; i += 1) {
-        const obj = newMenu[i];
-        if (Object.prototype.hasOwnProperty.call(obj, type)) {
-          obj[type].push((newItem));
-          break;
-        } else if (i + 1 === newMenu.length) {
-          const menuObj = {};
-          menuObj[type] = [newItem];
-          newMenu.push(menuObj);
-        }
-      }
-      newMenu = JSON.stringify(newMenu);
-      return update(id, newMenu, url);
     }
+    let newMenu = JSON.parse(currentMenu); // array of objects
+    for (let i = 0; i < newMenu.length; i += 1) {
+      const obj = newMenu[i];
+      if (Object.prototype.hasOwnProperty.call(obj, type)) {
+        obj[type].push((newItem));
+        break;
+      } else if (i + 1 === newMenu.length) {
+        const menuObj = {};
+        menuObj[type] = [newItem];
+        newMenu.push(menuObj);
+        break;
+      }
+    }
+    newMenu = JSON.stringify(newMenu);
+    return update(id, newMenu, url);
   } catch (err) {
     console.warn(err);
   }
