@@ -12,7 +12,6 @@ export default function BarMenuList({ barId, loadedMenu, reload }) {
       .then(() => reload(barId, process.env.REDIRECT))
       .catch((err) => console.warn(err));
   };
-  console.log(loadedMenu);
 
   return (
     <>

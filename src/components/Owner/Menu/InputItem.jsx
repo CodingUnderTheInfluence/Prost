@@ -19,7 +19,6 @@ export default function InputItem({
     setSelected(event.target.value);
   };
   useEffect(() => {
-    console.log('reload');
     reload(barId, process.env.REDIRECT);
   }, []);
   return (

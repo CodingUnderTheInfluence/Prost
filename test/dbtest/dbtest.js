@@ -238,7 +238,7 @@ function primeDB() {
     }))
     .then((numberEffected) => {
       if (numberEffected) {
-        return console.log('✅ map customer1 Created');
+        return console.info('✅ map customer1 Created');
       }
       return console.error('❌ map customer1 undefined');
     })
@@ -252,7 +252,7 @@ function primeDB() {
     }))
     .then((numberEffected) => {
       if (numberEffected) {
-        return console.log('✅ map customer2 Created');
+        return console.info('✅ map customer2 Created');
       }
       return console.error('❌ map customer2 undefined');
     })
