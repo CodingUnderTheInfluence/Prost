@@ -13,11 +13,8 @@ import {
 } from '@react-google-maps/api';
 import axios from 'axios';
 import propTypes from 'prop-types';
-import { Grid } from '@material-ui/core';
-import beer from '../../../../images/beer.png';
 import beerGold from '../../../../images/beerGold.png';
 import user from '../../../../images/user.png';
-// import { GiBeerStein } from "react-icons/gi";
 import Search from './Search.jsx';
 import BarInfo from './BarInfo.jsx';
 import PrivateSwitch from './PrivateSwitch.jsx';
@@ -222,7 +219,7 @@ const MapContainer = ({ userData, setMapLatLng }) => {
         center={currentPosition || defaultCenter}
         options={options}
         draggable
-        onClick={onMapClick}
+        onDblClick={onMapClick}
         onLoad={onMapLoad}
       >
         <Search
