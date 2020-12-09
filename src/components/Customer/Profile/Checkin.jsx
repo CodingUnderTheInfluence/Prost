@@ -14,7 +14,7 @@ import Search from '../Create/Search.jsx';
 
 const libraries = ['places'];
 
-const searchBox = {
+const searchBoxStyle = {
   boxSizing: 'border-box',
   border: '1px solid transparent',
   width: '240px',
@@ -125,16 +125,33 @@ export default function Checkin({ setView, customerId }) {
   }
 
   return (
-    <div>
-      <div>
+    <Grid
+      container
+      direction="column"
+      justify="space-evenly"
+      alignItems="center"
+    >
+      <Grid
+        item
+        container
+        direction="column"
+        justify="space-evenly"
+        alignItems="center"
+      >
         <Search
           currentPosition={currentPosition}
-          searchBox={searchBox}
+          searchBoxStyle={searchBoxStyle}
           getPlaceInfo={getPlaceInfo}
         />
-      </div>
-      <div />
-      <div style={{ padding: '70px' }}>
+      </Grid>
+      <Grid />
+      <Grid
+        item
+        container
+        direction="row"
+        justify="center"
+        alignItems="center"
+      >
         <Button
           variant="outlined"
           color="primary"
@@ -144,24 +161,44 @@ export default function Checkin({ setView, customerId }) {
         >
           Check in
         </Button>
-      </div>
-      <div>
+      </Grid>
+      <Grid
+        item
+        container
+        direction="row"
+        justify="center"
+        alignItems="center"
+      >
         <CheckinList customerId={customerId} />
-      </div>
-      <div className={classes.root}>
+      </Grid>
+      <Grid
+        item
+        container
+        direction="row"
+        justify="center"
+        alignItems="center"
+        className={classes.root}
+      >
         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
           <Alert onClose={handleClose} severity="error">
             Bar not found
           </Alert>
         </Snackbar>
-      </div>
-      <div className={classes.root}>
+      </Grid>
+      <Grid
+        item
+        container
+        direction="row"
+        justify="center"
+        alignItems="center"
+        className={classes.root}
+      >
         <Snackbar open={openSuccess} autoHideDuration={6000} onClose={handleCloseSuccess}>
           <Alert onClose={handleCloseSuccess} severity="success">
             Checked In!
           </Alert>
         </Snackbar>
-      </div>
+      </Grid>
       <Button
         size="small"
         color="primary"
@@ -170,6 +207,6 @@ export default function Checkin({ setView, customerId }) {
       >
         Back
       </Button>
-    </div>
+    </Grid>
   );
 }
