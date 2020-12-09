@@ -60,7 +60,7 @@ const createString = async (id, url, type, newItem, currentMenu) => {
       const menuObj = {};
       menuObj[type] = [newItem];
       const menuString = JSON.stringify([menuObj]);
-      await insert(id, menuString, url);
+      return insert(id, menuString, url);
     } else {
       let newMenu = JSON.parse(currentMenu); // array of objects
       for (let i = 0; i < newMenu.length; i += 1) {
@@ -75,7 +75,7 @@ const createString = async (id, url, type, newItem, currentMenu) => {
         }
       }
       newMenu = JSON.stringify(newMenu);
-      await update(id, newMenu, url);
+      return update(id, newMenu, url);
     }
   } catch (err) {
     console.warn(err);
@@ -95,7 +95,7 @@ module.exports.addItem = async (selected, inputItem, barId, url) => {
       return;
     }
     const [results] = await getMenu(barId, url);
-    createString(barId, url, selected, inputItem, results.info);
+    return createString(barId, url, selected, inputItem, results.info);
   } catch (err) {
     console.warn(err);
   }
@@ -120,11 +120,14 @@ module.exports.deleteItem = async (url, item, id, type) => {
   try {
     const [menuList] = await getMenu(id, url);
     const arr = JSON.parse(menuList.info);
-    arr.forEach((obj) => {
+    arr.forEach((obj, i) => {
       const values = obj[type];
       if (values) {
         if (values.includes(item)) {
           values.splice(values.indexOf(item), 1);
+          if (values.length === 0) {
+            arr.splice(i, 1);
+          }
         }
       }
     });

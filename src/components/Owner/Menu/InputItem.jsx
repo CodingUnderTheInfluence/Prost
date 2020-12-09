@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Button,
   TextField,
@@ -18,6 +18,10 @@ export default function InputItem({
   const handleChange = (event) => {
     setSelected(event.target.value);
   };
+  useEffect(() => {
+    console.log('reload');
+    reload(barId, process.env.REDIRECT);
+  }, []);
   return (
     <FormControl>
       <Select
@@ -43,9 +47,12 @@ export default function InputItem({
         color="primary"
         autoFocus
         onClick={() => {
-          addItem(selected, inputItem, barId, process.env.REDIRECT);
-          setInputItem('');
-          reload(barId, process.env.REDIRECT);
+          addItem(selected, inputItem, barId, process.env.REDIRECT)
+            .then(() => {
+              setInputItem('');
+              reload(barId, process.env.REDIRECT);
+            })
+            .catch((err) => console.warn(err));
         }}
       >
         Add

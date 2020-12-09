@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
   Accordion, AccordionSummary, AccordionDetails, Typography, Grid, Button,
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import propTypes from 'prop-types';
-import { getMenu, deleteItem } from '../../../helpers/menu';
+import { deleteItem } from '../../../helpers/menu';
 
 export default function BarMenuList({ barId, loadedMenu, reload }) {
   const handleDelete = (item, heading) => {
@@ -12,6 +12,7 @@ export default function BarMenuList({ barId, loadedMenu, reload }) {
       .then(() => reload(barId, process.env.REDIRECT))
       .catch((err) => console.warn(err));
   };
+  console.log(loadedMenu);
 
   return (
     <>

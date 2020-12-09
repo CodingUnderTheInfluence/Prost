@@ -84,7 +84,6 @@ const OwnerProfile = ({
       .then(([results]) => {
         if (results.info) {
           const arr = JSON.parse(results.info);
-          console.log(arr);
           setLoadedMenu(arr);
         }
       })
