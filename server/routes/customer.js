@@ -208,6 +208,17 @@ customerRouter.put('/location/:gId', (req, res) => {
     .catch((err) => res.send(err));
 });
 
+/*
+  Request to grab customer information
+*/
+
+customerRouter.get('/getCustomerById', (req, res) => {
+  const { customerId } = req.query;
+  Customer.findOne({ where: { id: customerId } })
+    .then((customer) => res.send(customer))
+    .catch((err) => console.warn(err));
+});
+
 module.exports = {
   customerRouter,
   googleAuth,
