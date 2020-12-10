@@ -1,8 +1,18 @@
 const { Router } = require('express');
 const { Op } = require('sequelize');
 const {
+  Customer,
+  Owner,
+  EContact,
   Bar,
+  Message,
+  Image,
   Menu,
+  Party,
+  Relationship,
+  Thread,
+  Parties_Customers,
+  Customers_Bars,
 } = require('../db/models/dbindex.js');
 
 const menuRouter = Router();
@@ -44,31 +54,17 @@ menuRouter.get('/bar/:barId', (req, res) => {
   })
     .then((menus) => (menus.length > 0 ? res.send(menus) : res.send('Empty')))
     .catch((err) => {
-      res.status(500).send('Menu Get Error', err);
-    });
-});
-
-menuRouter.post('/insert', (req, res) => {
-  const { barId, info, lang } = req.body;
-  Menu.create({
-    id_bar: barId,
-    info,
-    lang,
-  })
-    .then((menus) => res.send(menus))
-    .catch((err) => {
       res.status(500).send(err);
     });
 });
 
-menuRouter.put('/update', (req, res) => {
+menuRouter.post('/bar', (req, res) => {
   const { barId, info } = req.body;
-  Menu.update({
-    info,
-  },
-  {
+  Menu.findOrCreate({
     where: {
-      id_bar: barId,
+      // eslint-disable-next-line quote-props
+      'id_bar': barId,
+      info,
     },
   })
     .then((menus) => res.send(menus))
@@ -77,6 +73,7 @@ menuRouter.put('/update', (req, res) => {
     });
 });
 
+//
 module.exports = {
   menuRouter,
 };

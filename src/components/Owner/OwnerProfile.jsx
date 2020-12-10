@@ -5,7 +5,6 @@ import {
   Button,
   makeStyles,
 } from '@material-ui/core';
-import { getMenu } from '../../helpers/menu';
 import Logout from '../Logout.jsx';
 import Dialogs from './Dialogs.jsx';
 
@@ -43,7 +42,6 @@ const OwnerProfile = ({
   image,
   barName,
   barAddress,
-  barId,
   barNumber,
   capacity,
 }) => {
@@ -67,29 +65,6 @@ const OwnerProfile = ({
   };
   const handleCloseOcc = () => {
     setOpenOcc(false);
-  };
-    /*
-        This opens the bar's menu
-    */
-  const [openMenu, setOpenMenu] = useState(false);
-  const [loadedMenu, setLoadedMenu] = useState([]);
-  const handleClickOpenMenu = () => {
-    setOpenMenu(true);
-  };
-  const handleCloseMenu = () => {
-    setOpenMenu(false);
-  };
-  const reload = (id, url) => {
-    getMenu(id, url)
-      .then(([results]) => {
-        if (results.info) {
-          const arr = JSON.parse(results.info);
-          setLoadedMenu(arr);
-        }
-      })
-      .catch((err) => {
-        console.warn(err);
-      });
   };
     /*
         This opens normal Dialog
@@ -192,14 +167,6 @@ const OwnerProfile = ({
       >
         Current Occupency
       </Button>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={handleClickOpenMenu}
-        className={classes.button}
-      >
-        Menu
-      </Button>
       <div className={classes.logout}>
         <Logout />
       </div>
@@ -208,23 +175,17 @@ const OwnerProfile = ({
         barAddress={barAddress}
         barNumber={barNumber}
         barName={barName}
-        barId={barId}
         capacity={capacity}
         handleClickOpen={handleClickOpen}
         handleClickOpenInfo={handleClickOpenInfo}
         handleClickOpenOcc={handleClickOpenOcc}
-        handleClickOpenMenu={handleClickOpenMenu}
-        handleCloseMenu={handleCloseMenu}
         handleCloseInfo={handleCloseInfo}
         handleCloseOcc={handleCloseOcc}
         handleClose={handleClose}
         openInfo={openInfo}
         openOcc={openOcc}
-        openMenu={openMenu}
         open={open}
         count={count}
-        loadedMenu={loadedMenu}
-        reload={reload}
       />
     </Grid>
   );

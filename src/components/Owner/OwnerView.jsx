@@ -103,7 +103,6 @@ const OwnerView = ({ barId }) => {
       return (
         <OwnerProfile
           count={count}
-          barId={barId}
           barName={barName}
           barNumber={barNumber}
           barAddress={barAddress}
