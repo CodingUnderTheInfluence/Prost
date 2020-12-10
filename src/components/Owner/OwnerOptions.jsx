@@ -5,6 +5,7 @@ import {
   Button,
   makeStyles,
 } from '@material-ui/core';
+import { getMenu } from '../../helpers/menu';
 import Logout from '../Logout.jsx';
 import Dialogs from './Dialogs.jsx';
 
@@ -39,6 +40,7 @@ const useStyles = makeStyles(() => ({
 
 const OwnerOptions = ({
   count,
+  barId,
   barName,
   barAddress,
   barNumber,
@@ -64,6 +66,31 @@ const OwnerOptions = ({
   };
   const handleCloseOcc = () => {
     setOpenOcc(false);
+  };
+    /*
+          This opens Menu Dialog
+      */
+  const [openMenu, setOpenMenu] = useState(false);
+  const [loadedMenu, setLoadedMenu] = useState([]);
+  const handleClickOpenMenu = () => {
+    setOpenMenu(true);
+  };
+  const handleCloseMenu = () => {
+    setOpenMenu(false);
+  };
+  const reload = (id, url) => {
+    getMenu(id, url)
+      .then(([results]) => {
+        if (results.info) {
+          const arr = JSON.parse(results.info);
+          setLoadedMenu(arr);
+        } else {
+          setLoadedMenu(null);
+        }
+      })
+      .catch((err) => {
+        console.warn(err);
+      });
   };
   /*
           This opens normal Dialog
@@ -145,6 +172,14 @@ const OwnerOptions = ({
       >
         Current Occupency
       </Button>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={handleClickOpenMenu}
+        className={classes.button}
+      >
+        Menu
+      </Button>
       <div className={classes.logout}>
         <Logout />
       </div>
@@ -164,6 +199,12 @@ const OwnerOptions = ({
         openOcc={openOcc}
         open={open}
         count={count}
+        openMenu={openMenu}
+        loadedMenu={loadedMenu}
+        reload={reload}
+        handleClickOpenMenu={handleClickOpenMenu}
+        handleCloseMenu={handleCloseMenu}
+        barId={barId}
       />
     </Grid>
   );
