@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import {
-  makeStyles, MenuItem, FormControl, FormHelperText, Grid, Typography, Button, TextField, ButtonGroup,
+  makeStyles, Grid, Typography, Button, ButtonGroup,
 } from '@material-ui/core';
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-
-import Select from '@material-ui/core/Select';
 import axios from 'axios';
-import { SettingsSystemDaydreamTwoTone } from '@material-ui/icons';
+import { getMenu } from '../../../helpers/menu';
 import SearchOrder from './SearchOrder.jsx';
 import Translate from './Translate.jsx';
-import Menu from './Menu.jsx';
-import Language from './Language.jsx';
+
 const useStyles = makeStyles(() => ({
   parent: {
     border: 'solid 1px #4e71cc',
@@ -55,7 +51,7 @@ export default function TranslateLanding({ setView, customerId }) {
     }
     axios.get('/api/translate', {
       params: {
-        text: `I would like to order ${orderStr} please`,
+        text: orderStr,
         target: lang,
       },
     })
@@ -71,22 +67,21 @@ export default function TranslateLanding({ setView, customerId }) {
     setManualOrder('');
   };
 
-  const getMenu = (id) => {
-    axios.get(`/db/menu/bar/${id}`)
-      .then(({ data }) => {
-        if (data.length > 0) {
-          setMenus(data[0].info.split('&'));
-          setMenuLang(data[0].lang);
+  const handleChange = (event) => {
+    getMenu(event.target.value, process.env.REDIRECT)
+      .then(([results]) => {
+        const arr = JSON.parse(results.info);
+        if (arr) {
+          setMenus(arr);
+          setMenuLang(results.lang);
         } else {
           setMenus(null);
           setMenuLang('');
         }
       })
-      .catch((err) => console.warn(err));
-  };
-
-  const handleChange = (event) => {
-    getMenu(event.target.value);
+      .catch((err) => {
+        console.warn(err);
+      });
   };
   useEffect(() => {
     axios.get('/db/menu/allbars')
@@ -97,7 +92,6 @@ export default function TranslateLanding({ setView, customerId }) {
   return (
     <Grid>
       <Grid>
-        <ArrowBackIosIcon color="primary" onClick={() => setView('Home')} />
         <ButtonGroup size="small" aria-label="small outlined button group">
           <Button onClick={() => {
             setStart(true);
@@ -162,6 +156,14 @@ export default function TranslateLanding({ setView, customerId }) {
         </Grid>
       </span>
       )}
+      <Button
+        size="small"
+        color="primary"
+        className={classes.backBtn}
+        onClick={() => setView('Home')}
+      >
+        Back
+      </Button>
     </Grid>
   );
 }

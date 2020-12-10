@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {
   Grid,
   Typography,
@@ -8,8 +8,15 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  Paper,
+  Toolbar,
+  AppBar,
+  Divider,
+  IconButton,
 } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
+import propTypes from 'prop-types';
+import InputItem from './Menu/InputItem.jsx';
+import BarMenuList from './Menu/BarMenuList.jsx';
 
 const Dialogs = ({
   occupencyStatus,
@@ -24,6 +31,11 @@ const Dialogs = ({
   openOcc,
   open,
   count,
+  reload,
+  loadedMenu,
+  openMenu,
+  handleCloseMenu,
+  barId,
 }) => (
   <div>
     {/* THIS IS THE INFO DIALOG */}
@@ -97,7 +109,48 @@ const Dialogs = ({
         </Button>
       </DialogActions>
     </Dialog>
-
+    {/* THIS IS THE MENU DIALOG */}
+    <Dialog
+      fullScreen
+      open={openMenu}
+      onClose={handleCloseMenu}
+      aria-labelledby="form-dialog-title"
+      aria-describedby="form-dialog-description"
+    >
+      <AppBar>
+        <Toolbar>
+          <IconButton edge="start" color="inherit" onClick={handleCloseMenu} aria-label="close">
+            <CloseIcon />
+          </IconButton>
+          <Typography variant="h6">
+            Menu
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <DialogTitle id="form-dialog-title">Menu Information</DialogTitle>
+      <DialogContent>
+        <Typography variant="h6">
+          Add Menu Item
+        </Typography>
+        <InputItem
+          barId={barId}
+          reload={reload}
+        />
+        <Divider />
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={6}>
+            <Typography variant="h6">
+              Current Menu
+            </Typography>
+            <BarMenuList
+              barId={barId}
+              loadedMenu={loadedMenu}
+              reload={reload}
+            />
+          </Grid>
+        </Grid>
+      </DialogContent>
+    </Dialog>
     {/* THIS IS A NORMAL DIALOG */}
     <Dialog
       open={open}
@@ -121,3 +174,4 @@ const Dialogs = ({
 );
 
 export default Dialogs;
+Dialogs.propTypes = propTypes.any;

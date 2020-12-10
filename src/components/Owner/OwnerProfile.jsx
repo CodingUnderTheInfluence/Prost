@@ -107,6 +107,7 @@ const OwnerProfile = ({
         <OwnerOptions
           count={count}
           image={image}
+          barId={barId}
           barName={barName}
           barAddress={barAddress}
           barNumber={barNumber}

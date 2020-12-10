@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Menu({ menuStr, order, pref }) {
+export default function Menu({ obj, order, pref }) {
   const classes = useStyles();
   const [heading, setHeading] = useState('');
   const [body, setBody] = useState([]);
@@ -43,12 +43,12 @@ export default function Menu({ menuStr, order, pref }) {
   };
 
   useEffect(() => {
-    const arr = menuStr.split('\n');
-    setHeading(arr[0]);
-    arr.shift();
-    translateMenu(arr);
-    setBody(arr);
-  }, [menuStr, pref]);
+    const type = Object.keys(obj).toString();
+    const items = obj[type];
+    setHeading(type);
+    translateMenu(items);
+    setBody(items);
+  }, [obj, pref]);
 
   return (
     <Grid className={classes.root}>
@@ -87,3 +87,4 @@ export default function Menu({ menuStr, order, pref }) {
     </Grid>
   );
 }
+
