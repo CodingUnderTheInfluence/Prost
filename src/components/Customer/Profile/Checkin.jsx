@@ -1,14 +1,13 @@
-/* eslint-disable camelcase */
 import React, {
-  useState, useEffect, useRef, useCallback,
+  useState, useEffect, useCallback,
 } from 'react';
 import axios from 'axios';
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { useLoadScript } from '@react-google-maps/api';
-import { Grid, Typography, Button } from '@material-ui/core';
+import { Grid, Button } from '@material-ui/core';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
+import propTypes from 'prop-types';
 import CheckinList from './CheckInList.jsx';
 import Search from '../Create/Search.jsx';
 
@@ -46,15 +45,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Checkin({ setView, customerId }) {
-  const [currentPosition, setCurrentPosition] = useState({
-    lat: 29.951065,
-    lng: -90.071533,
-  });
-  const [address, setAddress] = useState('');
-  const [name, setName] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [coordinates, setCoordinates] = useState([]);
-  const classes = useStyles();
+  /* Populate Data for CheckIn List */
+  const [list, setList] = useState([]);
+  const renderList = () => {
+    axios.get(`/db/cb/checkin/${customerId}`)
+      .then(({ data }) => (data.length > 0 ? setList(data) : setList([])))
+      .catch((err) => console.warn(err));
+  };
+  useEffect(() => {
+    renderList();
+  }, []);
+
+  /* Conditions for 'Bar not found' Snackbar */
   const [open, setOpen] = useState(false);
 
   const handleClose = (event, reason) => {
@@ -63,6 +65,7 @@ export default function Checkin({ setView, customerId }) {
     }
     setOpen(false);
   };
+  /* Conditions for 'Bar Found Success' Snackbar */
 
   const [openSuccess, setOpenSuccess] = useState(false);
 
@@ -72,6 +75,17 @@ export default function Checkin({ setView, customerId }) {
     }
     setOpenSuccess(false);
   };
+
+  /* Data for Search */
+  const [currentPosition] = useState({
+    lat: 29.951065,
+    lng: -90.071533,
+  });
+  const [address, setAddress] = useState('');
+  const [name, setName] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [coordinates, setCoordinates] = useState([]);
+  const classes = useStyles();
 
   const getPlaceInfo = useCallback((results) => {
     const {
@@ -87,7 +101,7 @@ export default function Checkin({ setView, customerId }) {
     setName(name);
     setCoordinates([lat, lng]);
   }, []);
-
+  /* CheckIn functionality */
   const addCheckIn = () => {
     const arr = address.split(', ');
     const stateZip = arr[2].split(' ');
@@ -106,12 +120,14 @@ export default function Checkin({ setView, customerId }) {
       .then(({ data }) => {
         if (data === 'Empty') {
           setOpen(true);
+        } else {
+          setOpenSuccess(true);
         }
-        setOpenSuccess(true);
+        renderList();
       })
       .catch((err) => console.warn(err));
   };
-  // populates places drop down
+  /* Populates Places Drop Down */
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY,
     libraries,
@@ -169,7 +185,7 @@ export default function Checkin({ setView, customerId }) {
         justify="center"
         alignItems="center"
       >
-        <CheckinList customerId={customerId} />
+        <CheckinList customerId={customerId} renderList={renderList} list={list} />
       </Grid>
       <Grid
         item
@@ -210,3 +226,5 @@ export default function Checkin({ setView, customerId }) {
     </Grid>
   );
 }
+
+CheckinList.propTypes = propTypes.any;
