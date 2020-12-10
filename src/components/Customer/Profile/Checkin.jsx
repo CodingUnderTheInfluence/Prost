@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import React, {
   useState, useEffect, useCallback,
 } from 'react';
@@ -8,6 +7,7 @@ import { Grid, Button } from '@material-ui/core';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
+import propTypes from 'prop-types';
 import CheckinList from './CheckInList.jsx';
 import Search from '../Create/Search.jsx';
 
@@ -49,22 +49,23 @@ export default function Checkin({ setView, customerId }) {
   const [list, setList] = useState([]);
   const renderList = () => {
     axios.get(`/db/cb/checkin/${customerId}`)
-      .then(({ data }) => {
-        return data.length > 0 ? setList(data) : setList([]);
-      })
+      .then(({ data }) => (data.length > 0 ? setList(data) : setList([])))
       .catch((err) => console.warn(err));
   };
   useEffect(() => {
     renderList();
   }, []);
 
-  /* Conditions for Snackbar */
+  /* Conditions for 'Bar not found' Snackbar */
+  const [open, setOpen] = useState(false);
+
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
     setOpen(false);
   };
+  /* Conditions for 'Bar Found Success' Snackbar */
 
   const [openSuccess, setOpenSuccess] = useState(false);
 
@@ -85,7 +86,6 @@ export default function Checkin({ setView, customerId }) {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [coordinates, setCoordinates] = useState([]);
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
 
   const getPlaceInfo = useCallback((results) => {
     const {
@@ -120,8 +120,9 @@ export default function Checkin({ setView, customerId }) {
       .then(({ data }) => {
         if (data === 'Empty') {
           setOpen(true);
+        } else {
+          setOpenSuccess(true);
         }
-        setOpenSuccess(true);
         renderList();
       })
       .catch((err) => console.warn(err));
@@ -225,3 +226,5 @@ export default function Checkin({ setView, customerId }) {
     </Grid>
   );
 }
+
+CheckinList.propTypes = propTypes.any;
