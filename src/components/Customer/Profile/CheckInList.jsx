@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React from 'react';
+import axios from 'axios';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
@@ -10,41 +10,19 @@ import Typography from '@material-ui/core/Typography';
 import Skeleton from '@material-ui/lab/Skeleton';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-export default function CheckinList({ customerId }) {
-  const [list, setList] = useState([]);
-  const getList = () => {
-    fetch(`/db/cb/checkin/${customerId}`, {
-      method: 'GET',
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        data.length > 0 ? setList(data) : setList([]);
-      })
-      .catch((err) => console.warn(err));
-  };
-
+export default function CheckinList({ customerId, list, renderList }) {
   const checkout = async (num) => {
     try {
       const obj = {
         id_bar: num,
         id_customer: customerId,
       };
-      const result = await fetch('/db/cb/checkout', {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(obj),
-      });
-      getList();
+      await axios.delete('/db/cb/checkout', { data: obj });
+      renderList();
     } catch (err) {
       console.warn(err);
     }
   };
-
-  useEffect(() => {
-    getList();
-  });
 
   return (
     <Grid item xs={12} md={6}>
