@@ -26,7 +26,7 @@ function primeDB() {
       if (numberEffected) {
         return console.info('✅ Party of 2 Created');
       }
-      return console.error('❌ Party of 2 undefined');
+      return console.warn('❌ Party of 2 undefined');
     })
     .then(() => Party.findOrCreate({
       where: {
@@ -38,7 +38,7 @@ function primeDB() {
       if (numberEffected) {
         return console.info('✅ Party of 3 Created');
       }
-      return console.error('❌ Party of 3 undefined');
+      return console.warn('❌ Party of 3 undefined');
     })
     .then(() => Bar.findOrCreate({
       where: {
@@ -242,9 +242,9 @@ function primeDB() {
     }))
     .then((numberEffected) => {
       if (numberEffected) {
-        return console.log('✅ map customer1 Created');
+        return console.info('✅ map customer1 Created');
       }
-      return console.error('❌ map customer1 undefined');
+      return console.warn('❌ map customer1 undefined');
     })
     .then(() => Maps.findOrCreate({
       where: {
@@ -256,9 +256,9 @@ function primeDB() {
     }))
     .then((numberEffected) => {
       if (numberEffected) {
-        return console.log('✅ map customer2 Created');
+        return console.info('✅ map customer2 Created');
       }
-      return console.error('❌ map customer2 undefined');
+      return console.warn('❌ map customer2 undefined');
     })
     .then(() => Maps.findOrCreate({
       where: {
