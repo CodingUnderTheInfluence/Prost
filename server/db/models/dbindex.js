@@ -29,7 +29,7 @@ const PartyModel = require('./Party');
 const FriendshipModel = require('./Friendship');
 const ThreadModel = require('./Thread');
 const MapsModel = require('./Map');
-const PublicChatModel = require('./PublicChat')
+const PublicChatModel = require('./PublicChat');
 
 const Bar = BarModel(sequelize, Sequelize);
 const Customer = CustomerModel(sequelize, Sequelize);
@@ -62,8 +62,8 @@ const models = {
   Customers_Bars,
   Maps,
   Drinks,
-  PublicChat
-}
+  PublicChat,
+};
 
 Object.keys(models).forEach((model) => {
   if (models[model].associate) {

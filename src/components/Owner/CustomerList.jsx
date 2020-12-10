@@ -24,7 +24,13 @@ const CustomerList = ({ customerList, barId }) => (
       </Grid>
     </Grid>
     <Grid item container direction="row" justify="center" alignItems="center">
-      {customerList.map((customer) => <CustomerEntry customer={customer} customerList={customerList} barId={barId} />)}
+      {customerList.map((customer) => (
+        <CustomerEntry
+          customer={customer}
+          customerList={customerList}
+          barId={barId}
+        />
+      ))}
     </Grid>
   </Grid>
 );

@@ -33,82 +33,24 @@ const useStyles = makeStyles({
 
 const OwnerView = ({ barId }) => {
   const classes = useStyles();
-  const [bar, setBar] = useState();
   const [value, setValue] = useState();
-  const [count, setCount] = useState(0);
-  const [barAddress, setBarAddress] = useState('');
-  const [barNumber, setBarNumber] = useState('');
-  const [barName, setBarName] = useState('');
-  const [image, setImage] = useState('');
-  const [capacity, setCapacity] = useState('');
-  const [customerList, setCustomerList] = useState([]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  const barInfo = () => {
-    axios.get(`/db/bar/info?id=${barId}`)
-      .then(({ data }) => {
-        setImage(data[0].profile_image);
-        setBarName(data[0].bar_name);
-        setBarAddress(data[0].address);
-        setBarNumber(data[0].phone_number);
-        setCapacity(data[0].bar_capacity);
-      })
-      .catch((err) => {
-        console.warn(err);
-      });
-  };
-
-  const fetchCustomers = () => {
-    axios.get(`/db/cb/list?barId=${barId}`)
-      .then(({ data }) => {
-        setCustomerList(data);
-        setCount(data.length);
-      })
-      .catch((err) => {
-        console.warn(err);
-      });
-  };
-
-  const getInfo = () => {
-    fetchCustomers();
-    barInfo();
-  };
-
-  useEffect(() => {
-    /*
-       Doesnt hit on first call
-
-       hits on second
-   */
-    getInfo();
-  }, []);
-
   const renderView = () => {
     if (value === 0) {
       return (
-        <BarList
-          barId={barId}
-          setCount={setCount}
-          customerList={customerList}
-        />
+        <BarList barId={barId} />
       );
     }
     if (value === 1) {
-      return <Alerts barId={barId} customerList={customerList} count={count} />;
+      return <Alerts barId={barId} />;
     }
     if (value === 2) {
       return (
-        <OwnerProfile
-          count={count}
-          barName={barName}
-          barNumber={barNumber}
-          barAddress={barAddress}
-          image={image}
-          capacity={capacity}
-        />
+        <OwnerProfile barId={barId} />
       );
     }
     return (

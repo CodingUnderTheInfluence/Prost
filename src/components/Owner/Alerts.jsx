@@ -1,21 +1,80 @@
-import React, { useEffect } from 'react';
-import { Grid, Typography } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
+import { Grid, Typography, makeStyles } from '@material-ui/core';
 import PhoneIcon from '@material-ui/icons/Phone';
 import axios from 'axios';
-import AlertEntry from './AlertEntry.jsx';
+import AlertList from './AlertList.jsx';
 
-const Alerts = ({ barId, customerList, count }) => {
-  let blank;
+const useStyles = makeStyles(() => ({
+  line: {
+    backgroundColor: '#0365b0',
+    width: '80%',
+    height: '2px',
+  },
+  font: {
+    fontSize: '18pt',
+  },
+}));
 
-  return (
-    <Grid container direction="column" justify="center" alignItems="center">
+const Alerts = ({ barId }) => {
+  const classes = useStyles();
+  const [customerList, setCustomerList] = useState([]);
+
+  /*
+   This function grabs all customers and their information that have drink >= 8
+  */
+  const fetchAlerts = () => {
+    axios.get(`/db/drinks/alerts?barId=${barId}`)
+      .then(({ data }) => {
+        data.map((customer) => axios.get(`/db/customer/getCustomerById?customerId=${customer.id_customer}`)
+          .then(({ data }) => {
+            const listCopy = customerList.slice();
+            listCopy.push(data);
+            setCustomerList(listCopy);
+          }));
+      })
+      .catch((err) => console.warn(err));
+  };
+
+  useEffect(() => {
+    fetchAlerts();
+  }, []);
+
+  if (customerList.length === 0) {
+    return (
       <Grid item container direction="row" justify="center" alignItems="center">
-        <Typography variant="h5">
-          Stop serving these customers
+        <Typography variant="subtitle">
+          No Alerts
         </Typography>
       </Grid>
-      <Grid item container direction="row" justify="center" alignItems="center">
-        {customerList.map((customer) => <AlertEntry customer={customer} barId={barId} count={count} />)}
+    );
+  }
+  return (
+    <Grid
+      container
+      direction="column"
+      justify="center"
+      alignItems="center"
+    >
+      <Grid
+        item
+        container
+        direction="row"
+        justify="center"
+        alignItems="center"
+      >
+        <div className={classes.font}>
+          Stop Serving These Customers
+        </div>
+      </Grid>
+      <hr className={classes.line} />
+      <Grid
+        item
+        container
+        direction="row"
+        justify="center"
+        alignItems="center"
+      >
+        <AlertList customerList={customerList} />
       </Grid>
     </Grid>
   );

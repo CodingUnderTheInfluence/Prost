@@ -7,8 +7,8 @@ import AddDrink from './AddDrink.jsx';
 const CustomerEntry = ({ customer, barId }) => {
   const [customerData, setCustomerData] = useState();
   const [drink, setDrinkCount] = useState('');
-  const getCustomerData = () => {
-    axios.get(`/db/customer/getFriendById?customerId=${customer}`)
+  const getCustomerData = async () => {
+    await axios.get(`/db/customer/getFriendById?customerId=${customer}`)
       .then(({ data }) => {
         setCustomerData(data);
       })

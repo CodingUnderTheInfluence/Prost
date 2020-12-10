@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const { Op } = require('sequelize');
-const { Drinks } = require('../db/models/dbindex.js');
+const { Drinks, Customer } = require('../db/models/dbindex.js');
 
 const drinksRouter = Router();
 
@@ -61,12 +61,17 @@ drinksRouter.get('/count', (req, res) => {
  Looks for customers that have a drink total above 8, then returns those customers to front end
 */
 drinksRouter.get('/alerts', (req, res) => {
-  const { customer, barId, count } = req.query;
+  const { barId } = req.query;
   Drinks.findAll({
-    where: { id_customer: customer, id_bar: barId },
+    where: {
+      id_bar: barId,
+      drink_Count: {
+        [Op.gte]: 8,
+      },
+    },
   })
     .then((customer) => {
-      res.send(JSON.stringify(customer[0].drink_Count));
+      res.send(JSON.stringify(customer));
     })
     .catch((err) => {
       console.warn(err);
