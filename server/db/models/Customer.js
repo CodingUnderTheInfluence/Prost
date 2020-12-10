@@ -1,4 +1,4 @@
-const { Data } = require("@react-google-maps/api");
+const { Data } = require('@react-google-maps/api');
 
 module.exports = (sequelize, DataTypes) => {
   const Customer = sequelize.define('customer', {
@@ -11,9 +11,6 @@ module.exports = (sequelize, DataTypes) => {
     user_name: {
       type: DataTypes.STRING,
     },
-    id_facebook: {
-      type: DataTypes.STRING,
-    },
     id_google: {
       type: DataTypes.STRING,
     },
@@ -23,23 +20,20 @@ module.exports = (sequelize, DataTypes) => {
     phone_number: {
       type: DataTypes.STRING,
     },
-    gender_type: {
-      type: DataTypes.STRING
-    },
     profile_image: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
     },
     address: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
     },
     city: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
     },
     state: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
     },
     zip: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
     },
     lat: {
       type: DataTypes.DECIMAL,
