@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import propTypes from 'prop-types';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
@@ -51,3 +52,4 @@ export default function CheckinList({ customerId, list, renderList }) {
     </Grid>
   );
 }
+CheckinList.propTypes = propTypes.any;
