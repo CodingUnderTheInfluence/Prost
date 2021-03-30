@@ -23,7 +23,7 @@ Prost wants to help you find your next favorite watering hole while keeping you 
 ## The Team
 **Product Owner, Developer**: Christopher Booth
 <br>
-**Scrum Master, Developer**: Lawerence Schwall
+**Scrum Master, Developer**: Lawrence Schwall
 <br>
 **Developer**: Jon Tenholder
 <br>
